@@ -1,7 +1,12 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AAndroidTargetPlatform_002EBuild_002Ecs_002Fl_003AC_0021_003FProgram_0020Files_003FEpic_0020Games_003FUE_005F5_002E6_003FEngine_003FSource_003FDeveloper_003FAndroid_003FAndroidTargetPlatform_003FAndroidTargetPlatform_002EBuild_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003Aastcenc_002EBuild_002Ecs_002Fl_003AC_0021_003FProgram_0020Files_003FEpic_0020Games_003FUE_005F5_002E6_003FEngine_003FSource_003FThirdParty_003Fastcenc_003Fastcenc_002EBuild_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ACEF3_002Ebuild_002Ecs_002Fl_003AC_0021_003FProgram_0020Files_003FEpic_0020Games_003FUE_005F5_002E6_003FEngine_003FSource_003FThirdParty_003FCEF3_003FCEF3_002Ebuild_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AGoogleARCoreSDK_002Ebuild_002Ecs_002Fl_003AC_0021_003FProgram_0020Files_003FEpic_0020Games_003FUE_005F5_002E6_003FEngine_003FSource_003FThirdParty_003FGoogleARCore_003FGoogleARCoreSDK_002Ebuild_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003Apugixml_002EBuild_002Ecs_002Fl_003AC_0021_003FProgram_0020Files_003FEpic_0020Games_003FUE_005F5_002E6_003FEngine_003FSource_003FThirdParty_003Fpugixml_003Fpugixml_002EBuild_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CppCodeStyle/OverridingFunctionStyle/@EntryValue">Override</s:String>
-	<s:Int64 x:Key="/Default/CodeStyle/CodeFormatting/CppFormatting/INDENT_SIZE/@EntryValue">2</s:Int64>
+	
 	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CppFormatting/INDENT_STYLE/@EntryValue">Space</s:String>
-	<s:Int64 x:Key="/Default/CodeStyle/CodeFormatting/CppFormatting/TAB_WIDTH/@EntryValue">2</s:Int64>
+	
 	<s:Int64 x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/INDENT_SIZE/@EntryValue">2</s:Int64>
 	<s:Int64 x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/TAB_WIDTH/@EntryValue">2</s:Int64></wpf:ResourceDictionary>
