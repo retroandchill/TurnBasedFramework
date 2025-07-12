@@ -1,0 +1,6 @@
+{
+    "RootNamespace": "UnrealSharp.GameplayAbilities", 
+    "ModuleDependencies": [
+        "GameplayAbilities"
+    ]
+}
