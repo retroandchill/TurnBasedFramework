@@ -32,13 +32,13 @@ public static class StructPropertyUtilities {
           var typeArguments = genericType.TypeArguments.ToList();
           switch (genericType.MetadataName) {
             case "IReadOnlyList`1" or "IList`1":
-              return new MarshallerInfo($"ArrayCopyMarshaller<{typeArguments[0]}>", typeArguments[0].ToString());
+              return new MarshallerInfo($"ArrayCopyMarshaller<{typeArguments[0]}>", typeArguments[0].GetMarshallerName().Name);
             case "TNativeArray`1" or "ReadOnlySpan`1":
-              return new MarshallerInfo($"NativeArrayCopyMarshaller<{typeArguments[0]}>", typeArguments[0].ToString());
+              return new MarshallerInfo($"NativeArrayCopyMarshaller<{typeArguments[0]}>", typeArguments[0].GetMarshallerName().Name);
             case "IReadOnlyDictionary`2" or "IDictionary`2":
-              return new MarshallerInfo($"MapCopyMarshaller<{typeArguments[0]}, {typeArguments[1]}>", typeArguments[0].ToString());
+              return new MarshallerInfo($"MapCopyMarshaller<{typeArguments[0]}, {typeArguments[1]}>", typeArguments[0].GetMarshallerName().Name);
             case "IReadOnlySet`1" or "ISet`1":
-              return new MarshallerInfo($"SetCopyMarshaller<{typeArguments[0]}>", typeArguments[0].ToString());
+              return new MarshallerInfo($"SetCopyMarshaller<{typeArguments[0]}>", typeArguments[0].GetMarshallerName().Name);
             case "TSubclassOf`1":
               return new MarshallerInfo($"SubclassOfMarshaller<{typeArguments[0]}>");
             case "TWeakObjectPtr`1":

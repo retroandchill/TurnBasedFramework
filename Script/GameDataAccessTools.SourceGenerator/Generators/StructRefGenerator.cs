@@ -40,8 +40,9 @@ public class StructRefGenerator : IIncrementalGenerator {
         .GetReferenceForOverviews()
         .Single();
 
-    var properties = classSymbol.GetMembers()
+    var properties = referenceForAttribute.Type.GetMembers()
         .OfType<IFieldSymbol>()
+        .Where(x => !x.IsStatic)
         .Select(x => x.GetPropertyInfo())
         .ToImmutableArray();
 

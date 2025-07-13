@@ -17,23 +17,23 @@ namespace {{Namespace}};
   public {{Type}} {{Name}} {
     get {
       {{#MarshallerInstanced}}
-      {{Name}}_Marshaller ??= new {{MarshallerInfo.Name}}({{Named}}_NativeProperty, {{MarshallerInfo.ChildMarshallerType}}.ToNative,{{MarshallerInfo.ChildMarshallerType}}.FromNative);
-      IntPtr {{Name}}_NativeBuffer = IntPtr.Add(InNativeStruct, {{Name}}_Offset);
+      {{Name}}_Marshaller ??= new {{MarshallerInfo.Name}}({{Name}}_NativeProperty, {{MarshallerInfo.ChildMarshallerType}}.ToNative,{{MarshallerInfo.ChildMarshallerType}}.FromNative);
+      IntPtr {{Name}}_NativeBuffer = IntPtr.Add(_nativeStruct, {{Name}}_Offset);
       return {{Name}}_Marshaller.FromNative({{Name}}_NativeBuffer, 0);
       {{/MarshallerInstanced}}
       {{^MarshallerInstanced}}
-      return {{MarshallerInfo.Name}}.FromNative(IntPtr.Add(InNativeStruct, {{Name}}_Offset), 0);
+      return {{MarshallerInfo.Name}}.FromNative(IntPtr.Add(_nativeStruct, {{Name}}_Offset), 0);
       {{/MarshallerInstanced}}
     }
-    {{#if ../IsReadOnly}}
+    {{^if ../IsReadOnly}}
     set {
       {{#MarshallerInstanced}}
-      {{Name}}_Marshaller ??= new {{MarshallerInfo.Name}}({{Named}}_NativeProperty, {{MarshallerInfo.ChildMarshallerType}}.ToNative,{{MarshallerInfo.ChildMarshallerType}}.FromNative);
-      IntPtr {{Name}}_NativeBuffer = IntPtr.Add(InNativeStruct, {{Name}}_Offset);
+      {{Name}}_Marshaller ??= new {{MarshallerInfo.Name}}({{Name}}_NativeProperty, {{MarshallerInfo.ChildMarshallerType}}.ToNative,{{MarshallerInfo.ChildMarshallerType}}.FromNative);
+      IntPtr {{Name}}_NativeBuffer = IntPtr.Add(_nativeStruct, {{Name}}_Offset);
       {{Name}}_Marshaller.ToNative({{Name}}_NativeBuffer, 0, value);
       {{/MarshallerInstanced}}
       {{^MarshallerInstanced}}
-      {{MarshallerInfo.Name}}.ToNative(IntPtr.Add(InNativeStruct, {{Name}}_Offset), 0, value);
+      {{MarshallerInfo.Name}}.ToNative(IntPtr.Add(_nativeStruct, {{Name}}_Offset), 0, value);
       {{/MarshallerInstanced}}
     }
     {{/if}}
