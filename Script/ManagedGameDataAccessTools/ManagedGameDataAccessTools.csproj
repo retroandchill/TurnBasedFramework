@@ -15,6 +15,9 @@
     <Reference Include="UnrealSharp.Core">
       <HintPath>..\..\Plugins\UnrealSharp\Binaries\Managed\net9.0\UnrealSharp.Core.dll</HintPath>
     </Reference>
+      <Reference Include="UnrealSharp.Binds">
+          <HintPath>..\..\Plugins\UnrealSharp\Binaries\Managed\net9.0\UnrealSharp.Binds.dll</HintPath>
+      </Reference>
     <Analyzer Include="..\..\Plugins\UnrealSharp\Binaries\Managed\UnrealSharp.SourceGenerators.dll" />
     <ProjectReference Include="..\GameDataAccessTools.SourceGenerator\GameDataAccessTools.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\ProjectGlue\ProjectGlue.csproj" />

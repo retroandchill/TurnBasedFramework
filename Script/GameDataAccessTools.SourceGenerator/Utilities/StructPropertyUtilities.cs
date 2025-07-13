@@ -36,7 +36,7 @@ public static class StructPropertyUtilities {
             case "TNativeArray`1" or "ReadOnlySpan`1":
               return new MarshallerInfo($"NativeArrayCopyMarshaller<{typeArguments[0]}>", typeArguments[0].GetMarshallerName().Name);
             case "IReadOnlyDictionary`2" or "IDictionary`2":
-              return new MarshallerInfo($"MapCopyMarshaller<{typeArguments[0]}, {typeArguments[1]}>", typeArguments[0].GetMarshallerName().Name);
+              return new MarshallerInfo($"MapCopyMarshaller<{typeArguments[0]}, {typeArguments[1]}>", typeArguments[0].GetMarshallerName().Name, typeArguments[1].GetMarshallerName().Name);
             case "IReadOnlySet`1" or "ISet`1":
               return new MarshallerInfo($"SetCopyMarshaller<{typeArguments[0]}>", typeArguments[0].GetMarshallerName().Name);
             case "TSubclassOf`1":

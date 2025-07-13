@@ -3,7 +3,5 @@ using UnrealSharp.GameDataAccessTools;
 
 namespace ManagedGameDataAccessTools;
 
-[ReferenceFor(typeof(FItem))]
-public partial struct ItemData {
-  
-}
+[ReferenceFor(typeof(FItem), IsReadOnly = true)]
+public partial struct ItemData;

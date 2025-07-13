@@ -1,10 +1,12 @@
+#nullable enable
 using UnrealSharp;
 using UnrealSharp.Interop;
 using UnrealSharp.Core.Marshallers;
+using ManagedGameDataAccessTools.DataRetrieval;
 
 namespace {{Namespace}};
 
-{{#IsReadOnly}}readonly {{/IsReadOnly}}ref partial struct {{StructName}} {
+{{#IsReadOnly}}readonly {{/IsReadOnly}}ref partial struct {{StructName}} : INativeStructReference<{{StructName}}> {
   private readonly IntPtr _nativeStruct;
 
   {{#Properties}}
@@ -17,7 +19,7 @@ namespace {{Namespace}};
   public {{Type}} {{Name}} {
     get {
       {{#MarshallerInstanced}}
-      {{Name}}_Marshaller ??= new {{MarshallerInfo.Name}}({{Name}}_NativeProperty, {{MarshallerInfo.ChildMarshallerType}}.ToNative,{{MarshallerInfo.ChildMarshallerType}}.FromNative);
+      {{Name}}_Marshaller ??= new {{MarshallerInfo.Name}}({{Name}}_NativeProperty, {{MarshallerInfo.ChildMarshallerType}}.ToNative, {{MarshallerInfo.ChildMarshallerType}}.FromNative{{#MarshallerHasValue}}, {{MarshallerInfo.ValueMarshallerType}}.ToNative, {{MarshallerInfo.ValueMarshallerType}}.FromNative{{/MarshallerHasValue}});
       IntPtr {{Name}}_NativeBuffer = IntPtr.Add(_nativeStruct, {{Name}}_Offset);
       return {{Name}}_Marshaller.FromNative({{Name}}_NativeBuffer, 0);
       {{/MarshallerInstanced}}
@@ -28,7 +30,7 @@ namespace {{Namespace}};
     {{^if ../IsReadOnly}}
     set {
       {{#MarshallerInstanced}}
-      {{Name}}_Marshaller ??= new {{MarshallerInfo.Name}}({{Name}}_NativeProperty, {{MarshallerInfo.ChildMarshallerType}}.ToNative,{{MarshallerInfo.ChildMarshallerType}}.FromNative);
+      {{Name}}_Marshaller ??= new {{MarshallerInfo.Name}}({{Name}}_NativeProperty, {{MarshallerInfo.ChildMarshallerType}}.ToNative, {{MarshallerInfo.ChildMarshallerType}}.FromNative{{#MarshallerHasValue}}, {{MarshallerInfo.ValueMarshallerType}}.ToNative, {{MarshallerInfo.ValueMarshallerType}}.FromNative{{/MarshallerHasValue}});
       IntPtr {{Name}}_NativeBuffer = IntPtr.Add(_nativeStruct, {{Name}}_Offset);
       {{Name}}_Marshaller.ToNative({{Name}}_NativeBuffer, 0, value);
       {{/MarshallerInstanced}}
@@ -53,7 +55,15 @@ namespace {{Namespace}};
     NativeDataSize = UScriptStructExporter.CallGetNativeStructSize(NativeClassPtr);
   }
 
+  public static {{StructName}} Create(IntPtr nativeStruct) => new {{StructName}}(nativeStruct);
+  public static UScriptStruct GetScriptStruct() {
+    IntPtr handle = FCSManagerExporter.CallFindManagedObject(NativeClassPtr);
+    return GCHandleUtilities.GetObjectFromHandlePtr<UScriptStruct>(handle)!;
+  }
+
   public {{StructName}}(IntPtr nativeStruct) {
     _nativeStruct = nativeStruct;
   }
+
+  public static implicit operator {{ReferenceStructName}}(in {{StructName}} value) => new {{ReferenceStructName}}(value._nativeStruct);
 }
