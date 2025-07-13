@@ -16,7 +16,7 @@
       <HintPath>..\..\Plugins\UnrealSharp\Binaries\Managed\net9.0\UnrealSharp.Core.dll</HintPath>
     </Reference>
     <Analyzer Include="..\..\Plugins\UnrealSharp\Binaries\Managed\UnrealSharp.SourceGenerators.dll" />
-      <Analyzer Include="..\..\Plugins\UnrealSharp\Binaries\Managed\UnrealSharp.ExtensionSourceGenerators.dll" />
+    <ProjectReference Include="..\GameDataAccessTools.SourceGenerator\GameDataAccessTools.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\ProjectGlue\ProjectGlue.csproj" />
   </ItemGroup>
 </Project>

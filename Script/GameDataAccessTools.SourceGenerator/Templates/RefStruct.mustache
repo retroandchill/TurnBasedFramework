@@ -1,0 +1,59 @@
+using UnrealSharp;
+using UnrealSharp.Interop;
+using UnrealSharp.Core.Marshallers;
+
+namespace {{Namespace}};
+
+{{#IsReadOnly}}readonly {{/IsReadOnly}}ref partial struct {{StructName}} {
+  private readonly IntPtr _nativeStruct;
+
+  {{#Properties}}
+  private static int {{Name}}_Offset;
+  {{#MarshallerInstanced}}
+  private static IntPtr {{Name}}_NativeProperty;
+  private static {{MarshallerInfo.Name}}? {{Name}}_Marshaller = null;
+  {{/MarshallerInstanced}}
+  
+  public {{Type}} {{Name}} {
+    get {
+      {{#MarshallerInstanced}}
+      {{Name}}_Marshaller ??= new {{MarshallerInfo.Name}}({{Named}}_NativeProperty, {{MarshallerInfo.ChildMarshallerType}}.ToNative,{{MarshallerInfo.ChildMarshallerType}}.FromNative);
+      IntPtr {{Name}}_NativeBuffer = IntPtr.Add(InNativeStruct, {{Name}}_Offset);
+      return {{Name}}_Marshaller.FromNative({{Name}}_NativeBuffer, 0);
+      {{/MarshallerInstanced}}
+      {{^MarshallerInstanced}}
+      return {{MarshallerInfo.Name}}.FromNative(IntPtr.Add(InNativeStruct, {{Name}}_Offset), 0);
+      {{/MarshallerInstanced}}
+    }
+    {{#if ../IsReadOnly}}
+    set {
+      {{#MarshallerInstanced}}
+      {{Name}}_Marshaller ??= new {{MarshallerInfo.Name}}({{Named}}_NativeProperty, {{MarshallerInfo.ChildMarshallerType}}.ToNative,{{MarshallerInfo.ChildMarshallerType}}.FromNative);
+      IntPtr {{Name}}_NativeBuffer = IntPtr.Add(InNativeStruct, {{Name}}_Offset);
+      {{Name}}_Marshaller.ToNative({{Name}}_NativeBuffer, 0, value);
+      {{/MarshallerInstanced}}
+      {{^MarshallerInstanced}}
+      {{MarshallerInfo.Name}}.ToNative(IntPtr.Add(InNativeStruct, {{Name}}_Offset), 0, value);
+      {{/MarshallerInstanced}}
+    }
+    {{/if}}
+  }
+  {{/Properties}}
+
+  private static readonly IntPtr NativeClassPtr;
+  public static int NativeDataSize { get; }
+
+  static {{StructName}}()
+  {
+    NativeClassPtr = UCoreUObjectExporter.CallGetNativeStructFromName(typeof({{ReferenceStructName}}).GetAssemblyName(), "{{ReferenceStructNamespace}}", "{{ReferenceStructEngineName}}");
+    {{#Properties}}
+    {{^MarshallerInstanced}}IntPtr {{/MarshallerInstanced}}{{Name}}_NativeProperty = FPropertyExporter.CallGetNativePropertyFromName(NativeClassPtr, "{{Name}}");
+    {{Name}}_Offset = FPropertyExporter.CallGetPropertyOffset({{Name}}_NativeProperty);
+    {{/Properties}}
+    NativeDataSize = UScriptStructExporter.CallGetNativeStructSize(NativeClassPtr);
+  }
+
+  public {{StructName}}(IntPtr nativeStruct) {
+    _nativeStruct = nativeStruct;
+  }
+}

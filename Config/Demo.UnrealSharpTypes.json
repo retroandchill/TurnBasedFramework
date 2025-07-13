@@ -1,0 +1,16 @@
+{
+    "Structs": {
+        "BlittableTypes": [
+        ],
+        "NativelyTranslatableTypes": [
+            {
+                "Name": "FSmallStructType",
+                "HasDestructor": true
+            },
+            {
+                "Name": "FLargeStructType",
+                "HasDestructor": true
+            }
+        ]
+    }
+}
