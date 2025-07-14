@@ -25,7 +25,7 @@ public class GameDataAccessTools : ModuleRules
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"Core", "GameplayTags",
+				"Core", "GameplayTags", "UnrealSharpBinds",
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);

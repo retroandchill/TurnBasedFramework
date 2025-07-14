@@ -1,7 +1,9 @@
 #nullable enable
 using UnrealSharp;
-using UnrealSharp.Interop;
+using UnrealSharp.Core;
 using UnrealSharp.Core.Marshallers;
+using UnrealSharp.CoreUObject;
+using UnrealSharp.Interop;
 using ManagedGameDataAccessTools.DataRetrieval;
 
 namespace {{Namespace}};
@@ -59,6 +61,10 @@ namespace {{Namespace}};
   public static UScriptStruct GetScriptStruct() {
     IntPtr handle = FCSManagerExporter.CallFindManagedObject(NativeClassPtr);
     return GCHandleUtilities.GetObjectFromHandlePtr<UScriptStruct>(handle)!;
+  }
+
+  public static IntPtr GetNativeStruct() { 
+    return NativeClassPtr;
   }
 
   public {{StructName}}(IntPtr nativeStruct) {

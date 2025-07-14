@@ -4,19 +4,36 @@
 #include "DataRetrieval/DataTableProxy.h"
 
 namespace GameDataAccess {
-  TArray<FName> FDataTableProxy::GetTableRowNames() const {
-    return DataTable->GetRowNames();
+  const UScriptStruct* FDataTableProxy::GetExpectedStructType() const {
+    return DataTable->GetRowStruct(); 
   }
 
-  bool FDataTableProxy::IsRowNameValid(const FName ID) const {
+  bool FDataTableProxy::ContainsKey(const FName ID) const {
     return DataTable->GetRowMap().Contains(ID);
   }
 
-  const UScriptStruct* FOpaqueDataTableProxy::GetStructType() const {
-    return GetDataTable()->GetRowStruct();
+  int32 FDataTableProxy::GetNumRows() const {
+    return DataTable->GetRowMap().Num();
   }
 
-  const void* FOpaqueDataTableProxy::GetData(const FName ID) const {
-    return GetDataTable()->FindRowUnchecked(ID);
+  const void* FDataTableProxy::GetData(const FName ID) const {
+    return DataTable->FindRowUnchecked(ID);
+  }
+
+  bool FDataTableProxy::FEnumerator::MoveNext() {
+    if (!IsValid()) {
+      return false;
+    }
+
+    ++Iterator;
+    return IsValid();
+  }
+
+  TPair<FName, const void*> FDataTableProxy::FEnumerator::Current() const {
+    return *Iterator;
+  }
+
+  bool FDataTableProxy::FEnumerator::IsValid() const {
+    return static_cast<bool>(Iterator);
   }
 }
