@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using UnrealSharp;
 using UnrealSharp.CoreUObject;
-using UnrealSharp.GameDataAccessTools;
 
 namespace ManagedGameDataAccessTools.DataRetrieval;
 
