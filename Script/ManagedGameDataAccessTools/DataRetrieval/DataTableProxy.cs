@@ -20,10 +20,14 @@ public readonly ref struct DataTableProxyRow<T>(FName key, T value) where T : st
 
 }
 
-public interface IDataTableProxy<T> : IEnumerable<DataTableProxyRow<T>>, IDisposable where T : struct, INativeStructReference<T>, allows ref struct {
+public interface IDataTableProxy : IDisposable {
+  UScriptStruct ScriptStruct { get; }
+}
+
+public interface IDataTableProxy<T> : IDataTableProxy, IEnumerable<DataTableProxyRow<T>> where T : struct, INativeStructReference<T>, allows ref struct {
   public IEnumerable<FName> Keys { get; }
   public IEnumerable<T> Values { get; }
-  
+
 }
 
 public struct DataTableProxyUnsafe {
@@ -36,53 +40,69 @@ public struct OpaqueValueStorage {
 }
 
 public sealed class DataTableProxy<T> : IDataTableProxy<T>
-    where T : struct, INativeStructReference<T>, allows ref struct {
+  where T : struct, INativeStructReference<T>, allows ref struct {
   private DataTableProxyUnsafe _nativeProxy;
   private bool _disposed;
 
-  public IEnumerable<FName> Keys => new SubEnumerator<FName>(new KeyEnumerator(this));
-  public IEnumerable<T> Values => new SubEnumerator<T>(new ValueEnumerator(this));
+  public IEnumerable<FName> Keys {
+    get {
+      ObjectDisposedException.ThrowIf(_disposed, this);
+      return new SubEnumerator<FName>(new KeyEnumerator(this));
+    }
+  }
 
-  public int Count => DataTableProxyExporter.CallGetNumRows(ref _nativeProxy);
+  public IEnumerable<T> Values {
+    get {
+      ObjectDisposedException.ThrowIf(_disposed, this);
+      return new SubEnumerator<T>(new ValueEnumerator(this));
+    }
+  }
 
-  public DataTableProxy(IntPtr dataTableRegistration) {
-    if (T.GetNativeStruct() != DataTableProxyExporter.CallGetScriptStruct(dataTableRegistration)) {
+  public int Count {
+    get {
+      ObjectDisposedException.ThrowIf(_disposed, this);
+      return DataTableProxyExporter.CallGetNumRows(ref _nativeProxy);
+    }
+  }
+
+  public DataTableProxy(UDataTable dataTable) {
+    var nativeDataTable = dataTable.NativeObject;
+    if (T.GetNativeStruct() != DataTableProxyExporter.CallGetScriptStruct(nativeDataTable)) {
       throw new InvalidOperationException("DataTable provided utilizes the wrong struct type.");
     }
-    
-    DataTableProxyExporter.CallInitDataTableProxy(ref _nativeProxy, dataTableRegistration);
+
+    DataTableProxyExporter.CallInitDataTableProxy(ref _nativeProxy, nativeDataTable);
   }
-  
+
   ~DataTableProxy() {
     Dispose();
   }
-  
-  public static UScriptStruct ScriptStruct => T.GetScriptStruct();
-  
-  public IEnumerator<DataTableProxyRow<T>> GetEnumerator()
-  {
-      return new Enumerator(this);
+
+  public UScriptStruct ScriptStruct => T.GetScriptStruct();
+
+  public IEnumerator<DataTableProxyRow<T>> GetEnumerator() {
+    ObjectDisposedException.ThrowIf(_disposed, this);
+    return new Enumerator(this);
   }
-  
-  IEnumerator IEnumerable.GetEnumerator()
-  {
-      return GetEnumerator();
+
+  IEnumerator IEnumerable.GetEnumerator() {
+    return GetEnumerator();
   }
-  
-  public bool ContainsKey(FName key)
-  {
-      return DataTableProxyExporter.CallContainsKey(ref _nativeProxy, key);
+
+  public bool ContainsKey(FName key) {
+    ObjectDisposedException.ThrowIf(_disposed, this);
+    return DataTableProxyExporter.CallContainsKey(ref _nativeProxy, key);
   }
-  public bool TryGetValue(FName key, out T value)
-  {
-      var existing = DataTableProxyExporter.CallGetDataFromRow(ref _nativeProxy, key);
-      if (existing == IntPtr.Zero) {
-        value = default;
-        return false;
-      }
-      
-      value = T.Create(existing);
-      return true;
+  public bool TryGetValue(FName key, out T value) {
+    ObjectDisposedException.ThrowIf(_disposed, this);
+    var existing = DataTableProxyExporter.CallGetDataFromRow(ref _nativeProxy, key);
+    if (existing == IntPtr.Zero) {
+      value = default;
+      return false;
+    }
+
+    value = T.Create(existing);
+    return true;
   }
 
   public T this[FName key] => TryGetValue(key, out var result) ? result : throw new KeyNotFoundException();
@@ -91,7 +111,7 @@ public sealed class DataTableProxy<T> : IDataTableProxy<T>
     if (_disposed) {
       return;
     }
-    
+
     DataTableProxyExporter.CallDeinitDataTableProxy(ref _nativeProxy);
     _disposed = true;
     GC.SuppressFinalize(this);
@@ -118,51 +138,57 @@ public sealed class DataTableProxy<T> : IDataTableProxy<T>
     public void Reset() {
       Created = false;
     }
-    
+
     object IEnumerator.Current => throw new InvalidOperationException("This enumerator cannot box");
 
     public void Dispose() {
       // Nothing to dispose
+      Dispose(true);
+      GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing) {
+      // Nothing to dispose
     }
   }
-  
+
   private sealed class Enumerator(DataTableProxy<T> owner) : EnumeratorBase(owner), IEnumerator<DataTableProxyRow<T>> {
     public DataTableProxyRow<T> Current {
       get {
         if (Created && DataTableProxyExporter.CallGetNativeIteratorValue(ref NativeIterator, out var key, out var value)) {
           return new DataTableProxyRow<T>(key, T.Create(value));
         }
-        
+
         throw new InvalidOperationException("Failed to get current value.");
       }
     }
   }
-  
+
   private sealed class KeyEnumerator(DataTableProxy<T> owner) : EnumeratorBase(owner), IEnumerator<FName> {
     public FName Current {
       get {
         if (Created && DataTableProxyExporter.CallGetNativeIteratorValue(ref NativeIterator, out var key, out _)) {
           return key;
         }
-        
+
         throw new InvalidOperationException("Failed to get current value.");
       }
     }
   }
-  
+
   private sealed class ValueEnumerator(DataTableProxy<T> owner) : EnumeratorBase(owner), IEnumerator<T> {
     public T Current {
       get {
         if (Created && DataTableProxyExporter.CallGetNativeIteratorValue(ref NativeIterator, out _, out var value)) {
           return T.Create(value);
         }
-        
+
         throw new InvalidOperationException("Failed to get current value.");
       }
     }
   }
 
-  private class SubEnumerator<TSub>([ReadOnly] IEnumerator<TSub> enumerator) : IEnumerable<TSub> where TSub : struct, allows ref struct {
+  private sealed class SubEnumerator<TSub>([ReadOnly] IEnumerator<TSub> enumerator) : IEnumerable<TSub> where TSub : struct, allows ref struct {
 
     public IEnumerator<TSub> GetEnumerator() {
       return enumerator;

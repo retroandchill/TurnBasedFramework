@@ -1,7 +1,8 @@
-﻿namespace GameAccessTools.SourceGenerator.Attributes;
-#if GAME_DATA_ACCESS_TOOLS_GENERATOR
+﻿#if GAME_DATA_ACCESS_TOOLS_GENERATOR
 using RhoMicro.CodeAnalysis;
 #endif
+
+namespace GameAccessTools.SourceGenerator.Attributes;
 
 [AttributeUsage(AttributeTargets.Struct)]
 #if GAME_DATA_ACCESS_TOOLS_GENERATOR

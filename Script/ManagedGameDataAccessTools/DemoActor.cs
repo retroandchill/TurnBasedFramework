@@ -12,7 +12,7 @@ public class ADemoActor : AActor {
   protected override void BeginPlay() {
     base.BeginPlay();
 
-    using var proxy = new DataTableProxy<ItemData>(DataTable.NativeObject);
+    using var proxy = new DataTableProxy<ItemData>(DataTable);
     if (proxy.TryGetValue("POTION", out var potion)) {
       PrintString(potion.RealName);
     }

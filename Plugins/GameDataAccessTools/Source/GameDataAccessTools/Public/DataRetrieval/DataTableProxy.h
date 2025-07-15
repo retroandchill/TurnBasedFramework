@@ -49,4 +49,5 @@ namespace GameDataAccess {
      */
     TStrongObjectPtr<UDataTable> DataTable;
   };
+  
 }

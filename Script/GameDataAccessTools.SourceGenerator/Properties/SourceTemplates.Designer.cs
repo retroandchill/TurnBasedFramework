@@ -60,24 +60,47 @@ namespace GameAccessTools.SourceGenerator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to using UnrealSharp.Interop;
-        ///using UnrealSharp.Core.Marshallers;
+        ///   Looks up a localized string similar to using System.Collections.Immutable;
+        ///using System.Diagnostics.CodeAnalysis;
+        ///using UnrealSharp;
+        ///using UnrealSharp.Attributes;
+        ///using UnrealSharp.UnrealSharpCore;
+        ///using ManagedGameDataAccessTools.DataRetrieval;
         ///
         ///namespace {{Namespace}};
         ///
-        ///{{#IsReadOnly}}readonly {{/IsReadOnly}}ref partial struct {{StructName}} {
+        ///[UClass]
+        ///public partial class {{AssetClassName}} : UCSPrimaryDataAsset, IGameDataAsset&lt;{{EntryName}}&gt;
+        ///{
+        ///  [UProperty]
+        ///  private TArray&lt;{{EntryName}}&gt; DataEntries { get; set; }
+        ///
+        ///  private ImmutableDictionary&lt;FName, {{EntryName}}&gt; _entries = ImmutableDictionary&lt;FNa [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string GameDataAssetTemplate {
+            get {
+                return ResourceManager.GetString("GameDataAssetTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to #nullable enable
+        ///using UnrealSharp;
+        ///using UnrealSharp.Core;
+        ///using UnrealSharp.Core.Marshallers;
+        ///using UnrealSharp.CoreUObject;
+        ///using UnrealSharp.Interop;
+        ///using ManagedGameDataAccessTools.DataRetrieval;
+        ///
+        ///namespace {{Namespace}};
+        ///
+        ///{{#IsReadOnly}}readonly {{/IsReadOnly}}ref partial struct {{StructName}} : INativeStructReference&lt;{{StructName}}&gt; {
         ///  private readonly IntPtr _nativeStruct;
         ///
         ///  {{#Properties}}
         ///  private static int {{Name}}_Offset;
         ///  {{#MarshallerInstanced}}
-        ///  private static IntPtr {{Name}}_NativeProperty;
-        ///  private static {{MarshallerInfo.Name}}? {{Name}}_Marshaller = null;
-        ///  {{/MarshallerInstanced}}
-        ///  
-        ///  public {{Type}} {{Name}} {
-        ///    get {
-        ///      {{#Marshall [rest of string was truncated]&quot;;.
+        ///  private static IntPtr {{ [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string RefStructTemplate {
             get {

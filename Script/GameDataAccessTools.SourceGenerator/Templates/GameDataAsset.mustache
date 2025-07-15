@@ -1,0 +1,49 @@
+#nullable enable
+using System.Collections.Immutable;
+using System.Diagnostics.CodeAnalysis;
+using UnrealSharp;
+using UnrealSharp.Attributes;
+using UnrealSharp.UnrealSharpCore;
+using ManagedGameDataAccessTools.DataRetrieval;
+
+namespace {{Namespace}};
+
+[UClass]
+public partial class {{AssetClassName}} : UCSPrimaryDataAsset, IGameDataAsset<{{EntryName}}>
+{
+  [UProperty(PropertyFlags.EditAnywhere | PropertyFlags.Instanced)]
+  private TArray<{{EntryName}}> DataEntries { get; set; }
+
+  private ImmutableDictionary<FName, {{EntryName}}> _entries = ImmutableDictionary<FName, {{EntryName}}>.Empty;
+  public IReadOnlyDictionary<FName, {{EntryName}}> Entries => _entries;
+
+  private ImmutableList<{{EntryName}}> _orderedEntries = ImmutableList<{{EntryName}}>.Empty;
+  public IReadOnlyList<{{EntryName}}> OrderedEntries => _orderedEntries;
+
+  public {{EntryName}} GetEntry(FName key) {
+    return _entries[key];
+  }
+  
+  public {{EntryName}} GetEntry(int index) {
+    return _orderedEntries[index];
+  }
+  
+  public bool TryGetEntry(FName key, [NotNullWhen(true)] out {{EntryName}}? entry) {
+    return _entries.TryGetValue(key, out entry);
+  }
+  
+  public bool TryGetEntry(int index, [NotNullWhen(true)] out {{EntryName}}? entry) {
+    if (index < 0 || index >= _orderedEntries.Count) {
+      entry = null;
+      return false;
+    }
+    
+    entry = _orderedEntries[index];
+    return true;
+  }
+  
+  public void OnGameDataAssetLoaded() {
+    _entries = DataEntries.ToImmutableDictionary(x => x.Id);
+    _orderedEntries = DataEntries.ToImmutableList();
+  }
+}
