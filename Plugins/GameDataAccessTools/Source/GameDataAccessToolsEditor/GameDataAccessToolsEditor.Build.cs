@@ -11,6 +11,7 @@ public class GameDataAccessToolsEditor : ModuleRules
             {
                 "Core",
                 "UnrealSharpCore",
+                "UnrealEd"
             }
         );
 

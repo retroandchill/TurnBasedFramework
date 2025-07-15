@@ -24,33 +24,19 @@ internal class GameDataAssetGenerator : IIncrementalGenerator {
           return syntax.HasAttribute<GameDataEntryAttribute>() ? syntax : null;
         })
       .Where(m => m is not null);
-    
+
     context.RegisterSourceOutput(dataEntries, GenerateGameAssetData!);
   }
-  
+
   private static void GenerateGameAssetData(SourceProductionContext context, INamedTypeSymbol classSymbol) {
     bool isValidType = true;
-    if (!classSymbol.Interfaces.Any(x => x.ToDisplayString() == SourceContextNames.IGameDataEntry)) {
-      context.ReportDiagnostic(Diagnostic.Create(
-        new DiagnosticDescriptor(
-          "GDA0001",
-          "GameDataEntry must implement IGameDataEntry",
-          "{0} must implement IGameDataEntry",
-          "GameDataAccessTools",
-          DiagnosticSeverity.Error,
-          true),
-        classSymbol.Locations.First(),
-        classSymbol.Name
-        ));
-      isValidType = false;
-    }
 
     var uclassAttributeInfo = classSymbol.GetAttributes()
       .SingleOrDefault(x => x.AttributeClass?.ToDisplayString() == SourceContextNames.UClassAttribute);
     if (uclassAttributeInfo is null) {
       context.ReportDiagnostic(Diagnostic.Create(
         new DiagnosticDescriptor(
-          "GDA0002",
+          "GDA0001",
           "GameDataEntry must be annotated with UClass",
           "{0} must be annotated with UClass",
           "GameDataAccessTools",
@@ -64,7 +50,7 @@ internal class GameDataAssetGenerator : IIncrementalGenerator {
     } else if (uclassAttributeInfo.ConstructorArguments[0].Value is ulong propertyTag && (propertyTag & SourceContextNames.EditInlineNew) == 0) {
       context.ReportDiagnostic(Diagnostic.Create(
         new DiagnosticDescriptor(
-          "GDA0003",
+          "GDA0002",
           "GameDataEntry must have EditInlineNew flag set on UClass",
           "{0} must have EditInlineNew flag set on UClass",
           "GameDataAccessTools",
@@ -79,34 +65,32 @@ internal class GameDataAssetGenerator : IIncrementalGenerator {
 
     var baseType = classSymbol.BaseType;
     while (baseType is not null) {
-      if (baseType.ToDisplayString() == SourceContextNames.UObject) {
+      if (baseType.ToDisplayString() == SourceContextNames.UGameDataEntry) {
         break;
       }
-      
-      if (baseType.ToDisplayString() == SourceContextNames.AActor) {
-        context.ReportDiagnostic(Diagnostic.Create(
-          new DiagnosticDescriptor(
-            "GDA0004",
-            "GameDataEntry may not inherit AActor",
-            "{0} cannot inherit from AActor",
-            "GameDataAccessTools",
-            DiagnosticSeverity.Error,
-            true
-          ),
-          classSymbol.Locations.First(),
-          classSymbol.Name
-        ));
-        isValidType = false;
-        break;
-      }
-      
+
       baseType = baseType.BaseType;
     }
-    
+
+    if (baseType is null) {
+      context.ReportDiagnostic(Diagnostic.Create(
+          new DiagnosticDescriptor(
+              "GDA0003",
+              "GameDataEntry must inherit from UGameDataEntry",
+              "{0} must inherit from UGameDataEntry",
+              "GameDataAccessTools",
+              DiagnosticSeverity.Error,
+              true),
+          classSymbol.Locations.First(),
+          classSymbol.Name
+      ));
+      isValidType = false;
+    }
+
     if (!isValidType) {
       return;
     }
-    
+
     var gameDataEntryInfo = classSymbol.GetAttributes().GetGameDataEntryInfos().Single();
     string generatedClassName;
     if (gameDataEntryInfo.GeneratedClassName is not null) {
@@ -120,10 +104,10 @@ internal class GameDataAssetGenerator : IIncrementalGenerator {
       AssetClassName = generatedClassName,
       EntryName = classSymbol.Name
     };
-    
+
     var handlebars = Handlebars.Create();
     handlebars.Configuration.TextEncoder = null;
-    
+
     context.AddSource($"{generatedClassName[1..]}.g.cs", handlebars.Compile(SourceTemplates.GameDataAssetTemplate)(templateParams));
   }
 }

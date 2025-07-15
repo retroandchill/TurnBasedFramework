@@ -3,13 +3,13 @@ using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using UnrealSharp;
 using UnrealSharp.Attributes;
-using UnrealSharp.UnrealSharpCore;
+using UnrealSharp.GameDataAccessTools;
 using ManagedGameDataAccessTools.DataRetrieval;
 
 namespace {{Namespace}};
 
 [UClass]
-public partial class {{AssetClassName}} : UCSPrimaryDataAsset, IGameDataAsset<{{EntryName}}>
+public partial class {{AssetClassName}} : UGameDataAsset, IGameDataAsset<{{EntryName}}>
 {
   [UProperty(PropertyFlags.EditAnywhere | PropertyFlags.Instanced)]
   private TArray<{{EntryName}}> DataEntries { get; set; }
@@ -17,33 +17,39 @@ public partial class {{AssetClassName}} : UCSPrimaryDataAsset, IGameDataAsset<{{
   private ImmutableDictionary<FName, {{EntryName}}> _entries = ImmutableDictionary<FName, {{EntryName}}>.Empty;
   public IReadOnlyDictionary<FName, {{EntryName}}> Entries => _entries;
 
-  private ImmutableList<{{EntryName}}> _orderedEntries = ImmutableList<{{EntryName}}>.Empty;
-  public IReadOnlyList<{{EntryName}}> OrderedEntries => _orderedEntries;
+  public IReadOnlyList<{{EntryName}}> OrderedEntries => DataEntries;
+
+  public int NumEntries => DataEntries.Count;
+
+  public IEnumerable<FName> EntryNames => DataEntries.Select(x => x.Id);
+
+  public sealed override int GetNumEntries() {
+    return NumEntries;
+  }
 
   public {{EntryName}} GetEntry(FName key) {
     return _entries[key];
   }
-  
-  public {{EntryName}} GetEntry(int index) {
-    return _orderedEntries[index];
+
+  public sealed override {{EntryName}} GetEntry(int index) {
+    return DataEntries[index];
   }
-  
+
   public bool TryGetEntry(FName key, [NotNullWhen(true)] out {{EntryName}}? entry) {
     return _entries.TryGetValue(key, out entry);
   }
-  
+
   public bool TryGetEntry(int index, [NotNullWhen(true)] out {{EntryName}}? entry) {
-    if (index < 0 || index >= _orderedEntries.Count) {
+    if (index < 0 || index >= DataEntries.Count) {
       entry = null;
       return false;
     }
-    
-    entry = _orderedEntries[index];
+
+    entry = DataEntries[index];
     return true;
   }
-  
+
   public void OnGameDataAssetLoaded() {
     _entries = DataEntries.ToImmutableDictionary(x => x.Id);
-    _orderedEntries = DataEntries.ToImmutableList();
   }
 }

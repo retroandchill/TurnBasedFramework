@@ -1,5 +1,7 @@
 ﻿#if GAME_DATA_ACCESS_TOOLS_GENERATOR
 using RhoMicro.CodeAnalysis;
+#else
+#nullable enable
 #endif
 
 namespace GameAccessTools.SourceGenerator.Attributes;

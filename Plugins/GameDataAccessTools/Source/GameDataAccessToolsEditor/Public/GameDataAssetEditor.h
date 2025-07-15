@@ -13,11 +13,6 @@ class GAMEDATAACCESSTOOLSEDITOR_API FGameDataAssetEditor : public FAssetEditorTo
 public:
   void InitRpgDataAssetEditor(EToolkitMode::Type Mode, TSharedPtr<IToolkitHost> InitToolkitHost, UCSPrimaryDataAsset* AssetToEdit);
 
-  FName GetToolkitFName() const override;
-  FText GetBaseToolkitName() const override;
-  FString GetWorldCentricTabPrefix() const override;
-  FLinearColor GetWorldCentricTabColorScale() const override;
-
 private:
   TSharedPtr<SGameDataAssetEditor> EditorWidget;
   TObjectPtr<UCSPrimaryDataAsset> EditedAsset;
