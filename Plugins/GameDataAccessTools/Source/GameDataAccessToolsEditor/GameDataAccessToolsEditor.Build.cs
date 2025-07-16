@@ -23,7 +23,8 @@ public class GameDataAccessToolsEditor : ModuleRules
                 "Engine",
                 "Slate",
                 "SlateCore",
-                "WorkspaceMenuStructure"
+                "WorkspaceMenuStructure",
+                "InputCore"
             }
         );
     }

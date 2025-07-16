@@ -22,7 +22,7 @@
 		{
 			"Name": "GameDataAccessToolsEditor",
 			"Type": "Editor",
-			"LoadingPhase": "PostEngineInit"
+			"LoadingPhase": "Default"
 		}
 	]
 }

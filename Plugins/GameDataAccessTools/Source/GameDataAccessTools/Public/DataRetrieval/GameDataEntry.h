@@ -6,12 +6,6 @@
 #include "UObject/Object.h"
 #include "GameDataEntry.generated.h"
 
-#if WITH_EDITORONLY_DATA
-namespace GameData {
-  class FGameDataAssetEditor;
-}
-#endif
-
 /**
  *
  */
@@ -32,7 +26,7 @@ public:
 
 private:
 #if WITH_EDITORONLY_DATA
-  friend GameData::FGameDataAssetEditor;
+  friend class FGameDataAssetEditor;
 #endif
 
   UPROPERTY(EditAnywhere, BlueprintGetter=GetId, Category = "EntryInformation")

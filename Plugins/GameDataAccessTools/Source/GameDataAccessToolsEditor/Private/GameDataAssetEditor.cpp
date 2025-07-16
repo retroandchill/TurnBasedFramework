@@ -5,113 +5,154 @@
 
 #include <bit>
 
-#include "SGameDataAssetEditor.h"
-#include "DataRetrieval/GameDataEntry.h"
-#include "Widgets/Docking/SDockTab.h"
-#include "WorkspaceMenuStructure.h"
-#include "WorkspaceMenuStructureModule.h"
+#include "GameDataAssetEntrySelector.h"
 #include "DataRetrieval/GameDataAsset.h"
 
-#define LOCTEXT_NAMESPACE "GameDataAssetEditor"
 
-namespace GameData {
-  static const FName GameDataAssetEditorTabId(TEXT("GameDataAssetEditor_DataEditor"));
+void FGameDataAssetEditor::Initialize(const EToolkitMode::Type Mode, const TSharedPtr<IToolkitHost>& InitToolkitHost,
+                                      UGameDataAsset* Asset) {
+  GameDataAsset = Asset;
 
-  void FGameDataAssetEditor::Initialize(EToolkitMode::Type Mode,
-    const TSharedPtr<IToolkitHost>& InitToolkitHost, UGameDataAsset* AssetToEdit) {
-    static FName PropertyName = TEXT("DataEntries");
-    EditedAsset = AssetToEdit;
+  const auto AssetClass = Asset->GetClass();
+  const auto DataEntriesProperty = CastFieldChecked<FArrayProperty>(AssetClass->FindPropertyByName(TEXT("DataEntries")));
+  GameDataEntries = std::bit_cast<TArray<UGameDataEntry*>*>(DataEntriesProperty->GetPropertyValuePtr_InContainer(Asset));
 
-    auto DataClass = EditedAsset->GetEntryClass();
-    check(DataClass != nullptr);
-
-    auto EntriesProperty = CastFieldChecked<FArrayProperty>(DataClass->FindPropertyByName(PropertyName));
-    auto ScriptArray = &EntriesProperty->GetPropertyValue_InContainer(EditedAsset);
-
-    Entries = std::bit_cast<TArray<TObjectPtr<UGameDataEntry>> *>(&ScriptArray);
-
-    auto StandaloneDefaultLayout = FTabManager::NewLayout("Standalone_GameDataAssetEditor_Layout_v1")->
-      AddArea(
-        FTabManager::NewPrimaryArea()->SetOrientation(Orient_Vertical)->Split(
-          FTabManager::NewStack()->AddTab(GameDataAssetEditorTabId, ETabState::OpenedTab)
-        )
-      );
-
-    // Initialize the asset editor
-    InitAssetEditor(
-      Mode,
-      InitToolkitHost,
-      FName("GameDataAssetEditorApp"),
-      StandaloneDefaultLayout,
-      true,
-      true,
-      AssetToEdit
+  const auto Layout = FTabManager::NewLayout("GameDataAssetEditor_Layout")
+    ->AddArea
+    (
+      FTabManager::NewPrimaryArea()->SetOrientation(Orient_Horizontal)
+      ->Split
+      (
+      FTabManager::NewStack()
+        ->SetSizeCoefficient(0.3f)
+        ->AddTab("EntrySelectionTab", ETabState::OpenedTab)
+      )
+      ->Split
+      (
+        FTabManager::NewStack()
+        ->SetSizeCoefficient(0.7f)
+        ->AddTab("EntryEditTab", ETabState::OpenedTab)
+      )
     );
 
-    // Create the editor widget
-    EditorWidget = SNew(SGameDataAssetEditor)
-      .DataAsset(EditedAsset)
-      .OnEntryAdded(FOnEntryAddedDelegate::CreateSP(this, &FGameDataAssetEditor::OnEntryAdded))
-      .OnEntryDeleted(FOnEntryDeletedDelegate::CreateSP(this, &FGameDataAssetEditor::OnEntryDeleted))
-      .OnEntriesSwapped(FOnEntriesSwappedDelegate::CreateSP(this, &FGameDataAssetEditor::OnEntriesSwapped))
-      .OnGetEntries(FOnGetEntriesDelegate::CreateSP(this, &FGameDataAssetEditor::GetEntriesFromAsset))
-      .OnEntriesModified(FOnEntriesModifiedDelegate::CreateSP(this, &FGameDataAssetEditor::OnEntriesModified));
+  InitAssetEditor(Mode, InitToolkitHost, "GameDataAssetEditor", Layout, true, true, Asset);
+}
 
-    // Register tab spawners
-    auto TabManager = GetTabManager();
+void FGameDataAssetEditor::RegisterTabSpawners(const TSharedRef<FTabManager>& InTabManager) {
+  FAssetEditorToolkit::RegisterTabSpawners(InTabManager);
 
-    TabManager->RegisterTabSpawner(
-      GameDataAssetEditorTabId,
-      FOnSpawnTab::CreateSP(this, &FGameDataAssetEditor::SpawnTab_AssetEditor)
-    )
-    .SetDisplayName(LOCTEXT("DataEditorTabTitle", "Data Editor"))
-    .SetGroup(WorkspaceMenu::GetMenuStructure().GetLevelEditorCategory());
-  }
+  WorkspaceMenuCategory = InTabManager->AddLocalWorkspaceMenuCategory(NSLOCTEXT("GameDataAsset", "GameDataAsset", "Game Data Asset"));
 
-  TSharedRef<SDockTab> FGameDataAssetEditor::SpawnTab_AssetEditor(const FSpawnTabArgs&) const {
+  InTabManager->RegisterTabSpawner("EntrySelectionTab", FOnSpawnTab::CreateLambda([this](const FSpawnTabArgs&)
+  {
     return SNew(SDockTab)
-      .Label(LOCTEXT("DataEditorTitle", "Data Editor"))
-      [
-        EditorWidget.ToSharedRef()
-      ];
-  }
+    [
+      SAssignNew(EntrySelector, SGameDataAssetEntrySelector)
+        .OnEntrySelected(this, &FGameDataAssetEditor::OnEntrySelected)
+        .OnGetEntries(this, &FGameDataAssetEditor::OnGetEntries)
+        .OnAddEntry(this, &FGameDataAssetEditor::OnAddEntry)
+        .OnDeleteEntry(this, &FGameDataAssetEditor::OnDeleteEntry)
+        .OnMoveEntryUp(this, &FGameDataAssetEditor::OnMoveEntryUp)
+        .OnMoveEntryDown(this, &FGameDataAssetEditor::OnMoveEntryDown)
+    ];
+  }))
+  .SetDisplayName(NSLOCTEXT("GameDataAsset", "EntrySelectionTab", "Entries"))
+  .SetGroup(WorkspaceMenuCategory.ToSharedRef());
 
-  void FGameDataAssetEditor::OnEntryAdded(UGameDataEntry* NewEntry) const {
-    Entries->Add(NewEntry);
+  FPropertyEditorModule& PropertyEditorModule = FModuleManager::GetModuleChecked<FPropertyEditorModule>("PropertyEditor");
+  FDetailsViewArgs DetailsViewArgs;
+  DetailsViewArgs.NameAreaSettings = FDetailsViewArgs::HideNameArea;
+  DetailsView = PropertyEditorModule.CreateDetailView(DetailsViewArgs);
+  DetailsView->SetObject(GameDataEntries->Num() > 0 ? (*GameDataEntries)[0] : nullptr);
+  InTabManager->RegisterTabSpawner("EntryEditTab", FOnSpawnTab::CreateLambda([this](const FSpawnTabArgs&)
+  {
+    return SNew(SDockTab)
+    [
+      DetailsView.ToSharedRef()
+    ];
+  }))
+  .SetDisplayName(NSLOCTEXT("GameDataAsset", "Details", "Details"))
+  .SetGroup(WorkspaceMenuCategory.ToSharedRef());
+}
 
-    // Mark the asset as dirty
-    EditedAsset->Modify();
-  }
+void FGameDataAssetEditor::UnregisterTabSpawners(const TSharedRef<FTabManager>& InTabManager) {
+  FAssetEditorToolkit::UnregisterTabSpawners(InTabManager);
+  InTabManager->UnregisterTabSpawner("EntrySelectionTab");
+  InTabManager->UnregisterTabSpawner("EntryEditTab");
+}
 
-  void FGameDataAssetEditor::OnEntryDeleted(int32 Index) const {
-    Entries->RemoveAt(Index);
+FName FGameDataAssetEditor::GetToolkitFName() const {
+  return FName("GameDataAssetEditor");
+}
 
-    // Mark the asset as dirty
-    EditedAsset->Modify();
-  }
+FText FGameDataAssetEditor::GetBaseToolkitName() const {
+  return NSLOCTEXT("GameDataAssetEditor", "AppLabel", "Game Data Asset Editor");
+}
 
-  void FGameDataAssetEditor::OnEntriesSwapped(int32 FirstIndex, int32 SecondIndex) const {
-    Entries->Swap(FirstIndex, SecondIndex);
+FString FGameDataAssetEditor::GetWorldCentricTabPrefix() const {
+  return "GameDataAssetEditor";
+}
 
-    // Mark the asset as dirty
-    EditedAsset->Modify();
-  }
+FLinearColor FGameDataAssetEditor::GetWorldCentricTabColorScale() const {
+  return FLinearColor();
+}
 
-  TArray<TObjectPtr<UGameDataEntry>> FGameDataAssetEditor::GetEntriesFromAsset() const {
-    return *Entries;
-  }
-
-  void FGameDataAssetEditor::OnEntriesModified() const {
-    for (int32 i = 0; i < Entries->Num(); i++) {
-      auto Entry = (*Entries)[i];
-      Entry->RowIndex = i;
-    }
-
-    // Mark the asset as dirty
-    if (EditedAsset) {
-      EditedAsset->Modify();
-    }
+void FGameDataAssetEditor::OnEntrySelected(const TSharedPtr<FEntryRowData>& Entry) {
+  if (Entry != nullptr) {
+    DetailsView->SetObject(Entry->Entry.Get());
+    CurrentRowIndex.Emplace(Entry->Index);
+  } else {
+    DetailsView->SetObject(nullptr);
+    CurrentRowIndex.Reset();
   }
 }
 
-#undef LOCTEXT_NAMESPACE
+TArray<TSharedPtr<FEntryRowData>> FGameDataAssetEditor::OnGetEntries() {
+  TArray<TSharedPtr<FEntryRowData>> Entries;
+  for (int32 i = 0; i < GameDataEntries->Num(); i++) {
+    auto Entry = (*GameDataEntries)[i];
+    Entries.Emplace(MakeShared<FEntryRowData>(i, Entry->GetId(), Entry));
+  }
+  return Entries;
+}
+
+void FGameDataAssetEditor::OnAddEntry() const {
+  const auto NewEntry = NewObject<UGameDataEntry>(GameDataAsset, GameDataAsset->GetEntryClass());
+  NewEntry->RowIndex = GameDataEntries->Num();
+  GameDataEntries->Add(NewEntry);
+  RefreshList();
+}
+
+void FGameDataAssetEditor::OnDeleteEntry(const TSharedPtr<FEntryRowData>& Entry) {
+  GameDataEntries->RemoveAt(Entry->Index);
+  if (GameDataEntries->Num() == 0) {
+    CurrentRowIndex.Reset();
+  } else if (Entry->Index <= GameDataEntries->Num()) {
+    CurrentRowIndex.Emplace(GameDataEntries->Num() - 1);
+  }
+  RefreshList();
+}
+
+void FGameDataAssetEditor::OnMoveEntryUp(const TSharedPtr<FEntryRowData>& Entry) {
+  GameDataEntries->Swap(Entry->Index, Entry->Index - 1);
+  CurrentRowIndex.Emplace(Entry->Index - 1);
+  RefreshList();
+}
+
+void FGameDataAssetEditor::OnMoveEntryDown(const TSharedPtr<FEntryRowData>& Entry) {
+  GameDataEntries->Swap(Entry->Index, Entry->Index + 1);
+  CurrentRowIndex.Emplace(Entry->Index + 1);
+  RefreshList();
+}
+
+void FGameDataAssetEditor::RefreshList() const {
+  for (int32 i = 0; i < GameDataEntries->Num(); i++) {
+    const auto Entry = (*GameDataEntries)[i];
+    Entry->RowIndex = i;
+  }
+  GameDataAsset->Modify();
+  EntrySelector->RefreshList();
+  if (CurrentRowIndex.IsSet()) {
+    EntrySelector->SelectAtIndex(CurrentRowIndex.GetValue());
+  }
+}

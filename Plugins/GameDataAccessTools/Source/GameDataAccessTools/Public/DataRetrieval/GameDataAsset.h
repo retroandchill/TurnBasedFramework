@@ -7,18 +7,12 @@
 #include "Extensions/DataAssets/CSPrimaryDataAsset.h"
 #include "GameDataAsset.generated.h"
 
-#if WITH_EDITORONLY_DATA
-namespace GameData {
-  class FGameDataAssetEditor;
-}
-#endif
-
 class UGameDataEntry;
 /**
  *
  */
 UCLASS(abstract)
-class GAMEDATAACCESSTOOLS_API UGameDataAsset : public UCSPrimaryDataAsset {
+class GAMEDATAACCESSTOOLS_API UGameDataAsset : public UObject {
   GENERATED_BODY()
 
 public:

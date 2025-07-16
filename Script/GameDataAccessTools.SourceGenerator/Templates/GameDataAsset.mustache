@@ -25,10 +25,6 @@ public partial class {{AssetClassName}} : UGameDataAsset, IGameDataAsset<{{Entry
 
   public IEnumerable<FName> EntryNames => DataEntries.Select(x => x.Id);
 
-  public {{AssetClassName}}() {
-    AssetName = "{{AssetName}}";
-  }
-
   public sealed override TSubclassOf<UGameDataEntry> GetEntryClass() {
     return EntryClass.As<UGameDataEntry>();
   }
