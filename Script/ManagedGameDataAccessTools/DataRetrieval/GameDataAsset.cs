@@ -7,6 +7,8 @@ namespace ManagedGameDataAccessTools.DataRetrieval;
 
 public interface IGameDataAsset<T> where T : UGameDataEntry {
 
+  TSubclassOf<T> EntryClass { get; }
+
   IReadOnlyDictionary<FName, T> Entries { get; }
 
   IReadOnlyList<T> OrderedEntries { get; }

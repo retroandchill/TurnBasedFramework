@@ -11,6 +11,8 @@ namespace {{Namespace}};
 [UClass]
 public partial class {{AssetClassName}} : UGameDataAsset, IGameDataAsset<{{EntryName}}>
 {
+  public TSubclassOf<{{EntryName}}> EntryClass { get; } = new(typeof({{EntryName}}));
+
   [UProperty(PropertyFlags.EditAnywhere | PropertyFlags.Instanced)]
   private TArray<{{EntryName}}> DataEntries { get; set; }
 
@@ -25,6 +27,10 @@ public partial class {{AssetClassName}} : UGameDataAsset, IGameDataAsset<{{Entry
 
   public sealed override int GetNumEntries() {
     return NumEntries;
+  }
+
+  public sealed override TSubclassOf<UGameDataEntry> GetEntryClass() {
+    return EntryClass.As<UGameDataEntry>();
   }
 
   public {{EntryName}} GetEntry(FName key) {
@@ -52,4 +58,20 @@ public partial class {{AssetClassName}} : UGameDataAsset, IGameDataAsset<{{Entry
   public void OnGameDataAssetLoaded() {
     _entries = DataEntries.ToImmutableDictionary(x => x.Id);
   }
+
+#if !PACKAGE
+  protected sealed override void AddEntry(UGameDataEntry newEntry) {
+    DataEntries.Add(({{EntryName}}) newEntry);
+  }
+
+  protected sealed override void RemoveEntry(int index) {
+    DataEntries.RemoveAt(index);
+  }
+
+  protected sealed override void SwapEntries(int index1, int index2) {
+    var temp = DataEntries[index1];
+    DataEntries[index1] = DataEntries[index2];
+    DataEntries[index2] = temp;
+  }
+#endif
 }

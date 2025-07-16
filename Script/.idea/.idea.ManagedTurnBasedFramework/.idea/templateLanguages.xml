@@ -2,6 +2,5 @@
 <project version="4">
   <component name="TemplateDataLanguageMappings">
     <file url="file://$PROJECT_DIR$/GameDataAccessTools.SourceGenerator/Templates/GameDataAsset.mustache" dialect="C#" />
-    <file url="file://$PROJECT_DIR$/GameDataAccessTools.SourceGenerator/Templates/RefStruct.mustache" dialect="C#" />
   </component>
 </project>

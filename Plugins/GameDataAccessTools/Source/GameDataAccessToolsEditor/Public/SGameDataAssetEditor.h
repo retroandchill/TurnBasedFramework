@@ -6,12 +6,14 @@
 #include "Widgets/SCompoundWidget.h"
 
 class UCSPrimaryDataAsset;
-/**
- *
- */
-class GAMEDATAACCESSTOOLSEDITOR_API SGameDataAssetEditor : public SCompoundWidget {
-public:
-  SLATE_BEGIN_ARGS(SGameDataAssetEditor) {
+
+namespace GameData {
+  /**
+   *
+   */
+  class GAMEDATAACCESSTOOLSEDITOR_API SGameDataAssetEditor : public SCompoundWidget {
+  public:
+    SLATE_BEGIN_ARGS(SGameDataAssetEditor) {
     }
 
     SLATE_ARGUMENT(UCSPrimaryDataAsset*, DataAsset)
@@ -19,7 +21,8 @@ public:
 
   void Construct(const FArguments& InArgs);
 
-private:
-  TObjectPtr<UCSPrimaryDataAsset> DataAsset;
+  private:
+    TObjectPtr<UCSPrimaryDataAsset> DataAsset;
 
-};
+  };
+}

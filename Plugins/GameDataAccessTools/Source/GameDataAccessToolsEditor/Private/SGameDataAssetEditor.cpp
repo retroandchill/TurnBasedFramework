@@ -5,7 +5,9 @@
 
 #include "SlateOptMacros.h"
 
-void SGameDataAssetEditor::Construct(const FArguments& InArgs) {
-  DataAsset = InArgs._DataAsset;
+namespace GameData {
+  void SGameDataAssetEditor::Construct(const FArguments& InArgs) {
+    DataAsset = InArgs._DataAsset;
 
+  }
 }
