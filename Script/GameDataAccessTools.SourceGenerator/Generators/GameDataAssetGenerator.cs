@@ -99,9 +99,17 @@ internal class GameDataAssetGenerator : IIncrementalGenerator {
       generatedClassName = classSymbol.Name.EndsWith("Data") ? $"U{classSymbol.Name[1..]}Asset" : $"U{classSymbol.Name[1..]}DataAsset";
     }
 
+    string assetName;
+    if (gameDataEntryInfo.AssetName is not null) {
+      assetName = gameDataEntryInfo.AssetName;
+    } else {
+      assetName = classSymbol.Name.EndsWith("Data") ? $"{classSymbol.Name[1..^4]}" : $"{classSymbol.Name[1..]}";
+    }
+
     var templateParams = new {
       Namespace = classSymbol.ContainingNamespace.ToDisplayString(),
       AssetClassName = generatedClassName,
+      AssetName = assetName,
       EntryName = classSymbol.Name
     };
 

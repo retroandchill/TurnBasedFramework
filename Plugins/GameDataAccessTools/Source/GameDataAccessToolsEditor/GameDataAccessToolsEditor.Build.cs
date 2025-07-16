@@ -11,7 +11,8 @@ public class GameDataAccessToolsEditor : ModuleRules
             {
                 "Core",
                 "UnrealSharpCore",
-                "UnrealEd"
+                "UnrealEd",
+                "GameDataAccessTools"
             }
         );
 
@@ -21,7 +22,8 @@ public class GameDataAccessToolsEditor : ModuleRules
                 "CoreUObject",
                 "Engine",
                 "Slate",
-                "SlateCore"
+                "SlateCore",
+                "WorkspaceMenuStructure"
             }
         );
     }

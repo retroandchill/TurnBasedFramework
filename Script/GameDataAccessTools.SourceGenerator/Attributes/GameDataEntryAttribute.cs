@@ -16,4 +16,6 @@ internal class GameDataEntryAttribute : Attribute {
   /// if the class name already ends with data).
   /// </summary>
   public string? GeneratedClassName { get; init; }
+
+  public string? AssetName { get; init; }
 }
