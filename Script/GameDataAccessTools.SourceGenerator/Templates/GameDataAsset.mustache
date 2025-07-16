@@ -25,10 +25,6 @@ public partial class {{AssetClassName}} : UGameDataAsset, IGameDataAsset<{{Entry
 
   public IEnumerable<FName> EntryNames => DataEntries.Select(x => x.Id);
 
-  public sealed override int GetNumEntries() {
-    return NumEntries;
-  }
-
   public sealed override TSubclassOf<UGameDataEntry> GetEntryClass() {
     return EntryClass.As<UGameDataEntry>();
   }
@@ -37,7 +33,7 @@ public partial class {{AssetClassName}} : UGameDataAsset, IGameDataAsset<{{Entry
     return _entries[key];
   }
 
-  public sealed override {{EntryName}} GetEntry(int index) {
+  public {{EntryName}} GetEntry(int index) {
     return DataEntries[index];
   }
 
@@ -58,20 +54,4 @@ public partial class {{AssetClassName}} : UGameDataAsset, IGameDataAsset<{{Entry
   public void OnGameDataAssetLoaded() {
     _entries = DataEntries.ToImmutableDictionary(x => x.Id);
   }
-
-#if !PACKAGE
-  protected sealed override void AddEntry(UGameDataEntry newEntry) {
-    DataEntries.Add(({{EntryName}}) newEntry);
-  }
-
-  protected sealed override void RemoveEntry(int index) {
-    DataEntries.RemoveAt(index);
-  }
-
-  protected sealed override void SwapEntries(int index1, int index2) {
-    var temp = DataEntries[index1];
-    DataEntries[index1] = DataEntries[index2];
-    DataEntries[index2] = temp;
-  }
-#endif
 }

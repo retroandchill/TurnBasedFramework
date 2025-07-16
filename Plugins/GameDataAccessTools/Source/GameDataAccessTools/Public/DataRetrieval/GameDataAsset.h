@@ -25,24 +25,4 @@ public:
   UFUNCTION(BlueprintImplementableEvent, Category = "GameDataAsset")
   TSubclassOf<UGameDataEntry> GetEntryClass() const;
 
-  UFUNCTION(BlueprintImplementableEvent, Category = "GameDataAsset")
-  int32 GetNumEntries() const;
-
-  UFUNCTION(BlueprintImplementableEvent, Category = "GameDataAsset")
-  UGameDataEntry* GetEntry(int32 Index) const;
-
-protected:
-#if WITH_EDITORONLY_DATA
-  UFUNCTION(BlueprintImplementableEvent, Category = "GameDataAsset")
-  void AddEntry(UGameDataEntry* NewEntry);
-
-  UFUNCTION(BlueprintImplementableEvent, Category = "GameDataAsset")
-  void RemoveEntry(int32 Index);
-
-  UFUNCTION(BlueprintImplementableEvent, Category = "GameDataAsset")
-  void SwapEntries(int32 Index1, int32 Index2);
-
-  friend GameData::FGameDataAssetEditor;
-#endif
-
 };
