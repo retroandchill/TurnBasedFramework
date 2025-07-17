@@ -43,6 +43,7 @@ void SGameDataAssetEntrySelector::Construct(const FArguments& InArgs) {
             [
                 SNew(SButton)
                 .OnClicked(this, &SGameDataAssetEntrySelector::AddEntryClicked)
+                .IsEnabled_Raw(this, &SGameDataAssetEntrySelector::CanAddEntry)
                 .Text(NSLOCTEXT("GameDataAssetEditor", "AddEntry", "Add Entry"))
             ]
 
@@ -195,6 +196,10 @@ FReply SGameDataAssetEntrySelector::MoveEntryDown() const {
     OnMoveEntryDown.Execute(EntriesList->GetSelectedItems()[0]);
   }
   return FReply::Handled();
+}
+
+bool SGameDataAssetEntrySelector::CanAddEntry() const {
+  return EntriesList->GetSelectedItems().Num() < std::numeric_limits<int32>::max();
 }
 
 bool SGameDataAssetEntrySelector::CanMoveEntryUp() const {

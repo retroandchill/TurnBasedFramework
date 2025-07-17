@@ -55,6 +55,7 @@ private:
   FReply MoveEntryUp() const;
   FReply MoveEntryDown() const;
 
+  bool CanAddEntry() const;
   bool CanMoveEntryUp() const;
   bool CanMoveEntryDown() const;
   bool CanDeleteEntry() const;

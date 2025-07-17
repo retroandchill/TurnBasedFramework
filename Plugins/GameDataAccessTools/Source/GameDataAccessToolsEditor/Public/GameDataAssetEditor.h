@@ -30,6 +30,8 @@ private:
   void OnMoveEntryUp(const TSharedPtr<FEntryRowData>& Entry);
   void OnMoveEntryDown(const TSharedPtr<FEntryRowData>& Entry);
   void RefreshList() const;
+  FName GenerateUniqueRowName() const;
+  bool VerifyRowNameUnique(FName Name) const;
 
   TSharedPtr<SGameDataAssetEntrySelector> EntrySelector;
   TSharedPtr<IDetailsView> DetailsView;

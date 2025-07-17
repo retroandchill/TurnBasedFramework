@@ -118,6 +118,7 @@ TArray<TSharedPtr<FEntryRowData>> FGameDataAssetEditor::OnGetEntries() {
 
 void FGameDataAssetEditor::OnAddEntry() const {
   const auto NewEntry = NewObject<UGameDataEntry>(GameDataAsset, GameDataAsset->GetEntryClass());
+  NewEntry->Id = GenerateUniqueRowName();
   NewEntry->RowIndex = GameDataEntries->Num();
   GameDataEntries->Add(NewEntry);
   RefreshList();
@@ -155,4 +156,31 @@ void FGameDataAssetEditor::RefreshList() const {
   if (CurrentRowIndex.IsSet()) {
     EntrySelector->SelectAtIndex(CurrentRowIndex.GetValue());
   }
+}
+
+FName FGameDataAssetEditor::GenerateUniqueRowName() const {
+  TSet<FName> UsedNames;
+  for (const auto& Entry : GameDataEntries) {
+    UsedNames.Add(Entry->GetId());
+  }
+
+  FName Name = FName("Entry");
+  int32 Index = 0;
+  while (UsedNames.Contains(Name)) {
+    Name = FName(*FString::Printf(TEXT("Entry%d"), Index));
+    checkf(Index != std::numeric_limits<int32>::max(), TEXT("Index is about to overflow. Too many entries added."));
+    ++Index;
+  }
+
+  return Name;
+}
+
+bool FGameDataAssetEditor::VerifyRowNameUnique(FName Name) const {
+  for (const auto& Entry : GameDataEntries) {
+    if (Entry->GetId() == Name) {
+      return false;
+    }
+  }
+
+  return true;
 }
