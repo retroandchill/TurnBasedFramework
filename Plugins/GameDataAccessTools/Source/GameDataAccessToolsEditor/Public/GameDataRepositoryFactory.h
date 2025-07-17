@@ -4,17 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "Factories/Factory.h"
-#include "GameDataAssetFactory.generated.h"
+#include "GameDataRepositoryFactory.generated.h"
 
 /**
  *
  */
 UCLASS()
-class GAMEDATAACCESSTOOLSEDITOR_API UGameDataAssetFactory : public UFactory {
+class GAMEDATAACCESSTOOLSEDITOR_API UGameDataRepositoryFactory : public UFactory {
   GENERATED_BODY()
 
 public:
-  UGameDataAssetFactory();
+  UGameDataRepositoryFactory();
 
   bool ConfigureProperties() override;
 

@@ -1,13 +1,13 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "GameDataAssetEntrySelector.h"
+#include "GameDataRepositoryEntrySelector.h"
 
 #include "SlateOptMacros.h"
 #include "Widgets/Input/SSearchBox.h"
 
 
-void SGameDataAssetEntrySelector::Construct(const FArguments& InArgs) {
+void SGameDataRepositoryEntrySelector::Construct(const FArguments& InArgs) {
   OnEntrySelected = InArgs._OnEntrySelected;
   OnGetEntries = InArgs._OnGetEntries;
   OnAddEntry = InArgs._OnAddEntry;
@@ -25,8 +25,8 @@ void SGameDataAssetEntrySelector::Construct(const FArguments& InArgs) {
         .Padding(2)
         [
             SAssignNew(SearchBox, SSearchBox)
-            .OnTextChanged(this, &SGameDataAssetEntrySelector::OnSearchTextChanged)
-            .HintText(NSLOCTEXT("GameDataAssetEditor", "SearchBoxHint", "Search entries..."))
+            .OnTextChanged(this, &SGameDataRepositoryEntrySelector::OnSearchTextChanged)
+            .HintText(NSLOCTEXT("GameDataRepositoryEditor", "SearchBoxHint", "Search entries..."))
         ]
 
         // Toolbar with buttons
@@ -42,9 +42,9 @@ void SGameDataAssetEntrySelector::Construct(const FArguments& InArgs) {
             .Padding(2)
             [
                 SNew(SButton)
-                .OnClicked(this, &SGameDataAssetEntrySelector::AddEntryClicked)
-                .IsEnabled_Raw(this, &SGameDataAssetEntrySelector::CanAddEntry)
-                .Text(NSLOCTEXT("GameDataAssetEditor", "AddEntry", "Add Entry"))
+                .OnClicked(this, &SGameDataRepositoryEntrySelector::AddEntryClicked)
+                .IsEnabled_Raw(this, &SGameDataRepositoryEntrySelector::CanAddEntry)
+                .Text(NSLOCTEXT("GameDataRepositoryEditor", "AddEntry", "Add Entry"))
             ]
 
             // Delete button
@@ -53,9 +53,9 @@ void SGameDataAssetEntrySelector::Construct(const FArguments& InArgs) {
             .Padding(2)
             [
                 SNew(SButton)
-                .OnClicked(this, &SGameDataAssetEntrySelector::DeleteEntryClicked)
-                .IsEnabled_Raw(this, &SGameDataAssetEntrySelector::CanDeleteEntry)
-                .Text(NSLOCTEXT("GameDataAssetEditor", "DeleteEntry", "Delete Entry"))
+                .OnClicked(this, &SGameDataRepositoryEntrySelector::DeleteEntryClicked)
+                .IsEnabled_Raw(this, &SGameDataRepositoryEntrySelector::CanDeleteEntry)
+                .Text(NSLOCTEXT("GameDataRepositoryEditor", "DeleteEntry", "Delete Entry"))
             ]
 
             // Move Up button
@@ -64,9 +64,9 @@ void SGameDataAssetEntrySelector::Construct(const FArguments& InArgs) {
             .Padding(2)
             [
                 SNew(SButton)
-                .OnClicked(this, &SGameDataAssetEntrySelector::MoveEntryUp)
-                .IsEnabled_Raw(this, &SGameDataAssetEntrySelector::CanMoveEntryUp)
-                .Text(NSLOCTEXT("GameDataAssetEditor", "MoveUp", "Move Up"))
+                .OnClicked(this, &SGameDataRepositoryEntrySelector::MoveEntryUp)
+                .IsEnabled_Raw(this, &SGameDataRepositoryEntrySelector::CanMoveEntryUp)
+                .Text(NSLOCTEXT("GameDataRepositoryEditor", "MoveUp", "Move Up"))
             ]
 
             // Move Down button
@@ -75,9 +75,9 @@ void SGameDataAssetEntrySelector::Construct(const FArguments& InArgs) {
             .Padding(2)
             [
                 SNew(SButton)
-                .OnClicked(this, &SGameDataAssetEntrySelector::MoveEntryDown)
-                .IsEnabled_Raw(this, &SGameDataAssetEntrySelector::CanMoveEntryDown)
-                .Text(NSLOCTEXT("GameDataAssetEditor", "MoveDown", "Move Down"))
+                .OnClicked(this, &SGameDataRepositoryEntrySelector::MoveEntryDown)
+                .IsEnabled_Raw(this, &SGameDataRepositoryEntrySelector::CanMoveEntryDown)
+                .Text(NSLOCTEXT("GameDataRepositoryEditor", "MoveDown", "Move Down"))
             ]
         ]
 
@@ -87,8 +87,8 @@ void SGameDataAssetEntrySelector::Construct(const FArguments& InArgs) {
         [
             SAssignNew(EntriesList, SListView<TSharedPtr<FEntryRowData>>)
             .ListItemsSource(&FilteredEntries)
-            .OnGenerateRow(this, &SGameDataAssetEntrySelector::OnGenerateRow)
-            .OnSelectionChanged(this, &SGameDataAssetEntrySelector::OnSelectionChanged)
+            .OnGenerateRow(this, &SGameDataRepositoryEntrySelector::OnGenerateRow)
+            .OnSelectionChanged(this, &SGameDataRepositoryEntrySelector::OnSelectionChanged)
             .SelectionMode(ESelectionMode::Single)
         ]
     ];
@@ -96,7 +96,7 @@ void SGameDataAssetEntrySelector::Construct(const FArguments& InArgs) {
     RefreshList();
 }
 
-void SGameDataAssetEntrySelector::RefreshList() {
+void SGameDataRepositoryEntrySelector::RefreshList() {
   if (OnGetEntries.IsBound())
   {
     AllEntries = OnGetEntries.Execute();
@@ -106,14 +106,14 @@ void SGameDataAssetEntrySelector::RefreshList() {
 
 }
 
-void SGameDataAssetEntrySelector::SelectAtIndex(const int32 Index) {
+void SGameDataRepositoryEntrySelector::SelectAtIndex(const int32 Index) {
   if (Index >= 0 && Index < AllEntries.Num())
   {
     EntriesList->SetSelection(AllEntries[Index]);
   }
 }
 
-TSharedRef<ITableRow> SGameDataAssetEntrySelector::OnGenerateRow(TSharedPtr<FEntryRowData> Item,
+TSharedRef<ITableRow> SGameDataRepositoryEntrySelector::OnGenerateRow(TSharedPtr<FEntryRowData> Item,
                                                                  const TSharedRef<STableViewBase>& OwnerTable) {
   return SNew(STableRow<TSharedPtr<FEntryRowData>>, OwnerTable)
     [
@@ -140,7 +140,7 @@ TSharedRef<ITableRow> SGameDataAssetEntrySelector::OnGenerateRow(TSharedPtr<FEnt
 
 }
 
-void SGameDataAssetEntrySelector::OnSearchTextChanged(const FText& InSearchText) {
+void SGameDataRepositoryEntrySelector::OnSearchTextChanged(const FText& InSearchText) {
   FilteredEntries.Empty();
   const FString SearchString = InSearchText.ToString();
 
@@ -157,14 +157,14 @@ void SGameDataAssetEntrySelector::OnSearchTextChanged(const FText& InSearchText)
 
 }
 
-void SGameDataAssetEntrySelector::OnSelectionChanged(TSharedPtr<FEntryRowData> Item, ESelectInfo::Type) const {
+void SGameDataRepositoryEntrySelector::OnSelectionChanged(TSharedPtr<FEntryRowData> Item, ESelectInfo::Type) const {
   if (OnEntrySelected.IsBound())
   {
     OnEntrySelected.Execute(Item);
   }
 }
 
-FReply SGameDataAssetEntrySelector::AddEntryClicked() const {
+FReply SGameDataRepositoryEntrySelector::AddEntryClicked() const {
   if (OnAddEntry.IsBound())
   {
     OnAddEntry.Execute();
@@ -173,7 +173,7 @@ FReply SGameDataAssetEntrySelector::AddEntryClicked() const {
 
 }
 
-FReply SGameDataAssetEntrySelector::DeleteEntryClicked() const {
+FReply SGameDataRepositoryEntrySelector::DeleteEntryClicked() const {
   if (OnDeleteEntry.IsBound())
   {
     OnDeleteEntry.Execute(EntriesList->GetSelectedItems()[0]);
@@ -181,7 +181,7 @@ FReply SGameDataAssetEntrySelector::DeleteEntryClicked() const {
   return FReply::Handled();
 }
 
-FReply SGameDataAssetEntrySelector::MoveEntryUp() const {
+FReply SGameDataRepositoryEntrySelector::MoveEntryUp() const {
   if (OnMoveEntryUp.IsBound())
   {
     OnMoveEntryUp.Execute(EntriesList->GetSelectedItems()[0]);
@@ -190,7 +190,7 @@ FReply SGameDataAssetEntrySelector::MoveEntryUp() const {
 
 }
 
-FReply SGameDataAssetEntrySelector::MoveEntryDown() const {
+FReply SGameDataRepositoryEntrySelector::MoveEntryDown() const {
   if (OnMoveEntryDown.IsBound())
   {
     OnMoveEntryDown.Execute(EntriesList->GetSelectedItems()[0]);
@@ -198,19 +198,19 @@ FReply SGameDataAssetEntrySelector::MoveEntryDown() const {
   return FReply::Handled();
 }
 
-bool SGameDataAssetEntrySelector::CanAddEntry() const {
+bool SGameDataRepositoryEntrySelector::CanAddEntry() const {
   return EntriesList->GetSelectedItems().Num() < std::numeric_limits<int32>::max();
 }
 
-bool SGameDataAssetEntrySelector::CanMoveEntryUp() const {
+bool SGameDataRepositoryEntrySelector::CanMoveEntryUp() const {
   return EntriesList->GetSelectedItems().Num() == 1 && AllEntries.Num() > 0 && EntriesList->GetSelectedItems()[0] != AllEntries[0];
 }
 
-bool SGameDataAssetEntrySelector::CanMoveEntryDown() const {
+bool SGameDataRepositoryEntrySelector::CanMoveEntryDown() const {
   return EntriesList->GetSelectedItems().Num() == 1 && AllEntries.Num() > 0 && EntriesList->GetSelectedItems().Last() != AllEntries.Last();
 }
 
-bool SGameDataAssetEntrySelector::CanDeleteEntry() const {
+bool SGameDataRepositoryEntrySelector::CanDeleteEntry() const {
 
   return EntriesList->GetSelectedItems().Num() > 0;
 }

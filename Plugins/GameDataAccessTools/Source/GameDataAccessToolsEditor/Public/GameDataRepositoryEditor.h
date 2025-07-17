@@ -3,17 +3,27 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameDataAssetEntrySelector.h"
+#include "GameDataRepositoryEntrySelector.h"
 #include "DataRetrieval/GameDataEntry.h"
 
-class UGameDataAsset;
+class UGameDataRepository;
+
+struct FSelectedRow {
+  int32 Index;
+  FName CurrentName;
+
+  FSelectedRow(int32 InIndex, FName InCurrentName)
+    : Index(InIndex), CurrentName(InCurrentName) {
+  }
+};
+
 /**
  *
  */
-class GAMEDATAACCESSTOOLSEDITOR_API FGameDataAssetEditor final : public FAssetEditorToolkit
+class GAMEDATAACCESSTOOLSEDITOR_API FGameDataRepositoryEditor final : public FAssetEditorToolkit
  {
 public:
-  void Initialize(const EToolkitMode::Type Mode, const TSharedPtr<IToolkitHost>& InitToolkitHost, UGameDataAsset* Asset);
+  void Initialize(const EToolkitMode::Type Mode, const TSharedPtr<IToolkitHost>& InitToolkitHost, UGameDataRepository* Asset);
   void RegisterTabSpawners(const TSharedRef<FTabManager>& InTabManager) override;
   void UnregisterTabSpawners(const TSharedRef<FTabManager>& InTabManager) override;
 
@@ -24,7 +34,7 @@ public:
 
 private:
   void OnEntrySelected(const TSharedPtr<FEntryRowData>& Entry);
-  TArray<TSharedPtr<FEntryRowData>> OnGetEntries();
+  TArray<TSharedPtr<FEntryRowData>> OnGetEntries() const;
   void OnAddEntry() const;
   void OnDeleteEntry(const TSharedPtr<FEntryRowData>& Entry);
   void OnMoveEntryUp(const TSharedPtr<FEntryRowData>& Entry);
@@ -32,11 +42,12 @@ private:
   void RefreshList() const;
   FName GenerateUniqueRowName() const;
   bool VerifyRowNameUnique(FName Name) const;
+  void OnPropertyChanged(const FPropertyChangedEvent& PropertyChangedEvent);
 
-  TSharedPtr<SGameDataAssetEntrySelector> EntrySelector;
+  TSharedPtr<SGameDataRepositoryEntrySelector> EntrySelector;
   TSharedPtr<IDetailsView> DetailsView;
-  TObjectPtr<UGameDataAsset> GameDataAsset;
+  TObjectPtr<UGameDataRepository> GameDataRepository;
   TArray<UGameDataEntry*>* GameDataEntries = nullptr;
-  TOptional<int32> CurrentRowIndex;
+  TOptional<FSelectedRow> CurrentRow;
 
 };

@@ -26,7 +26,7 @@ public:
 
 private:
 #if WITH_EDITORONLY_DATA
-  friend class FGameDataAssetEditor;
+  friend class FGameDataRepositoryEditor;
 #endif
 
   UPROPERTY(EditAnywhere, BlueprintGetter=GetId, Category = "EntryInformation")

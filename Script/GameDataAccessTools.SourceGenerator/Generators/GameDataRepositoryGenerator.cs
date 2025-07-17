@@ -10,7 +10,7 @@ using Retro.SourceGeneratorUtilities.Utilities.Attributes;
 namespace GameAccessTools.SourceGenerator.Generators;
 
 [Generator]
-internal class GameDataAssetGenerator : IIncrementalGenerator {
+internal class GameDataRepositoryGenerator : IIncrementalGenerator {
 
   public void Initialize(IncrementalGeneratorInitializationContext context) {
     var dataEntries = context.SyntaxProvider.CreateSyntaxProvider(
@@ -96,7 +96,7 @@ internal class GameDataAssetGenerator : IIncrementalGenerator {
     if (gameDataEntryInfo.GeneratedClassName is not null) {
       generatedClassName = gameDataEntryInfo.GeneratedClassName;
     } else {
-      generatedClassName = classSymbol.Name.EndsWith("Data") ? $"U{classSymbol.Name[1..]}Asset" : $"U{classSymbol.Name[1..]}DataAsset";
+      generatedClassName = classSymbol.Name.EndsWith("Data") ? $"U{classSymbol.Name[1..]}Repository" : $"U{classSymbol.Name[1..]}DataRepository";
     }
 
     string assetName;
@@ -116,6 +116,6 @@ internal class GameDataAssetGenerator : IIncrementalGenerator {
     var handlebars = Handlebars.Create();
     handlebars.Configuration.TextEncoder = null;
 
-    context.AddSource($"{generatedClassName[1..]}.g.cs", handlebars.Compile(SourceTemplates.GameDataAssetTemplate)(templateParams));
+    context.AddSource($"{generatedClassName[1..]}.g.cs", handlebars.Compile(SourceTemplates.GameDataRepositoryTemplate)(templateParams));
   }
 }

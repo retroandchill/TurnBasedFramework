@@ -5,7 +5,7 @@ using UnrealSharp.GameDataAccessTools;
 
 namespace ManagedGameDataAccessTools.DataRetrieval;
 
-public interface IGameDataAsset<T> where T : UGameDataEntry {
+public interface IGameDataRepository<T> where T : UGameDataEntry {
 
   TSubclassOf<T> EntryClass { get; }
 

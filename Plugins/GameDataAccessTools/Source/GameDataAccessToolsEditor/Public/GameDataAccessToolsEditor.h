@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include "Modules/ModuleManager.h"
 
-class FGameDataAssetActions;
+class FGameDataRepositoryActions;
 
 class FGameDataAccessToolsEditorModule final : public IModuleInterface {
 public:
@@ -11,6 +11,6 @@ public:
   void ShutdownModule() override;
 
 private:
-  TSharedPtr<FGameDataAssetActions> GameDataAssetActions;
+  TSharedPtr<FGameDataRepositoryActions> GameDataRepositoryActions;
 
 };

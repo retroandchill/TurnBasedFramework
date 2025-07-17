@@ -71,16 +71,15 @@ namespace GameAccessTools.SourceGenerator.Properties {
         ///namespace {{Namespace}};
         ///
         ///[UClass]
-        ///public partial class {{AssetClassName}} : UGameDataAsset, IGameDataAsset&lt;{{EntryName}}&gt;
+        ///public partial class {{AssetClassName}} : UGameDataRepository, IGameDataRepository&lt;{{EntryName}}&gt;
         ///{
-        ///  [UProperty(PropertyFlags.EditAnywhere | PropertyFlags.Instanced)]
-        ///  private TArray&lt;{{EntryName}}&gt; DataEntries { get; set; }
+        ///  public TSubclassOf&lt;{{EntryName}}&gt; EntryClass { get; } = new(typeof({{EntryName}}));
         ///
-        ///  private Immut [rest of string was truncated]&quot;;.
+        ///  [UProperty(PropertyFlags.EditAnywhere | Prop [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string GameDataAssetTemplate {
+        internal static string GameDataRepositoryTemplate {
             get {
-                return ResourceManager.GetString("GameDataAssetTemplate", resourceCulture);
+                return ResourceManager.GetString("GameDataRepositoryTemplate", resourceCulture);
             }
         }
     }

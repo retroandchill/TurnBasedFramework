@@ -9,7 +9,7 @@ using ManagedGameDataAccessTools.DataRetrieval;
 namespace {{Namespace}};
 
 [UClass]
-public partial class {{AssetClassName}} : UGameDataAsset, IGameDataAsset<{{EntryName}}>
+public partial class {{AssetClassName}} : UGameDataRepository, IGameDataRepository<{{EntryName}}>
 {
   public TSubclassOf<{{EntryName}}> EntryClass { get; } = new(typeof({{EntryName}}));
 

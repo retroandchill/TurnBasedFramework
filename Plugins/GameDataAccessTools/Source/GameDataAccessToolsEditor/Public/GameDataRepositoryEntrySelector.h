@@ -30,9 +30,9 @@ DECLARE_DELEGATE_OneParam(FOnMoveEntryDown, const TSharedPtr<FEntryRowData>&);
 /**
  *
  */
-class GAMEDATAACCESSTOOLSEDITOR_API SGameDataAssetEntrySelector final : public SCompoundWidget {
+class GAMEDATAACCESSTOOLSEDITOR_API SGameDataRepositoryEntrySelector final : public SCompoundWidget {
 public:
-  SLATE_BEGIN_ARGS(SGameDataAssetEntrySelector) { }
+  SLATE_BEGIN_ARGS(SGameDataRepositoryEntrySelector) { }
     SLATE_EVENT(FOnEntrySelected, OnEntrySelected)
     SLATE_EVENT(FOnGetEntries, OnGetEntries)
     SLATE_EVENT(FOnAddEntry, OnAddEntry)

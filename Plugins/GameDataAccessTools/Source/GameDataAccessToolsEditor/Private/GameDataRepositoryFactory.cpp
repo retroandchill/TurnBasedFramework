@@ -1,19 +1,19 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "GameDataAssetFactory.h"
+#include "GameDataRepositoryFactory.h"
 
 #include "ClassViewerFilter.h"
 #include "ClassViewerModule.h"
 #include "DataRetrieval/GameDataEntry.h"
-#include "DataRetrieval/GameDataAsset.h"
+#include "DataRetrieval/GameDataRepository.h"
 #include "Kismet2/SClassPickerDialog.h"
 
-class FGameDataAssetFilter final : public IClassViewerFilter {
+class FGameDataRepositoryFilter final : public IClassViewerFilter {
 public:
   bool IsClassAllowed(const FClassViewerInitializationOptions& InInitOptions, const UClass* InClass,
                       const TSharedRef<FClassViewerFilterFuncs> InFilterFuncs) override {
-    if (!InClass->IsChildOf<UGameDataAsset>() || InClass->HasAnyClassFlags(CLASS_Abstract)) {
+    if (!InClass->IsChildOf<UGameDataRepository>() || InClass->HasAnyClassFlags(CLASS_Abstract)) {
       return false;
     }
 
@@ -33,13 +33,13 @@ public:
   }
 };
 
-UGameDataAssetFactory::UGameDataAssetFactory() {
+UGameDataRepositoryFactory::UGameDataRepositoryFactory() {
   bCreateNew = true;
   bEditAfterNew = true;
-  SupportedClass = UGameDataAsset::StaticClass();
+  SupportedClass = UGameDataRepository::StaticClass();
 }
 
-bool UGameDataAssetFactory::ConfigureProperties() {
+bool UGameDataRepositoryFactory::ConfigureProperties() {
   // Configure the class viewer
   FClassViewerInitializationOptions Options;
   Options.Mode = EClassViewerMode::ClassPicker;
@@ -47,13 +47,13 @@ bool UGameDataAssetFactory::ConfigureProperties() {
   Options.bShowObjectRootClass = false;
 
   // Only show classes that are non-abstract and inherit from our base class
-  const auto Filter = MakeShared<FGameDataAssetFilter>();
+  const auto Filter = MakeShared<FGameDataRepositoryFilter>();
   Options.ClassFilters.Add(Filter);
 
-  const FText TitleText = NSLOCTEXT("GameDataAssetFactory", "CreateGameDataAssetOptions",
+  const FText TitleText = NSLOCTEXT("GameDataRepositoryFactory", "CreateGameDataRepositoryOptions",
                                     "Pick Game Data Asset Class");
   if (UClass* ChosenClass = nullptr; SClassPickerDialog::PickClass(TitleText, Options, ChosenClass,
-                                                                   UGameDataAsset::StaticClass())) {
+                                                                   UGameDataRepository::StaticClass())) {
     AssetClass = ChosenClass;
     return true;
   }
@@ -61,8 +61,8 @@ bool UGameDataAssetFactory::ConfigureProperties() {
   return false;
 }
 
-UObject* UGameDataAssetFactory::FactoryCreateNew(UClass* InClass, UObject* InParent, const FName InName,
+UObject* UGameDataRepositoryFactory::FactoryCreateNew(UClass* InClass, UObject* InParent, const FName InName,
                                                  const EObjectFlags Flags,
                                                  UObject* Context, FFeedbackContext* Warn) {
-  return NewObject<UGameDataAsset>(InParent, AssetClass, InName, Flags);
+  return NewObject<UGameDataRepository>(InParent, AssetClass, InName, Flags);
 }
