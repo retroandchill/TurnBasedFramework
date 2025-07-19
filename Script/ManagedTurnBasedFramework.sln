@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectGlue", "ProjectGlue\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameDataAccessTools.PluginGlue", "..\Plugins\GameDataAccessTools\Script\GameDataAccessTools.PluginGlue\GameDataAccessTools.PluginGlue.csproj", "{F4572550-1D3A-4B03-8106-8FEBC4E9E69E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnrealSharpGameplayAbilities.PluginGlue", "..\Plugins\UnrealSharpGameplayAbilities\Script\UnrealSharpGameplayAbilities.PluginGlue\UnrealSharpGameplayAbilities.PluginGlue.csproj", "{B9F05DDB-430D-4A58-ACDD-57440C417AB3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameDataAccessTools.SourceGenerator", "..\Plugins\GameDataAccessTools\Script\GameDataAccessTools.SourceGenerator\GameDataAccessTools.SourceGenerator.csproj", "{EBDB320B-0015-4FA1-BD9B-07D396B484EF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagedGameDataAccessTools", "..\Plugins\GameDataAccessTools\Script\ManagedGameDataAccessTools\ManagedGameDataAccessTools.csproj", "{AE3E2AE5-0786-4C99-B785-8329C7CED4A6}"
@@ -61,18 +59,6 @@ Global
 		{F4572550-1D3A-4B03-8106-8FEBC4E9E69E}.Release|x64.Build.0 = Release|Any CPU
 		{F4572550-1D3A-4B03-8106-8FEBC4E9E69E}.Release|x86.ActiveCfg = Release|Any CPU
 		{F4572550-1D3A-4B03-8106-8FEBC4E9E69E}.Release|x86.Build.0 = Release|Any CPU
-		{B9F05DDB-430D-4A58-ACDD-57440C417AB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B9F05DDB-430D-4A58-ACDD-57440C417AB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B9F05DDB-430D-4A58-ACDD-57440C417AB3}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{B9F05DDB-430D-4A58-ACDD-57440C417AB3}.Debug|x64.Build.0 = Debug|Any CPU
-		{B9F05DDB-430D-4A58-ACDD-57440C417AB3}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{B9F05DDB-430D-4A58-ACDD-57440C417AB3}.Debug|x86.Build.0 = Debug|Any CPU
-		{B9F05DDB-430D-4A58-ACDD-57440C417AB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B9F05DDB-430D-4A58-ACDD-57440C417AB3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B9F05DDB-430D-4A58-ACDD-57440C417AB3}.Release|x64.ActiveCfg = Release|Any CPU
-		{B9F05DDB-430D-4A58-ACDD-57440C417AB3}.Release|x64.Build.0 = Release|Any CPU
-		{B9F05DDB-430D-4A58-ACDD-57440C417AB3}.Release|x86.ActiveCfg = Release|Any CPU
-		{B9F05DDB-430D-4A58-ACDD-57440C417AB3}.Release|x86.Build.0 = Release|Any CPU
 		{EBDB320B-0015-4FA1-BD9B-07D396B484EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EBDB320B-0015-4FA1-BD9B-07D396B484EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBDB320B-0015-4FA1-BD9B-07D396B484EF}.Debug|x64.ActiveCfg = Debug|Any CPU
