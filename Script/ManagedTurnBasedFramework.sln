@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagedGameDataAccessTools"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnrealInject", "UnrealInject", "{923F1B13-4AB7-9957-92E8-7CA668E7127F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagedUnrealInject", "..\Plugins\UnrealInject\Script\ManagedUnrealInject\ManagedUnrealInject.csproj", "{7214EACD-3D04-439A-9542-CE1CB070F08D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnrealInject", "..\Plugins\UnrealInject\Script\UnrealInject\UnrealInject.csproj", "{7214EACD-3D04-439A-9542-CE1CB070F08D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
