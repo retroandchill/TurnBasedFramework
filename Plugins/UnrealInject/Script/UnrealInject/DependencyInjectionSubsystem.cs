@@ -27,6 +27,10 @@ public class UDependencyInjectionSubsystem : UCSGameInstanceSubsystem, IServiceP
   }
 
   public object? GetService(Type serviceType) {
+    if (serviceType == typeof(IServiceProvider) || serviceType == typeof(IServiceScopeFactory)) {
+      return this;
+    }
+
     return _serviceProvider.GetService(serviceType);
   }
 

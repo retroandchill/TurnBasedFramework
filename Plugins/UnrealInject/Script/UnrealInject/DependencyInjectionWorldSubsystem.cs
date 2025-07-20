@@ -7,8 +7,10 @@ namespace UnrealInject;
 
 [UClass]
 [UsedImplicitly]
-public class UDependencyInjectionWorldSubsystem : UCSWorldSubsystem, IServiceScope {
+public class UDependencyInjectionWorldSubsystem : UCSWorldSubsystem, IServiceProvider, IServiceScope {
   private IServiceScope _scope = null!;
+
+  public IServiceProvider ServiceProvider => this;
 
   protected override void Initialize(FSubsystemCollectionBaseRef collection) {
     var dependencyInjectionSubsystem = collection.InitializeRequiredSubsystem<UDependencyInjectionSubsystem>();
@@ -26,5 +28,11 @@ public class UDependencyInjectionWorldSubsystem : UCSWorldSubsystem, IServiceSco
     return dependencyInjectionSubsystem.SupportsScopes;
   }
 
-  public IServiceProvider ServiceProvider => _scope.ServiceProvider;
+  public object? GetService(Type serviceType) {
+    if (serviceType == typeof(IServiceProvider) || serviceType == typeof(IServiceScopeFactory)) {
+      return this;
+    }
+
+    return _scope.ServiceProvider.GetService(serviceType);
+  }
 }

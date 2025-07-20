@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnrealInject", "UnrealInjec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnrealInject", "..\Plugins\UnrealInject\Script\UnrealInject\UnrealInject.csproj", "{7214EACD-3D04-439A-9542-CE1CB070F08D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnrealInject.SourceGenerator", "..\Plugins\UnrealInject\Script\UnrealInject.SourceGenerator\UnrealInject.SourceGenerator.csproj", "{0C86A7B3-6B01-4956-BFD8-0D030839CFDC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +107,18 @@ Global
 		{7214EACD-3D04-439A-9542-CE1CB070F08D}.Release|x64.Build.0 = Release|Any CPU
 		{7214EACD-3D04-439A-9542-CE1CB070F08D}.Release|x86.ActiveCfg = Release|Any CPU
 		{7214EACD-3D04-439A-9542-CE1CB070F08D}.Release|x86.Build.0 = Release|Any CPU
+		{0C86A7B3-6B01-4956-BFD8-0D030839CFDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C86A7B3-6B01-4956-BFD8-0D030839CFDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C86A7B3-6B01-4956-BFD8-0D030839CFDC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0C86A7B3-6B01-4956-BFD8-0D030839CFDC}.Debug|x64.Build.0 = Debug|Any CPU
+		{0C86A7B3-6B01-4956-BFD8-0D030839CFDC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0C86A7B3-6B01-4956-BFD8-0D030839CFDC}.Debug|x86.Build.0 = Debug|Any CPU
+		{0C86A7B3-6B01-4956-BFD8-0D030839CFDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C86A7B3-6B01-4956-BFD8-0D030839CFDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C86A7B3-6B01-4956-BFD8-0D030839CFDC}.Release|x64.ActiveCfg = Release|Any CPU
+		{0C86A7B3-6B01-4956-BFD8-0D030839CFDC}.Release|x64.Build.0 = Release|Any CPU
+		{0C86A7B3-6B01-4956-BFD8-0D030839CFDC}.Release|x86.ActiveCfg = Release|Any CPU
+		{0C86A7B3-6B01-4956-BFD8-0D030839CFDC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,5 +132,6 @@ Global
 		{6F8584D8-835B-4059-8D63-B2D8CD092A14} = {3E331FB1-F31D-C731-6FCB-702D03607601}
 		{923F1B13-4AB7-9957-92E8-7CA668E7127F} = {07D57EEB-2F50-60C4-C011-FE4FA775C9A8}
 		{7214EACD-3D04-439A-9542-CE1CB070F08D} = {923F1B13-4AB7-9957-92E8-7CA668E7127F}
+		{0C86A7B3-6B01-4956-BFD8-0D030839CFDC} = {923F1B13-4AB7-9957-92E8-7CA668E7127F}
 	EndGlobalSection
 EndGlobal
