@@ -9,6 +9,7 @@
 
         <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
         <IsRoslynComponent>true</IsRoslynComponent>
+        <ExcludeFromWeaver>true</ExcludeFromWeaver>
         <RootNamespace>GameAccessTools.SourceGenerator</RootNamespace>
         <DefineConstants>$(DefineConstants);GAME_DATA_ACCESS_TOOLS_GENERATOR</DefineConstants>
     </PropertyGroup>
