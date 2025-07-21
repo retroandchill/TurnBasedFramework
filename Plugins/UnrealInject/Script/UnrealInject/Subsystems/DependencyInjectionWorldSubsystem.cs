@@ -12,7 +12,7 @@ public class UDependencyInjectionWorldSubsystem : UCSWorldSubsystem, IUnrealServ
   protected override void Initialize(FSubsystemCollectionBaseRef collection) {
     var gameInstanceSubsystem = GetGameInstanceSubsystem<UDependencyInjectionGameInstanceSubsystem>();
     var registrationSource = new UnrealSubsystemSource<UWorldSubsystem>(collection);
-    LifetimeScope = gameInstanceSubsystem.LifetimeScope.BeginLifetimeScope(UnrealScopes.LocalPlayer, b => {
+    LifetimeScope = gameInstanceSubsystem.LifetimeScope.BeginLifetimeScope(UnrealScopes.World, b => {
       b.RegisterInstance(World).As<UWorld>();
       b.RegisterSource(registrationSource);
     });
@@ -20,6 +20,10 @@ public class UDependencyInjectionWorldSubsystem : UCSWorldSubsystem, IUnrealServ
 
   protected override void Deinitialize() {
     LifetimeScope.Dispose();
+  }
+
+  protected override bool DoesSupportWorldType(ECSWorldType worldType) {
+    return worldType is ECSWorldType.Game or ECSWorldType.PIE;
   }
 
   public object? GetService(Type serviceType) {
