@@ -14,8 +14,7 @@ public class UDependencyInjectionLocalPlayerSubsystem : UCSLocalPlayerSubsystem,
     var gameInstanceSubsystem = GetGameInstanceSubsystem<UDependencyInjectionGameInstanceSubsystem>();
     var registrationSource = new UnrealSubsystemSource<ULocalPlayerSubsystem>(collection);
     LifetimeScope = gameInstanceSubsystem.LifetimeScope.BeginLifetimeScope(UnrealScopes.World, b => {
-      var localPlayer = LocalPlayer;
-      b.RegisterInstance(localPlayer).As<ULocalPlayer>();
+      b.RegisterInstance(LocalPlayer).As<ULocalPlayer>();
       b.RegisterSource(registrationSource);
     });
   }

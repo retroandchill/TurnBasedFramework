@@ -14,8 +14,7 @@ public class UDependencyInjectionGameInstanceSubsystem : UCSGameInstanceSubsyste
     var engineSubsystem = GetEngineSubsystem<UDependencyInjectionEngineSubsystem>();
     var registrationSource = new UnrealSubsystemSource<UGameInstanceSubsystem>(collection);
     LifetimeScope = engineSubsystem.LifetimeScope.BeginLifetimeScope(UnrealScopes.GameInstance, b => {
-      var gameInstance = GameInstance;
-      b.RegisterInstance(gameInstance).As<UGameInstance>();
+      b.RegisterInstance(GameInstance).As<UGameInstance>();
       b.RegisterSource(registrationSource);
     });
   }

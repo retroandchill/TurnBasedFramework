@@ -21,6 +21,7 @@ public class FUnrealInjectModule : IModuleInterface {
 
   public void StartupModule() {
     _instance = this;
+    ContainerBuilder = new ContainerBuilder();
   }
 
   public void ShutdownModule() {

@@ -13,8 +13,7 @@ public class UDependencyInjectionWorldSubsystem : UCSWorldSubsystem, IUnrealServ
     var gameInstanceSubsystem = GetGameInstanceSubsystem<UDependencyInjectionGameInstanceSubsystem>();
     var registrationSource = new UnrealSubsystemSource<UWorldSubsystem>(collection);
     LifetimeScope = gameInstanceSubsystem.LifetimeScope.BeginLifetimeScope(UnrealScopes.LocalPlayer, b => {
-      var world = World;
-      b.RegisterInstance(world).As<UWorld>();
+      b.RegisterInstance(World).As<UWorld>();
       b.RegisterSource(registrationSource);
     });
   }
