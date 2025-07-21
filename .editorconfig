@@ -13,7 +13,7 @@ end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 brace_style=same_line
-
+resharper_continuous_indent_multiplier = 2
 
 
 # go
