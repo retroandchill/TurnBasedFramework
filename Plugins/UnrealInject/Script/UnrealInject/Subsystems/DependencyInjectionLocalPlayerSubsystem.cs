@@ -12,11 +12,7 @@ public class UDependencyInjectionLocalPlayerSubsystem : UCSLocalPlayerSubsystem,
 
   protected override void Initialize(FSubsystemCollectionBaseRef collection) {
     var gameInstanceSubsystem = GetGameInstanceSubsystem<UDependencyInjectionGameInstanceSubsystem>();
-    var registrationSource = new UnrealSubsystemSource<ULocalPlayerSubsystem>(collection);
-    LifetimeScope = gameInstanceSubsystem.LifetimeScope.BeginLifetimeScope(UnrealScope.World, b => {
-      b.RegisterInstance(LocalPlayer).As<ULocalPlayer>();
-      b.RegisterSource(registrationSource);
-    });
+    LifetimeScope = gameInstanceSubsystem.LifetimeScope.BeginLifetimeScope(UnrealScope.LocalPlayer);
   }
 
   protected override void Deinitialize() {

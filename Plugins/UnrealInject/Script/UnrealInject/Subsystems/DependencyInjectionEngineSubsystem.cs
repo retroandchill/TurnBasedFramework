@@ -12,7 +12,6 @@ public class UDependencyInjectionEngineSubsystem : UCSEngineSubsystem, IUnrealSe
 
   protected override void Initialize(FSubsystemCollectionBaseRef collection) {
     var containerBuilder = FUnrealInjectModule.Instance.ContainerBuilder;
-    containerBuilder.RegisterSource(new UnrealSubsystemSource<UEngineSubsystem>(collection));
     _container = containerBuilder.Build();
   }
 

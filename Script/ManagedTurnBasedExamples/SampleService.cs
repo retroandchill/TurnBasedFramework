@@ -4,6 +4,6 @@ public interface ISampleService {
 
 }
 
-public class SampleService(USampleGameInstanceSubsystem gameInstance) : ISampleService {
+public class SampleService : ISampleService {
 
 }
