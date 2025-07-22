@@ -2,7 +2,7 @@
 
 namespace UnrealInject;
 
-public enum UnrealScopes {
+public enum UnrealScope {
   GameInstance,
   World,
   LocalPlayer

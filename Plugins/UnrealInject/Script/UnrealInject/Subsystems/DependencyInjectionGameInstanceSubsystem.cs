@@ -13,7 +13,7 @@ public class UDependencyInjectionGameInstanceSubsystem : UCSGameInstanceSubsyste
   protected override void Initialize(FSubsystemCollectionBaseRef collection) {
     var engineSubsystem = GetEngineSubsystem<UDependencyInjectionEngineSubsystem>();
     var registrationSource = new UnrealSubsystemSource<UGameInstanceSubsystem>(collection);
-    LifetimeScope = engineSubsystem.LifetimeScope.BeginLifetimeScope(UnrealScopes.GameInstance, b => {
+    LifetimeScope = engineSubsystem.LifetimeScope.BeginLifetimeScope(UnrealScope.GameInstance, b => {
       b.RegisterInstance(GameInstance).As<UGameInstance>();
       b.RegisterSource(registrationSource);
     });

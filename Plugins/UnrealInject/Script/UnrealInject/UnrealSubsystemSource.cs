@@ -27,7 +27,7 @@ internal class UnrealSubsystemSource<T>(FSubsystemCollectionBaseRef collection) 
 
     // Create registration-builder
     var rb = RegistrationBuilder
-      .ForDelegate<USubsystem>((_, _) => {
+      .ForDelegate(serviceType, (_, _) => {
         var collection = Unsafe.BitCast<IntPtr, FSubsystemCollectionBaseRef>(_container);
         return collection.InitializeRequiredSubsystem(new TSubclassOf<T>(serviceType));
       })

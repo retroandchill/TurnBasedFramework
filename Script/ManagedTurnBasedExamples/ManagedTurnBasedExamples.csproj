@@ -8,6 +8,7 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="8.3.0" />
     <PackageReference Include="LanguageExt.Core" Version="4.4.9" />
     <Reference Include="UnrealSharp">
       <HintPath>..\..\Plugins\UnrealSharp\Binaries\Managed\net9.0\UnrealSharp.dll</HintPath>
@@ -17,6 +18,7 @@
     </Reference>
     <Analyzer Include="..\..\Plugins\UnrealSharp\Binaries\Managed\UnrealSharp.SourceGenerators.dll" />
       <Analyzer Include="..\..\Plugins\UnrealSharp\Binaries\Managed\UnrealSharp.ExtensionSourceGenerators.dll" />
+      <ProjectReference Include="..\..\Plugins\UnrealInject\Script\UnrealInject\UnrealInject.csproj" />
     <ProjectReference Include="..\ProjectGlue\ProjectGlue.csproj" />
   </ItemGroup>
 </Project>

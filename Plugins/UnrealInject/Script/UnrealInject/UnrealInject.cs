@@ -27,4 +27,12 @@ public class FUnrealInjectModule : IModuleInterface {
   public void ShutdownModule() {
     _instance = null;
   }
+
+  public FUnrealInjectModule AddGameInstance<TInterface, TImplementation>() where TImplementation : TInterface
+                                                                            where TInterface : notnull{
+    ContainerBuilder.RegisterType<TImplementation>()
+        .As<TInterface>()
+        .InstancePerMatchingLifetimeScope(UnrealScope.GameInstance);
+    return this;
+  }
 }
