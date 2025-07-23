@@ -61,6 +61,29 @@ namespace GameAccessTools.SourceGenerator.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to #nullable enable
+        ///using UnrealSharp;
+        ///using UnrealSharp.CoreUObject;
+        ///using UnrealSharp.StaticVars;
+        ///
+        ///namespace {{Namespace}};
+        ///
+        ///public sealed partial class {{ClassName}} {
+        ///  private static readonly FGameStaticVar&lt;{{ClassName}}&gt; StaticInstance = new();
+        ///
+        ///  private static {{ClassName}} Instance =&gt; StaticInstance.Value ?? (StaticInstance.Value = new {{ClassName}}());
+        ///
+        ///  {{#Repositories}}
+        ///  private readonly TStrongObjectPtr&lt;{{Type}}&gt; _{{Name}};
+        ///  public static partial {{Type}} _{{Name}} =&gt; Instance._{{ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string GameDataRepositoryProviderTemplate {
+            get {
+                return ResourceManager.GetString("GameDataRepositoryProviderTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to #nullable enable
         ///using System.Collections.Immutable;
         ///using System.Diagnostics.CodeAnalysis;
         ///using UnrealSharp;
@@ -71,11 +94,10 @@ namespace GameAccessTools.SourceGenerator.Properties {
         ///namespace {{Namespace}};
         ///
         ///[UClass]
-        ///public partial class {{AssetClassName}} : UGameDataRepository, IGameDataRepository&lt;{{EntryName}}&gt;
-        ///{
+        ///public partial class {{AssetClassName}} : UGameDataRepository, IGameDataRepository&lt;{{EntryName}}&gt; {
         ///  public TSubclassOf&lt;{{EntryName}}&gt; EntryClass { get; } = new(typeof({{EntryName}}));
         ///
-        ///  [UProperty(PropertyFlags.EditAnywhere | Prop [rest of string was truncated]&quot;;.
+        ///  [UProperty(PropertyFlags.EditAnywhere | Prope [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GameDataRepositoryTemplate {
             get {

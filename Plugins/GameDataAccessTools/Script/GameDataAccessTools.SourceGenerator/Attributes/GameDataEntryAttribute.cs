@@ -10,12 +10,11 @@ namespace GameAccessTools.SourceGenerator.Attributes;
 [IncludeFile]
 #endif
 internal class GameDataEntryAttribute : Attribute {
+
   /// <summary>
   /// The name of the generated class, without the "U" prefix.
   /// Defaults to &lt;ClassName>DataRepository (or &lt;ClassName>Repository
   /// if the class name already ends with Data).
   /// </summary>
   public string? GeneratedClassName { get; init; }
-
-  public string? AssetName { get; init; }
 }

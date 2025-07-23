@@ -3,7 +3,7 @@
   "profiles": {
     "Generators": {
       "commandName": "DebugRoslynComponent",
-      "targetProject": "../ManagedGameDataAccessTools/ManagedGameDataAccessTools.csproj"
+      "targetProject": "../../../../Script/ManagedTurnBasedExamples/ManagedTurnBasedExamples.csproj"
     }
   }
 }
