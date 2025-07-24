@@ -6,6 +6,7 @@
 #include "GameDataRepositoryEntrySelector.h"
 #include "DataRetrieval/GameDataEntry.h"
 
+class FGameDataEntrySerializer;
 class UGameDataRepository;
 
 struct FSelectedRow
@@ -36,12 +37,19 @@ public:
     FLinearColor GetWorldCentricTabColorScale() const override;
 
 private:
+    void FillToolbar(FToolBarBuilder& ToolbarBuilder);
+
+    bool CanAddEntry() const;
+    bool CanMoveEntryUp() const;
+    bool CanMoveEntryDown() const;
+    bool CanDeleteEntry() const;
+    
     void OnEntrySelected(const TSharedPtr<FEntryRowData>& Entry);
     TArray<TSharedPtr<FEntryRowData>> OnGetEntries() const;
     void OnAddEntry() const;
-    void OnDeleteEntry(const TSharedPtr<FEntryRowData>& Entry);
-    void OnMoveEntryUp(const TSharedPtr<FEntryRowData>& Entry);
-    void OnMoveEntryDown(const TSharedPtr<FEntryRowData>& Entry);
+    void OnDeleteEntry();
+    void OnMoveEntryUp();
+    void OnMoveEntryDown();
     void RefreshList() const;
     FName GenerateUniqueRowName() const;
     bool VerifyRowNameUnique(FName Name) const;
@@ -52,4 +60,5 @@ private:
     TObjectPtr<UGameDataRepository> GameDataRepository;
     TArray<UGameDataEntry*>* GameDataEntries = nullptr;
     TOptional<FSelectedRow> CurrentRow;
+    TArray<TSharedRef<FGameDataEntrySerializer>> Serializers;
 };

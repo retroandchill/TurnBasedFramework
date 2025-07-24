@@ -3,23 +3,14 @@
 
 #include "GameDataRepositoryEntrySelector.h"
 
-#include "DesktopPlatformModule.h"
-#include "IDesktopPlatform.h"
 #include "SlateOptMacros.h"
-#include "Interop/SerializationCallbacks.h"
-#include "UnrealSharpProcHelper/CSProcHelper.h"
 #include "Widgets/Input/SSearchBox.h"
-#include "Widgets/Layout/SWrapBox.h"
 
 
 void SGameDataRepositoryEntrySelector::Construct(const FArguments& InArgs)
 {
     OnEntrySelected = InArgs._OnEntrySelected;
     OnGetEntries = InArgs._OnGetEntries;
-    OnAddEntry = InArgs._OnAddEntry;
-    OnDeleteEntry = InArgs._OnDeleteEntry;
-    OnMoveEntryUp = InArgs._OnMoveEntryUp;
-    OnMoveEntryDown = InArgs._OnMoveEntryDown;
 
     ChildSlot
     [
@@ -33,58 +24,7 @@ void SGameDataRepositoryEntrySelector::Construct(const FArguments& InArgs)
             .OnTextChanged(this, &SGameDataRepositoryEntrySelector::OnSearchTextChanged)
             .HintText(NSLOCTEXT("GameDataRepositoryEditor", "SearchBoxHint", "Search entries..."))
         ]
-
-        // Toolbar with buttons
-        + SVerticalBox::Slot()
-        .AutoHeight()
-        .Padding(2)
-        [
-            SNew(SHorizontalBox)
-
-            // Add button
-            + SHorizontalBox::Slot()
-            .AutoWidth()
-            .Padding(2)
-            [
-                SNew(SButton)
-                .OnClicked(this, &SGameDataRepositoryEntrySelector::AddEntryClicked)
-                .IsEnabled_Raw(this, &SGameDataRepositoryEntrySelector::CanAddEntry)
-                .Text(NSLOCTEXT("GameDataRepositoryEditor", "AddEntry", "Add Entry"))
-            ]
-
-            // Delete button
-            + SHorizontalBox::Slot()
-            .AutoWidth()
-            .Padding(2)
-            [
-                SNew(SButton)
-                .OnClicked(this, &SGameDataRepositoryEntrySelector::DeleteEntryClicked)
-                .IsEnabled_Raw(this, &SGameDataRepositoryEntrySelector::CanDeleteEntry)
-                .Text(NSLOCTEXT("GameDataRepositoryEditor", "DeleteEntry", "Delete Entry"))
-            ]
-
-            // Move Up button
-            + SHorizontalBox::Slot()
-            .AutoWidth()
-            .Padding(2)
-            [
-                SNew(SButton)
-                .OnClicked(this, &SGameDataRepositoryEntrySelector::MoveEntryUp)
-                .IsEnabled_Raw(this, &SGameDataRepositoryEntrySelector::CanMoveEntryUp)
-                .Text(NSLOCTEXT("GameDataRepositoryEditor", "MoveUp", "Move Up"))
-            ]
-
-            // Move Down button
-            + SHorizontalBox::Slot()
-            .AutoWidth()
-            .Padding(2)
-            [
-                SNew(SButton)
-                .OnClicked(this, &SGameDataRepositoryEntrySelector::MoveEntryDown)
-                .IsEnabled_Raw(this, &SGameDataRepositoryEntrySelector::CanMoveEntryDown)
-                .Text(NSLOCTEXT("GameDataRepositoryEditor", "MoveDown", "Move Down"))
-            ]
-        ]
+        
         // Entries list
         + SVerticalBox::Slot()
         .FillHeight(1.f)
@@ -116,6 +56,21 @@ void SGameDataRepositoryEntrySelector::SelectAtIndex(const int32 Index)
     {
         EntriesList->SetSelection(AllEntries[Index]);
     }
+}
+
+const TArray<TSharedPtr<FEntryRowData>>& SGameDataRepositoryEntrySelector::GetEntries() const
+{
+    return AllEntries;
+}
+
+TArray<TSharedPtr<FEntryRowData>> SGameDataRepositoryEntrySelector::GetSelectedEntries() const
+{
+    return EntriesList->GetSelectedItems();
+}
+
+bool SGameDataRepositoryEntrySelector::IsFiltering() const
+{
+    return FilteredEntries.Num() < AllEntries.Num();
 }
 
 TSharedRef<ITableRow> SGameDataRepositoryEntrySelector::OnGenerateRow(TSharedPtr<FEntryRowData> Item,
@@ -168,62 +123,4 @@ void SGameDataRepositoryEntrySelector::OnSelectionChanged(TSharedPtr<FEntryRowDa
     {
         OnEntrySelected.Execute(Item);
     }
-}
-
-FReply SGameDataRepositoryEntrySelector::AddEntryClicked() const
-{
-    if (OnAddEntry.IsBound())
-    {
-        OnAddEntry.Execute();
-    }
-    return FReply::Handled();
-}
-
-FReply SGameDataRepositoryEntrySelector::DeleteEntryClicked() const
-{
-    if (OnDeleteEntry.IsBound())
-    {
-        OnDeleteEntry.Execute(EntriesList->GetSelectedItems()[0]);
-    }
-    return FReply::Handled();
-}
-
-FReply SGameDataRepositoryEntrySelector::MoveEntryUp() const
-{
-    if (OnMoveEntryUp.IsBound())
-    {
-        OnMoveEntryUp.Execute(EntriesList->GetSelectedItems()[0]);
-    }
-    return FReply::Handled();
-}
-
-FReply SGameDataRepositoryEntrySelector::MoveEntryDown() const
-{
-    if (OnMoveEntryDown.IsBound())
-    {
-        OnMoveEntryDown.Execute(EntriesList->GetSelectedItems()[0]);
-    }
-    return FReply::Handled();
-}
-
-bool SGameDataRepositoryEntrySelector::CanAddEntry() const
-{
-    return EntriesList->GetSelectedItems().Num() < std::numeric_limits<int32>::max();
-}
-
-bool SGameDataRepositoryEntrySelector::CanMoveEntryUp() const
-{
-    return EntriesList->GetSelectedItems().Num() == 1 && AllEntries.Num() > 0 && EntriesList->GetSelectedItems()[0] !=
-        AllEntries[0];
-}
-
-bool SGameDataRepositoryEntrySelector::CanMoveEntryDown() const
-{
-    return EntriesList->GetSelectedItems().Num() == 1 && AllEntries.Num() > 0 && EntriesList->GetSelectedItems().Last()
-        != AllEntries.Last();
-}
-
-bool SGameDataRepositoryEntrySelector::CanDeleteEntry() const
-{
-    return EntriesList->GetSelectedItems().Num() > 0;
 }

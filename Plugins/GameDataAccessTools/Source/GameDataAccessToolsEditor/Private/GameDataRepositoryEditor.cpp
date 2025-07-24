@@ -7,6 +7,7 @@
 
 #include "GameDataRepositoryEntrySelector.h"
 #include "DataRetrieval/GameDataRepository.h"
+#include "Interop/GameDataEntrySerializer.h"
 #include "Interop/SerializationCallbacks.h"
 
 
@@ -40,6 +41,21 @@ void FGameDataRepositoryEditor::Initialize(const EToolkitMode::Type Mode,
                                          )
         );
 
+    FSerializationCallbacks::Get().ForEachSerializationAction(Asset->GetEntryClass(), [this](FGCHandleIntPtr Ptr)
+    {
+        Serializers.Emplace(MakeShared<FGameDataEntrySerializer>(Ptr));
+    });
+
+
+    const auto ToolbarExtender = MakeShared<FExtender>();
+    ToolbarExtender->AddToolBarExtension(
+        "Asset",
+        EExtensionHook::After,
+        GetToolkitCommands(),
+        FToolBarExtensionDelegate::CreateRaw(this, &FGameDataRepositoryEditor::FillToolbar)
+    );
+    AddToolbarExtender(ToolbarExtender);
+
     InitAssetEditor(Mode, InitToolkitHost, "GameDataRepositoryEditor", Layout, true, true, Asset);
 }
 
@@ -55,12 +71,8 @@ void FGameDataRepositoryEditor::RegisterTabSpawners(const TSharedRef<FTabManager
                     return SNew(SDockTab)
                         [
                             SAssignNew(EntrySelector, SGameDataRepositoryEntrySelector)
-                                .OnEntrySelected(this, &FGameDataRepositoryEditor::OnEntrySelected)
-                                .OnGetEntries(this, &FGameDataRepositoryEditor::OnGetEntries)
-                                .OnAddEntry(this, &FGameDataRepositoryEditor::OnAddEntry)
-                                .OnDeleteEntry(this, &FGameDataRepositoryEditor::OnDeleteEntry)
-                                .OnMoveEntryUp(this, &FGameDataRepositoryEditor::OnMoveEntryUp)
-                                .OnMoveEntryDown(this, &FGameDataRepositoryEditor::OnMoveEntryDown)
+                            .OnEntrySelected(this, &FGameDataRepositoryEditor::OnEntrySelected)
+                            .OnGetEntries(this, &FGameDataRepositoryEditor::OnGetEntries)
                         ];
                 }))
                 .SetDisplayName(NSLOCTEXT("GameDataRepository", "EntrySelectionTab", "Entries"))
@@ -111,6 +123,127 @@ FLinearColor FGameDataRepositoryEditor::GetWorldCentricTabColorScale() const
     return FLinearColor();
 }
 
+void FGameDataRepositoryEditor::FillToolbar(FToolBarBuilder& ToolbarBuilder)
+{
+    // Add import section
+    ToolbarBuilder.BeginSection("Import");
+    {
+        // Add import button that will be populated with dynamic actions
+        ToolbarBuilder.AddComboButton(
+            FUIAction(),
+            FOnGetContent::CreateLambda([this]
+            {
+                FMenuBuilder MenuBuilder(true, GetToolkitCommands());
+
+                for (const auto& Serializer : Serializers)
+                {
+                    const auto FormatName = Serializer->GetFormatName();
+                    // Add your dynamic import actions here
+                    MenuBuilder.AddMenuEntry(
+                        FText::Format(NSLOCTEXT("GameDataRepository", "ImportFile", "Import from {0}"), FormatName),
+                        FText::Format(NSLOCTEXT("GameDataRepository", "ImportTooltip", "Import entries from a {0} file"), FormatName),
+                        FSlateIcon(),
+                        FUIAction(FExecuteAction::CreateLambda([this]
+                        {
+                            // Implement CSV import logic
+                        }))
+                    );
+                }
+
+
+                return MenuBuilder.MakeWidget();
+            }),
+            NSLOCTEXT("GameDataRepository", "Import", "Import"),
+            NSLOCTEXT("GameDataRepository", "ImportTooltip", "Import data from various sources"),
+            FSlateIcon(FAppStyle::GetAppStyleSetName(), "Icons.Reimport")
+        );
+    }
+    ToolbarBuilder.EndSection();
+
+    // Add entry management section
+    ToolbarBuilder.BeginSection("EntryManagement");
+    {
+        ToolbarBuilder.AddToolBarButton(
+            FUIAction(
+                FExecuteAction::CreateSP(this, &FGameDataRepositoryEditor::OnAddEntry),
+                FCanExecuteAction::CreateRaw(this, &FGameDataRepositoryEditor::CanAddEntry)
+            ),
+            NAME_None,
+            NSLOCTEXT("GameDataRepository", "AddEntry", "Add"),
+            NSLOCTEXT("GameDataRepository", "AddEntryTooltip", "Add new entry"),
+            FSlateIcon(FAppStyle::GetAppStyleSetName(), "Plus")
+        );
+
+        ToolbarBuilder.AddToolBarButton(
+            FUIAction(
+                FExecuteAction::CreateSP(this, &FGameDataRepositoryEditor::OnDeleteEntry),
+                FCanExecuteAction::CreateRaw(this, &FGameDataRepositoryEditor::CanDeleteEntry)
+            ),
+            NAME_None,
+            NSLOCTEXT("GameDataRepository", "DeleteEntry", "Delete"),
+            NSLOCTEXT("GameDataRepository", "DeleteEntryTooltip", "Delete selected entry"),
+            FSlateIcon(FAppStyle::GetAppStyleSetName(), "Cross")
+        );
+
+        ToolbarBuilder.AddToolBarButton(
+            FUIAction(
+                FExecuteAction::CreateSP(this, &FGameDataRepositoryEditor::OnMoveEntryUp),
+                FCanExecuteAction::CreateRaw(this, &FGameDataRepositoryEditor::CanMoveEntryUp)
+            ),
+            NAME_None,
+            NSLOCTEXT("GameDataRepository", "MoveUp", "Move Up"),
+            NSLOCTEXT("GameDataRepository", "MoveUpTooltip", "Move selected entry up"),
+            FSlateIcon(FAppStyle::GetAppStyleSetName(), "ArrowUp")
+        );
+
+        ToolbarBuilder.AddToolBarButton(
+            FUIAction(
+                FExecuteAction::CreateSP(this, &FGameDataRepositoryEditor::OnMoveEntryDown),
+                FCanExecuteAction::CreateRaw(this, &FGameDataRepositoryEditor::CanMoveEntryDown)
+            ),
+            NAME_None,
+            NSLOCTEXT("GameDataRepository", "MoveDown", "Move Down"),
+            NSLOCTEXT("GameDataRepository", "MoveDownTooltip", "Move selected entry down"),
+            FSlateIcon(FAppStyle::GetAppStyleSetName(), "ArrowDown")
+        );
+    }
+    ToolbarBuilder.EndSection();
+}
+
+bool FGameDataRepositoryEditor::CanAddEntry() const
+{
+    return EntrySelector->GetSelectedEntries().Num() < std::numeric_limits<int32>::max();
+}
+
+bool FGameDataRepositoryEditor::CanMoveEntryUp() const
+{
+    if (EntrySelector->IsFiltering())
+    {
+        return false;
+    }
+
+    auto SelectedItems = EntrySelector->GetSelectedEntries();
+    auto& AllEntries = EntrySelector->GetEntries();
+    return SelectedItems.Num() == 1 && AllEntries.Num() > 0 && SelectedItems[0] != AllEntries[0];
+}
+
+bool FGameDataRepositoryEditor::CanMoveEntryDown() const
+{
+    if (EntrySelector->IsFiltering())
+    {
+        return false;
+    }
+
+    auto SelectedItems = EntrySelector->GetSelectedEntries();
+    auto& AllEntries = EntrySelector->GetEntries();
+    return SelectedItems.Num() == 1 && AllEntries.Num() > 0 && SelectedItems.Last() != AllEntries.Last();
+}
+
+bool FGameDataRepositoryEditor::CanDeleteEntry() const
+{
+    return EntrySelector->GetSelectedEntries().Num() > 0;
+}
+
 void FGameDataRepositoryEditor::OnEntrySelected(const TSharedPtr<FEntryRowData>& Entry)
 {
     if (Entry != nullptr)
@@ -145,14 +278,16 @@ void FGameDataRepositoryEditor::OnAddEntry() const
     RefreshList();
 }
 
-void FGameDataRepositoryEditor::OnDeleteEntry(const TSharedPtr<FEntryRowData>& Entry)
+void FGameDataRepositoryEditor::OnDeleteEntry()
 {
-    GameDataEntries->RemoveAt(Entry->Index);
+    check(CurrentRow.IsSet());
+    const auto& Entry = CurrentRow.GetValue();
+    GameDataEntries->RemoveAt(Entry.Index);
     if (GameDataEntries->Num() == 0)
     {
         CurrentRow.Reset();
     }
-    else if (Entry->Index <= GameDataEntries->Num())
+    else if (Entry.Index <= GameDataEntries->Num())
     {
         int32 NewIndex = GameDataEntries->Num() - 1;
 
@@ -161,17 +296,21 @@ void FGameDataRepositoryEditor::OnDeleteEntry(const TSharedPtr<FEntryRowData>& E
     RefreshList();
 }
 
-void FGameDataRepositoryEditor::OnMoveEntryUp(const TSharedPtr<FEntryRowData>& Entry)
+void FGameDataRepositoryEditor::OnMoveEntryUp()
 {
-    GameDataEntries->Swap(Entry->Index, Entry->Index - 1);
-    CurrentRow.Emplace(Entry->Index - 1, (*GameDataEntries)[Entry->Index - 1]->Id);
+    check(CurrentRow.IsSet());
+    const auto& Entry = CurrentRow.GetValue();
+    GameDataEntries->Swap(Entry.Index, Entry.Index - 1);
+    CurrentRow.Emplace(Entry.Index - 1, (*GameDataEntries)[Entry.Index - 1]->Id);
     RefreshList();
 }
 
-void FGameDataRepositoryEditor::OnMoveEntryDown(const TSharedPtr<FEntryRowData>& Entry)
+void FGameDataRepositoryEditor::OnMoveEntryDown()
 {
-    GameDataEntries->Swap(Entry->Index, Entry->Index + 1);
-    CurrentRow.Emplace(Entry->Index + 1, (*GameDataEntries)[Entry->Index + 1]->Id);
+    check(CurrentRow.IsSet());
+    const auto& Entry = CurrentRow.GetValue();
+    GameDataEntries->Swap(Entry.Index, Entry.Index + 1);
+    CurrentRow.Emplace(Entry.Index + 1, (*GameDataEntries)[Entry.Index + 1]->Id);
     RefreshList();
 }
 

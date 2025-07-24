@@ -43,10 +43,6 @@ public:
 
         SLATE_EVENT(FOnEntrySelected, OnEntrySelected)
         SLATE_EVENT(FOnGetEntries, OnGetEntries)
-        SLATE_EVENT(FOnAddEntry, OnAddEntry)
-        SLATE_EVENT(FOnDeleteEntry, OnDeleteEntry)
-        SLATE_EVENT(FOnMoveEntryUp, OnMoveEntryUp)
-        SLATE_EVENT(FOnMoveEntryDown, OnMoveEntryDown)
     SLATE_END_ARGS()
 
     /** Constructs this widget with InArgs */
@@ -54,19 +50,14 @@ public:
     void RefreshList();
     void SelectAtIndex(int32 Index);
 
+    const TArray<TSharedPtr<FEntryRowData>>& GetEntries() const;
+    TArray<TSharedPtr<FEntryRowData>> GetSelectedEntries() const;
+    bool IsFiltering() const;
+
 private:
     TSharedRef<ITableRow> OnGenerateRow(TSharedPtr<FEntryRowData> Item, const TSharedRef<STableViewBase>& OwnerTable);
     void OnSearchTextChanged(const FText& InSearchText);
     void OnSelectionChanged(TSharedPtr<FEntryRowData> Item, ESelectInfo::Type SelectType) const;
-    FReply AddEntryClicked() const;
-    FReply DeleteEntryClicked() const;
-    FReply MoveEntryUp() const;
-    FReply MoveEntryDown() const;
-
-    bool CanAddEntry() const;
-    bool CanMoveEntryUp() const;
-    bool CanMoveEntryDown() const;
-    bool CanDeleteEntry() const;
 
     // UI Elements
     TSharedPtr<SSearchBox> SearchBox;
@@ -78,8 +69,4 @@ private:
 
     FOnEntrySelected OnEntrySelected;
     FOnGetEntries OnGetEntries;
-    FOnAddEntry OnAddEntry;
-    FOnDeleteEntry OnDeleteEntry;
-    FOnMoveEntryUp OnMoveEntryUp;
-    FOnMoveEntryDown OnMoveEntryDown;
 };
