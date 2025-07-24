@@ -1,0 +1,11 @@
+﻿// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "Interop/GameDataEntrySerializer.h"
+
+#include "Interop/SerializationCallbacks.h"
+
+FText FGameDataEntrySerializer::GetFormatName() const
+{
+    return FSerializationCallbacks::Get().GetActionText(Handle.Handle);   
+}

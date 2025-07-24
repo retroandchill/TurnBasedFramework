@@ -5,12 +5,12 @@
 
 class FGameDataRepositoryActions;
 
-class FGameDataAccessToolsEditorModule final : public IModuleInterface {
+class FGameDataAccessToolsEditorModule final : public IModuleInterface
+{
 public:
-  void StartupModule() override;
-  void ShutdownModule() override;
+    void StartupModule() override;
+    void ShutdownModule() override;
 
 private:
-  TSharedPtr<FGameDataRepositoryActions> GameDataRepositoryActions;
-
+    TSharedPtr<FGameDataRepositoryActions> GameDataRepositoryActions;
 };

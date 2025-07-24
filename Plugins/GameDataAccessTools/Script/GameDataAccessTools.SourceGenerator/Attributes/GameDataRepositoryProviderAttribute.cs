@@ -1,5 +1,6 @@
 ﻿#if GAME_DATA_ACCESS_TOOLS_GENERATOR
 using RhoMicro.CodeAnalysis;
+
 #else
 #nullable enable
 #endif
@@ -10,7 +11,7 @@ namespace GameAccessTools.SourceGenerator.Attributes;
 #if GAME_DATA_ACCESS_TOOLS_GENERATOR
 [IncludeFile]
 #endif
-public class GameDataRepositoryProviderAttribute : Attribute {
-
-  public string? SettingsDisplayName { get; init; }
+public class GameDataRepositoryProviderAttribute : Attribute
+{
+    public string? SettingsDisplayName { get; init; }
 }

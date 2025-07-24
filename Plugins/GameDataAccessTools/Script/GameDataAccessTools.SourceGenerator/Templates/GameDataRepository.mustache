@@ -10,47 +10,54 @@ namespace {{Namespace}};
 
 [UClass]
 public partial class {{AssetClassName}} : UGameDataRepository, IGameDataRepository<{{EntryName}}> {
-  public TSubclassOf<{{EntryName}}> EntryClass { get; } = new(typeof({{EntryName}}));
+    public TSubclassOf<{{EntryName}}> EntryClass { get; } = new(typeof({{EntryName}}));
 
-  [UProperty(PropertyFlags.EditAnywhere | PropertyFlags.Instanced)]
-  private TArray<{{EntryName}}> DataEntries { get; set; }
+    [UProperty(PropertyFlags.EditAnywhere | PropertyFlags.Instanced)]
+    private TArray<{{EntryName}}> DataEntries { get; set; }
 
-  private ImmutableDictionary<FName, {{EntryName}}> _entries = ImmutableDictionary<FName, {{EntryName}}>.Empty;
-  public IReadOnlyDictionary<FName, {{EntryName}}> Entries => _entries;
+    private ImmutableDictionary<FName, {{EntryName}}> _entries = ImmutableDictionary<FName, {{EntryName}}>.Empty;
+    public IReadOnlyDictionary<FName, {{EntryName}}> Entries => _entries;
 
-  public IReadOnlyList<{{EntryName}}> OrderedEntries => DataEntries;
+    public IReadOnlyList<{{EntryName}}> OrderedEntries => DataEntries;
 
-  public int NumEntries => DataEntries.Count;
+    public int NumEntries => DataEntries.Count;
 
-  public IEnumerable<FName> EntryNames => DataEntries.Select(x => x.Id);
+    public IEnumerable<FName> EntryNames => DataEntries.Select(x => x.Id);
 
-  public sealed override TSubclassOf<UGameDataEntry> GetEntryClass() {
-    return EntryClass.As<UGameDataEntry>();
-  }
-
-  public {{EntryName}} GetEntry(FName key) {
-    return _entries[key];
-  }
-
-  public {{EntryName}} GetEntry(int index) {
-    return DataEntries[index];
-  }
-
-  public bool TryGetEntry(FName key, [NotNullWhen(true)] out {{EntryName}}? entry) {
-    return _entries.TryGetValue(key, out entry);
-  }
-
-  public bool TryGetEntry(int index, [NotNullWhen(true)] out {{EntryName}}? entry) {
-    if (index < 0 || index >= DataEntries.Count) {
-      entry = null;
-      return false;
+    public sealed override TSubclassOf<UGameDataEntry> GetEntryClass() 
+    {
+        return EntryClass.As<UGameDataEntry>();
     }
 
-    entry = DataEntries[index];
-    return true;
-  }
+    public {{EntryName}} GetEntry(FName key) 
+    {
+        return _entries[key];
+    }
 
-  public void OnGameDataAssetLoaded() {
-    _entries = DataEntries.ToImmutableDictionary(x => x.Id);
-  }
+    public {{EntryName}} GetEntry(int index) 
+    {
+        return DataEntries[index];
+    }
+
+    public bool TryGetEntry(FName key, [NotNullWhen(true)] out {{EntryName}}? entry) 
+    {
+        return _entries.TryGetValue(key, out entry);
+    }
+
+    public bool TryGetEntry(int index, [NotNullWhen(true)] out {{EntryName}}? entry) 
+    {
+        if (index < 0 || index >= DataEntries.Count) 
+        {
+            entry = null;
+            return false;
+        }
+
+        entry = DataEntries[index];
+        return true;
+    }
+
+    public void OnGameDataAssetLoaded() 
+    {
+        _entries = DataEntries.ToImmutableDictionary(x => x.Id);
+    }
 }

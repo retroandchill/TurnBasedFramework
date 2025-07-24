@@ -8,9 +8,10 @@
 /**
  *
  */
-class GAMEDATAACCESSTOOLSEDITOR_API FGameDataEntryDetailsCustomization : public IDetailCustomization {
+class GAMEDATAACCESSTOOLSEDITOR_API FGameDataEntryDetailsCustomization : public IDetailCustomization
+{
 public:
-  static TSharedRef<IDetailCustomization> MakeInstance();
+    static TSharedRef<IDetailCustomization> MakeInstance();
 
-  void CustomizeDetails(IDetailLayoutBuilder& DetailBuilder) override;
+    void CustomizeDetails(IDetailLayoutBuilder& DetailBuilder) override;
 };

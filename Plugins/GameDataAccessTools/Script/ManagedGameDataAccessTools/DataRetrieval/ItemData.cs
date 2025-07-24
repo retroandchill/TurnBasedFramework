@@ -13,13 +13,14 @@ namespace ManagedGameDataAccessTools.DataRetrieval;
 [UClass(ClassFlags.EditInlineNew)]
 [GameDataEntry]
 [UsedImplicitly]
-public class UItemData : UGameDataEntry {
-  [UProperty(PropertyFlags.EditAnywhere | PropertyFlags.BlueprintReadOnly)]
-  public string Name { get; }
+public class UItemData : UGameDataEntry
+{
+    [UProperty(PropertyFlags.EditAnywhere | PropertyFlags.BlueprintReadOnly)]
+    public string Name { get; }
 
-  [UProperty(PropertyFlags.EditAnywhere | PropertyFlags.BlueprintReadOnly)]
-  public int Value { get; }
+    [UProperty(PropertyFlags.EditAnywhere | PropertyFlags.BlueprintReadOnly)]
+    public int Value { get; }
 
-  [UProperty(PropertyFlags.EditAnywhere | PropertyFlags.BlueprintReadOnly)]
-  public UTexture2D Icon { get; }
+    [UProperty(PropertyFlags.EditAnywhere | PropertyFlags.BlueprintReadOnly)]
+    public UTexture2D Icon { get; }
 }

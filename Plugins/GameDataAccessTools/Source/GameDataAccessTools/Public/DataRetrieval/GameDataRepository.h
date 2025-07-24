@@ -12,11 +12,11 @@ class UGameDataEntry;
  *
  */
 UCLASS(abstract)
-class GAMEDATAACCESSTOOLS_API UGameDataRepository : public UObject {
-  GENERATED_BODY()
+class GAMEDATAACCESSTOOLS_API UGameDataRepository : public UObject
+{
+    GENERATED_BODY()
 
 public:
-  UFUNCTION(BlueprintImplementableEvent, Category = "GameDataRepository")
-  TSubclassOf<UGameDataEntry> GetEntryClass() const;
-
+    UFUNCTION(BlueprintImplementableEvent, Category = "GameDataRepository")
+    TSubclassOf<UGameDataEntry> GetEntryClass() const;
 };

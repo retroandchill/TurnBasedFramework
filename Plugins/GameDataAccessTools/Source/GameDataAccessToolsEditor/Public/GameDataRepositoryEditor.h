@@ -8,46 +8,48 @@
 
 class UGameDataRepository;
 
-struct FSelectedRow {
-  int32 Index;
-  FName CurrentName;
+struct FSelectedRow
+{
+    int32 Index;
+    FName CurrentName;
 
-  FSelectedRow(int32 InIndex, FName InCurrentName)
-    : Index(InIndex), CurrentName(InCurrentName) {
-  }
+    FSelectedRow(int32 InIndex, FName InCurrentName)
+        : Index(InIndex), CurrentName(InCurrentName)
+    {
+    }
 };
 
 /**
  *
  */
 class GAMEDATAACCESSTOOLSEDITOR_API FGameDataRepositoryEditor final : public FAssetEditorToolkit
- {
+{
 public:
-  void Initialize(const EToolkitMode::Type Mode, const TSharedPtr<IToolkitHost>& InitToolkitHost, UGameDataRepository* Asset);
-  void RegisterTabSpawners(const TSharedRef<FTabManager>& InTabManager) override;
-  void UnregisterTabSpawners(const TSharedRef<FTabManager>& InTabManager) override;
+    void Initialize(const EToolkitMode::Type Mode, const TSharedPtr<IToolkitHost>& InitToolkitHost,
+                    UGameDataRepository* Asset);
+    void RegisterTabSpawners(const TSharedRef<FTabManager>& InTabManager) override;
+    void UnregisterTabSpawners(const TSharedRef<FTabManager>& InTabManager) override;
 
-  FName GetToolkitFName() const override;
-  FText GetBaseToolkitName() const override;
-  FString GetWorldCentricTabPrefix() const override;
-  FLinearColor GetWorldCentricTabColorScale() const override;
+    FName GetToolkitFName() const override;
+    FText GetBaseToolkitName() const override;
+    FString GetWorldCentricTabPrefix() const override;
+    FLinearColor GetWorldCentricTabColorScale() const override;
 
 private:
-  void OnEntrySelected(const TSharedPtr<FEntryRowData>& Entry);
-  TArray<TSharedPtr<FEntryRowData>> OnGetEntries() const;
-  void OnAddEntry() const;
-  void OnDeleteEntry(const TSharedPtr<FEntryRowData>& Entry);
-  void OnMoveEntryUp(const TSharedPtr<FEntryRowData>& Entry);
-  void OnMoveEntryDown(const TSharedPtr<FEntryRowData>& Entry);
-  void RefreshList() const;
-  FName GenerateUniqueRowName() const;
-  bool VerifyRowNameUnique(FName Name) const;
-  void OnPropertyChanged(const FPropertyChangedEvent& PropertyChangedEvent);
+    void OnEntrySelected(const TSharedPtr<FEntryRowData>& Entry);
+    TArray<TSharedPtr<FEntryRowData>> OnGetEntries() const;
+    void OnAddEntry() const;
+    void OnDeleteEntry(const TSharedPtr<FEntryRowData>& Entry);
+    void OnMoveEntryUp(const TSharedPtr<FEntryRowData>& Entry);
+    void OnMoveEntryDown(const TSharedPtr<FEntryRowData>& Entry);
+    void RefreshList() const;
+    FName GenerateUniqueRowName() const;
+    bool VerifyRowNameUnique(FName Name) const;
+    void OnPropertyChanged(const FPropertyChangedEvent& PropertyChangedEvent);
 
-  TSharedPtr<SGameDataRepositoryEntrySelector> EntrySelector;
-  TSharedPtr<IDetailsView> DetailsView;
-  TObjectPtr<UGameDataRepository> GameDataRepository;
-  TArray<UGameDataEntry*>* GameDataEntries = nullptr;
-  TOptional<FSelectedRow> CurrentRow;
-
+    TSharedPtr<SGameDataRepositoryEntrySelector> EntrySelector;
+    TSharedPtr<IDetailsView> DetailsView;
+    TObjectPtr<UGameDataRepository> GameDataRepository;
+    TArray<UGameDataEntry*>* GameDataEntries = nullptr;
+    TOptional<FSelectedRow> CurrentRow;
 };

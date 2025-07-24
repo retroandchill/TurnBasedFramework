@@ -5,7 +5,7 @@ using Retro.SourceGeneratorUtilities.Utilities.Attributes;
 namespace GameAccessTools.SourceGenerator.Model;
 
 [AttributeInfoType<GameDataRepositoryProviderAttribute>]
-public record struct GameDataRepositoryProviderInfo {
-
-  public string? SettingsDisplayName { get; init; }
+public record struct GameDataRepositoryProviderInfo
+{
+    public string? SettingsDisplayName { get; init; }
 }

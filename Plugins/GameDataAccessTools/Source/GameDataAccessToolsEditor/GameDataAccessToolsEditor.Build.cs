@@ -20,11 +20,12 @@ public class GameDataAccessToolsEditor : ModuleRules
             new string[]
             {
                 "CoreUObject",
+                "UnrealSharpBinds",
                 "Engine",
                 "Slate",
                 "SlateCore",
                 "WorkspaceMenuStructure",
-                "InputCore"
+                "InputCore", "UnrealSharpProcHelper"
             }
         );
     }

@@ -7,12 +7,14 @@
 #include "DetailLayoutBuilder.h"
 
 
-TSharedRef<IDetailCustomization> FGameDataEntryDetailsCustomization::MakeInstance() {
-  return MakeShared<FGameDataEntryDetailsCustomization>();
+TSharedRef<IDetailCustomization> FGameDataEntryDetailsCustomization::MakeInstance()
+{
+    return MakeShared<FGameDataEntryDetailsCustomization>();
 }
 
-void FGameDataEntryDetailsCustomization::CustomizeDetails(IDetailLayoutBuilder& DetailBuilder) {
-  DetailBuilder.EditCategory("EntryInformation",
-    NSLOCTEXT("GameDataEntry", "EntryInformation", "Entry Information"),
-    ECategoryPriority::Important);
+void FGameDataEntryDetailsCustomization::CustomizeDetails(IDetailLayoutBuilder& DetailBuilder)
+{
+    DetailBuilder.EditCategory("EntryInformation",
+                               NSLOCTEXT("GameDataEntry", "EntryInformation", "Entry Information"),
+                               ECategoryPriority::Important);
 }

@@ -9,31 +9,34 @@ using UnrealSharp.StaticVars;
 namespace {{Namespace}};
 
 [UClass(ClassFlags.DefaultConfig, {{#HasDisplayName}}DisplayName = "{{DisplayName}}", {{/HasDisplayName}}ConfigCategory = "Game")]
-public partial class U{{ClassName}}Settings : UDeveloperSettings {
+public partial class U{{ClassName}}Settings : UDeveloperSettings 
+{
 
-  {{#Repositories}}
-  [UProperty(PropertyFlags.EditDefaultsOnly | PropertyFlags.BlueprintReadOnly | PropertyFlags.Config{{#HasCategory}}, Category = "{{Category}}"{{/HasCategory}})]
-  [AllowedClasses("UnrealSharp.{{RepositoryClassName}}_C")]
-  public FSoftObjectPath {{Name}} { get; }
-  {{/Repositories}}
+    {{#Repositories}}
+    [UProperty(PropertyFlags.EditDefaultsOnly | PropertyFlags.BlueprintReadOnly | PropertyFlags.Config{{#HasCategory}}, Category = "{{Category}}"{{/HasCategory}})]
+    [AllowedClasses("UnrealSharp.{{RepositoryClassName}}_C")]
+    public FSoftObjectPath {{Name}} { get; }
+    {{/Repositories}}
 
 }
 
-public sealed partial class {{ClassName}} {
-  private static readonly FGameStaticVar<{{ClassName}}> StaticInstance = new();
+public sealed partial class {{ClassName}} 
+{
+    private static readonly FGameStaticVar<{{ClassName}}> StaticInstance = new();
 
-  private static {{ClassName}} Instance => StaticInstance.Value ?? (StaticInstance.Value = new {{ClassName}}());
+    private static {{ClassName}} Instance => StaticInstance.Value ?? (StaticInstance.Value = new {{ClassName}}());
 
-  {{#Repositories}}
-  private readonly TStrongObjectPtr<{{Type}}> _{{Name}};
-  public static partial {{Type}} {{Name}} => Instance._{{Name}}.Value ?? throw new InvalidOperationException("{{Name}} not initialized");
-  {{/Repositories}}
-
-  private {{ClassName}}() {
-    var settings = UObject.GetDefault<U{{ClassName}}Settings>();
     {{#Repositories}}
-    _{{Name}} = settings.{{Name}}.Object as {{Type}};
+    private readonly TStrongObjectPtr<{{Type}}> _{{Name}};
+    public static partial {{Type}} {{Name}} => Instance._{{Name}}.Value ?? throw new InvalidOperationException("{{Name}} not initialized");
     {{/Repositories}}
-  }
+
+    private {{ClassName}}() 
+    {
+        var settings = UObject.GetDefault<U{{ClassName}}Settings>();
+        {{#Repositories}}
+        _{{Name}} = settings.{{Name}}.Object as {{Type}};
+        {{/Repositories}}
+    }
 
 }

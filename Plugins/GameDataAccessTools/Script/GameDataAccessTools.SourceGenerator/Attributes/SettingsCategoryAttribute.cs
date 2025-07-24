@@ -8,6 +8,7 @@ namespace GameAccessTools.SourceGenerator.Attributes;
 #if GAME_DATA_ACCESS_TOOLS_GENERATOR
 [IncludeFile]
 #endif
-internal class SettingsCategoryAttribute(string name) : Attribute {
-  public string Name { get; } = name;
+internal class SettingsCategoryAttribute(string name) : Attribute
+{
+    public string Name { get; } = name;
 }

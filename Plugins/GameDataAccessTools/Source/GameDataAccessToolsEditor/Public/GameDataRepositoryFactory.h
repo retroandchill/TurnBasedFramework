@@ -10,20 +10,20 @@
  *
  */
 UCLASS()
-class GAMEDATAACCESSTOOLSEDITOR_API UGameDataRepositoryFactory : public UFactory {
-  GENERATED_BODY()
+class GAMEDATAACCESSTOOLSEDITOR_API UGameDataRepositoryFactory : public UFactory
+{
+    GENERATED_BODY()
 
 public:
-  UGameDataRepositoryFactory();
+    UGameDataRepositoryFactory();
 
-  bool ConfigureProperties() override;
+    bool ConfigureProperties() override;
 
-  UObject* FactoryCreateNew(UClass* InClass, UObject* InParent, FName InName, EObjectFlags Flags,
-    UObject* Context, FFeedbackContext* Warn) override;
+    UObject* FactoryCreateNew(UClass* InClass, UObject* InParent, FName InName, EObjectFlags Flags,
+                              UObject* Context, FFeedbackContext* Warn) override;
 
 private:
-  // Store the chosen class
-  UPROPERTY()
-  TObjectPtr<UClass> AssetClass;
-
+    // Store the chosen class
+    UPROPERTY()
+    TObjectPtr<UClass> AssetClass;
 };

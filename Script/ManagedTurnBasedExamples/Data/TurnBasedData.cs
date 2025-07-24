@@ -6,10 +6,8 @@ using UnrealSharp.StaticVars;
 namespace ManagedTurnBasedExamples.Data;
 
 [GameDataRepositoryProvider(SettingsDisplayName = "Turn-Based Data")]
-public partial class TurnBasedData {
-
-  [SettingsCategory("PBS")]
-  public static partial USkillDataRepository Skills { get; }
-
-
+public partial class TurnBasedData
+{
+    [SettingsCategory("PBS")]
+    public static partial USkillDataRepository Skills { get; }
 }

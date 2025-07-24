@@ -1,25 +1,32 @@
-﻿using Autofac;
+﻿using Microsoft.Extensions.DependencyInjection;
 using UnrealSharp.Attributes;
-using UnrealSharp.Engine;
 using UnrealSharp.UnrealSharpCore;
 
 namespace UnrealInject.Subsystems;
 
 [UClass]
-public class UDependencyInjectionGameInstanceSubsystem : UCSGameInstanceSubsystem, IUnrealServiceScope {
+public sealed class UDependencyInjectionGameInstanceSubsystem : UCSGameInstanceSubsystem, IServiceProvider, IServiceScope
+{
+    private IServiceScope _serviceScope = null!;
+    
+    public IServiceProvider ServiceProvider => _serviceScope.ServiceProvider;
 
-  public ILifetimeScope LifetimeScope { get; private set; } = null!;
+    protected override void Initialize(FSubsystemCollectionBaseRef collection)
+    {
+        var engineSubsystem = GetEngineSubsystem<UDependencyInjectionEngineSubsystem>();
+        _serviceScope = engineSubsystem.CreateScope();
+    }
 
-  protected override void Initialize(FSubsystemCollectionBaseRef collection) {
-    var engineSubsystem = GetEngineSubsystem<UDependencyInjectionEngineSubsystem>();
-    LifetimeScope = engineSubsystem.LifetimeScope.BeginLifetimeScope(UnrealScope.GameInstance);
-  }
+    protected override void Deinitialize()
+    {
+        if (_serviceScope is IDisposable disposable)
+        {
+            disposable.Dispose();
+        }
+    }
 
-  protected override void Deinitialize() {
-    LifetimeScope.Dispose();
-  }
-
-  public object? GetService(Type serviceType) {
-    return LifetimeScope.ResolveOptional(serviceType);
-  }
+    public object? GetService(Type serviceType)
+    {
+        return _serviceScope.ServiceProvider.GetService(serviceType);
+    }
 }
