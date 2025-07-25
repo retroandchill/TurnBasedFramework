@@ -12,11 +12,11 @@ namespace ManagedTurnBasedExamples.Data;
 public class USkillData : UGameDataEntry
 {
     [UProperty(PropertyFlags.EditAnywhere | PropertyFlags.BlueprintReadOnly)]
-    public string Name { get; }
+    public string Name { get; internal set; }
 
     [UProperty(PropertyFlags.EditAnywhere | PropertyFlags.BlueprintReadOnly)]
-    public int Value { get; }
+    public int Value { get; internal set; }
 
     [UProperty(PropertyFlags.EditAnywhere | PropertyFlags.BlueprintReadOnly)]
-    public UTexture2D Icon { get; }
+    public UTexture2D Icon { get; internal set; }
 }
