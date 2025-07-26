@@ -16,11 +16,11 @@ void UFJsonObjectExporter::SetField(const TSharedPtr<FJsonObject>& JsonObject, c
     JsonObject->SetField(FieldName, LocalCopy);  
 }
 
-void UFJsonObjectExporter::CreateJsonIterator(const TSharedPtr<FJsonObject>& JsonObject, FJsonObjectIterator& Iterator)
+void UFJsonObjectExporter::CreateJsonIterator(const TSharedPtr<FJsonValue>& JsonObject, FJsonObjectIterator& Iterator)
 {
     static_assert(sizeof(FJsonObjectIterator) <= 64);
     static_assert(std::is_trivially_destructible_v<FJsonObjectIterator>);
-    std::construct_at(&Iterator, JsonObject->Values.CreateConstIterator()); 
+    std::construct_at(&Iterator, JsonObject->AsObject()->Values.CreateConstIterator()); 
 }
 
 bool UFJsonObjectExporter::AdvanceJsonIterator(FJsonObjectIterator& Iterator)

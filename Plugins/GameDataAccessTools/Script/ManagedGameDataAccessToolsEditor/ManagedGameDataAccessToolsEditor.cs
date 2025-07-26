@@ -1,3 +1,4 @@
+using System.Text.Json;
 using ManagedGameDataAccessToolsEditor.Interop;
 using ManagedGameDataAccessToolsEditor.Serialization;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +15,13 @@ public class FManagedGameDataAccessToolsEditor : IModuleInterface
     {
         var serializationActions = SerializationActions.Create();
         SerializationExporter.CallAssignSerializationActions(ref serializationActions);
-        
+
+        FUnrealInjectModule.Instance.Services.AddSingleton(new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
+            AllowTrailingCommas = true,
+        });
         FUnrealInjectModule.Instance.Services.AddSingleton(typeof(IGameDataEntrySerializer<>), typeof(GameDataEntryJsonSerializer<>));
     }
 

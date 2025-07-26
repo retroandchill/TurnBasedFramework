@@ -25,7 +25,7 @@ public:
     static void SetField(const TSharedPtr<FJsonObject>& JsonObject, const char* FieldName, TSharedPtr<FJsonValue>& Value);
 
     UNREALSHARP_FUNCTION()
-    static void CreateJsonIterator(const TSharedPtr<FJsonObject>& JsonObject, FJsonObjectIterator& Iterator);
+    static void CreateJsonIterator(const TSharedPtr<FJsonValue>& JsonObject, FJsonObjectIterator& Iterator);
 
     UNREALSHARP_FUNCTION()
     static bool AdvanceJsonIterator(FJsonObjectIterator& Iterator);

@@ -19,7 +19,7 @@ public static unsafe partial class FJsonValueExporter
     
     private static readonly delegate* unmanaged<ref NativeJsonValue, NativeBool> GetJsonBool;
     private static readonly delegate* unmanaged<ref NativeJsonValue, double> GetJsonNumber;
-    private static readonly delegate* unmanaged<ref NativeJsonValue, char*> GetJsonString;
+    private static readonly delegate* unmanaged<ref NativeJsonValue, ref UnmanagedArray, void> GetJsonString;
     private static readonly delegate* unmanaged<ref NativeJsonValue, ref UnmanagedArray*, void> GetJsonArray;
     private static readonly delegate* unmanaged<ref NativeJsonValue, ref NativeJsonValue*, void> GetJsonObject;
 }

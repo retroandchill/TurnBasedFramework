@@ -12,7 +12,7 @@ using FSerializationAction = TFunctionRef<void(const FGCHandleIntPtr)>;
 
 struct FSerializationActions
 {
-    using FGetSerializationActions = void(__stdcall*)(const UClass*, const TArray<TSharedRef<FGameDataEntrySerializer>>&);
+    using FGetSerializationActions = void(__stdcall*)(const UClass*, const TArray<TSharedRef<FGameDataEntrySerializer>>*);
     using FGetActionText = void(__stdcall*)(const FGCHandleIntPtr, FText*);
     using FGetFileExtensionText = void(__stdcall*)(const FGCHandleIntPtr, FString*);
     using FSerializeToString = bool(__stdcall*)(const FGCHandleIntPtr, const UGameDataRepository*, FString*);

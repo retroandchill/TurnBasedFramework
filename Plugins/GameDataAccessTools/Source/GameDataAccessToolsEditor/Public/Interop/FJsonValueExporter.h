@@ -33,4 +33,25 @@ public:
     
     UNREALSHARP_FUNCTION()
     static void CreateJsonObject(TSharedPtr<FJsonValue>& JsonValue, TSharedPtr<FJsonObject>& Object);
+
+    UNREALSHARP_FUNCTION()
+    static EJson GetJsonType(const TSharedPtr<FJsonValue>& JsonValue);
+
+    UNREALSHARP_FUNCTION()
+    static void DestroyJsonValue(TSharedPtr<FJsonValue>& JsonValue);
+
+    UNREALSHARP_FUNCTION()
+    static bool GetJsonBool(const TSharedPtr<FJsonValue>& JsonValue);
+    
+    UNREALSHARP_FUNCTION()
+    static double GetJsonNumber(const TSharedPtr<FJsonValue>& JsonValue);
+
+    UNREALSHARP_FUNCTION()
+    static void GetJsonString(const TSharedPtr<FJsonValue>& JsonValue, FString& OutString);
+    
+    UNREALSHARP_FUNCTION()
+    static void GetJsonArray(const TSharedPtr<FJsonValue>& JsonValue, const TArray<TSharedPtr<FJsonValue>>*& Values);
+
+    UNREALSHARP_FUNCTION()
+    static void GetJsonObject(const TSharedPtr<FJsonValue>& JsonValue, const TSharedPtr<FJsonObject>*& Object);
 };

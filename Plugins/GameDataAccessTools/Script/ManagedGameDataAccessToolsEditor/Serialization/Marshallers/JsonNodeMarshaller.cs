@@ -89,7 +89,12 @@ public static class JsonNodeMarshaller
                 case EJson.None or EJson.Null:
                     return JsonValue.Create((object)null!);
                 case EJson.String:
-                    return JsonValue.Create(new string(FJsonValueExporter.CallGetJsonString(ref nativeBuffer)));
+                {
+                    var nativeString = new UnmanagedArray();
+                    using var releaser = new StringDataReleaser(ref nativeString);
+                    FJsonValueExporter.CallGetJsonString(ref nativeBuffer, ref nativeString);
+                    return JsonValue.Create(StringMarshaller.FromNative((IntPtr)(&nativeString), 0));
+                }
                 case EJson.Number:
                     return JsonValue.Create(FJsonValueExporter.CallGetJsonNumber(ref nativeBuffer));
                 case EJson.Boolean:

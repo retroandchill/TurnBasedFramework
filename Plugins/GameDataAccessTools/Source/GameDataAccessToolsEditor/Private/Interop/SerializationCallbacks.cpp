@@ -19,7 +19,7 @@ TArray<TSharedRef<FGameDataEntrySerializer>> FSerializationCallbacks::GetSeriali
 {
     TArray<TSharedRef<FGameDataEntrySerializer>> Result;
     check(Actions.GetSerializationActions != nullptr);
-    Actions.GetSerializationActions(Class, Result);
+    Actions.GetSerializationActions(Class, &Result);
     return Result; 
 }
 

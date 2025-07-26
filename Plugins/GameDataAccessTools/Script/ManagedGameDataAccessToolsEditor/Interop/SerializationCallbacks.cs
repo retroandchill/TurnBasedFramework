@@ -109,7 +109,8 @@ public static class SerializationCallbacks
     {
         try
         {
-            var dataRepository = ObjectMarshaller<UGameDataRepository>.FromNative(classHandle, 0);
+            var dataRepositoryHandle = FCSManagerExporter.CallFindManagedObject(classHandle);
+            var dataRepository = GCHandleUtilities.GetObjectFromHandlePtr<UGameDataRepository>(dataRepositoryHandle)!;
             var entryClass = dataRepository.GetEntryClass();
             var entryType = entryClass.DefaultObject.GetType();
 
@@ -130,7 +131,7 @@ public static class SerializationCallbacks
         }
         catch (Exception e)
         {
-            StringMarshaller.ToNative(stringOutput, 0, e.Message);
+            StringMarshaller.ToNative(stringOutput, 0, $"{e.Message}\n{e.StackTrace}");
             return NativeBool.False;
         }
     }
