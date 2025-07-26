@@ -14,6 +14,4 @@ public static unsafe partial class PropertyMetadataExporter
     private static readonly delegate* unmanaged<IntPtr, byte> GetFieldMask;
     private static readonly delegate* unmanaged<IntPtr, IntPtr> GetEnum;
     private static readonly delegate* unmanaged<IntPtr, IntPtr> GetObjectClass;
-    private static readonly delegate* unmanaged<IntPtr, IntPtr> GetMetaClass;
-    private static readonly delegate* unmanaged<IntPtr, IntPtr> GetInterfaceClass;
 }
