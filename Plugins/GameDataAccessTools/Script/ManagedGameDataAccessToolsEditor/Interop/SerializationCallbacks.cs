@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Text.Json;
 using JetBrains.Annotations;
 using ManagedGameDataAccessTools.DataRetrieval;
 using ManagedGameDataAccessToolsEditor.Serialization;
@@ -28,6 +29,9 @@ public unsafe struct SerializationActions
     [UsedImplicitly]
     public required delegate* unmanaged<IntPtr, IntPtr, IntPtr, NativeBool> SerializeToString { get; init; }
     
+    [UsedImplicitly]
+    public required delegate* unmanaged<IntPtr, IntPtr, IntPtr, IntPtr, IntPtr, NativeBool> DeserializeFromString { get; init; }
+    
     public static SerializationActions Create()
     {
         return new SerializationActions
@@ -35,7 +39,8 @@ public unsafe struct SerializationActions
             GetSerializationActions = &SerializationCallbacks.GetSerializationActions,
             GetActionText = &SerializationCallbacks.GetActionText,
             GetFileExtensionText = &SerializationCallbacks.GetFileExtensionText,
-            SerializeToString = &SerializationCallbacks.SerializeToString
+            SerializeToString = &SerializationCallbacks.SerializeToString,
+            DeserializeFromString = &SerializationCallbacks.DeserializeFromString
         };
     }
 }
@@ -105,11 +110,11 @@ public static class SerializationCallbacks
     }
     
     [UnmanagedCallersOnly]
-    public static NativeBool SerializeToString(IntPtr actionHandle, IntPtr classHandle, IntPtr stringOutput)
+    public static NativeBool SerializeToString(IntPtr actionHandle, IntPtr nativeRepository, IntPtr stringOutput)
     {
         try
         {
-            var dataRepositoryHandle = FCSManagerExporter.CallFindManagedObject(classHandle);
+            var dataRepositoryHandle = FCSManagerExporter.CallFindManagedObject(nativeRepository);
             var dataRepository = GCHandleUtilities.GetObjectFromHandlePtr<UGameDataRepository>(dataRepositoryHandle)!;
             var entryClass = dataRepository.GetEntryClass();
             var entryType = entryClass.DefaultObject.GetType();
@@ -141,5 +146,52 @@ public static class SerializationCallbacks
         where TEntry : UGameDataEntry
     {
         return action.SerializeData(repository.OrderedEntries);
+    }
+    
+    [UnmanagedCallersOnly]
+    public static NativeBool DeserializeFromString(IntPtr actionHandle, IntPtr stringInput, IntPtr nativeRepository, IntPtr destinationCollection, IntPtr exceptionString)
+    {
+        try
+        {
+            var dataRepositoryHandle = FCSManagerExporter.CallFindManagedObject(nativeRepository);
+            var dataRepository = GCHandleUtilities.GetObjectFromHandlePtr<UGameDataRepository>(dataRepositoryHandle)!;
+            var entryClass = dataRepository.GetEntryClass();
+            var entryType = entryClass.DefaultObject.GetType();
+            
+            var inputString = StringMarshaller.FromNative(stringInput, 0);
+
+            var handle = GCHandle.FromIntPtr(actionHandle);
+            if (handle.Target is not IGameDataEntrySerializer)
+            {
+                throw new InvalidOperationException("Invalid action.");
+            }
+
+            var serializerMethod = typeof(SerializationCallbacks)
+                .GetMethod(nameof(DeserializeInternal), BindingFlags.NonPublic | BindingFlags.Static)!
+                .MakeGenericMethod(entryType);
+
+            serializerMethod.Invoke(null, [stringInput, handle.Target, dataRepository, destinationCollection]);
+            
+        
+            return NativeBool.True;
+        }
+        catch (Exception e)
+        {
+            StringMarshaller.ToNative(exceptionString, 0, $"{e.Message}\n{e.StackTrace}");
+            return NativeBool.False;
+        }
+    }
+    
+    private static void DeserializeInternal<TEntry>(string inputString, 
+                                                    IGameDataEntrySerializer<TEntry> action, 
+                                                    IGameDataRepository<TEntry> repository,
+                                                    IntPtr destinationCollection)
+        where TEntry : UGameDataEntry
+    {
+        if (repository is not UObject repositoryObject)
+        {
+            throw new InvalidOperationException("Invalid repository.");
+        }
+        action.DeserializeData(inputString, repositoryObject);
     }
 }

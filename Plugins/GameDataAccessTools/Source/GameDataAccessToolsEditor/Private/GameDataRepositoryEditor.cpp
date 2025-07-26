@@ -5,11 +5,15 @@
 
 #include <bit>
 
+#include "DesktopPlatformModule.h"
+#include "EditorDirectories.h"
 #include "GameDataRepositoryEntrySelector.h"
 #include "DataRetrieval/GameDataRepository.h"
 #include "Interop/GameDataEntrySerializer.h"
 #include "Interop/SerializationCallbacks.h"
 
+
+class IDesktopPlatform;
 
 void FGameDataRepositoryEditor::Initialize(const EToolkitMode::Type Mode,
                                            const TSharedPtr<IToolkitHost>& InitToolkitHost,
@@ -127,28 +131,7 @@ void FGameDataRepositoryEditor::FillToolbar(FToolBarBuilder& ToolbarBuilder)
         // Add import button that will be populated with dynamic actions
         ToolbarBuilder.AddComboButton(
             FUIAction(),
-            FOnGetContent::CreateLambda([this]
-            {
-                FMenuBuilder MenuBuilder(true, GetToolkitCommands());
-
-                for (const auto& Serializer : Serializers)
-                {
-                    const auto FormatName = Serializer->GetFormatName();
-                    // Add your dynamic import actions here
-                    MenuBuilder.AddMenuEntry(
-                        FText::Format(NSLOCTEXT("GameDataRepository", "ImportFile", "Import from {0}"), FormatName),
-                        FText::Format(NSLOCTEXT("GameDataRepository", "ImportTooltip", "Import entries from a {0} file"), FormatName),
-                        FSlateIcon(),
-                        FUIAction(FExecuteAction::CreateLambda([this]
-                        {
-                            // Implement CSV import logic
-                        }))
-                    );
-                }
-
-
-                return MenuBuilder.MakeWidget();
-            }),
+            FOnGetContent::CreateSP(this, &FGameDataRepositoryEditor::ImportMenuEntries),
             NSLOCTEXT("GameDataRepository", "Import", "Import"),
             NSLOCTEXT("GameDataRepository", "ImportTooltip", "Import data from various sources"),
             FSlateIcon(FAppStyle::GetAppStyleSetName(), "Icons.Reimport")
@@ -204,6 +187,66 @@ void FGameDataRepositoryEditor::FillToolbar(FToolBarBuilder& ToolbarBuilder)
         );
     }
     ToolbarBuilder.EndSection();
+}
+
+TSharedRef<SWidget> FGameDataRepositoryEditor::ImportMenuEntries()
+{
+    FMenuBuilder MenuBuilder(true, GetToolkitCommands());
+
+    for (const auto& Serializer : Serializers)
+    {
+        const auto FormatName = Serializer->GetFormatName();
+        // Add your dynamic import actions here
+        MenuBuilder.AddMenuEntry(
+            FText::Format(NSLOCTEXT("GameDataRepository", "ImportFile", "Import from {0}"), FormatName),
+            FText::Format(
+                NSLOCTEXT("GameDataRepository", "ImportTooltip", "Import entries from a {0} file"), FormatName),
+            FSlateIcon(),
+            FUIAction(FExecuteAction::CreateSP(this, &FGameDataRepositoryEditor::ImportGameDataRepository, Serializer))
+        );
+    }
+
+
+    return MenuBuilder.MakeWidget();
+}
+
+void FGameDataRepositoryEditor::ImportGameDataRepository(TSharedRef<FGameDataEntrySerializer> Serializer)
+{
+    if (IDesktopPlatform* DesktopPlatform = FDesktopPlatformModule::Get(); DesktopPlatform != nullptr)
+    {
+        const void* ParentWindowWindowHandle = FSlateApplication::Get().FindBestParentWindowHandleForDialogs(nullptr);
+        TArray<FString> FileNames;
+        if (!DesktopPlatform->OpenFileDialog(
+            ParentWindowWindowHandle,
+            NSLOCTEXT("GameDataRepository", "Select file to import from", "Select file to import from...").ToString(),
+            *FEditorDirectories::Get().GetLastDirectory(ELastDirectory::UNR),
+            TEXT(""),
+            Serializer->GetFileExtensionText(),
+            EFileDialogFlags::None,
+            FileNames))
+        {
+            return;
+        }
+
+        const FString& FileName = FileNames[0];
+        FString FileContent;
+        if (!FFileHelper::LoadFileToString(FileContent, *FileName))
+        {
+            FMessageDialog::Open(EAppMsgType::Ok, NSLOCTEXT("GameDataRepository", "OpenFailed", "Failed to open file"));
+            return;
+        }
+        FEditorDirectories::Get().SetLastDirectory(ELastDirectory::UNR, *FPaths::GetPath(FileName));
+        if (auto Serialized = Serializer->DeserializeData(FileContent, GameDataRepository); Serialized.has_value())
+        {
+            *GameDataEntries = MoveTemp(Serialized.value());
+            RefreshList();
+            FMessageDialog::Open(EAppMsgType::Ok, NSLOCTEXT("GameDataRepository", "ImportSuccessful", "Import was successful!"));
+        }
+        else
+        {
+            FMessageDialog::Open(EAppMsgType::Ok, FText::FromString(MoveTemp(Serialized.error())));
+        }
+    }
 }
 
 bool FGameDataRepositoryEditor::CanAddEntry() const

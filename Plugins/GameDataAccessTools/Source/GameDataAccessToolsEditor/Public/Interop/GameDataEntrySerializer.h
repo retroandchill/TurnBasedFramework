@@ -6,6 +6,7 @@
 #include "CSManagedGCHandle.h"
 #include "Utils/expected.hpp"
 
+class UGameDataEntry;
 class UGameDataRepository;
 
 class GAMEDATAACCESSTOOLSEDITOR_API FGameDataEntrySerializer
@@ -18,6 +19,9 @@ public:
     FString GetFileExtensionText() const;
 
     tl::expected<FString, FString> SerializeData(const UGameDataRepository* Repository) const;
+
+    tl::expected<TArray<UGameDataEntry*>, FString> DeserializeData(
+        const FString& Data, UGameDataRepository* Repository) const;
     
 private:
     FScopedGCHandle Handle;

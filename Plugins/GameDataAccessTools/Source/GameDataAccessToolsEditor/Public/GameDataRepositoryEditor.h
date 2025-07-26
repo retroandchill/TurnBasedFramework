@@ -39,6 +39,9 @@ public:
 private:
     void FillToolbar(FToolBarBuilder& ToolbarBuilder);
 
+    TSharedRef<SWidget> ImportMenuEntries();
+    void ImportGameDataRepository(TSharedRef<FGameDataEntrySerializer> Serializer);
+
     bool CanAddEntry() const;
     bool CanMoveEntryUp() const;
     bool CanMoveEntryDown() const;

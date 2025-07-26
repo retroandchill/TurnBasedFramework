@@ -3,6 +3,8 @@
 
 #include "Interop/SerializationCallbacks.h"
 
+#include "DataRetrieval/GameDataEntry.h"
+
 
 FSerializationCallbacks& FSerializationCallbacks::Get()
 {
@@ -50,4 +52,17 @@ tl::expected<FString, FString> FSerializationCallbacks::SerializeToString(const 
     }
 
     return tl::unexpected(Result);
+}
+
+tl::expected<TArray<UGameDataEntry*>, FString> FSerializationCallbacks::DeserializeFromString(const FGCHandleIntPtr Handle,
+    const UGameDataRepository* Repository) const
+{
+    TArray<UGameDataEntry*> Result;
+    FString Exception;
+    check(Actions.SerializeToString != nullptr);
+    if (Actions.DeserializeFromString(Handle, Repository, &Result, &Exception))
+    {
+        return MoveTemp(Result);
+    }
+    return tl::unexpected(MoveTemp(Exception));
 }

@@ -3,6 +3,7 @@
 
 #include "Interop/GameDataEntrySerializer.h"
 
+#include "DataRetrieval/GameDataEntry.h"
 #include "Interop/SerializationCallbacks.h"
 
 FText FGameDataEntrySerializer::GetFormatName() const
@@ -18,4 +19,10 @@ FString FGameDataEntrySerializer::GetFileExtensionText() const
 tl::expected<FString, FString> FGameDataEntrySerializer::SerializeData(const UGameDataRepository* Repository) const
 {
     return FSerializationCallbacks::Get().SerializeToString(Handle.Handle, Repository); 
+}
+
+tl::expected<TArray<UGameDataEntry*>, FString> FGameDataEntrySerializer::DeserializeData(const FString& Data,
+    UGameDataRepository* Repository) const
+{
+    return FSerializationCallbacks::Get().DeserializeFromString(Handle.Handle, Repository);
 }

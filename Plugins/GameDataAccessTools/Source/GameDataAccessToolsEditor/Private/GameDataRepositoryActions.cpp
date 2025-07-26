@@ -80,7 +80,7 @@ void FGameDataRepositoryActions::ExportAsset(const UGameDataRepository* Reposito
         TArray<FString> FileNames;
         if (!DesktopPlatform->SaveFileDialog(
             ParentWindowWindowHandle,
-            NSLOCTEXT("GameDataRepository", "Select file to import from", "Select file to import from...").ToString(),
+            NSLOCTEXT("GameDataRepository", "Select file to export to", "Select file to export to...").ToString(),
             *FEditorDirectories::Get().GetLastDirectory(ELastDirectory::UNR),
             TEXT(""),
             Serializer->GetFileExtensionText(),
@@ -92,13 +92,14 @@ void FGameDataRepositoryActions::ExportAsset(const UGameDataRepository* Reposito
 
         const FString& FileName = FileNames[0];
         FEditorDirectories::Get().SetLastDirectory(ELastDirectory::UNR, *FPaths::GetPath(FileName));
-        if (const auto Serialized = Serializer->SerializeData(Repository); Serialized.has_value())
+        if (auto Serialized = Serializer->SerializeData(Repository); Serialized.has_value())
         {
             FFileHelper::SaveStringToFile(Serialized.value(), *FileName);
+            FMessageDialog::Open(EAppMsgType::Ok, NSLOCTEXT("GameDataRepository", "ExportSuccessful", "Export was successful!"));
         }
         else
         {
-            FMessageDialog::Open(EAppMsgType::Ok, FText::FromString(Serialized.error()));
+            FMessageDialog::Open(EAppMsgType::Ok, FText::FromString(MoveTemp(Serialized.error())));
         }
     }
 }
