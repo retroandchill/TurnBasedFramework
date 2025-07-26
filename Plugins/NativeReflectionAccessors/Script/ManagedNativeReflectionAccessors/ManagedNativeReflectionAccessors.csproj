@@ -15,6 +15,9 @@
     <Reference Include="UnrealSharp.Core">
       <HintPath>..\..\..\UnrealSharp\Binaries\Managed\net9.0\UnrealSharp.Core.dll</HintPath>
     </Reference>
+      <Reference Include="UnrealSharp.Binds">
+          <HintPath>..\..\..\UnrealSharp\Binaries\Managed\net9.0\UnrealSharp.Binds.dll</HintPath>
+      </Reference>
     <Analyzer Include="..\..\..\UnrealSharp\Binaries\Managed\UnrealSharp.SourceGenerators.dll" />
     <ProjectReference Include="..\NativeReflectionAccessors.PluginGlue\NativeReflectionAccessors.PluginGlue.csproj" />
   </ItemGroup>

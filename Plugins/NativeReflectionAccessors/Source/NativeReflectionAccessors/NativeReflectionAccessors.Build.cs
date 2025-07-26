@@ -25,7 +25,7 @@ public class NativeReflectionAccessors : ModuleRules
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"Core",
+				"Core", "UnrealSharpBinds",
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
