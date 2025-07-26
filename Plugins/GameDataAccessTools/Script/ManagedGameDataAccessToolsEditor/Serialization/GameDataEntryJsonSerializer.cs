@@ -16,7 +16,7 @@ public class GameDataEntryJsonSerializer<TEntry>([ReadOnly] JsonSerializerOption
     : IGameDataEntrySerializer<TEntry> where TEntry : UGameDataEntry
 {
     public FText FormatName => "JSON";
-    public string FileExtensionText => "JSON file (*.json)";
+    public string FileExtensionText => "JSON file |*.json|";
 
     public string SerializeData(IEnumerable<TEntry> entries)
     {

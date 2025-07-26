@@ -59,10 +59,10 @@ void FGameDataRepositoryActions::AddSerializationActions(FMenuBuilder& SubMenuBu
     for (auto Repository = CastChecked<UGameDataRepository>(InObject);
          auto& Serializer : FSerializationCallbacks::Get().GetSerializationActions(Repository->GetEntryClass()))
     {
-        auto FormatText = Serializer->GetFormatName();
+        const auto FormatText = Serializer->GetFormatName();
         SubMenuBuilder.AddMenuEntry(
-            FormatText,
             FText::Format(NSLOCTEXT("AssetTypeActions", "Asset_ExportToFormat", "Export as {0}"), FormatText),
+            FText::Format(NSLOCTEXT("AssetTypeActions", "Asset_ExportToFormatToolTip", "Export the asset to the {0} format"), FormatText),
             FSlateIcon(),
             FUIAction(
                 FExecuteAction::CreateStatic(&FGameDataRepositoryActions::ExportAsset, Repository, Serializer)
