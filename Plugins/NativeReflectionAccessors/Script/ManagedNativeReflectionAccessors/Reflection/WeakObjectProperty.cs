@@ -12,14 +12,14 @@ public sealed class WeakObjectProperty(IntPtr nativePtr) : UnrealProperty(native
 {
     public override Type Type { get; } =
         typeof(TWeakObjectPtr<>).MakeGenericType(
-            TypeUtils.RetrieveManagedType(PropertyMetadataExporter.CallGetObjectClass(nativePtr)));
+            TypeUtils.RetrieveManagedType(PropertyMetadataExporter.CallGetWrappedType(nativePtr)));
 
 
     public UClass ObjectClass
     {
         get
         {
-            var nativeClass = PropertyMetadataExporter.CallGetObjectClass(NativePtr);
+            var nativeClass = PropertyMetadataExporter.CallGetWrappedType(NativePtr);
             var handle = FCSManagerExporter.CallFindManagedObject(nativeClass);
             return GCHandleUtilities.GetObjectFromHandlePtr<UClass>(handle)!;
         }

@@ -24,4 +24,43 @@ public static class TypeUtils
 
         return obj.GetType();
     }
+    
+    public static Type RetrieveManagedInterface(IntPtr nativeClass)
+    {
+        
+        var classHandle = UClassExporter.CallGetDefaultFromInstance(nativeClass);
+
+        if (classHandle == IntPtr.Zero)
+        {
+            throw new InvalidOperationException("Invalid class handle.");
+        }
+
+        var obj = GCHandleUtilities.GetObjectFromHandlePtr<object>(classHandle);
+        
+        if (obj == null)
+        {
+            throw new InvalidOperationException("Invalid class object.");
+        }
+
+        return obj.GetType();
+    }
+    
+    public static Type RetrieveManagedEnum(IntPtr nativeClass)
+    {
+        var classHandle = UClassExporter.CallGetDefaultFromInstance(nativeClass);
+
+        if (classHandle == IntPtr.Zero)
+        {
+            throw new InvalidOperationException("Invalid class handle.");
+        }
+
+        var obj = GCHandleUtilities.GetObjectFromHandlePtr<object>(classHandle);
+        
+        if (obj == null)
+        {
+            throw new InvalidOperationException("Invalid class object.");
+        }
+
+        return obj.GetType();
+    }
 }

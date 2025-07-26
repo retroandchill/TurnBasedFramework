@@ -1,4 +1,5 @@
-﻿using UnrealSharp;
+﻿using System.Runtime.InteropServices;
+using UnrealSharp;
 using UnrealSharp.Binds;
 
 namespace ManagedNativeReflectionAccessors.Interop;
@@ -12,6 +13,6 @@ public static unsafe partial class PropertyMetadataExporter
     private static readonly delegate* unmanaged<IntPtr, IntPtr, void> GetToolTip;
     private static readonly delegate* unmanaged<IntPtr, bool> IsNativeBool;
     private static readonly delegate* unmanaged<IntPtr, byte> GetFieldMask;
-    private static readonly delegate* unmanaged<IntPtr, IntPtr> GetEnum;
-    private static readonly delegate* unmanaged<IntPtr, IntPtr> GetObjectClass;
+    private static readonly delegate* unmanaged<IntPtr, IntPtr> GetWrappedType;
+    private static readonly delegate* unmanaged<IntPtr, GCHandle> GetManagedType;
 }

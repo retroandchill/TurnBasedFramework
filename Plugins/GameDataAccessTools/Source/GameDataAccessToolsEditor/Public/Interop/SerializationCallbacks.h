@@ -4,16 +4,23 @@
 
 #include "CoreMinimal.h"
 #include "CSManagedGCHandle.h"
+#include "Utils/expected.hpp"
 
+class FGameDataEntrySerializer;
+class UGameDataRepository;
 using FSerializationAction = TFunctionRef<void(const FGCHandleIntPtr)>;
 
 struct FSerializationActions
 {
-    using FForEachSerializationAction = void(__stdcall*)(const UClass*, const FSerializationAction*);
-    using FGetActionText = void(__stdcall*)(FGCHandleIntPtr, FText*);
+    using FGetSerializationActions = void(__stdcall*)(const UClass*, const TArray<TSharedRef<FGameDataEntrySerializer>>&);
+    using FGetActionText = void(__stdcall*)(const FGCHandleIntPtr, FText*);
+    using FGetFileExtensionText = void(__stdcall*)(const FGCHandleIntPtr, FString*);
+    using FSerializeToString = bool(__stdcall*)(const FGCHandleIntPtr, const UGameDataRepository*, FString*);
 
-    FForEachSerializationAction ForEachSerializationAction = nullptr;
+    FGetSerializationActions GetSerializationActions = nullptr;
     FGetActionText GetActionText = nullptr;
+    FGetFileExtensionText GetFileExtensionText = nullptr;
+    FSerializeToString SerializeToString = nullptr;
 };
 
 class FSerializationCallbacks
@@ -25,8 +32,10 @@ public:
     static FSerializationCallbacks& Get();
 
     void SetActions(const FSerializationActions& InActions);
-    void ForEachSerializationAction(const UClass* Class, const FSerializationAction& Action) const;
+    TArray<TSharedRef<FGameDataEntrySerializer>> GetSerializationActions(const UClass* Class) const;
     FText GetActionText(const FGCHandleIntPtr Handle) const;
+    FString GetFileExtensionText(const FGCHandleIntPtr Handle) const;
+    tl::expected<FString, FString> SerializeToString(const FGCHandleIntPtr Handle, const UGameDataRepository* Repository) const;
 
 private:
     FSerializationActions Actions;

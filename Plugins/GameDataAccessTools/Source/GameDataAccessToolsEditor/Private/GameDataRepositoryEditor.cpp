@@ -41,11 +41,7 @@ void FGameDataRepositoryEditor::Initialize(const EToolkitMode::Type Mode,
                                          )
         );
 
-    FSerializationCallbacks::Get().ForEachSerializationAction(Asset->GetEntryClass(), [this](FGCHandleIntPtr Ptr)
-    {
-        Serializers.Emplace(MakeShared<FGameDataEntrySerializer>(Ptr));
-    });
-
+    Serializers = FSerializationCallbacks::Get().GetSerializationActions(Asset->GetEntryClass());
 
     const auto ToolbarExtender = MakeShared<FExtender>();
     ToolbarExtender->AddToolBarExtension(

@@ -3,12 +3,15 @@
 
 #include "Interop/SerializationExporter.h"
 
+#include "Interop/GameDataEntrySerializer.h"
+
 void USerializationExporter::AssignSerializationActions(const FSerializationActions& SerializationActions)
 {
     FSerializationCallbacks::Get().SetActions(SerializationActions);
 }
 
-void USerializationExporter::OnSerializationAction(const FSerializationAction* Action, const FGCHandleIntPtr Handle)
+void USerializationExporter::AddSerializationAction(TArray<TSharedRef<FGameDataEntrySerializer>>& Serializers,
+                                                    const FGCHandleIntPtr Handle)
 {
-    (*Action)(Handle);
+    Serializers.Emplace(MakeShared<FGameDataEntrySerializer>(Handle));
 }

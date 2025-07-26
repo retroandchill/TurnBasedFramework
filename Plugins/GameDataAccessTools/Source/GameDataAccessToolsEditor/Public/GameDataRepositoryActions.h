@@ -2,8 +2,10 @@
 
 #include "AssetTypeActions_Base.h"
 #include "CSManagedGCHandle.h"
+#include "DataRetrieval/GameDataRepository.h"
 
 
+class FGameDataEntrySerializer;
 DECLARE_DELEGATE_OneParam(FOnFileAction, const FString&)
 
 struct FImportExportAction
@@ -22,6 +24,12 @@ public:
     UClass* GetSupportedClass() const override;
     uint32 GetCategories() override;
 
+    void GetActions(const TArray<UObject*>& InObjects, FMenuBuilder& MenuBuilder) override;
+
     void OpenAssetEditor(const TArray<UObject*>& InObjects,
                          const TSharedPtr<IToolkitHost> EditWithinLevelEditor) override;
+
+private:
+    static void AddSerializationActions(FMenuBuilder& SubMenuBuilder, const UObject* InObject);
+    static void ExportAsset(const UGameDataRepository* Repository, TSharedRef<FGameDataEntrySerializer> Serializer);
 };

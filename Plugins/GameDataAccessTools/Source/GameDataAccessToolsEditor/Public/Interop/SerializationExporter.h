@@ -21,5 +21,5 @@ public:
     static void AssignSerializationActions(const FSerializationActions& SerializationActions);
 
     UNREALSHARP_FUNCTION()
-    static void OnSerializationAction(const FSerializationAction* Action, const FGCHandleIntPtr Handle);
+    static void AddSerializationAction(TArray<TSharedRef<FGameDataEntrySerializer>>& Serializers, const FGCHandleIntPtr Handle);
 };

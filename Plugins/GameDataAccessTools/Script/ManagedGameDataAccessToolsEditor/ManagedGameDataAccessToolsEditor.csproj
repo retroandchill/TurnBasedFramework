@@ -9,6 +9,7 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="LanguageExt.Core" Version="4.4.9"/>
+        <ProjectReference Include="..\ManagedGameDataAccessTools\ManagedGameDataAccessTools.csproj" />
         <Reference Include="UnrealSharp">
             <HintPath>..\..\..\UnrealSharp\Binaries\Managed\net9.0\UnrealSharp.dll</HintPath>
         </Reference>

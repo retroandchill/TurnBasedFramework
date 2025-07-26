@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "CSBindsManager.h"
+#include "CSManagedGCHandle.h"
 #include "UObject/Object.h"
 #include "PropertyMetadataExporter.generated.h"
 
@@ -33,4 +34,7 @@ public:
 
     UNREALSHARP_FUNCTION()
     static uint8 GetFieldMask(const FBoolProperty* Property);
+
+    UNREALSHARP_FUNCTION()
+    static UField* GetWrappedType(const FProperty* Property);
 };

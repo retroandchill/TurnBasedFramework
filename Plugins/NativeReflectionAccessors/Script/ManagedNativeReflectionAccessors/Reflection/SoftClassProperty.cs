@@ -14,7 +14,7 @@ public class SoftClassProperty : UnrealProperty
 
     public SoftClassProperty(IntPtr nativePtr) : base(nativePtr)
     {
-        _objectType = TypeUtils.RetrieveManagedType(PropertyMetadataExporter.CallGetObjectClass(nativePtr));
+        _objectType = TypeUtils.RetrieveManagedType(PropertyMetadataExporter.CallGetWrappedType(nativePtr));
         Type = typeof(TSoftClassPtr<>).MakeGenericType(_objectType);
         _marshaller = new OpaqueStaticMarshaller(typeof(SoftClassMarshaller<>).MakeGenericType(_objectType));
     }
@@ -25,7 +25,7 @@ public class SoftClassProperty : UnrealProperty
     {
         get
         {
-            var nativeClass = PropertyMetadataExporter.CallGetObjectClass(NativePtr);
+            var nativeClass = PropertyMetadataExporter.CallGetWrappedType(NativePtr);
             var handle = FCSManagerExporter.CallFindManagedObject(nativeClass);
             return GCHandleUtilities.GetObjectFromHandlePtr<UClass>(handle)!;
         }

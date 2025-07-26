@@ -10,4 +10,4 @@ namespace ManagedNativeReflectionAccessors.Reflection;
 
 public sealed class ClassProperty(IntPtr nativePtr) : GenericStaticMarshalledProperty(nativePtr,
     typeof(TSubclassOf<>), typeof(SubclassOfMarshaller<>), 
-    TypeUtils.RetrieveManagedType(PropertyMetadataExporter.CallGetObjectClass(nativePtr)));
+    TypeUtils.RetrieveManagedType(PropertyMetadataExporter.CallGetWrappedType(nativePtr)));

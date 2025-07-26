@@ -12,7 +12,8 @@ public class GameDataAccessToolsEditor : ModuleRules
                 "Core",
                 "UnrealSharpCore",
                 "UnrealEd",
-                "GameDataAccessTools"
+                "GameDataAccessTools",
+                "Json"
             }
         );
 
@@ -25,7 +26,9 @@ public class GameDataAccessToolsEditor : ModuleRules
                 "Slate",
                 "SlateCore",
                 "WorkspaceMenuStructure",
-                "InputCore", "UnrealSharpProcHelper"
+                "InputCore", 
+                "UnrealSharpProcHelper",
+                "JsonUtilities"
             }
         );
     }

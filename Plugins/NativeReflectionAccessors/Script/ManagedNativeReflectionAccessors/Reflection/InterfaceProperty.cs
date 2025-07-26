@@ -11,7 +11,7 @@ public sealed class InterfaceProperty : UnrealProperty
     private readonly OpaqueStaticMarshaller _staticMarshaller;
     public InterfaceProperty(IntPtr nativePtr) : base(nativePtr)
     {
-        Type = TypeUtils.RetrieveManagedType(PropertyMetadataExporter.CallGetObjectClass(nativePtr));
+        Type = TypeUtils.RetrieveManagedInterface(PropertyMetadataExporter.CallGetWrappedType(nativePtr));
         var marshallerType = typeof(ScriptInterfaceMarshaller<>).MakeGenericType(Type);
         _staticMarshaller = new OpaqueStaticMarshaller(marshallerType);
     }

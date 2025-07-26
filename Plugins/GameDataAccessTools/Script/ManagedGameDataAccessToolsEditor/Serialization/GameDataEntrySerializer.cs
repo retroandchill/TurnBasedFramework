@@ -1,4 +1,5 @@
 ﻿using UnrealSharp;
+using UnrealSharp.CoreUObject;
 using UnrealSharp.GameDataAccessTools;
 
 namespace ManagedGameDataAccessToolsEditor.Serialization;
@@ -6,11 +7,13 @@ namespace ManagedGameDataAccessToolsEditor.Serialization;
 public interface IGameDataEntrySerializer
 {
     FText FormatName { get; }
+    
+    string FileExtensionText { get; }
 }
 
 public interface IGameDataEntrySerializer<TEntry> : IGameDataEntrySerializer where TEntry : UGameDataEntry
 {
-    Task SerializeData(IEnumerable<TEntry> entries, string destination, CancellationToken cancellationToken = default);
+    string SerializeData(IEnumerable<TEntry> entries);
     
-    IAsyncEnumerable<TEntry> DeserializeData(string source, CancellationToken cancellationToken = default);
+    IEnumerable<TEntry> DeserializeData(string source, UObject outer);
 }

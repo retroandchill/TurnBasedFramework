@@ -13,7 +13,7 @@ public sealed class EnumProperty<T>(IntPtr nativePtr) : UnrealProperty(nativePtr
     {
         get
         {
-            var nativeENum = PropertyMetadataExporter.CallGetEnum(NativePtr);
+            var nativeENum = PropertyMetadataExporter.CallGetWrappedType(NativePtr);
             var handle = FCSManagerExporter.CallFindManagedObject(nativeENum);
             return GCHandleUtilities.GetObjectFromHandlePtr<UEnum>(handle)!;
         }

@@ -10,13 +10,13 @@ namespace ManagedNativeReflectionAccessors.Reflection;
 
 public sealed class SoftObjectProperty(IntPtr nativePtr) : GenericStaticMarshalledProperty(nativePtr,
     typeof(TSubclassOf<>), typeof(SubclassOfMarshaller<>), 
-    TypeUtils.RetrieveManagedType(PropertyMetadataExporter.CallGetObjectClass(nativePtr)))
+    TypeUtils.RetrieveManagedType(PropertyMetadataExporter.CallGetWrappedType(nativePtr)))
 {
     public UClass ObjectClass
     {
         get
         {
-            var nativeClass = PropertyMetadataExporter.CallGetObjectClass(NativePtr);
+            var nativeClass = PropertyMetadataExporter.CallGetWrappedType(NativePtr);
             var handle = FCSManagerExporter.CallFindManagedObject(nativeClass);
             return GCHandleUtilities.GetObjectFromHandlePtr<UClass>(handle)!;
         }
