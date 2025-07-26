@@ -421,5 +421,6 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 /GameDataAccessTools.PluginGlue/*
+!/GameDataAccessTools.PluginGlue/GameDataAccessTools.PluginGlue.csproj
 !/GameDataAccessTools.PluginGlue/.glueignore
 !/GameDataAccessTools.PluginGlue/Extensions/

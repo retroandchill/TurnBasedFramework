@@ -421,5 +421,6 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 /NativeReflectionAccessors.PluginGlue/*
+!/NativeReflectionAccessors.PluginGlue/NativeReflectionAccessors.PluginGlue.csproj
 !/NativeReflectionAccessors.PluginGlue/.glueignore
 !/NativeReflectionAccessors.PluginGlue/Extensions/
