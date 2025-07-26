@@ -20,7 +20,9 @@ public class FManagedGameDataAccessToolsEditor : IModuleInterface
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
+            PropertyNameCaseInsensitive = true,
             AllowTrailingCommas = true,
+            WriteIndented = true
         });
         FUnrealInjectModule.Instance.Services.AddSingleton(typeof(IGameDataEntrySerializer<>), typeof(GameDataEntryJsonSerializer<>));
     }
