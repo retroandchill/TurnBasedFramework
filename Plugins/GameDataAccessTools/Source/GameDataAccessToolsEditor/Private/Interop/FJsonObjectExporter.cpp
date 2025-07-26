@@ -31,7 +31,7 @@ bool UFJsonObjectExporter::AdvanceJsonIterator(FJsonObjectIterator& Iterator)
     }
 
     ++Iterator;
-    return true;
+    return static_cast<bool>(Iterator);
 }
 
 bool UFJsonObjectExporter::IsValidJsonIterator(const FJsonObjectIterator& Iterator)

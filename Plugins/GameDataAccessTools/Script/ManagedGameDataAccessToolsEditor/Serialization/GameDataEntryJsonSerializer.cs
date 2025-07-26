@@ -58,10 +58,7 @@ public class GameDataEntryJsonSerializer<TEntry>([ReadOnly] JsonSerializerOption
                 if (!FJsonObjectConverterExporter.CallDeserializeJsonToObject(ref nativeValue, newEntry.NativeObject,
                         ref textData).ToManagedBool())
                 {
-                    unsafe
-                    {
-                        throw new JsonException(ConvertTextDataToString(ref textData));
-                    }
+                    throw new JsonException(ConvertTextDataToString(ref textData));
                 }
             }
             

@@ -29,11 +29,18 @@ public ref struct JsonObjectEnumerator(ref NativeJsonValue nativeJsonValue)
 
     public bool MoveNext()
     {
-        if (_isInitialized) return FJsonObjectExporter.CallAdvanceJsonIterator(ref _nativeIterator).ToManagedBool();
-        
-        FJsonObjectExporter.CallCreateJsonIterator(ref _nativeJsonValue, ref _nativeIterator);
-        _isInitialized = true;
-        var result = FJsonObjectExporter.CallIsValidJsonIterator(ref _nativeIterator).ToManagedBool();
+        bool result;
+        if (_isInitialized)
+        {
+            result = FJsonObjectExporter.CallAdvanceJsonIterator(ref _nativeIterator).ToManagedBool();
+        }
+        else
+        {
+            FJsonObjectExporter.CallCreateJsonIterator(ref _nativeJsonValue, ref _nativeIterator);
+            _isInitialized = true;
+            result = FJsonObjectExporter.CallIsValidJsonIterator(ref _nativeIterator).ToManagedBool();
+        }
+
         if (result)
         {
             unsafe
