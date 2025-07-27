@@ -32,9 +32,9 @@ private:
     friend class FGameDataRepositoryEditor;
 #endif
 
-    UPROPERTY(EditAnywhere, BlueprintGetter=GetId, Category = "EntryInformation")
+    UPROPERTY(EditAnywhere, BlueprintGetter=GetId, Category = "EntryInformation", meta = (JsonOrder = "0"))
     FName Id;
 
-    UPROPERTY(VisibleAnywhere, BlueprintGetter=GetRowIndex, Category = "EntryInformation")
+    UPROPERTY(VisibleAnywhere, BlueprintGetter=GetRowIndex, Category = "EntryInformation", meta = (JsonOrder = "1"))
     int32 RowIndex;
 };
