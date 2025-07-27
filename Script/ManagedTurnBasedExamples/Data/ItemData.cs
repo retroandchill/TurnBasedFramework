@@ -18,5 +18,8 @@ public class USkillData : UGameDataEntry
     public int Value { get; init; }
 
     [UProperty(PropertyFlags.EditAnywhere | PropertyFlags.BlueprintReadOnly)]
-    public UTexture2D Icon { get;  init; }
+    public UTexture2D? Icon { get;  init; }
 }
+
+[AccessorFor<USkillData>]
+public partial struct SkillDataAccessor;

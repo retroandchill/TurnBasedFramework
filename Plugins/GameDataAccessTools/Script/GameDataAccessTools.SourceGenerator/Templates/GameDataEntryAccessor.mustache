@@ -1,0 +1,69 @@
+#nullable enable
+using UnrealSharp;
+using UnrealSharp.Core;
+using UnrealSharp.Core.Marshallers;
+using UnrealSharp.CoreUObject;
+using UnrealSharp.Interop;
+using ManagedGameDataAccessTools.DataRetrieval;
+using ManagedGameDataAccessToolsEditor;
+
+namespace {{Namespace}};
+
+partial {{ObjectType}} {{ClassName}} : IGameDataEntryAccessor<{{ReferenceClassName}}> 
+{
+    public {{ReferenceClassName}} Entry { get; }
+
+    {{#Properties}}
+    private static int {{Name}}_Offset;
+    {{#MarshallerInstanced}}
+    private static IntPtr {{Name}}_NativeProperty;
+    private static {{MarshallerInfo.Name}}? {{Name}}_Marshaller = null;
+    {{/MarshallerInstanced}}
+  
+    public {{Type}} {{Name}} 
+    {
+        get 
+        {
+            {{#MarshallerInstanced}}
+            {{Name}}_Marshaller ??= new {{MarshallerInfo.Name}}({{Name}}_NativeProperty, {{MarshallerInfo.ChildMarshallerType}}.ToNative, {{MarshallerInfo.ChildMarshallerType}}.FromNative{{#MarshallerHasValue}}, {{MarshallerInfo.ValueMarshallerType}}.ToNative, {{MarshallerInfo.ValueMarshallerType}}.FromNative{{/MarshallerHasValue}});
+            IntPtr {{Name}}_NativeBuffer = IntPtr.Add(Entry.NativeObject, {{Name}}_Offset);
+            return {{Name}}_Marshaller.FromNative({{Name}}_NativeBuffer, 0);
+            {{/MarshallerInstanced}}
+            {{^MarshallerInstanced}}
+            return {{MarshallerInfo.Name}}.FromNative(IntPtr.Add(Entry.NativeObject, {{Name}}_Offset), 0);
+            {{/MarshallerInstanced}}
+        }
+        set 
+        {
+            {{#MarshallerInstanced}}
+            {{Name}}_Marshaller ??= new {{MarshallerInfo.Name}}({{Name}}_NativeProperty, {{MarshallerInfo.ChildMarshallerType}}.ToNative, {{MarshallerInfo.ChildMarshallerType}}.FromNative{{#MarshallerHasValue}}, {{MarshallerInfo.ValueMarshallerType}}.ToNative, {{MarshallerInfo.ValueMarshallerType}}.FromNative{{/MarshallerHasValue}});
+            IntPtr {{Name}}_NativeBuffer = IntPtr.Add(_nativeStruct, {{Name}}_Offset);
+            {{Name}}_Marshaller.ToNative({{Name}}_NativeBuffer, 0, value);
+            {{/MarshallerInstanced}}
+            {{^MarshallerInstanced}}
+            {{MarshallerInfo.Name}}.ToNative(IntPtr.Add(Entry.NativeObject, {{Name}}_Offset), 0, value);
+            {{/MarshallerInstanced}}
+        }
+    }
+    {{/Properties}}
+
+    private static readonly IntPtr NativeClassPtr;
+    public static int NativeDataSize { get; }
+
+    static {{ClassName}}()
+    {
+        NativeClassPtr = UCoreUObjectExporter.CallGetNativeStructFromName(typeof({{ReferenceClassName}}).GetAssemblyName(), "{{ReferenceClassNamespace}}", "{{ReferenceClassEngineName}}");
+        {{#Properties}}
+        {{^MarshallerInstanced}}IntPtr {{/MarshallerInstanced}}{{Name}}_NativeProperty = FPropertyExporter.CallGetNativePropertyFromName(NativeClassPtr, "{{Name}}");
+        {{Name}}_Offset = FPropertyExporter.CallGetPropertyOffset({{Name}}_NativeProperty);
+        {{/Properties}}
+        NativeDataSize = UScriptStructExporter.CallGetNativeStructSize(NativeClassPtr);
+    }
+
+    public {{ClassName}}({{ReferenceClassName}} entry) 
+    {
+        Entry = entry;
+    }
+
+    public static implicit operator {{ReferenceClassName}}({{ClassName}} value) => value.Entry;
+}

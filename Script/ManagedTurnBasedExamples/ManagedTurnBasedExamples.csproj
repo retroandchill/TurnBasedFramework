@@ -21,6 +21,7 @@
     <Analyzer Include="..\..\Plugins\UnrealSharp\Binaries\Managed\UnrealSharp.SourceGenerators.dll" />
       <Analyzer Include="..\..\Plugins\UnrealSharp\Binaries\Managed\UnrealSharp.ExtensionSourceGenerators.dll" />
       <ProjectReference Include="..\..\Plugins\GameDataAccessTools\Script\GameDataAccessTools.SourceGenerator\GameDataAccessTools.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+      <ProjectReference Include="..\..\Plugins\GameDataAccessTools\Script\ManagedGameDataAccessToolsEditor\ManagedGameDataAccessToolsEditor.csproj" />
       <ProjectReference Include="..\..\Plugins\GameDataAccessTools\Script\ManagedGameDataAccessTools\ManagedGameDataAccessTools.csproj" />
       <ProjectReference Include="..\..\Plugins\UnrealInject\Script\UnrealInject\UnrealInject.csproj" />
     <ProjectReference Include="..\ProjectGlue\ProjectGlue.csproj" />

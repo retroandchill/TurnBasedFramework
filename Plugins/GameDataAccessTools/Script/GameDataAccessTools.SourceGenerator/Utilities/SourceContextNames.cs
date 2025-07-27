@@ -7,6 +7,7 @@ public static class SourceContextNames
     public const string IGameDataRepository = "ManagedGameDataAccessTools.DataRetrieval.IGameDataRepository<T>";
 
     public const string UClassAttribute = "UnrealSharp.Attributes.UClassAttribute";
+    public const string UPropertyAttribute = "UnrealSharp.Attributes.UPropertyAttribute";
 
     public const ulong EditInlineNew = 0x00001000u;
 }

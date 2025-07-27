@@ -62,19 +62,45 @@ namespace GameAccessTools.SourceGenerator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to #nullable enable
         ///using UnrealSharp;
+        ///using UnrealSharp.Core;
+        ///using UnrealSharp.Core.Marshallers;
         ///using UnrealSharp.CoreUObject;
+        ///using UnrealSharp.Interop;
+        ///using ManagedGameDataAccessTools.DataRetrieval;
+        ///
+        ///namespace {{Namespace}};
+        ///
+        ///{{#IsReadOnly}}readonly {{/IsReadOnly}}ref partial struct {{StructName}} : INativeStructReference&lt;{{StructName}}&gt; {
+        ///  private readonly IntPtr _nativeStruct;
+        ///
+        ///  {{#Properties}}
+        ///  private static int {{Name}}_Offset;
+        ///  {{#MarshallerInstanced}}
+        ///  private static IntPtr {{ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string GameDataEntryAccessorTemplate {
+            get {
+                return ResourceManager.GetString("GameDataEntryAccessorTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to #nullable enable
+        ///using UnrealSharp;
+        ///using UnrealSharp.Attributes;
+        ///using UnrealSharp.Attributes.MetaTags;
+        ///using UnrealSharp.CoreUObject;
+        ///using UnrealSharp.DeveloperSettings;
         ///using UnrealSharp.StaticVars;
         ///
         ///namespace {{Namespace}};
         ///
-        ///public sealed partial class {{ClassName}} {
-        ///  private static readonly FGameStaticVar&lt;{{ClassName}}&gt; StaticInstance = new();
+        ///[UClass(ClassFlags.DefaultConfig, {{#HasDisplayName}}DisplayName = &quot;{{DisplayName}}&quot;, {{/HasDisplayName}}ConfigCategory = &quot;Game&quot;)]
+        ///public partial class U{{ClassName}}Settings : UDeveloperSettings 
+        ///{
         ///
-        ///  private static {{ClassName}} Instance =&gt; StaticInstance.Value ?? (StaticInstance.Value = new {{ClassName}}());
-        ///
-        ///  {{#Repositories}}
-        ///  private readonly TStrongObjectPtr&lt;{{Type}}&gt; _{{Name}};
-        ///  public static partial {{Type}} _{{Name}} =&gt; Instance._{{ [rest of string was truncated]&quot;;.
+        ///    {{#Repositories}}
+        ///    [UProperty(PropertyFlags.EditDefaultsOnly [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GameDataRepositoryProviderTemplate {
             get {
@@ -95,9 +121,9 @@ namespace GameAccessTools.SourceGenerator.Properties {
         ///
         ///[UClass]
         ///public partial class {{AssetClassName}} : UGameDataRepository, IGameDataRepository&lt;{{EntryName}}&gt; {
-        ///  public TSubclassOf&lt;{{EntryName}}&gt; EntryClass { get; } = new(typeof({{EntryName}}));
+        ///    public TSubclassOf&lt;{{EntryName}}&gt; EntryClass { get; } = new(typeof({{EntryName}}));
         ///
-        ///  [UProperty(PropertyFlags.EditAnywhere | Prope [rest of string was truncated]&quot;;.
+        ///    [UProperty(PropertyFlags.EditAnywhere | P [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GameDataRepositoryTemplate {
             get {
