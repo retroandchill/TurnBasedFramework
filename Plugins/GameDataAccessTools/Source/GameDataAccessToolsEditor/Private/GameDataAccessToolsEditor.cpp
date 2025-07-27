@@ -1,9 +1,11 @@
 ﻿#include "GameDataAccessToolsEditor.h"
 
 #include "AssetToolsModule.h"
-#include "GameDataRepositoryActions.h"
-#include "GameDataEntryDetailsCustomization.h"
+#include "Repositories/GameDataRepositoryActions.h"
+#include "Repositories/GameDataEntryDetailsCustomization.h"
 #include "PropertyEditorModule.h"
+#include "Handles/DataHandleCustomization.h"
+#include "Handles/DataHandlePropertyIdentifier.h"
 
 
 void FGameDataAccessToolsEditorModule::StartupModule()
@@ -18,6 +20,21 @@ void FGameDataAccessToolsEditorModule::StartupModule()
     PropertyModule.RegisterCustomClassLayout("GameDataEntry",
                                              FOnGetDetailCustomizationInstance::CreateStatic(
                                                  &FGameDataEntryDetailsCustomization::MakeInstance));
+
+    PropertyModule.RegisterCustomPropertyTypeLayout(
+                    "StructProperty",
+                    FOnGetPropertyTypeCustomizationInstance::CreateStatic(
+                        &FDataHandleCustomization::MakeInstance),
+                        MakeShared<FDataHandlePropertyIdentifier>());
+
+    FCoreDelegates::OnPostEngineInit.AddLambda([]
+    {
+        auto TargetFunction = FindObject<UFunction>(nullptr, TEXT("TurnBasedDataHelpers_C.GetAllSkills"));
+        for (const auto Function : TObjectRange<UFunction>())
+        {
+            UE_LOG(LogTemp, Warning, TEXT("%s"), *Function->GetName());
+        }
+    });
 }
 
 void FGameDataAccessToolsEditorModule::ShutdownModule()

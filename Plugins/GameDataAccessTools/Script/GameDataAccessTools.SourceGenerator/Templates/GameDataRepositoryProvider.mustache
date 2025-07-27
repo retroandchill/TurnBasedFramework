@@ -41,7 +41,7 @@ public sealed partial class {{ClassName}}
     {
         var settings = UObject.GetDefault<U{{ClassName}}Settings>();
         {{#Repositories}}
-        _{{Name}} = settings.{{Name}}.Object as {{Type}};
+        _{{Name}} = ((TSoftObjectPtr<UObject>)settings.{{Name}}).LoadSynchronous() as {{Type}};
         {{/Repositories}}
     }
 
@@ -51,6 +51,7 @@ public sealed partial class {{ClassName}}
 {{#Repositories}}
 [UStruct]
 [UMetaData("GameDataEntryHandle", "{{EntryTypeEngineName}}")]
+[UMetaData("OptionsSource", "{{../ClassName}}Helpers_C.GetAll{{Name}}")]
 public readonly record struct F{{SingularName}}Handle(
     [field: UProperty(PropertyFlags.EditAnywhere | PropertyFlags.BlueprintReadOnly)]
     FName RowName) : IGameDataRepositoryHandle<{{EntryType}}>
@@ -64,7 +65,7 @@ public readonly record struct F{{SingularName}}Handle(
             if (!playInEditorSubsystem.IsInPlayInEditor())
             {
                 var settings = UObject.GetDefault<U{{../ClassName}}Settings>();
-                var repository = settings.{{Name}}.Object as {{Type}};
+                var repository = ((TSoftObjectPtr<UObject>)settings.{{Name}}).LoadSynchronous() as {{Type}};
                 repository?.Refresh();
                 return repository;
             }
@@ -100,6 +101,12 @@ public partial class U{{ClassName}}Helpers : UBlueprintFunctionLibrary
     public static bool TryGet{{SingularName}}(F{{SingularName}}Handle handle, out {{EntryType}}? entry)
     {
         return {{../ClassName}}.{{Name}}.TryGetEntry(handle, out entry);
+    }
+
+    [UFunction(FunctionFlags.BlueprintPure, Category = "{{Name}}")]
+    public static IReadOnlyList<FName> GetAll{{Name}}()
+    {
+        return F{{SingularName}}Handle.EntryNames.ToList();
     }
        
     [UFunction(FunctionFlags.BlueprintPure, Category = "{{Name}}", DisplayName = "Convert to {{SingularName}}")]

@@ -1,8 +1,8 @@
-﻿#include "GameDataRepositoryActions.h"
+﻿#include "Repositories/GameDataRepositoryActions.h"
 
 #include "DesktopPlatformModule.h"
 #include "EditorDirectories.h"
-#include "GameDataRepositoryEditor.h"
+#include "Repositories/GameDataRepositoryEditor.h"
 #include "DataRetrieval/GameDataRepository.h"
 #include "Interop/GameDataEntrySerializer.h"
 #include "Interop/SerializationCallbacks.h"

@@ -22,4 +22,4 @@ public class USkillData : UGameDataEntry
 }
 
 [AccessorFor<USkillData>]
-public partial struct SkillDataAccessor;
+public readonly partial struct SkillDataAccessor;

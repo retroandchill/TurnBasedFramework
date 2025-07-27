@@ -1,13 +1,13 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "GameDataRepositoryEditor.h"
+#include "Repositories/GameDataRepositoryEditor.h"
 
 #include <bit>
 
 #include "DesktopPlatformModule.h"
 #include "EditorDirectories.h"
-#include "GameDataRepositoryEntrySelector.h"
+#include "Repositories/GameDataRepositoryEntrySelector.h"
 #include "DataRetrieval/GameDataRepository.h"
 #include "Interop/GameDataEntrySerializer.h"
 #include "Interop/SerializationCallbacks.h"

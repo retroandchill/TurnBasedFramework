@@ -28,7 +28,9 @@ public class GameDataAccessToolsEditor : ModuleRules
                 "WorkspaceMenuStructure",
                 "InputCore", 
                 "UnrealSharpProcHelper",
-                "JsonUtilities"
+                "JsonUtilities",
+                "PropertyPath",
+                "ToolWidgets"
             }
         );
     }

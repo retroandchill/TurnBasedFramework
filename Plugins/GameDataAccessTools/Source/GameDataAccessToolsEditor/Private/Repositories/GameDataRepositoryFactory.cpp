@@ -1,7 +1,7 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "GameDataRepositoryFactory.h"
+#include "Repositories/GameDataRepositoryFactory.h"
 
 #include "ClassViewerFilter.h"
 #include "ClassViewerModule.h"
