@@ -8,7 +8,8 @@
 bool UFJsonObjectConverterExporter::SerializeObjectToJson(const UObject* TargetObject, TSharedPtr<FJsonValue>& JsonValue)
 {
     auto JsonObject = MakeShared<FJsonObject>();
-    if (!FJsonObjectConverter::UStructToJsonObject(TargetObject->GetClass(), TargetObject, JsonObject))
+    if (!FJsonObjectConverter::UStructToJsonObject(TargetObject->GetClass(), TargetObject, JsonObject,
+        0, 0, nullptr, EJsonObjectConversionFlags::WriteTextAsComplexString))
     {
         return false;
     }
@@ -20,9 +21,9 @@ bool UFJsonObjectConverterExporter::SerializeObjectToJson(const UObject* TargetO
 bool UFJsonObjectConverterExporter::DeserializeJsonToObject(TSharedPtr<FJsonValue>& JsonValue,
                                                             UObject* TargetObject, FText* FailureReason)
 {
-    auto LocalCopy = MoveTemp(JsonValue);
+    const auto LocalCopy = MoveTemp(JsonValue);
     TSharedPtr<FJsonObject>* InnerObject;
-    if (!ensure(JsonValue->TryGetObject(InnerObject)))
+    if (!ensure(LocalCopy->TryGetObject(InnerObject)))
     {
         *FailureReason = NSLOCTEXT("GameDataEntry", "InvalidJson", "Invalid Json");
         return false;

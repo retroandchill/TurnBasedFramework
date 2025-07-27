@@ -22,7 +22,7 @@ tl::expected<FString, FString> FGameDataEntrySerializer::SerializeData(const UGa
 }
 
 tl::expected<TArray<UGameDataEntry*>, FString> FGameDataEntrySerializer::DeserializeData(const FString& Data,
-    UGameDataRepository* Repository) const
+    const UGameDataRepository* Repository) const
 {
-    return FSerializationCallbacks::Get().DeserializeFromString(Handle.Handle, Repository);
+    return FSerializationCallbacks::Get().DeserializeFromString(Handle.Handle, Data, Repository);
 }

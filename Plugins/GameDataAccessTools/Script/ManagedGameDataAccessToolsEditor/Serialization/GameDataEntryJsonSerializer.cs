@@ -39,16 +39,16 @@ public class GameDataEntryJsonSerializer<TEntry>([ReadOnly] JsonSerializerOption
 
     public IEnumerable<TEntry> DeserializeData(string source, UObject outer)
     {
-        var jsonArray = JsonSerializer.Deserialize<JsonObject>(source, jsonSerializerOptions)!;
-        foreach (var (key, value) in jsonArray)
+        var jsonArray = JsonSerializer.Deserialize<JsonArray>(source, jsonSerializerOptions)!;
+        foreach (var entry in jsonArray)
         {
-            if (value is not JsonObject)
+            if (entry is not JsonObject)
             {
-                throw new JsonException($"Unable to deserialize entry {key} (value = '{value}') as a JSON object.");
+                throw new JsonException($"Unable to deserialize entry '{entry}' as a JSON object.");
             }
 
             var nativeValue = new NativeJsonValue();
-            JsonNodeMarshaller.ToNative(ref nativeValue, value);
+            JsonNodeMarshaller.ToNative(ref nativeValue, entry);
             var newEntry = UObject.NewObject<TEntry>(outer);
 
             var textData = new FTextData();

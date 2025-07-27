@@ -21,7 +21,7 @@ public:
     tl::expected<FString, FString> SerializeData(const UGameDataRepository* Repository) const;
 
     tl::expected<TArray<UGameDataEntry*>, FString> DeserializeData(
-        const FString& Data, UGameDataRepository* Repository) const;
+        const FString& Data, const UGameDataRepository* Repository) const;
     
 private:
     FScopedGCHandle Handle;

@@ -55,12 +55,12 @@ tl::expected<FString, FString> FSerializationCallbacks::SerializeToString(const 
 }
 
 tl::expected<TArray<UGameDataEntry*>, FString> FSerializationCallbacks::DeserializeFromString(const FGCHandleIntPtr Handle,
-    const UGameDataRepository* Repository) const
+    const FString& InputString, const UGameDataRepository* Repository) const
 {
     TArray<UGameDataEntry*> Result;
     FString Exception;
     check(Actions.SerializeToString != nullptr);
-    if (Actions.DeserializeFromString(Handle, Repository, &Result, &Exception))
+    if (Actions.DeserializeFromString(Handle, &InputString, Repository, &Result, &Exception))
     {
         return MoveTemp(Result);
     }
