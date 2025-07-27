@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text.Json;
 using JetBrains.Annotations;
 using ManagedGameDataAccessTools.DataRetrieval;
 using ManagedGameDataAccessToolsEditor.Serialization;
@@ -170,9 +169,8 @@ public static class SerializationCallbacks
                 .GetMethod(nameof(DeserializeInternal), BindingFlags.NonPublic | BindingFlags.Static)!
                 .MakeGenericMethod(entryType);
 
-            serializerMethod.Invoke(null, [stringInput, handle.Target, dataRepository, destinationCollection]);
+            serializerMethod.Invoke(null, [inputString, handle.Target, dataRepository, destinationCollection]);
             
-        
             return NativeBool.True;
         }
         catch (Exception e)
@@ -192,6 +190,10 @@ public static class SerializationCallbacks
         {
             throw new InvalidOperationException("Invalid repository.");
         }
-        action.DeserializeData(inputString, repositoryObject);
+
+        foreach (var entry in action.DeserializeData(inputString, repositoryObject))
+        {
+            SerializationExporter.CallAddEntryToCollection(destinationCollection, entry.NativeObject);
+        }
     }
 }
