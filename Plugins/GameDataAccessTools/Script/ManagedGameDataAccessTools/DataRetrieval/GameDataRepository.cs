@@ -25,5 +25,5 @@ public interface IGameDataRepository<T> where T : UGameDataEntry
 
     bool TryGetEntry(int index, [NotNullWhen(true)] out T? entry);
 
-    void OnGameDataAssetLoaded();
+    void Refresh();
 }

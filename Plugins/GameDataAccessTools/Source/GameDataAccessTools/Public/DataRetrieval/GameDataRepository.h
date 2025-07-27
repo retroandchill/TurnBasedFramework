@@ -19,4 +19,7 @@ class GAMEDATAACCESSTOOLS_API UGameDataRepository : public UObject
 public:
     UFUNCTION(BlueprintImplementableEvent, Category = "GameDataRepository")
     TSubclassOf<UGameDataEntry> GetEntryClass() const;
+    
+    UFUNCTION(BlueprintImplementableEvent, Category = "GameDataRepository")
+    void Refresh() const;
 };

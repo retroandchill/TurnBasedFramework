@@ -1,6 +1,9 @@
 ﻿using GameAccessTools.SourceGenerator.Attributes;
 using UnrealSharp;
+using UnrealSharp.Attributes;
+using UnrealSharp.Attributes.MetaTags;
 using UnrealSharp.CoreUObject;
+using UnrealSharp.Engine;
 using UnrealSharp.StaticVars;
 
 namespace ManagedTurnBasedExamples.Data;

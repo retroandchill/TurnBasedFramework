@@ -56,7 +56,7 @@ public partial class {{AssetClassName}} : UGameDataRepository, IGameDataReposito
         return true;
     }
 
-    public void OnGameDataAssetLoaded() 
+    public override void Refresh() 
     {
         _entries = DataEntries.ToImmutableDictionary(x => x.Id);
     }

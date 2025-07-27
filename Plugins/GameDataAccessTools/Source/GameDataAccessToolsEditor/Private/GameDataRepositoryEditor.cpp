@@ -360,6 +360,7 @@ void FGameDataRepositoryEditor::RefreshList() const
         const auto Entry = (*GameDataEntries)[i];
         Entry->RowIndex = i;
     }
+    GameDataRepository->Refresh();
     GameDataRepository->Modify();
     EntrySelector->RefreshList();
     if (CurrentRow.IsSet())

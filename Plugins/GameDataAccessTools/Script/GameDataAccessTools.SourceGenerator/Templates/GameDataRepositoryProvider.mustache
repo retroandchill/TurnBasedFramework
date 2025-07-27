@@ -1,10 +1,16 @@
 #nullable enable
+using System.Diagnostics.CodeAnalysis;
 using UnrealSharp;
+using UnrealSharp.Engine;
 using UnrealSharp.Attributes;
 using UnrealSharp.Attributes.MetaTags;
 using UnrealSharp.CoreUObject;
 using UnrealSharp.DeveloperSettings;
 using UnrealSharp.StaticVars;
+using ManagedGameDataAccessTools.DataRetrieval;
+#if !PACKAGE
+using UnrealSharp.LevelEditor;
+#endif
 
 namespace {{Namespace}};
 
@@ -39,4 +45,77 @@ public sealed partial class {{ClassName}}
         {{/Repositories}}
     }
 
+}
+
+
+{{#Repositories}}
+[UStruct]
+[UMetaData("GameDataEntryHandle", "{{EntryTypeEngineName}}")]
+public readonly record struct F{{SingularName}}Handle(
+    [field: UProperty(PropertyFlags.EditAnywhere | PropertyFlags.BlueprintReadOnly)]
+    FName RowName) : IGameDataRepositoryHandle<{{EntryType}}>
+{
+    public static IGameDataRepository<{{EntryType}}> Repository 
+    { 
+        get 
+        {
+            #if !PACKAGE
+            var playInEditorSubsystem = UObject.GetEditorSubsystem<ULevelEditorSubsystem>();
+            if (!playInEditorSubsystem.IsInPlayInEditor())
+            {
+                var settings = UObject.GetDefault<U{{../ClassName}}Settings>();
+                var repository = settings.{{Name}}.Object as {{Type}};
+                repository?.Refresh();
+                return repository;
+            }
+            #endif
+            
+            return {{../ClassName}}.{{Name}};
+        } 
+    }
+
+    public static IEnumerable<FName> EntryNames => Repository.EntryNames;
+
+    [MemberNotNullWhen(true, nameof(Entry))]
+    public bool IsValid => Entry is not null;
+
+    public {{EntryType}}? Entry => Repository.TryGetEntry(RowName, out var result) ? result : null;
+
+    public static implicit operator FName(F{{SingularName}}Handle handle) => handle.RowName;
+    public static implicit operator F{{SingularName}}Handle(FName key) => new F{{SingularName}}Handle(key);
+}
+{{/Repositories}}
+
+[UClass]
+public partial class U{{ClassName}}Helpers : UBlueprintFunctionLibrary
+{
+    {{#Repositories}}
+    [UFunction(FunctionFlags.BlueprintPure, Category = "{{Name}}")]
+    public static {{EntryType}} Get{{SingularName}}(F{{SingularName}}Handle handle)
+    {
+        return {{../ClassName}}.{{Name}}.GetEntry(handle);
+    }
+
+    [UFunction(FunctionFlags.BlueprintPure, Category = "{{Name}}")]
+    public static bool TryGet{{SingularName}}(F{{SingularName}}Handle handle, out {{EntryType}}? entry)
+    {
+        return {{../ClassName}}.{{Name}}.TryGetEntry(handle, out entry);
+    }
+       
+    [UFunction(FunctionFlags.BlueprintPure, Category = "{{Name}}", DisplayName = "Convert to {{SingularName}}")]
+    [CompactNodeTitle("->")]
+    [BlueprintAutocast]
+    public static FName Convert{{SingularName}}HandleToName(F{{SingularName}}Handle handle)
+    {
+        return handle;
+    }
+    
+    [UFunction(FunctionFlags.BlueprintPure, Category = "{{Name}}", DisplayName = "Convert to {{SingularName}} Handle")]
+    [CompactNodeTitle("->")]
+    [BlueprintAutocast]
+    public static F{{SingularName}}Handle ConvertNameTo{{SingularName}}Handle(FName key)
+    {
+        return key;
+    }
+    {{/Repositories}}
 }

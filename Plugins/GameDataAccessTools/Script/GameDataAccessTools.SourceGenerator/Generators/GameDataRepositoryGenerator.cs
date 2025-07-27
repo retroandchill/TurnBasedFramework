@@ -218,7 +218,9 @@ internal class GameDataRepositoryGenerator : IIncrementalGenerator
                         ? x.Type.ToDisplayString()
                         : GetFormattedName(foundDataEntries, x.Type.Name),
                     Name = x.Name,
+                    SingularName = GetSingularName(x),
                     RepositoryClassName = x.Type.Name[1..],
+                    EntryType = GetEntryType(x.Type, foundDataEntries),
                     Category = x.GetAttributes().GetSettingsCategoryInfos()
                         .SingleOrDefault().Name
                 })
@@ -244,9 +246,36 @@ internal class GameDataRepositoryGenerator : IIncrementalGenerator
 
         return foundDataEntries.ContainsKey(type.Name);
     }
+    
+    private static string GetEntryType(ITypeSymbol type,
+                                        Dictionary<string, GameDataRepositoryInfo> foundDataEntries)
+    {
+        if (type.BaseType?.ToDisplayString() == SourceContextNames.UGameDataRepository)
+        {
+            return type.Interfaces.Where(i => i.IsGenericType 
+                                              && i.ConstructedFrom.ToDisplayString() == SourceContextNames.IGameDataRepository)
+                .Select(i => i.TypeArguments.Single())
+                .Single().ToDisplayString();
+        }
+
+        return foundDataEntries[type.Name].EntryType.ToDisplayString();
+    }
 
     private static string GetFormattedName(Dictionary<string, GameDataRepositoryInfo> foundDataEntries, string name)
     {
         return foundDataEntries.TryGetValue(name, out var entry) ? $"{entry.Namespace}.{entry.AssetClassName}" : name;
+    }
+
+    private static string GetSingularName(IPropertySymbol propertySymbol)
+    {
+        var explicitName = propertySymbol.GetAttributes().GetSingularNameInfos()
+            .Select(x => x.Name)
+            .SingleOrDefault();
+        if (!string.IsNullOrWhiteSpace(explicitName))
+        {
+            return explicitName;
+        }
+        
+        return propertySymbol.Name.EndsWith("s") ? propertySymbol.Name[0..^1] : propertySymbol.Name;
     }
 }
