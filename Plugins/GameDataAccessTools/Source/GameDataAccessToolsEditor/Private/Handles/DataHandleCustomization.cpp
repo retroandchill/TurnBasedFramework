@@ -22,7 +22,7 @@ void FDataHandleCustomization::CustomizeHeader(const TSharedRef<IPropertyHandle>
     Handle = PropertyHandle;
 
     // The C# class wraps an FName so in this case
-    WrappedProperty = PropertyHandle->GetChildHandle("RowName");
+    WrappedProperty = PropertyHandle->GetChildHandle("Id");
     TArray<void*> RawData;
     WrappedProperty->AccessRawData(RawData);
     TSet<FName> SelectedValues;

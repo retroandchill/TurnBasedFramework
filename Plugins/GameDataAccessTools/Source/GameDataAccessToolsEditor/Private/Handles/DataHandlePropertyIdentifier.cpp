@@ -16,6 +16,6 @@ bool FDataHandlePropertyIdentifier::IsPropertyTypeCustomized(const IPropertyHand
     }
 
     
-    return ManagedStruct->GetTypeInfo()->TypeMetaData->MetaData.Contains("GameDataEntryHandle")
-        && ManagedStruct->FindPropertyByName("RowName") != nullptr;
+    return ManagedStruct->GetTypeInfo()->TypeMetaData->MetaData.Contains("DataHandle")
+        && ManagedStruct->FindPropertyByName("Id") != nullptr;
 }

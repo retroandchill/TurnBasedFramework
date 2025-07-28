@@ -50,11 +50,11 @@ public sealed partial class {{ClassName}}
 
 {{#Repositories}}
 [UStruct]
-[UMetaData("GameDataEntryHandle", "{{EntryTypeEngineName}}")]
+[UMetaData("DataHandle")]
 [UMetaData("OptionsSource", "{{../ClassName}}Helpers_C.GetAll{{Name}}")]
 public readonly record struct F{{SingularName}}Handle(
     [field: UProperty(PropertyFlags.EditAnywhere | PropertyFlags.BlueprintReadOnly)]
-    FName RowName) : IGameDataRepositoryHandle<{{EntryType}}>
+    FName Id) : IGameDataRepositoryHandle<{{EntryType}}>
 {
     public static IGameDataRepository<{{EntryType}}> Repository 
     { 
@@ -80,9 +80,9 @@ public readonly record struct F{{SingularName}}Handle(
     [MemberNotNullWhen(true, nameof(Entry))]
     public bool IsValid => Entry is not null;
 
-    public {{EntryType}}? Entry => Repository.TryGetEntry(RowName, out var result) ? result : null;
+    public {{EntryType}}? Entry => Repository.TryGetEntry(Id, out var result) ? result : null;
 
-    public static implicit operator FName(F{{SingularName}}Handle handle) => handle.RowName;
+    public static implicit operator FName(F{{SingularName}}Handle handle) => handle.Id;
     public static implicit operator F{{SingularName}}Handle(FName key) => new F{{SingularName}}Handle(key);
 }
 {{/Repositories}}

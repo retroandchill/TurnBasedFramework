@@ -12,7 +12,7 @@ public interface IGameDataRepositoryHandle<TEntry> where TEntry : UGameDataEntry
 
     bool IsValid { get; }
     
-    FName RowName { get; }
+    FName Id { get; }
 
     TEntry? Entry { get; }
 }
