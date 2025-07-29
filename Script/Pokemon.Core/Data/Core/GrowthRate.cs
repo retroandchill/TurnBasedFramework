@@ -1,20 +1,10 @@
 ﻿using GameAccessTools.SourceGenerator.Attributes;
+using Pokemon.Core.Evaluator.GrowthRates;
 using UnrealSharp;
 using UnrealSharp.Attributes;
-using UnrealSharp.CoreUObject;
 using UnrealSharp.GameDataAccessTools;
 
 namespace Pokemon.Core.Data.Core;
-
-[UClass(ClassFlags.Abstract)]
-public class UGrowthRateFormula : UObject
-{
-    [UFunction(FunctionFlags.BlueprintEvent)] 
-    public virtual int GetMinimumExpForLevel(int level) 
-    {
-        throw new NotImplementedException();
-    }
-}
 
 [UClass(ClassFlags.EditInlineNew)]
 [GameDataEntry]
@@ -54,78 +44,5 @@ public class UGrowthRate : UGameDataEntry
         }
 
         return max;
-    }
-}
-
-[UClass]
-public sealed class UMediumExpGrowth : UGrowthRateFormula
-{
-    public override int GetMinimumExpForLevel(int level)
-    {
-        ArgumentOutOfRangeException.ThrowIfLessThan(level, 0);
-        return level == 1 ? 0 : (int)Math.Pow(level, 3);
-    }
-}
-
-[UClass]
-public sealed class UErraticExpGrowth : UGrowthRateFormula
-{
-    public override int GetMinimumExpForLevel(int level)
-    {
-        ArgumentOutOfRangeException.ThrowIfLessThan(level, 0);
-        return level switch
-        {
-            1 => 0,
-            <= 50 => (int)Math.Pow(level, 3) * (100 - level) / 50,
-            <= 68 => (int)Math.Pow(level, 3) * (150 - level) / 100,
-            <= 98 => (int)Math.Pow(level, 3) * ((1911 - 10 * level) / 3) / 500,
-            _ => (int)Math.Pow(level, 3) * (160 - level) / 100
-        };
-    }
-}
-
-[UClass]
-public sealed class UFluctuatingExpGrowth : UGrowthRateFormula
-{
-    public override int GetMinimumExpForLevel(int level)
-    {
-        ArgumentOutOfRangeException.ThrowIfLessThan(level, 0);
-        return level switch
-        {
-            1 => 0,
-            <= 15 => (int)Math.Pow(level, 3) * (24 + (level + 1) / 3) / 50,
-            <= 35 => (int)Math.Pow(level, 3) * (14 + level) / 50,
-            _ => (int)Math.Pow(level, 3) * (32 + level / 2) / 50
-        };
-    }
-}
-
-[UClass]
-public sealed class UParabolicExpGrowth : UGrowthRateFormula
-{
-    public override int GetMinimumExpForLevel(int level)
-    {
-        ArgumentOutOfRangeException.ThrowIfLessThan(level, 0);
-        return level == 1 ? 0 : (int)Math.Pow(level, 3) * 6 / 5 - 15 * (int)Math.Pow(level, 2) + 100 * level - 140;
-    }
-}
-
-[UClass]
-public sealed class UFastExpGrowth : UGrowthRateFormula
-{
-    public override int GetMinimumExpForLevel(int level)
-    {
-        ArgumentOutOfRangeException.ThrowIfLessThan(level, 0);
-        return level == 1 ? 0 : (int)Math.Pow(level, 3) * 4 / 5;
-    }
-}
-
-[UClass]
-public sealed class USlowExpGrowth : UGrowthRateFormula
-{
-    public override int GetMinimumExpForLevel(int level)
-    {
-        ArgumentOutOfRangeException.ThrowIfLessThan(level, 0);
-        return level == 1 ? 0 : (int)Math.Pow(level, 3) * 5 / 4;
     }
 }
