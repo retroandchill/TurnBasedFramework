@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Script", "Script", "{0BB39A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagedTurnBasedExamples", "ManagedTurnBasedExamples\ManagedTurnBasedExamples.csproj", "{A0736C96-9911-4AD3-AC1B-D4F7934416A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokemon.Core", "Pokemon.Core\Pokemon.Core.csproj", "{82F85422-7534-42FA-9A5E-273E24627F13}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokemon.Data", "Pokemon.Data\Pokemon.Data.csproj", "{82F85422-7534-42FA-9A5E-273E24627F13}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectGlue", "ProjectGlue\ProjectGlue.csproj", "{8DD71859-AE02-4646-815E-6E17090F6754}"
 EndProject

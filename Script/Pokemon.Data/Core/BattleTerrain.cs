@@ -3,11 +3,11 @@ using UnrealSharp;
 using UnrealSharp.Attributes;
 using UnrealSharp.GameDataAccessTools;
 
-namespace Pokemon.Core.Data.Core;
+namespace Pokemon.Data.Core;
 
 [UClass(ClassFlags.EditInlineNew)]
 [GameDataEntry]
-public class UHabitat : UGameDataEntry
+public class UBattleTerrain : UGameDataEntry
 {
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Display")]
     public FText DisplayName { get; init; }

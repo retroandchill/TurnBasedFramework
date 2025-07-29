@@ -4,7 +4,7 @@ using UnrealSharp.Attributes;
 using UnrealSharp.Attributes.MetaTags;
 using UnrealSharp.GameDataAccessTools;
 
-namespace Pokemon.Core.Data.Core;
+namespace Pokemon.Data.Core;
 
 [UEnum]
 public enum EPokemonGender : byte

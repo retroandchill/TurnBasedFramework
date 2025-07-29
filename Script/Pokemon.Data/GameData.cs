@@ -1,7 +1,7 @@
 ﻿using GameAccessTools.SourceGenerator.Attributes;
-using Pokemon.Core.Data.Core;
+using Pokemon.Data.Core;
 
-namespace Pokemon.Core.Data;
+namespace Pokemon.Data;
 
 [GameDataRepositoryProvider(SettingsDisplayName = "Game Data")]
 public partial class GameData

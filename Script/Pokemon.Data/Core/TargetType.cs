@@ -3,7 +3,7 @@ using UnrealSharp;
 using UnrealSharp.Attributes;
 using UnrealSharp.GameDataAccessTools;
 
-namespace Pokemon.Core.Data.Core;
+namespace Pokemon.Data.Core;
 
 [UEnum]
 public enum ETargetCount : byte
