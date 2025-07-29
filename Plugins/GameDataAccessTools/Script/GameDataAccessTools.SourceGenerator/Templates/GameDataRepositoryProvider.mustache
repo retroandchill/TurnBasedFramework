@@ -81,5 +81,7 @@ public readonly partial record struct F{{SingularName}}Handle(
     public bool IsValid => Entry is not null;
 
     public {{EntryType}}? Entry => Repository.TryGetEntry(Id, out var result) ? result : null;
+
+    public static implicit operator F{{SingularName}}Handle({{EntryType}} entry) => new F{{SingularName}}Handle(entry.Id);
 }
 {{/Repositories}}

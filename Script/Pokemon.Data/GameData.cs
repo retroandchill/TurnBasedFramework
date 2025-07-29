@@ -1,5 +1,6 @@
 ﻿using GameAccessTools.SourceGenerator.Attributes;
 using Pokemon.Data.Core;
+using Pokemon.Data.Pbs;
 
 namespace Pokemon.Data;
 
@@ -53,4 +54,7 @@ public partial class GameData
     
     [SettingsCategory("Core")]
     public static partial UTargetTypeDataRepository TargetTypes { get; }
+    
+    [SettingsCategory("Pbs")]
+    public static partial UTypeDataRepository Types { get; }
 }
