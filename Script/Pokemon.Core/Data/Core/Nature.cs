@@ -4,7 +4,7 @@ using UnrealSharp.Attributes;
 using UnrealSharp.Attributes.MetaTags;
 using UnrealSharp.GameDataAccessTools;
 
-namespace Pokemon.Data.Core;
+namespace Pokemon.Core.Data.Core;
 
 [UClass(ClassFlags.EditInlineNew)]
 [GameDataEntry]

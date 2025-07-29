@@ -3,23 +3,12 @@ using UnrealSharp;
 using UnrealSharp.Attributes;
 using UnrealSharp.GameDataAccessTools;
 
-namespace Pokemon.Data.Core;
-
-[UEnum]
-public enum EEggGroupType : byte
-{
-    WithSameEggGroup,
-    WithAnyEggGroup,
-    WithNoEggGroups
-}
+namespace Pokemon.Core.Data.Core;
 
 [UClass(ClassFlags.EditInlineNew)]
 [GameDataEntry]
-public class UEggGroup : UGameDataEntry
+public class UBattleWeather : UGameDataEntry
 {
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Display")]
     public FText DisplayName { get; init; }
-    
-    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Breeding")]
-    public EEggGroupType BreedingType { get; init; }
 }

@@ -3,7 +3,7 @@ using UnrealSharp;
 using UnrealSharp.Attributes;
 using UnrealSharp.GameDataAccessTools;
 
-namespace Pokemon.Data.Core;
+namespace Pokemon.Core.Data.Core;
 
 [UEnum]
 public enum EEncounterTrigger : byte

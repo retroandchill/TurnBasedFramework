@@ -4,7 +4,7 @@ using UnrealSharp.Attributes;
 using UnrealSharp.CoreUObject;
 using UnrealSharp.GameDataAccessTools;
 
-namespace Pokemon.Data.Core;
+namespace Pokemon.Core.Data.Core;
 
 [UClass(ClassFlags.Abstract)]
 public class UGrowthRateFormula : UObject

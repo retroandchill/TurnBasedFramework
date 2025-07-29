@@ -1,7 +1,7 @@
 ﻿using UnrealSharp.Attributes;
 using UnrealSharp.Attributes.MetaTags;
 
-namespace Pokemon.Data;
+namespace Pokemon.Core.Data;
 
 public partial class UGameDataSettings
 {

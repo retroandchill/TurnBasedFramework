@@ -1,6 +1,6 @@
 using UnrealSharp.Engine.Core.Modules;
 
-namespace Pokemon.Data;
+namespace Pokemon.Core.Data;
 
 public class FPokemonDataModule : IModuleInterface
 {
