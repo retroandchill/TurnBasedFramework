@@ -66,7 +66,7 @@ namespace GameAccessTools.SourceGenerator.Properties {
         ///using UnrealSharp;
         ///using UnrealSharp.Attributes;
         ///using UnrealSharp.Engine;
-        ///using ManagedGameDataAccessTools.DataRetrieval;
+        ///using GameDataAccessTools.Core.DataRetrieval;
         ///
         ///namespace {{Namespace}};
         ///
@@ -88,8 +88,8 @@ namespace GameAccessTools.SourceGenerator.Properties {
         ///using UnrealSharp.Core.Marshallers;
         ///using UnrealSharp.CoreUObject;
         ///using UnrealSharp.Interop;
-        ///using ManagedGameDataAccessTools.DataRetrieval;
-        ///using ManagedGameDataAccessToolsEditor;
+        ///using GameDataAccessTools.Core.DataRetrieval;
+        ///using GameDataAccessTools.Editor;
         ///
         ///namespace {{Namespace}};
         ///
@@ -117,7 +117,7 @@ namespace GameAccessTools.SourceGenerator.Properties {
         ///using UnrealSharp.CoreUObject;
         ///using UnrealSharp.DeveloperSettings;
         ///using UnrealSharp.StaticVars;
-        ///using ManagedGameDataAccessTools.DataRetrieval;
+        ///using GameDataAccessTools.Core.DataRetrieval;
         ///#if !PACKAGE
         ///using UnrealSharp.LevelEditor;
         ///#endif
@@ -139,7 +139,7 @@ namespace GameAccessTools.SourceGenerator.Properties {
         ///using UnrealSharp;
         ///using UnrealSharp.Attributes;
         ///using UnrealSharp.GameDataAccessTools;
-        ///using ManagedGameDataAccessTools.DataRetrieval;
+        ///using GameDataAccessTools.Core.DataRetrieval;
         ///
         ///namespace {{Namespace}};
         ///

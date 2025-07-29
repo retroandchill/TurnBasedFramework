@@ -41,7 +41,7 @@ public class DataHandleSourceGenerator : IIncrementalGenerator
         var dataHandleInterface = classSymbol.AllInterfaces
             .SingleOrDefault(a => a.IsGenericType && a.TypeParameters.Length == 2
                                                   && a.ContainingNamespace.ToDisplayString() ==
-                                                  "ManagedGameDataAccessTools.DataRetrieval"
+                                                  "GameDataAccessTools.Core.DataRetrieval"
                                                   && a.MetadataName == "IDataHandle`2");
 
         if (dataHandleInterface is null)

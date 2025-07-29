@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Script", "Script", "{0BB39A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagedTurnBasedExamples", "ManagedTurnBasedExamples\ManagedTurnBasedExamples.csproj", "{A0736C96-9911-4AD3-AC1B-D4F7934416A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonData", "PokemonData\PokemonData.csproj", "{82F85422-7534-42FA-9A5E-273E24627F13}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokemon.Data", "Pokemon.Data\Pokemon.Data.csproj", "{82F85422-7534-42FA-9A5E-273E24627F13}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectGlue", "ProjectGlue\ProjectGlue.csproj", "{8DD71859-AE02-4646-815E-6E17090F6754}"
 EndProject
@@ -19,9 +19,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameDataAccessTools.PluginG
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameDataAccessTools.SourceGenerator", "..\Plugins\GameDataAccessTools\Script\GameDataAccessTools.SourceGenerator\GameDataAccessTools.SourceGenerator.csproj", "{B68603A6-3FDC-4163-B44C-185592D4C1ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagedGameDataAccessTools", "..\Plugins\GameDataAccessTools\Script\ManagedGameDataAccessTools\ManagedGameDataAccessTools.csproj", "{D47322E1-2AD3-4C0A-90A9-DE41076E4667}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameDataAccessTools.Core", "..\Plugins\GameDataAccessTools\Script\GameDataAccessTools.Core\GameDataAccessTools.Core.csproj", "{D47322E1-2AD3-4C0A-90A9-DE41076E4667}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagedGameDataAccessToolsEditor", "..\Plugins\GameDataAccessTools\Script\ManagedGameDataAccessToolsEditor\ManagedGameDataAccessToolsEditor.csproj", "{89169B2F-C5BB-4BAD-8C47-F125F592FC20}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameDataAccessTools.Editor", "..\Plugins\GameDataAccessTools\Script\GameDataAccessTools.Editor\GameDataAccessTools.Editor.csproj", "{89169B2F-C5BB-4BAD-8C47-F125F592FC20}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnrealInject", "UnrealInject", "{923F1B13-4AB7-9957-92E8-7CA668E7127F}"
 EndProject

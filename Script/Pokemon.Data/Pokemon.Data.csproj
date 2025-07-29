@@ -15,15 +15,15 @@
     <Reference Include="UnrealSharp.Core">
       <HintPath>..\..\Plugins\UnrealSharp\Binaries\Managed\net9.0\UnrealSharp.Core.dll</HintPath>
     </Reference>
-    <Reference Include="UnrealSharp.StaticVars">
-      <HintPath>..\..\Plugins\UnrealSharp\Binaries\Managed\UnrealSharp.StaticVars.dll</HintPath>
-    </Reference>
+      <Reference Include="UnrealSharp.StaticVars">
+          <HintPath>..\..\Plugins\UnrealSharp\Binaries\Managed\UnrealSharp.StaticVars.dll</HintPath>
+      </Reference>
     <Analyzer Include="..\..\Plugins\UnrealSharp\Binaries\Managed\UnrealSharp.SourceGenerators.dll" />
       <Analyzer Include="..\..\Plugins\UnrealSharp\Binaries\Managed\UnrealSharp.ExtensionSourceGenerators.dll" />
-      <ProjectReference Include="..\..\Plugins\GameDataAccessTools\Script\GameDataAccessTools.SourceGenerator\GameDataAccessTools.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-      <ProjectReference Include="..\..\Plugins\GameDataAccessTools\Script\GameDataAccessTools.Editor\GameDataAccessTools.Editor.csproj" />
-      <ProjectReference Include="..\..\Plugins\GameDataAccessTools\Script\GameDataAccessTools.Core\GameDataAccessTools.Core.csproj" />
-      <ProjectReference Include="..\..\Plugins\UnrealInject\Script\UnrealInject\UnrealInject.csproj" />
+    <ProjectReference Include="..\..\Plugins\GameDataAccessTools\Script\GameDataAccessTools.PluginGlue\GameDataAccessTools.PluginGlue.csproj" />
+    <ProjectReference Include="..\..\Plugins\GameDataAccessTools\Script\GameDataAccessTools.SourceGenerator\GameDataAccessTools.SourceGenerator.csproj"  OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\..\Plugins\GameDataAccessTools\Script\GameDataAccessTools.Core\GameDataAccessTools.Core.csproj" />
+    <ProjectReference Include="..\..\Plugins\UnrealInject\Script\UnrealInject\UnrealInject.csproj" />
     <ProjectReference Include="..\ProjectGlue\ProjectGlue.csproj" />
   </ItemGroup>
 </Project>
