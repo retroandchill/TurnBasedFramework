@@ -3,20 +3,19 @@ using Microsoft.CodeAnalysis;
 
 namespace GameAccessTools.SourceGenerator.Model;
 
-public record DataHandleParams(INamedTypeSymbol HandleSymbol, ITypeSymbol PropertyType)
+public record DataHandleParams(string ClassName, string PropertyType)
 {
-    public string Namespace => HandleSymbol.ContainingNamespace.ToDisplayString();
+    public required string Namespace { get; init; }
     
-    public string ClassName => HandleSymbol.Name;
+    public required bool IsUStruct { get; init; }
     
-    public bool IsUStruct => HandleSymbol.GetAttributes()
-        .Any(a => a.AttributeClass?.ToDisplayString() == SourceContextNames.UStructAttribute);
+    public required bool IsRecord { get; init; }
     
-    public bool IsRecord => HandleSymbol.IsRecord;
+    public required bool IsComparable { get; init; }
 
     public string EngineName => GetEngineName(ClassName);
 
-    public string PropertyTypeEngineName => GetEngineName(PropertyType.Name);
+    public string PropertyTypeEngineName => GetEngineName(PropertyType);
 
     private readonly string? _pluralName;
     public string PluralName

@@ -48,11 +48,14 @@ internal class GameDataRepositoryGenerator : IIncrementalGenerator
 
         var combinedInfo = dataEntries.Combine(providers);
 
-        context.RegisterSourceOutput(combinedInfo, (ctx, info) => { Execute(ctx, info.Left!, info.Right!); });
+        context.RegisterSourceOutput(combinedInfo, (ctx, info) =>
+        {
+            Execute(ctx, info.Left!, info.Right!);
+        });
     }
 
     private static void Execute(SourceProductionContext context, ImmutableArray<INamedTypeSymbol> entryTypes,
-        ImmutableArray<INamedTypeSymbol> providerTypes)
+                                ImmutableArray<INamedTypeSymbol> providerTypes)
     {
         var foundDataEntries = entryTypes
             .Select(x => GenerateGameAssetData(context, x))
@@ -163,7 +166,7 @@ internal class GameDataRepositoryGenerator : IIncrementalGenerator
     }
 
     private static void GenerateProviderType(SourceProductionContext context, INamedTypeSymbol providerType,
-        Dictionary<string, GameDataRepositoryInfo> foundDataEntries)
+                                             Dictionary<string, GameDataRepositoryInfo> foundDataEntries)
     {
         var providerInfo = providerType.GetAttributes().GetGameDataRepositoryProviderInfos()
             .Single();
@@ -196,35 +199,37 @@ internal class GameDataRepositoryGenerator : IIncrementalGenerator
             return;
         }
 
+        var repositories = providerType.GetMembers()
+            .OfType<IPropertySymbol>()
+            .Where(p => p.IsStatic)
+            .Where(p => p.DeclaredAccessibility == Accessibility.Public)
+            .Where(p => p.Type is INamedTypeSymbol namedType && IsGameDataRepository(namedType, foundDataEntries))
+            .Where(p => p.GetMethod is not null && p.SetMethod is null)
+            .Where(p => p.DeclaringSyntaxReferences
+                .Select(r => r.GetSyntax())
+                .OfType<PropertyDeclarationSyntax>()
+                .Any(x => x.Modifiers.Any(m => m.IsKind(SyntaxKind.PartialKeyword))))
+            .Select(x => new RepositoryPropertyInfo
+            {
+                Type = x.Type.BaseType is not null
+                    ? x.Type.ToDisplayString()
+                    : GetFormattedName(foundDataEntries, x.Type.Name),
+                Name = x.Name,
+                SingularName = GetSingularName(x),
+                RepositoryClassName = x.Type.Name[1..],
+                EntryType = GetEntryType(x.Type, foundDataEntries),
+                Category = x.GetAttributes().GetSettingsCategoryInfos()
+                    .SingleOrDefault().Name
+            })
+            .ToImmutableArray();
+
         var templateParams = new
         {
-            Namespace = providerType.ContainingNamespace?.ToDisplayString(),
+            Namespace = providerType.ContainingNamespace.ToDisplayString(),
             ClassName = providerType.Name,
             DisplayName = providerInfo.SettingsDisplayName,
             HasDisplayName = providerInfo.SettingsDisplayName is not null,
-            Repositories = providerType.GetMembers()
-                .OfType<IPropertySymbol>()
-                .Where(p => p.IsStatic)
-                .Where(p => p.DeclaredAccessibility == Accessibility.Public)
-                .Where(p => p.Type is INamedTypeSymbol namedType && IsGameDataRepository(namedType, foundDataEntries))
-                .Where(p => p.GetMethod is not null && p.SetMethod is null)
-                .Where(p => p.DeclaringSyntaxReferences
-                    .Select(r => r.GetSyntax())
-                    .OfType<PropertyDeclarationSyntax>()
-                    .Any(x => x.Modifiers.Any(m => m.IsKind(SyntaxKind.PartialKeyword))))
-                .Select(x => new RepositoryPropertyInfo
-                {
-                    Type = x.Type.BaseType is not null
-                        ? x.Type.ToDisplayString()
-                        : GetFormattedName(foundDataEntries, x.Type.Name),
-                    Name = x.Name,
-                    SingularName = GetSingularName(x),
-                    RepositoryClassName = x.Type.Name[1..],
-                    EntryType = GetEntryType(x.Type, foundDataEntries),
-                    Category = x.GetAttributes().GetSettingsCategoryInfos()
-                        .SingleOrDefault().Name
-                })
-                .ToImmutableArray()
+            Repositories = repositories
         };
 
         var handlebars = Handlebars.Create();
@@ -232,6 +237,21 @@ internal class GameDataRepositoryGenerator : IIncrementalGenerator
 
         context.AddSource($"{providerType.Name}.g.cs",
             handlebars.Compile(SourceTemplates.GameDataRepositoryProviderTemplate)(templateParams));
+
+        foreach (var repo in repositories)
+        {
+            var repoResult = new DataHandleParams($"F{repo.SingularName}Handle", "FName")
+            {
+                Namespace = templateParams.Namespace,
+                IsRecord = true,
+                PluralName = repo.Name,
+                IsUStruct = true,
+                IsComparable = true
+            };
+            
+            context.AddSource($"{repo.SingularName}Handle.g.cs",
+                handlebars.Compile(SourceTemplates.DataHandleTemplate)(repoResult));
+        }
     }
 
     private static bool IsGameDataRepository(INamedTypeSymbol type,

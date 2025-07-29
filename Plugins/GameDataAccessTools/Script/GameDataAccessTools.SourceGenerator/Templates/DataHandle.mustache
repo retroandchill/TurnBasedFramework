@@ -11,26 +11,95 @@ namespace {{Namespace}};
 
 [UMetaData("DataHandle")]
 [UMetaData("OptionsSource", "{{EngineName}}Helpers_C.GetAll{{PluralName}}")]
-public partial {{#IsRecord}}record {{/IsRecord}}struct {{ClassName}} 
+public partial {{#IsRecord}}record {{/IsRecord}}struct {{ClassName}} : IEquatable<{{PropertyType}}>{{#IsComparable}}, IComparable<{{ClassName}}>, IComparable<{{PropertyType}}>{{/IsComparable}}
 {
     public static implicit operator {{PropertyType}}({{ClassName}} handle) => handle.Id;
     public static implicit operator {{ClassName}}({{PropertyType}} key) => new {{ClassName}}(key);
+
+    public bool Equals({{PropertyType}} other)
+    {
+        return other.Equals(Id);
+    }
+
+    {{#IsComparable}}
+    public int CompareTo({{ClassName}} other)
+    {
+        return Id.CompareTo(other.Id);
+    }
+
+    public int CompareTo({{PropertyType}} other)
+    {
+        return Id.CompareTo(other);
+    }
+    {{/IsComparable}}
+
+    public static bool operator ==({{ClassName}} left, {{PropertyType}} right)
+    {
+        return left.Equals(right);
+    }
+
+    public static bool operator !=({{ClassName}} left, {{PropertyType}} right)
+    {
+        return !left.Equals(right);
+    }
+
+    {{#IsComparable}}
+    public static bool operator <({{ClassName}} left, {{ClassName}} right)
+    {
+        return left.CompareTo(right) < 0;
+    }
+    
+    public static bool operator <({{ClassName}} left, {{PropertyType}} right)
+    {
+        return left.CompareTo(right) < 0;
+    }
+
+    public static bool operator <=({{ClassName}} left, {{ClassName}} right)
+    {
+        return left.CompareTo(right) <= 0;
+    }
+    
+    public static bool operator <=({{ClassName}} left, {{PropertyType}} right)
+    {
+        return left.CompareTo(right) <= 0;
+    }
+
+    public static bool operator >({{ClassName}} left, {{ClassName}} right)
+    {
+        return left.CompareTo(right) > 0;
+    }
+    
+    public static bool operator >({{ClassName}} left, {{PropertyType}} right)
+    {
+        return left.CompareTo(right) > 0;
+    }
+    
+    public static bool operator >=({{ClassName}} left, {{ClassName}} right)
+    {
+        return left.CompareTo(right) >= 0;
+    }
+    
+    public static bool operator >=({{ClassName}} left, {{PropertyType}} right)
+    {
+        return left.CompareTo(right) >= 0;
+    }
+    {{/IsComparable}}
 }
 
 {{#IsUStruct}}
 [UClass]    
 public partial class U{{EngineName}}Helpers : UBlueprintFunctionLibrary
 {
-    [UFunction(FunctionFlags.BlueprintPure, Category = "{{Name}}")]
+    [UFunction(FunctionFlags.BlueprintPure, Category = "{{PluralName}}")]
     public static IReadOnlyList<FName> GetAll{{PluralName}}()
     {
         return {{ClassName}}.EntryKeys.ToList();
     }
        
-    [UFunction(FunctionFlags.BlueprintPure, Category = "{{PluralName}}", DisplayName = "Convert to {{PropertyEngineName}}")]
+    [UFunction(FunctionFlags.BlueprintPure, Category = "{{PluralName}}", DisplayName = "Convert to {{PropertyTypeEngineName}}")]
     [CompactNodeTitle("->")]
     [BlueprintAutocast]
-    public static {{PropertyType}} Convert{{EngineName}}To{{PropertyEngineName}}({{ClassName}} handle)
+    public static {{PropertyType}} Convert{{EngineName}}To{{PropertyTypeEngineName}}({{ClassName}} handle)
     {
         return handle;
     }
@@ -38,9 +107,95 @@ public partial class U{{EngineName}}Helpers : UBlueprintFunctionLibrary
     [UFunction(FunctionFlags.BlueprintPure, Category = "{{Name}}", DisplayName = "Convert to {{EngineName}}")]
     [CompactNodeTitle("->")]
     [BlueprintAutocast]
-    public static {{ClassName}} Convert{{PropertyEngineName}}To{{EngineName}}({{PropertyType}} key)
+    public static {{ClassName}} Convert{{PropertyTypeEngineName}}To{{EngineName}}({{PropertyType}} key)
     {
         return key;
     }
+
+    [UFunction(FunctionFlags.BlueprintPure, Category = "{{Name}}", DisplayName = "Equal ({{EngineName}})")]
+    [CompactNodeTitle("==")]
+    public static bool {{EngineName}}Equals{{EngineName}}({{ClassName}} a, {{ClassName}} b)
+    {
+        return a == b;
+    }
+
+    [UFunction(FunctionFlags.BlueprintPure, Category = "{{Name}}", DisplayName = "Equal ({{PropertyTypeEngineName}})")]
+    [CompactNodeTitle("==")]
+    public static bool {{EngineName}}Equals{{PropertyTypeEngineName}}({{ClassName}} a, {{PropertyType}} b)
+    {
+        return a == b;
+    }
+
+    [UFunction(FunctionFlags.BlueprintPure, Category = "{{Name}}", DisplayName = "Not Equal ({{EngineName}})")]
+    [CompactNodeTitle("!=")]
+    public static bool {{EngineName}}NotEquals{{EngineName}}({{ClassName}} a, {{ClassName}} b)
+    {
+        return a == b;
+    }
+
+    [UFunction(FunctionFlags.BlueprintPure, Category = "{{Name}}", DisplayName = "Not Equal ({{PropertyTypeEngineName}})")]
+    [CompactNodeTitle("!=")]
+    public static bool {{EngineName}}NotEquals{{PropertyTypeEngineName}}({{ClassName}} a, {{PropertyType}} b)
+    {
+        return a != b;
+    }
+
+    {{#IsComparable}}
+    [UFunction(FunctionFlags.BlueprintPure, Category = "{{Name}}", DisplayName = "Greater Than ({{EngineName}})")]
+    [CompactNodeTitle(">")]
+    public static bool {{EngineName}}GreaterThan{{EngineName}}({{ClassName}} a, {{ClassName}} b)
+    {
+        return a > b;
+    }
+
+    [UFunction(FunctionFlags.BlueprintPure, Category = "{{Name}}", DisplayName = "Greater Than ({{PropertyTypeEngineName}})")]
+    [CompactNodeTitle(">")]
+    public static bool {{EngineName}}GreaterThan{{PropertyTypeEngineName}}({{ClassName}} a, {{PropertyType}} b)
+    {
+        return a > b;
+    }
+
+    [UFunction(FunctionFlags.BlueprintPure, Category = "{{Name}}", DisplayName = "Greater Than or Equal ({{EngineName}})")]
+    [CompactNodeTitle(">=")]
+    public static bool {{EngineName}}GreaterThanOrEqual{{EngineName}}({{ClassName}} a, {{ClassName}} b)
+    {
+        return a >= b;
+    }
+
+    [UFunction(FunctionFlags.BlueprintPure, Category = "{{Name}}", DisplayName = "Greater Than or Equal ({{PropertyTypeEngineName}})")]
+    [CompactNodeTitle(">=")]
+    public static bool {{EngineName}}GreaterThanOrEqual{{PropertyTypeEngineName}}({{ClassName}} a, {{PropertyType}} b)
+    {
+        return a >= b;
+    }
+
+    [UFunction(FunctionFlags.BlueprintPure, Category = "{{Name}}", DisplayName = "Less Than ({{EngineName}})")]
+    [CompactNodeTitle("<")]
+    public static bool {{EngineName}}LessThan{{EngineName}}({{ClassName}} a, {{ClassName}} b)
+    {
+        return a < b;
+    }
+
+    [UFunction(FunctionFlags.BlueprintPure, Category = "{{Name}}", DisplayName = "Less Than ({{PropertyTypeEngineName}})")]
+    [CompactNodeTitle("<")]
+    public static bool {{EngineName}}LessThan{{PropertyTypeEngineName}}({{ClassName}} a, {{PropertyType}} b)
+    {
+        return a < b;
+    }
+
+    [UFunction(FunctionFlags.BlueprintPure, Category = "{{Name}}", DisplayName = "Less Than or Equal ({{EngineName}})")]
+    [CompactNodeTitle("<=")]
+    public static bool {{EngineName}}LessThanOrEqual{{EngineName}}({{ClassName}} a, {{ClassName}} b)
+    {
+        return a <= b;
+    }
+
+    [UFunction(FunctionFlags.BlueprintPure, Category = "{{Name}}", DisplayName = "Less Than or Equal ({{PropertyTypeEngineName}})")]
+    [CompactNodeTitle("<=")]
+    public static bool {{EngineName}}LessThanOrEqual{{PropertyTypeEngineName}}({{ClassName}} a, {{PropertyType}} b)
+    {
+        return a <= b;
+    }
+    {{/IsComparable}}
 }
 {{/IsUStruct}}

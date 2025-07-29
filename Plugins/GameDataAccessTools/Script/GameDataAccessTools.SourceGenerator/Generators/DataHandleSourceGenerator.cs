@@ -90,9 +90,16 @@ public class DataHandleSourceGenerator : IIncrementalGenerator
         }
 
         var dataHandleInfo = classSymbol.GetAttributes().GetDataHandleInfos().Single();
-        var templateParams = new DataHandleParams(classSymbol, propertyType)
+        var templateParams = new DataHandleParams(classSymbol.Name, propertyType.Name)
         {
-            PluralName = dataHandleInfo.PluralName!
+            Namespace = classSymbol.ContainingNamespace.ToDisplayString(),
+            IsRecord = classSymbol.IsRecord,
+            PluralName = dataHandleInfo.PluralName!,
+            IsUStruct = classSymbol.GetAttributes()
+                .Any(a => a.AttributeClass?.ToDisplayString() == SourceContextNames.UStructAttribute),
+            IsComparable = propertyType.AllInterfaces
+                .Any(i => i.MetadataName == "IComparable`1" 
+                          && i.IsGenericType && i.TypeArguments[0].Equals(propertyType, SymbolEqualityComparer.Default)),
         };
         
         var handlebars = Handlebars.Create();

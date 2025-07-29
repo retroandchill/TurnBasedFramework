@@ -2,6 +2,8 @@
 
 public static class SourceContextNames
 {
+    public const string FName = "UnrealSharp.FName";
+    
     public const string UGameDataEntry = "UnrealSharp.GameDataAccessTools.UGameDataEntry";
     public const string UGameDataRepository = "UnrealSharp.GameDataAccessTools.UGameDataRepository";
     public const string IGameDataRepository = "GameDataAccessTools.Core.DataRetrieval.IGameDataRepository<T>";

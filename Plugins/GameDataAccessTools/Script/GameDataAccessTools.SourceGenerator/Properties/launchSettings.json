@@ -3,7 +3,7 @@
   "profiles": {
     "Generators": {
       "commandName": "DebugRoslynComponent",
-      "targetProject": "../../../../Script/PokemonData/PokemonData.csproj"
+      "targetProject": "../../../../Script/Pokemon.Data/Pokemon.Data.csproj"
     }
   }
 }
