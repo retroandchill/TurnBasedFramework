@@ -1,0 +1,46 @@
+#nullable enable
+using System.Collections.Immutable;
+using System.Diagnostics.CodeAnalysis;
+using UnrealSharp;
+using UnrealSharp.Attributes;
+using UnrealSharp.Attributes.MetaTags;
+using UnrealSharp.Engine;
+using ManagedGameDataAccessTools.DataRetrieval;
+
+namespace {{Namespace}};
+
+[UMetaData("DataHandle")]
+[UMetaData("OptionsSource", "{{EngineName}}Helpers_C.GetAll{{PluralName}}")]
+public partial {{#IsRecord}}record {{/IsRecord}}struct {{ClassName}} 
+{
+    public static implicit operator {{PropertyType}}({{ClassName}} handle) => handle.Id;
+    public static implicit operator {{ClassName}}({{PropertyType}} key) => new {{ClassName}}(key);
+}
+
+{{#IsUStruct}}
+[UClass]    
+public partial class U{{EngineName}}Helpers : UBlueprintFunctionLibrary
+{
+    [UFunction(FunctionFlags.BlueprintPure, Category = "{{Name}}")]
+    public static IReadOnlyList<FName> GetAll{{PluralName}}()
+    {
+        return {{ClassName}}.EntryKeys.ToList();
+    }
+       
+    [UFunction(FunctionFlags.BlueprintPure, Category = "{{PluralName}}", DisplayName = "Convert to {{PropertyEngineName}}")]
+    [CompactNodeTitle("->")]
+    [BlueprintAutocast]
+    public static {{PropertyType}} Convert{{EngineName}}To{{PropertyEngineName}}({{ClassName}} handle)
+    {
+        return handle;
+    }
+    
+    [UFunction(FunctionFlags.BlueprintPure, Category = "{{Name}}", DisplayName = "Convert to {{EngineName}}")]
+    [CompactNodeTitle("->")]
+    [BlueprintAutocast]
+    public static {{ClassName}} Convert{{PropertyEngineName}}To{{EngineName}}({{PropertyType}} key)
+    {
+        return key;
+    }
+}
+{{/IsUStruct}}

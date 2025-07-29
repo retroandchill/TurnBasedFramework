@@ -144,7 +144,7 @@ public static class SerializationCallbacks
                                                     IGameDataRepository<TEntry> repository)
         where TEntry : UGameDataEntry
     {
-        return action.SerializeData(repository.OrderedEntries);
+        return action.SerializeData(repository.AllEntries);
     }
     
     [UnmanagedCallersOnly]

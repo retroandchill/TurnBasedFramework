@@ -61,22 +61,45 @@ namespace GameAccessTools.SourceGenerator.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to #nullable enable
+        ///using System.Collections.Immutable;
+        ///using System.Diagnostics.CodeAnalysis;
+        ///using UnrealSharp;
+        ///using UnrealSharp.Attributes;
+        ///using UnrealSharp.Engine;
+        ///using ManagedGameDataAccessTools.DataRetrieval;
+        ///
+        ///namespace {{Namespace}};
+        ///
+        ///public partial {{#IsRecord}}record {{/IsRecord}}struct {{ClassName}} \
+        ///{
+        ///    public static implicit operator {{PropertyType}}({{ClassName}} handle) =&gt; handle.Id;
+        ///    public static implicit operator {{ClassName}}({{PropertyType}} key) =&gt; new {{ClassName}}(ke [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DataHandleTemplate {
+            get {
+                return ResourceManager.GetString("DataHandleTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to #nullable enable
         ///using UnrealSharp;
         ///using UnrealSharp.Core;
         ///using UnrealSharp.Core.Marshallers;
         ///using UnrealSharp.CoreUObject;
         ///using UnrealSharp.Interop;
         ///using ManagedGameDataAccessTools.DataRetrieval;
+        ///using ManagedGameDataAccessToolsEditor;
         ///
         ///namespace {{Namespace}};
         ///
-        ///{{#IsReadOnly}}readonly {{/IsReadOnly}}ref partial struct {{StructName}} : INativeStructReference&lt;{{StructName}}&gt; {
-        ///  private readonly IntPtr _nativeStruct;
+        ///partial {{ObjectType}} {{ClassName}} : IGameDataEntryAccessor&lt;{{ReferenceClassName}}&gt; 
+        ///{
+        ///    public {{ReferenceClassName}} Entry { get; }
         ///
-        ///  {{#Properties}}
-        ///  private static int {{Name}}_Offset;
-        ///  {{#MarshallerInstanced}}
-        ///  private static IntPtr {{ [rest of string was truncated]&quot;;.
+        ///    {{#Properties}}
+        ///    private static int {{Name}}_Offset;
+        ///    {{#MarshallerInstanced} [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GameDataEntryAccessorTemplate {
             get {
@@ -86,21 +109,22 @@ namespace GameAccessTools.SourceGenerator.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to #nullable enable
+        ///using System.Diagnostics.CodeAnalysis;
         ///using UnrealSharp;
+        ///using UnrealSharp.Engine;
         ///using UnrealSharp.Attributes;
         ///using UnrealSharp.Attributes.MetaTags;
         ///using UnrealSharp.CoreUObject;
         ///using UnrealSharp.DeveloperSettings;
         ///using UnrealSharp.StaticVars;
+        ///using ManagedGameDataAccessTools.DataRetrieval;
+        ///#if !PACKAGE
+        ///using UnrealSharp.LevelEditor;
+        ///#endif
         ///
         ///namespace {{Namespace}};
         ///
-        ///[UClass(ClassFlags.DefaultConfig, {{#HasDisplayName}}DisplayName = &quot;{{DisplayName}}&quot;, {{/HasDisplayName}}ConfigCategory = &quot;Game&quot;)]
-        ///public partial class U{{ClassName}}Settings : UDeveloperSettings 
-        ///{
-        ///
-        ///    {{#Repositories}}
-        ///    [UProperty(PropertyFlags.EditDefaultsOnly [rest of string was truncated]&quot;;.
+        ///[UClass(ClassFlags.DefaultConfig, {{#HasDisplayName}}DisplayName = &quot;{{DisplayName}}&quot;, {{/HasDisplayNam [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GameDataRepositoryProviderTemplate {
             get {

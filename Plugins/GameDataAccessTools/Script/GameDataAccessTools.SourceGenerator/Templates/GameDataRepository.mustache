@@ -18,11 +18,13 @@ public partial class {{AssetClassName}} : UGameDataRepository, IGameDataReposito
     private ImmutableDictionary<FName, {{EntryName}}> _entries = ImmutableDictionary<FName, {{EntryName}}>.Empty;
     public IReadOnlyDictionary<FName, {{EntryName}}> Entries => _entries;
 
-    public IReadOnlyList<{{EntryName}}> OrderedEntries => DataEntries;
+    IEnumerable<{{EntryName}}> IDataRepository<FName, {{EntryName}}>.AllEntries => DataEntries;
+
+    public IReadOnlyList<{{EntryName}}> AllEntries => DataEntries;
 
     public int NumEntries => DataEntries.Count;
 
-    public IEnumerable<FName> EntryNames => DataEntries.Select(x => x.Id);
+    public IEnumerable<FName> EntryKeys => DataEntries.Select(x => x.Id);
 
     public sealed override TSubclassOf<UGameDataEntry> GetEntryClass() 
     {
