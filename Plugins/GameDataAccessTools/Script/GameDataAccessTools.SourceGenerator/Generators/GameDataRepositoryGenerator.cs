@@ -285,7 +285,7 @@ internal class GameDataRepositoryGenerator : IIncrementalGenerator
         return foundDataEntries.ContainsKey(type.Name);
     }
     
-    private static string GetEntryType(ITypeSymbol type,
+    private static ITypeSymbol GetEntryType(ITypeSymbol type,
                                         Dictionary<string, GameDataRepositoryInfo> foundDataEntries)
     {
         if (type.BaseType?.ToDisplayString() == SourceContextNames.UGameDataRepository)
@@ -293,10 +293,10 @@ internal class GameDataRepositoryGenerator : IIncrementalGenerator
             return type.Interfaces.Where(i => i.IsGenericType 
                                               && i.ConstructedFrom.ToDisplayString() == SourceContextNames.IGameDataRepository)
                 .Select(i => i.TypeArguments.Single())
-                .Single().ToDisplayString();
+                .Single();
         }
 
-        return foundDataEntries[type.Name].EntryType.ToDisplayString();
+        return foundDataEntries[type.Name].EntryType;
     }
 
     private static string GetFormattedName(Dictionary<string, GameDataRepositoryInfo> foundDataEntries, string name)

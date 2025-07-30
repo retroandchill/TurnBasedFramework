@@ -47,3 +47,21 @@ public sealed partial class {{ClassName}}
     }
 
 }
+
+[UClass]
+public class U{{ClassName}}BlueprintLibrary : UBlueprintFunctionLibrary
+{
+    {{#Repositories}}
+    [UFunction(FunctionFlags.BlueprintCallable, Category = "{{ClassName}}|{{Name}}")]
+    public static IReadOnlyList<{{EntryType}}> Get{{Name}}()
+    {
+        return {{../ClassName}}.{{Name}}.AllEntries;
+    }
+
+    [UFunction(FunctionFlags.BlueprintPure, Category = "{{ClassName}}|{{Name}}")]
+    public static bool Get{{SingularName}}({{#HasCategories}}[UMetaData("Categories", "{{Categories}}")] {{/HasCategories}}FGameplayTag id, [NotNullWhen(true)] out {{EntryType}}? entry)
+    {
+        return {{../ClassName}}.{{Name}}.TryGetEntry(id, out entry);
+    }
+    {{/Repositories}}
+}
