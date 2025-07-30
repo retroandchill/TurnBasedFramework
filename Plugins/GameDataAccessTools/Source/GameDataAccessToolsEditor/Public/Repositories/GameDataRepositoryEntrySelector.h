@@ -4,8 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "CSManagedGCHandle.h"
+#include "GameplayTagContainer.h"
 #include "Widgets/SCompoundWidget.h"
-#include "DataRetrieval/GameDataEntry.h"
 
 
 class SWrapBox;
@@ -13,11 +13,11 @@ class SWrapBox;
 struct FEntryRowData
 {
     int32 Index;
-    FName Name;
-    TWeakObjectPtr<UGameDataEntry> Entry;
+    FGameplayTag Id;
+    TWeakObjectPtr<> Entry;
 
-    FEntryRowData(const int32 InIndex, const FName InName, UGameDataEntry* InEntry)
-        : Index(InIndex), Name(InName), Entry(InEntry)
+    FEntryRowData(const int32 InIndex, const FGameplayTag InName, UObject* InEntry)
+        : Index(InIndex), Id(InName), Entry(InEntry)
     {
     }
 

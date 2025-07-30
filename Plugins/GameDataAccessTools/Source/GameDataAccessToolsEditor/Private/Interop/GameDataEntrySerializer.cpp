@@ -3,7 +3,6 @@
 
 #include "Interop/GameDataEntrySerializer.h"
 
-#include "DataRetrieval/GameDataEntry.h"
 #include "Interop/SerializationCallbacks.h"
 
 FText FGameDataEntrySerializer::GetFormatName() const
@@ -21,7 +20,7 @@ tl::expected<FString, FString> FGameDataEntrySerializer::SerializeData(const UGa
     return FSerializationCallbacks::Get().SerializeToString(Handle.Handle, Repository); 
 }
 
-tl::expected<TArray<UGameDataEntry*>, FString> FGameDataEntrySerializer::DeserializeData(const FString& Data,
+tl::expected<TArray<UObject*>, FString> FGameDataEntrySerializer::DeserializeData(const FString& Data,
     const UGameDataRepository* Repository) const
 {
     return FSerializationCallbacks::Get().DeserializeFromString(Handle.Handle, Data, Repository);

@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameDataRepositoryEntrySelector.h"
-#include "DataRetrieval/GameDataEntry.h"
 
 class FGameDataEntrySerializer;
 class UGameDataRepository;
@@ -12,9 +11,9 @@ class UGameDataRepository;
 struct FSelectedRow
 {
     int32 Index;
-    FName CurrentName;
+    FGameplayTag CurrentName;
 
-    FSelectedRow(int32 InIndex, FName InCurrentName)
+    FSelectedRow(const int32 InIndex, const FGameplayTag InCurrentName)
         : Index(InIndex), CurrentName(InCurrentName)
     {
     }
@@ -54,14 +53,20 @@ private:
     void OnMoveEntryUp();
     void OnMoveEntryDown();
     void RefreshList() const;
-    FName GenerateUniqueRowName() const;
-    bool VerifyRowNameUnique(FName Name) const;
+    TOptional<FGameplayTag> GenerateUniqueRowName() const;
+    bool VerifyRowNameUnique(FGameplayTag Name) const;
     void OnPropertyChanged(const FPropertyChangedEvent& PropertyChangedEvent);
+    FGameplayTag GetId(const UObject* Entry) const;
+    void SetId(UObject* Entry, const FGameplayTag Id) const;
+    int32 GetRowIndex(const UObject* Entry) const;
+    void SetRowIndex(UObject* Entry, const int32 Id) const;
 
     TSharedPtr<SGameDataRepositoryEntrySelector> EntrySelector;
     TSharedPtr<IDetailsView> DetailsView;
     TObjectPtr<UGameDataRepository> GameDataRepository;
-    TArray<UGameDataEntry*>* GameDataEntries = nullptr;
+    TArray<UObject*>* GameDataEntries = nullptr;
+    FStructProperty* IdProperty = nullptr;
+    FIntProperty* RowIndexProperty = nullptr;
     TOptional<FSelectedRow> CurrentRow;
     TArray<TSharedRef<FGameDataEntrySerializer>> Serializers;
 };

@@ -7,7 +7,6 @@
 #include "UObject/Object.h"
 #include "FJsonObjectConverterExporter.generated.h"
 
-class UGameDataEntry;
 
 /**
  * 
@@ -19,7 +18,7 @@ class GAMEDATAACCESSTOOLSEDITOR_API UFJsonObjectConverterExporter : public UObje
 
 public:
     UNREALSHARP_FUNCTION()
-    static bool SerializeObjectToJson(const ::UObject* TargetObject, TSharedPtr<FJsonValue>& JsonValue);
+    static bool SerializeObjectToJson(const UObject* TargetObject, TSharedPtr<FJsonValue>& JsonValue);
     
     UNREALSHARP_FUNCTION()
     static bool DeserializeJsonToObject(TSharedPtr<FJsonValue>& JsonValue, UObject* TargetObject, FText* FailureReason);

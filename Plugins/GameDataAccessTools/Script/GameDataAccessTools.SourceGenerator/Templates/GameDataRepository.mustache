@@ -3,7 +3,9 @@ using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using UnrealSharp;
 using UnrealSharp.Attributes;
+using UnrealSharp.CoreUObject;
 using UnrealSharp.GameDataAccessTools;
+using UnrealSharp.GameplayTags;
 using GameDataAccessTools.Core.DataRetrieval;
 
 namespace {{Namespace}};
@@ -15,23 +17,23 @@ public partial class {{AssetClassName}} : UGameDataRepository, IGameDataReposito
     [UProperty(PropertyFlags.EditAnywhere | PropertyFlags.Instanced)]
     private TArray<{{EntryName}}> DataEntries { get; set; }
 
-    private ImmutableDictionary<FName, {{EntryName}}> _entries = ImmutableDictionary<FName, {{EntryName}}>.Empty;
-    public IReadOnlyDictionary<FName, {{EntryName}}> Entries => _entries;
+    private ImmutableDictionary<FGameplayTag, {{EntryName}}> _entries = ImmutableDictionary<FGameplayTag, {{EntryName}}>.Empty;
+    public IReadOnlyDictionary<FGameplayTag, {{EntryName}}> Entries => _entries;
 
-    IEnumerable<{{EntryName}}> IDataRepository<FName, {{EntryName}}>.AllEntries => DataEntries;
+    IEnumerable<{{EntryName}}> IDataRepository<FGameplayTag, {{EntryName}}>.AllEntries => DataEntries;
 
     public IReadOnlyList<{{EntryName}}> AllEntries => DataEntries;
 
     public int NumEntries => DataEntries.Count;
 
-    public IEnumerable<FName> EntryKeys => DataEntries.Select(x => x.Id);
+    public IEnumerable<FGameplayTag> EntryKeys => DataEntries.Select(x => x.Id);
 
-    public sealed override TSubclassOf<UGameDataEntry> GetEntryClass() 
+    public sealed override TSubclassOf<UObject> GetEntryClass() 
     {
-        return EntryClass.As<UGameDataEntry>();
+        return EntryClass.As<UObject>();
     }
 
-    public {{EntryName}} GetEntry(FName key) 
+    public {{EntryName}} GetEntry(FGameplayTag key) 
     {
         return _entries[key];
     }
@@ -41,7 +43,7 @@ public partial class {{AssetClassName}} : UGameDataRepository, IGameDataReposito
         return DataEntries[index];
     }
 
-    public bool TryGetEntry(FName key, [NotNullWhen(true)] out {{EntryName}}? entry) 
+    public bool TryGetEntry(FGameplayTag key, [NotNullWhen(true)] out {{EntryName}}? entry) 
     {
         return _entries.TryGetValue(key, out entry);
     }

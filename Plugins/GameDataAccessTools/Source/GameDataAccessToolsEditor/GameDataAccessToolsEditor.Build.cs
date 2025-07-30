@@ -30,7 +30,9 @@ public class GameDataAccessToolsEditor : ModuleRules
                 "UnrealSharpProcHelper",
                 "JsonUtilities",
                 "PropertyPath",
-                "ToolWidgets"
+                "ToolWidgets",
+                "GameplayTags",
+                "GameplayTagsEditor"
             }
         );
     }

@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Nodes;
+using GameDataAccessTools.Core.DataRetrieval;
 using ManagedGameDataAccessToolsEditor.Serialization;
 using ManagedGameDataAccessToolsEditor.Serialization.Marshallers;
 using ManagedGameDataAccessToolsEditor.Serialization.Native;
@@ -13,7 +14,7 @@ using UnrealSharp.Interop;
 namespace ManagedGameDataAccessToolsEditor.Interop;
 
 public class GameDataEntryJsonSerializer<TEntry>([ReadOnly] JsonSerializerOptions jsonSerializerOptions) 
-    : IGameDataEntrySerializer<TEntry> where TEntry : UGameDataEntry
+    : IGameDataEntrySerializer<TEntry> where TEntry : UObject, IGameDataEntry
 {
     public FText FormatName => "JSON";
     public string FileExtensionText => "JSON file |*.json|";

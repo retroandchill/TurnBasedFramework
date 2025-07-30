@@ -1,4 +1,5 @@
-﻿using UnrealSharp;
+﻿using GameDataAccessTools.Core.DataRetrieval;
+using UnrealSharp;
 using UnrealSharp.CoreUObject;
 using UnrealSharp.GameDataAccessTools;
 
@@ -11,7 +12,7 @@ public interface IGameDataEntrySerializer
     string FileExtensionText { get; }
 }
 
-public interface IGameDataEntrySerializer<TEntry> : IGameDataEntrySerializer where TEntry : UGameDataEntry
+public interface IGameDataEntrySerializer<TEntry> : IGameDataEntrySerializer where TEntry : UObject, IGameDataEntry
 {
     string SerializeData(IEnumerable<TEntry> entries);
     

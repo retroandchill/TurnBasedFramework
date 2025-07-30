@@ -1,9 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using GameAccessTools.SourceGenerator.Attributes;
+using GameDataAccessTools.Core.DataRetrieval;
 using UnrealSharp;
 using UnrealSharp.Attributes;
 using UnrealSharp.CoreUObject;
 using UnrealSharp.GameDataAccessTools;
+using UnrealSharp.GameplayTags;
 
 namespace Pokemon.Data.Core;
 
@@ -12,8 +14,17 @@ public class UEvolutionConditionData : UObject;
 
 [UClass(ClassFlags.EditInlineNew)]
 [GameDataEntry]
-public class UEvolutionMethod : UGameDataEntry
+public class UEvolutionMethod : UObject, IGameDataEntry
 {
+    public const string TagCategory = "Pokemon.Data.Core.EvolutionMethod";
+    
+    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
+    [UMetaData("Categories", TagCategory)]
+    public FGameplayTag Id { get; init; }
+    
+    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.VisibleAnywhere, Category = "Identification")]
+    public int RowIndex { get; init; }
+    
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Display")]
     public FText DisplayName { get; init; }
     
@@ -25,13 +36,15 @@ public class UEvolutionMethod : UGameDataEntry
 public struct FEvolutionCondition
 {
     [field: UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)]
-    public FEvolutionMethodHandle Method { get; init; }
+    [UMetaData("Categories", UEvolutionMethod.TagCategory)]
+    public FGameplayTag Method { get; init; }
 
     [field: UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere | PropertyFlags.Instanced)]
     public UEvolutionConditionData Data { get; init; }
     
     public bool IsValid => Method.IsValid && Data is not null 
-                                          && Method.Entry.ConditionType.IsChildOf(Data.GetType());
+                                          && GameData.EvolutionMethods.GetEntry(Method)
+                                              .ConditionType.IsChildOf(Data.GetType());
 
     public UEvolutionConditionData GetData<T>() where T : UEvolutionConditionData
     {
@@ -45,7 +58,8 @@ public struct FEvolutionCondition
 
     public bool TryGetData<T>([NotNullWhen(true)] out T? data) where T : UEvolutionConditionData
     {
-        if (Method.Entry is not null && Method.Entry.ConditionType.IsChildOf(typeof(T)) && Data is T typedData)
+        if (GameData.EvolutionMethods.TryGetEntry(Method, out var entry) && 
+            entry.ConditionType.IsChildOf(typeof(T)) && Data is T typedData)
         {
             data = typedData;
             return true;

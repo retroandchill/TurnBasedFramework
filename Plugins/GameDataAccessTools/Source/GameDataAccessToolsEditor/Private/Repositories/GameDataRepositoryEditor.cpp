@@ -5,8 +5,10 @@
 
 #include <bit>
 
+#include "SGameplayTagWidget.h"
 #include "DesktopPlatformModule.h"
 #include "EditorDirectories.h"
+#include "SGameplayTagPicker.h"
 #include "Repositories/GameDataRepositoryEntrySelector.h"
 #include "DataRetrieval/GameDataRepository.h"
 #include "Interop/GameDataEntrySerializer.h"
@@ -24,8 +26,12 @@ void FGameDataRepositoryEditor::Initialize(const EToolkitMode::Type Mode,
     const auto AssetClass = Asset->GetClass();
     const auto DataEntriesProperty = CastFieldChecked<FArrayProperty>(
         AssetClass->FindPropertyByName(TEXT("DataEntries")));
-    GameDataEntries = std::bit_cast<TArray<UGameDataEntry*>*>(
+    GameDataEntries = std::bit_cast<TArray<UObject*>*>(
         DataEntriesProperty->GetPropertyValuePtr_InContainer(Asset));
+
+    const auto EntryClass = Asset->GetEntryClass();
+    IdProperty = CastFieldChecked<FStructProperty>(EntryClass->FindPropertyByName(TEXT("Id")));
+    RowIndexProperty = CastFieldChecked<FIntProperty>(EntryClass->FindPropertyByName(TEXT("RowIndex")));
 
     const auto Layout = FTabManager::NewLayout("GameDataRepositoryEditor_Layout")
         ->AddArea
@@ -288,7 +294,7 @@ void FGameDataRepositoryEditor::OnEntrySelected(const TSharedPtr<FEntryRowData>&
     if (Entry != nullptr)
     {
         DetailsView->SetObject(Entry->Entry.Get());
-        CurrentRow.Emplace(Entry->Index, Entry->Name);
+        CurrentRow.Emplace(Entry->Index, Entry->Id);
     }
     else
     {
@@ -303,16 +309,19 @@ TArray<TSharedPtr<FEntryRowData>> FGameDataRepositoryEditor::OnGetEntries() cons
     for (int32 i = 0; i < GameDataEntries->Num(); i++)
     {
         auto Entry = (*GameDataEntries)[i];
-        Entries.Emplace(MakeShared<FEntryRowData>(i, Entry->Id, Entry));
+        Entries.Emplace(MakeShared<FEntryRowData>(i, GetId(Entry), Entry));
     }
     return Entries;
 }
 
 void FGameDataRepositoryEditor::OnAddEntry() const
 {
-    const auto NewEntry = NewObject<UGameDataEntry>(GameDataRepository, GameDataRepository->GetEntryClass());
-    NewEntry->Id = GenerateUniqueRowName();
-    NewEntry->RowIndex = GameDataEntries->Num();
+    auto RowName = GenerateUniqueRowName();
+    if (!RowName.IsSet()) return;
+    
+    const auto NewEntry = NewObject<UObject>(GameDataRepository, GameDataRepository->GetEntryClass());
+    SetId(NewEntry, *RowName);
+    SetRowIndex(NewEntry, GameDataEntries->Num());
     GameDataEntries->Add(NewEntry);
     RefreshList();
 }
@@ -330,7 +339,7 @@ void FGameDataRepositoryEditor::OnDeleteEntry()
     {
         int32 NewIndex = GameDataEntries->Num() - 1;
 
-        CurrentRow.Emplace(NewIndex, (*GameDataEntries)[NewIndex]->Id);
+        CurrentRow.Emplace(NewIndex, GetId((*GameDataEntries)[NewIndex]));
     }
     RefreshList();
 }
@@ -340,7 +349,7 @@ void FGameDataRepositoryEditor::OnMoveEntryUp()
     check(CurrentRow.IsSet());
     const auto& Entry = CurrentRow.GetValue();
     GameDataEntries->Swap(Entry.Index, Entry.Index - 1);
-    CurrentRow.Emplace(Entry.Index - 1, (*GameDataEntries)[Entry.Index - 1]->Id);
+    CurrentRow.Emplace(Entry.Index - 1, GetId((*GameDataEntries)[Entry.Index - 1]));
     RefreshList();
 }
 
@@ -349,7 +358,7 @@ void FGameDataRepositoryEditor::OnMoveEntryDown()
     check(CurrentRow.IsSet());
     const auto& Entry = CurrentRow.GetValue();
     GameDataEntries->Swap(Entry.Index, Entry.Index + 1);
-    CurrentRow.Emplace(Entry.Index + 1, (*GameDataEntries)[Entry.Index + 1]->Id);
+    CurrentRow.Emplace(Entry.Index + 1, GetId((*GameDataEntries)[Entry.Index + 1]));
     RefreshList();
 }
 
@@ -358,7 +367,7 @@ void FGameDataRepositoryEditor::RefreshList() const
     for (int32 i = 0; i < GameDataEntries->Num(); i++)
     {
         const auto Entry = (*GameDataEntries)[i];
-        Entry->RowIndex = i;
+        SetRowIndex(Entry, i);
     }
     GameDataRepository->Refresh();
     GameDataRepository->Modify();
@@ -369,32 +378,79 @@ void FGameDataRepositoryEditor::RefreshList() const
     }
 }
 
-FName FGameDataRepositoryEditor::GenerateUniqueRowName() const
+TOptional<FGameplayTag> FGameDataRepositoryEditor::GenerateUniqueRowName() const
 {
-    TSet<FName> UsedNames;
+    TSet<FGameplayTag> UsedNames;
     for (const auto& Entry : *GameDataEntries)
     {
-        UsedNames.Add(Entry->GetId());
+        UsedNames.Add(GetId(Entry));
     }
 
-    FName Name = FName("Entry");
-    int32 Index = 0;
-    while (UsedNames.Contains(Name))
-    {
-        Name = FName(*FString::Printf(TEXT("Entry%d"), Index));
-        checkf(Index != std::numeric_limits<int32>::max(), TEXT("Index is about to overflow. Too many entries added."));
-        ++Index;
-    }
+    const auto Prefix = IdProperty->GetMetaData("Categories");
+    FString SuggestedName = Prefix.IsEmpty() ? TEXT("Entry") : Prefix;
+    
+    // Show dialog to get user input
+    auto Window = SNew(SWindow)
+        .Title(FText::FromString(TEXT("Select a unique gameplay tag")))
+        .ClientSize(FVector2D(400, 100))
+        .SizingRule(ESizingRule::Autosized);
 
-    return Name;
+    bool bConfirmed = false;
+    TOptional<FGameplayTag> CurrentSelection;
+    
+    Window->SetContent(
+        SNew(SVerticalBox)
+        + SVerticalBox::Slot()
+        .Padding(10)
+        [
+            SNew(SGameplayTagPicker)
+                .MultiSelect(false)
+                .Filter(Prefix)
+                .GameplayTagPickerMode(EGameplayTagPickerMode::HybridMode)
+                .TagContainers({ FGameplayTagContainer() })
+                .OnTagChanged(SGameplayTagPicker::FOnTagChanged::CreateLambda([&CurrentSelection, &UsedNames](const TArray<FGameplayTagContainer>& Tags) {
+                    if (Tags.Num() > 0 && !UsedNames.Contains(Tags[0].First()))
+                    {
+                        CurrentSelection.Emplace(Tags[0].First());
+                    }
+                    else
+                    {
+                        CurrentSelection.Reset();
+                    }
+                }))
+        ]
+        + SVerticalBox::Slot()
+        .Padding(10)
+        .AutoHeight()
+        .HAlign(HAlign_Right)
+        [
+            SNew(SButton)
+                .Text(FText::FromString(TEXT("OK")))
+                .IsEnabled_Lambda([&CurrentSelection]
+                {
+                    return CurrentSelection.IsSet();
+                })
+            .OnClicked_Lambda([&bConfirmed, &Window]
+            {
+                bConfirmed = true;
+                Window->RequestDestroyWindow();
+                return FReply::Handled();
+            })
+        ]
+    );
+
+    FSlateApplication::Get().AddModalWindow(Window, FGlobalTabmanager::Get()->GetRootWindow());
+
+    
+    return bConfirmed ? CurrentSelection : TOptional<FGameplayTag>();
 }
 
-bool FGameDataRepositoryEditor::VerifyRowNameUnique(FName Name) const
+bool FGameDataRepositoryEditor::VerifyRowNameUnique(const FGameplayTag Name) const
 {
     bool bFirstInstance = false;
     for (const auto& Entry : *GameDataEntries)
     {
-        if (Entry->GetId() == Name)
+        if (GetId(Entry) == Name)
         {
             if (!bFirstInstance)
             {
@@ -410,17 +466,39 @@ bool FGameDataRepositoryEditor::VerifyRowNameUnique(FName Name) const
 
 void FGameDataRepositoryEditor::OnPropertyChanged(const FPropertyChangedEvent& PropertyChangedEvent)
 {
-    if (PropertyChangedEvent.GetPropertyName() != GET_MEMBER_NAME_CHECKED(UGameDataEntry, Id))
+    if (PropertyChangedEvent.GetPropertyName() != "Id")
     {
         return;
     }
 
     check(CurrentRow.IsSet());
     auto& [Index, CurrentName] = CurrentRow.GetValue();
-    if (const auto SelectedEntry = (*GameDataEntries)[Index]; SelectedEntry->Id.IsNone() || !VerifyRowNameUnique(
-        SelectedEntry->Id))
+    const auto SelectedEntry = (*GameDataEntries)[Index];
+    if (auto Id = GetId(SelectedEntry); !Id.IsValid() || !VerifyRowNameUnique(Id))
     {
-        SelectedEntry->Id = CurrentName;
+        SetId(SelectedEntry, CurrentName);
     }
     RefreshList();
+}
+
+FGameplayTag FGameDataRepositoryEditor::GetId(const UObject* Entry) const
+{
+    FGameplayTag Result;
+    IdProperty->GetValue_InContainer(Entry, &Result);
+    return Result;
+}
+
+void FGameDataRepositoryEditor::SetId(UObject* Entry, const FGameplayTag Id) const
+{
+    IdProperty->SetValue_InContainer(Entry, &Id);
+}
+
+int32 FGameDataRepositoryEditor::GetRowIndex(const UObject* Entry) const
+{
+    return RowIndexProperty->GetPropertyValue_InContainer(Entry);
+}
+
+void FGameDataRepositoryEditor::SetRowIndex(UObject* Entry, const int32 Id) const
+{
+    RowIndexProperty->SetPropertyValue_InContainer(Entry, Id);   
 }

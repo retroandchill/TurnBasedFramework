@@ -56,7 +56,7 @@ public static class SerializationCallbacks
             throw new InvalidOperationException("Invalid class handle.");
         }
 
-        var obj = GCHandleUtilities.GetObjectFromHandlePtr<UGameDataEntry>(classHandle);
+        var obj = GCHandleUtilities.GetObjectFromHandlePtr<UObject>(classHandle);
         
         if (obj == null)
         {
@@ -142,7 +142,7 @@ public static class SerializationCallbacks
 
     private static string SerializeInternal<TEntry>(IGameDataEntrySerializer<TEntry> action, 
                                                     IGameDataRepository<TEntry> repository)
-        where TEntry : UGameDataEntry
+        where TEntry : UObject, IGameDataEntry
     {
         return action.SerializeData(repository.AllEntries);
     }
@@ -184,7 +184,7 @@ public static class SerializationCallbacks
                                                     IGameDataEntrySerializer<TEntry> action, 
                                                     IGameDataRepository<TEntry> repository,
                                                     IntPtr destinationCollection)
-        where TEntry : UGameDataEntry
+        where TEntry : UObject, IGameDataEntry
     {
         if (repository is not UObject repositoryObject)
         {

@@ -6,7 +6,6 @@
 #include "CSManagedGCHandle.h"
 #include "Utils/expected.hpp"
 
-class UGameDataEntry;
 class UGameDataRepository;
 
 class GAMEDATAACCESSTOOLSEDITOR_API FGameDataEntrySerializer
@@ -20,7 +19,7 @@ public:
 
     tl::expected<FString, FString> SerializeData(const UGameDataRepository* Repository) const;
 
-    tl::expected<TArray<UGameDataEntry*>, FString> DeserializeData(
+    tl::expected<TArray<UObject*>, FString> DeserializeData(
         const FString& Data, const UGameDataRepository* Repository) const;
     
 private:

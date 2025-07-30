@@ -1,30 +1,32 @@
 ﻿using GameAccessTools.SourceGenerator.Attributes;
+using GameDataAccessTools.Core.DataRetrieval;
 using UnrealSharp;
 using UnrealSharp.Attributes;
+using UnrealSharp.CoreUObject;
 using UnrealSharp.GameDataAccessTools;
+using UnrealSharp.GameplayTags;
 
 namespace Pokemon.Data.Core;
 
-[UEnum]
-public enum EEncounterTrigger : byte
-{
-    Land,
-    Cave,
-    Water,
-    Fishing,
-    Contest,
-    None
-}
-
 [UClass(ClassFlags.EditInlineNew)]
 [GameDataEntry]
-public class UEncounterType : UGameDataEntry
+public class UEncounterType : UObject, IGameDataEntry
 {
+    public const string TagCategory = "Pokemon.Data.Core.EncounterType";
+    
+    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
+    [UMetaData("Categories", TagCategory)]
+    public FGameplayTag Id { get; init; }
+    
+    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.VisibleAnywhere, Category = "Identification")]
+    public int RowIndex { get; init; }
+    
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Display")]
     public FText DisplayName { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Encounters")]
-    public EEncounterTrigger Trigger { get; init; }
+    [UMetaData("Categories", "Pokemon.Field.Encounters.Triggers")]
+    public FGameplayTag Trigger { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Encounters")]
     public int TriggerChance { get; init; }

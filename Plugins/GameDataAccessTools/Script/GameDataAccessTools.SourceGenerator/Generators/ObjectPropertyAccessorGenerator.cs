@@ -54,7 +54,7 @@ public class ObjectPropertyAccessorGenerator : IIncrementalGenerator
         while (baseType is not null)
         {
             allTypes.Add(baseType);
-            if (baseType.ToDisplayString() == SourceContextNames.UGameDataEntry)
+            if (baseType.ToDisplayString() == SourceContextNames.UObject)
             {
                 break;
             }
@@ -66,8 +66,7 @@ public class ObjectPropertyAccessorGenerator : IIncrementalGenerator
             .SelectMany(x => x.GetMembers())
             .OfType<IPropertySymbol>()
             .Where(x => !x.IsStatic)
-            .Where(x => x.ContainingType?.ToDisplayString() == SourceContextNames.UGameDataEntry ||
-                        x.GetAttributes()
+            .Where(x => x.GetAttributes()
                             .Any(y =>
                                 y.AttributeClass?.ToDisplayString() == SourceContextNames.UPropertyAttribute))
             .Select(x => x.GetPropertyInfo())

@@ -5,7 +5,6 @@
 
 #include "ClassViewerFilter.h"
 #include "ClassViewerModule.h"
-#include "DataRetrieval/GameDataEntry.h"
 #include "DataRetrieval/GameDataRepository.h"
 #include "Kismet2/SClassPickerDialog.h"
 
@@ -27,7 +26,7 @@ public:
         }
 
         const auto InnerProperty = CastField<FObjectProperty>(DataEntriesProperty->Inner);
-        return InnerProperty != nullptr && InnerProperty->PropertyClass->IsChildOf<UGameDataEntry>();
+        return InnerProperty != nullptr;
     }
 
     bool IsUnloadedClassAllowed(const FClassViewerInitializationOptions& InInitOptions,

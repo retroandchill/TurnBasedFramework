@@ -61,35 +61,13 @@ namespace GameAccessTools.SourceGenerator.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to #nullable enable
-        ///using System.Collections.Immutable;
-        ///using System.Diagnostics.CodeAnalysis;
-        ///using UnrealSharp;
-        ///using UnrealSharp.Attributes;
-        ///using UnrealSharp.Engine;
-        ///using GameDataAccessTools.Core.DataRetrieval;
-        ///
-        ///namespace {{Namespace}};
-        ///
-        ///public partial {{#IsRecord}}record {{/IsRecord}}struct {{ClassName}} \
-        ///{
-        ///    public static implicit operator {{PropertyType}}({{ClassName}} handle) =&gt; handle.Id;
-        ///    public static implicit operator {{ClassName}}({{PropertyType}} key) =&gt; new {{ClassName}}(ke [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string DataHandleTemplate {
-            get {
-                return ResourceManager.GetString("DataHandleTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to #nullable enable
         ///using UnrealSharp;
         ///using UnrealSharp.Core;
         ///using UnrealSharp.Core.Marshallers;
         ///using UnrealSharp.CoreUObject;
         ///using UnrealSharp.Interop;
         ///using GameDataAccessTools.Core.DataRetrieval;
-        ///using GameDataAccessTools.Editor;
+        ///using ManagedGameDataAccessToolsEditor;
         ///
         ///namespace {{Namespace}};
         ///
@@ -99,7 +77,7 @@ namespace GameAccessTools.SourceGenerator.Properties {
         ///
         ///    {{#Properties}}
         ///    private static int {{Name}}_Offset;
-        ///    {{#MarshallerInstanced} [rest of string was truncated]&quot;;.
+        ///    {{#MarshallerInstanced}}        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GameDataEntryAccessorTemplate {
             get {
@@ -116,6 +94,7 @@ namespace GameAccessTools.SourceGenerator.Properties {
         ///using UnrealSharp.Attributes.MetaTags;
         ///using UnrealSharp.CoreUObject;
         ///using UnrealSharp.DeveloperSettings;
+        ///using UnrealSharp.GameplayTags;
         ///using UnrealSharp.StaticVars;
         ///using GameDataAccessTools.Core.DataRetrieval;
         ///#if !PACKAGE
@@ -124,7 +103,7 @@ namespace GameAccessTools.SourceGenerator.Properties {
         ///
         ///namespace {{Namespace}};
         ///
-        ///[UClass(ClassFlags.DefaultConfig, {{#HasDisplayName}}DisplayName = &quot;{{DisplayName}}&quot;, {{/HasDisplayNam [rest of string was truncated]&quot;;.
+        ///[UClass(ClassFlags.DefaultConfig, {{#HasDisplayName}}DisplayName = &quot;{{D [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GameDataRepositoryProviderTemplate {
             get {
@@ -139,6 +118,7 @@ namespace GameAccessTools.SourceGenerator.Properties {
         ///using UnrealSharp;
         ///using UnrealSharp.Attributes;
         ///using UnrealSharp.GameDataAccessTools;
+        ///using UnrealSharp.GameplayTags;
         ///using GameDataAccessTools.Core.DataRetrieval;
         ///
         ///namespace {{Namespace}};
@@ -147,7 +127,7 @@ namespace GameAccessTools.SourceGenerator.Properties {
         ///public partial class {{AssetClassName}} : UGameDataRepository, IGameDataRepository&lt;{{EntryName}}&gt; {
         ///    public TSubclassOf&lt;{{EntryName}}&gt; EntryClass { get; } = new(typeof({{EntryName}}));
         ///
-        ///    [UProperty(PropertyFlags.EditAnywhere | P [rest of string was truncated]&quot;;.
+        ///    [UProperty [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GameDataRepositoryTemplate {
             get {

@@ -7,7 +7,6 @@
 #include "Extensions/DataAssets/CSPrimaryDataAsset.h"
 #include "GameDataRepository.generated.h"
 
-class UGameDataEntry;
 /**
  *
  */
@@ -18,7 +17,7 @@ class GAMEDATAACCESSTOOLS_API UGameDataRepository : public UObject
 
 public:
     UFUNCTION(BlueprintImplementableEvent, Category = "GameDataRepository")
-    TSubclassOf<UGameDataEntry> GetEntryClass() const;
+    TSubclassOf<UObject> GetEntryClass() const;
     
     UFUNCTION(BlueprintImplementableEvent, Category = "GameDataRepository")
     void Refresh() const;

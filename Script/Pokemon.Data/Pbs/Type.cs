@@ -1,6 +1,8 @@
 ﻿using GameAccessTools.SourceGenerator.Attributes;
+using GameDataAccessTools.Core.DataRetrieval;
 using UnrealSharp;
 using UnrealSharp.Attributes;
+using UnrealSharp.CoreUObject;
 using UnrealSharp.GameDataAccessTools;
 using UnrealSharp.GameplayTags;
 
@@ -8,8 +10,17 @@ namespace Pokemon.Data.Pbs;
 
 [UClass(ClassFlags.EditInlineNew)]
 [GameDataEntry]
-public class UType : UGameDataEntry
+public class UType : UObject, IGameDataEntry
 {
+    public const string TagCategory = "Pokemon.Data.PBS.Type";
+    
+    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
+    [UMetaData("Categories", TagCategory)]
+    public FGameplayTag Id { get; init; }
+    
+    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.VisibleAnywhere, Category = "Identification")]
+    public int RowIndex { get; init; }
+    
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Display")]
     public FText DisplayName { get; init; }
 
@@ -26,25 +37,29 @@ public class UType : UGameDataEntry
     public bool IsPseudoType  { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Type Info")]
-    public IReadOnlyList<FTypeHandle> Weaknesses { get; init; }
+    [UMetaData("Categories", TagCategory)]
+    public FGameplayTagContainer Weaknesses { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Type Info")]
-    public IReadOnlyList<FTypeHandle> Resistances { get; init; }
+    [UMetaData("Categories", TagCategory)]
+    public FGameplayTagContainer Resistances { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Type Info")]
-    public IReadOnlyList<FTypeHandle> Immunities { get; init; }
+    [UMetaData("Categories", TagCategory)]
+    public FGameplayTagContainer Immunities { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Metadata")]
     public FGameplayTagContainer Tags { get; init; }
 
-    public float GetEffectiveness(FTypeHandle otherType)
+    [UFunction(FunctionFlags.BlueprintPure, Category = "Types")]
+    public float GetEffectiveness([UMetaData("Categories", TagCategory)] FGameplayTag otherType)
     {
         if (!otherType.IsValid) return Effectiveness.NormalMultiplier;
         
-        if (Weaknesses.Contains(otherType)) return Effectiveness.SuperEffectiveMultiplier;
-        if (Resistances.Contains(otherType)) return Effectiveness.NotVeryEffectiveMultiplier;
+        if (Weaknesses.HasTag(otherType)) return Effectiveness.SuperEffectiveMultiplier;
+        if (Resistances.HasTag(otherType)) return Effectiveness.NotVeryEffectiveMultiplier;
         
-        return Immunities.Contains(otherType) ? Effectiveness.IneffectiveMultiplier : Effectiveness.NormalMultiplier;
+        return Immunities.HasTag(otherType) ? Effectiveness.IneffectiveMultiplier : Effectiveness.NormalMultiplier;
     }
 }
 
@@ -82,43 +97,42 @@ public static class Effectiveness
         return value > NormalMultiplier;
     }
 
-    public static bool IsIneffective_type(this FTypeHandle attackType, params ReadOnlySpan<FTypeHandle> defendTypes)
+    public static bool IsIneffective_type(this FGameplayTag attackType, params ReadOnlySpan<FGameplayTag> defendTypes)
     {
         var value = Calculate(attackType, defendTypes);
         return IsIneffective(value);
     }
 
-    public static bool IsNotVeryEffectiveType(this FTypeHandle attackType, params ReadOnlySpan<FTypeHandle> defendTypes)
+    public static bool IsNotVeryEffectiveType(this FGameplayTag attackType, params ReadOnlySpan<FGameplayTag> defendTypes)
     {
         var value = Calculate(attackType, defendTypes);
         return IsNotVeryEffective(value);
     }
 
-    public static bool IsResistantType(this FTypeHandle attackType, params ReadOnlySpan<FTypeHandle> defendTypes)
+    public static bool IsResistantType(this FGameplayTag attackType, params ReadOnlySpan<FGameplayTag> defendTypes)
     {
         var value = Calculate(attackType, defendTypes);
         return IsResistant(value);
     }
 
-    public static bool IsNormalType(this FTypeHandle attackType, params ReadOnlySpan<FTypeHandle> defendTypes)
+    public static bool IsNormalType(this FGameplayTag attackType, params ReadOnlySpan<FGameplayTag> defendTypes)
     {
         var value = Calculate(attackType, defendTypes);
         return IsNormal(value);
     }
     
-    public static bool IsSuperEffectiveType(this FTypeHandle attackType, params ReadOnlySpan<FTypeHandle> defendTypes)
+    public static bool IsSuperEffectiveType(this FGameplayTag attackType, params ReadOnlySpan<FGameplayTag> defendTypes)
     {
         var value = Calculate(attackType, defendTypes);
         return IsSuperEffective(value);
     }
 
-    public static float GetTypeEffectiveness(this FTypeHandle attackType, FTypeHandle defendType)
+    public static float GetTypeEffectiveness(this FGameplayTag attackType, FGameplayTag defendType)
     {
-        ArgumentNullException.ThrowIfNull(attackType.Entry);
-        return attackType.Entry.GetEffectiveness(defendType);
+        return GameData.Types.GetEntry(attackType).GetEffectiveness(defendType);
     }
 
-    public static float Calculate(this FTypeHandle attackType, params ReadOnlySpan<FTypeHandle> defendTypes)
+    public static float Calculate(this FGameplayTag attackType, params ReadOnlySpan<FGameplayTag> defendTypes)
     {
         var ret = NormalMultiplier;
         foreach (var defendType in defendTypes)

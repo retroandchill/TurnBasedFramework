@@ -1,7 +1,8 @@
 ﻿#if GAME_DATA_ACCESS_TOOLS_GENERATOR
 using RhoMicro.CodeAnalysis;
 #else
-using UnrealSharp.GameDataAccessTools;
+using UnrealSharp.CoreUObject;
+using GameDataAccessTools.Core.DataRetrieval;
 #endif
 
 namespace GameAccessTools.SourceGenerator.Attributes;
@@ -11,5 +12,5 @@ namespace GameAccessTools.SourceGenerator.Attributes;
 [IncludeFile]
 public class AccessorForAttribute<TTarget> : Attribute;
 #else
-public class AccessorForAttribute<TTarget> : Attribute where TTarget : UGameDataEntry;
+public class AccessorForAttribute<TTarget> : Attribute where TTarget : UObject, IGameDataEntry;
 #endif

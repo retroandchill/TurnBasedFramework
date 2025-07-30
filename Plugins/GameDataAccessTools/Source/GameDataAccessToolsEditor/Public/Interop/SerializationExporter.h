@@ -8,7 +8,6 @@
 #include "UObject/Object.h"
 #include "SerializationExporter.generated.h"
 
-class UGameDataEntry;
 /**
  * 
  */
@@ -25,5 +24,5 @@ public:
     static void AddSerializationAction(TArray<TSharedRef<FGameDataEntrySerializer>>& Serializers, const FGCHandleIntPtr Handle);
 
     UNREALSHARP_FUNCTION()
-    static void AddEntryToCollection(TArray<UGameDataEntry*>& Entries, UGameDataEntry* EntryObject);
+    static void AddEntryToCollection(TArray<UObject*>& Entries, UObject* EntryObject);
 };

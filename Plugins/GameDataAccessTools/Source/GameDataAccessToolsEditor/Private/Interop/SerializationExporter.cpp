@@ -16,7 +16,7 @@ void USerializationExporter::AddSerializationAction(TArray<TSharedRef<FGameDataE
     Serializers.Emplace(MakeShared<FGameDataEntrySerializer>(Handle));
 }
 
-void USerializationExporter::AddEntryToCollection(TArray<UGameDataEntry*>& Entries, UGameDataEntry* EntryObject)
+void USerializationExporter::AddEntryToCollection(TArray<UObject*>& Entries, UObject* EntryObject)
 {
     Entries.Emplace(EntryObject); 
 }

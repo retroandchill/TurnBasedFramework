@@ -6,6 +6,7 @@ using UnrealSharp.Attributes;
 using UnrealSharp.Attributes.MetaTags;
 using UnrealSharp.CoreUObject;
 using UnrealSharp.DeveloperSettings;
+using UnrealSharp.GameplayTags;
 using UnrealSharp.StaticVars;
 using GameDataAccessTools.Core.DataRetrieval;
 #if !PACKAGE
@@ -46,42 +47,3 @@ public sealed partial class {{ClassName}}
     }
 
 }
-
-
-{{#Repositories}}
-[UStruct]
-public readonly partial record struct F{{SingularName}}Handle(
-    [field: UProperty(PropertyFlags.EditAnywhere | PropertyFlags.BlueprintReadOnly)]
-    FName Id) : IGameDataRepositoryHandle<{{EntryType}}>, IEquatable<FName>, IComparable<F{{SingularName}}Handle>, IComparable<FName>
-{
-    static IDataRepository<FName, {{EntryType}}> IDataHandle<FName, {{EntryType}}>.Repository => Repository;
-
-    public static IGameDataRepository<{{EntryType}}> Repository 
-    { 
-        get 
-        {
-            #if !PACKAGE
-            var playInEditorSubsystem = UObject.GetEditorSubsystem<ULevelEditorSubsystem>();
-            if (!playInEditorSubsystem.IsInPlayInEditor())
-            {
-                var settings = UObject.GetDefault<U{{../ClassName}}Settings>();
-                var repository = ((TSoftObjectPtr<UObject>)settings.{{Name}}).LoadSynchronous() as {{Type}};
-                repository?.Refresh();
-                return repository;
-            }
-            #endif
-            
-            return {{../ClassName}}.{{Name}};
-        } 
-    }
-
-    public static IEnumerable<FName> EntryKeys => Repository.EntryKeys;
-
-    [MemberNotNullWhen(true, nameof(Entry))]
-    public bool IsValid => Entry is not null;
-
-    public {{EntryType}}? Entry => Repository.TryGetEntry(Id, out var result) ? result : null;
-
-    public static implicit operator F{{SingularName}}Handle({{EntryType}} entry) => new F{{SingularName}}Handle(entry.Id);
-}
-{{/Repositories}}

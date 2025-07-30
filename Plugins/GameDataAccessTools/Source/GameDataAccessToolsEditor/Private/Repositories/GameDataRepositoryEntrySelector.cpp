@@ -95,7 +95,7 @@ TSharedRef<ITableRow> SGameDataRepositoryEntrySelector::OnGenerateRow(TSharedPtr
             .Padding(5)
             [
                 SNew(STextBlock)
-                .Text(FText::FromName(Item->Name))
+                .Text(FText::FromName(Item->Id.GetTagName()))
             ]
         ];
 }
@@ -108,7 +108,7 @@ void SGameDataRepositoryEntrySelector::OnSearchTextChanged(const FText& InSearch
     for (const auto& Entry : AllEntries)
     {
         if (SearchString.IsEmpty() ||
-            Entry->Name.ToString().Contains(SearchString))
+            Entry->Id.ToString().Contains(SearchString))
         {
             FilteredEntries.Add(Entry);
         }

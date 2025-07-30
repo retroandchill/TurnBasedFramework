@@ -113,7 +113,24 @@ internal class GameDataRepositoryGenerator : IIncrementalGenerator
         var baseType = classSymbol.BaseType;
         while (baseType is not null)
         {
-            if (baseType.ToDisplayString() == SourceContextNames.UGameDataEntry)
+            if (baseType.ToDisplayString() == SourceContextNames.AActor)
+            {
+                context.ReportDiagnostic(Diagnostic.Create(
+                    new DiagnosticDescriptor(
+                        "GDA0005",
+                        "GameDataEntry may not inherit from AActor",
+                        "{0} may not inherit from AActor",
+                        "GameDataAccessTools",
+                        DiagnosticSeverity.Error,
+                        true),
+                    classSymbol.Locations.First(),
+                    classSymbol.Name
+                ));
+                isValidType = false;
+                break;
+            }
+            
+            if (baseType.ToDisplayString() == SourceContextNames.UObject)
             {
                 break;
             }
@@ -126,8 +143,24 @@ internal class GameDataRepositoryGenerator : IIncrementalGenerator
             context.ReportDiagnostic(Diagnostic.Create(
                 new DiagnosticDescriptor(
                     "GDA0003",
-                    "GameDataEntry must inherit from UGameDataEntry",
-                    "{0} must inherit from UGameDataEntry",
+                    "GameDataEntry must inherit from UObject",
+                    "{0} must inherit from UObject",
+                    "GameDataAccessTools",
+                    DiagnosticSeverity.Error,
+                    true),
+                classSymbol.Locations.First(),
+                classSymbol.Name
+            ));
+            isValidType = false;
+        }
+
+        if (!classSymbol.AllInterfaces.Any(i => i.ToDisplayString() == SourceContextNames.IGameDataEntry))
+        {
+            context.ReportDiagnostic(Diagnostic.Create(
+                new DiagnosticDescriptor(
+                    "GDA0004",
+                    "GameDataEntry must implement from IGameDataEntry",
+                    "{0} must implement from IGameDataEntry",
                     "GameDataAccessTools",
                     DiagnosticSeverity.Error,
                     true),
@@ -237,21 +270,6 @@ internal class GameDataRepositoryGenerator : IIncrementalGenerator
 
         context.AddSource($"{providerType.Name}.g.cs",
             handlebars.Compile(SourceTemplates.GameDataRepositoryProviderTemplate)(templateParams));
-
-        foreach (var repo in repositories)
-        {
-            var repoResult = new DataHandleParams($"F{repo.SingularName}Handle", "FName")
-            {
-                Namespace = templateParams.Namespace,
-                IsRecord = true,
-                PluralName = repo.Name,
-                IsUStruct = true,
-                IsComparable = true
-            };
-            
-            context.AddSource($"{repo.SingularName}Handle.g.cs",
-                handlebars.Compile(SourceTemplates.DataHandleTemplate)(repoResult));
-        }
     }
 
     private static bool IsGameDataRepository(INamedTypeSymbol type,
