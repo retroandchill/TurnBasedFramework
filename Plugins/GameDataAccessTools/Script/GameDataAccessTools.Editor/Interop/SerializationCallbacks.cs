@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using JetBrains.Annotations;
 using GameDataAccessTools.Core.DataRetrieval;
-using ManagedGameDataAccessToolsEditor.Serialization;
+using GameDataAccessTools.Editor.Serialization;
 using UnrealInject.Subsystems;
 using UnrealSharp;
 using UnrealSharp.Core;
@@ -11,7 +11,7 @@ using UnrealSharp.CoreUObject;
 using UnrealSharp.GameDataAccessTools;
 using UnrealSharp.Interop;
 
-namespace ManagedGameDataAccessToolsEditor.Interop;
+namespace GameDataAccessTools.Editor.Interop;
 
 [StructLayout(LayoutKind.Sequential)]
 public unsafe struct SerializationActions

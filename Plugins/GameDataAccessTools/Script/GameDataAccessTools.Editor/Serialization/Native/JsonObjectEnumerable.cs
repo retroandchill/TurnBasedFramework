@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Runtime.CompilerServices;
-using ManagedGameDataAccessToolsEditor.Interop;
+using GameDataAccessTools.Editor.Interop;
 using UnrealSharp.Core;
 using UnrealSharp.Core.Marshallers;
 
-namespace ManagedGameDataAccessToolsEditor.Serialization.Native;
+namespace GameDataAccessTools.Editor.Serialization.Native;
 
 public readonly ref struct JsonKeyValuePair( string key, ref NativeJsonValue value)
 {

@@ -58,7 +58,7 @@ public class U{{ClassName}}BlueprintLibrary : UBlueprintFunctionLibrary
         return {{../ClassName}}.{{Name}}.AllEntries;
     }
 
-    [UFunction(FunctionFlags.BlueprintPure, Category = "{{ClassName}}|{{Name}}")]
+    [UFunction(FunctionFlags.BlueprintCallable, Category = "{{ClassName}}|{{Name}}")]
     public static bool Get{{SingularName}}({{#HasCategories}}[UMetaData("Categories", "{{Categories}}")] {{/HasCategories}}FGameplayTag id, [NotNullWhen(true)] out {{EntryType}}? entry)
     {
         return {{../ClassName}}.{{Name}}.TryGetEntry(id, out entry);

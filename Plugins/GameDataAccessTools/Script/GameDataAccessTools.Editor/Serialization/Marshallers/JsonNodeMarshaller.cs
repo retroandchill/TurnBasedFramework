@@ -1,11 +1,11 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Nodes;
-using ManagedGameDataAccessToolsEditor.Interop;
-using ManagedGameDataAccessToolsEditor.Serialization.Native;
+using GameDataAccessTools.Editor.Interop;
+using GameDataAccessTools.Editor.Serialization.Native;
 using UnrealSharp.Core;
 using UnrealSharp.Core.Marshallers;
 
-namespace ManagedGameDataAccessToolsEditor.Serialization.Marshallers;
+namespace GameDataAccessTools.Editor.Serialization.Marshallers;
 
 public static class JsonNodeMarshaller
 {

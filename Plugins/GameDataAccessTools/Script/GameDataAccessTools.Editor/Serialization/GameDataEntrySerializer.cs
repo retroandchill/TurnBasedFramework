@@ -3,7 +3,7 @@ using UnrealSharp;
 using UnrealSharp.CoreUObject;
 using UnrealSharp.GameDataAccessTools;
 
-namespace ManagedGameDataAccessToolsEditor.Serialization;
+namespace GameDataAccessTools.Editor.Serialization;
 
 public interface IGameDataEntrySerializer
 {

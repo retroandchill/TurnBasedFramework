@@ -1,4 +1,4 @@
-﻿namespace ManagedGameDataAccessToolsEditor.Serialization.Native;
+﻿namespace GameDataAccessTools.Editor.Serialization.Native;
 
 public enum EJson
 {

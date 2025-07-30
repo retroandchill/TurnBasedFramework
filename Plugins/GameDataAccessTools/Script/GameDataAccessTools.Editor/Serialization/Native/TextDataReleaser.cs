@@ -1,6 +1,6 @@
 ﻿using UnrealSharp;
 
-namespace ManagedGameDataAccessToolsEditor.Serialization.Native;
+namespace GameDataAccessTools.Editor.Serialization.Native;
 
 public ref struct TextDataReleaser(ref FTextData textData) : IDisposable
 {

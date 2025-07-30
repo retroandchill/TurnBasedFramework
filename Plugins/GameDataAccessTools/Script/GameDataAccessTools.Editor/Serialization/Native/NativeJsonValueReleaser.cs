@@ -1,6 +1,6 @@
-﻿using ManagedGameDataAccessToolsEditor.Interop;
+﻿using GameDataAccessTools.Editor.Interop;
 
-namespace ManagedGameDataAccessToolsEditor.Serialization.Native;
+namespace GameDataAccessTools.Editor.Serialization.Native;
 
 public ref struct NativeJsonValueReleaser(ref NativeJsonValue nativeJsonValue) : IDisposable
 {

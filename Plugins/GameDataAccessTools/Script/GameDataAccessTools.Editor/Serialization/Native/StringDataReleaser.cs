@@ -1,7 +1,7 @@
 ﻿using UnrealSharp.Core;
 using UnrealSharp.Core.Marshallers;
 
-namespace ManagedGameDataAccessToolsEditor.Serialization.Native;
+namespace GameDataAccessTools.Editor.Serialization.Native;
 
 public ref struct StringDataReleaser(ref UnmanagedArray stringData) : IDisposable
 {

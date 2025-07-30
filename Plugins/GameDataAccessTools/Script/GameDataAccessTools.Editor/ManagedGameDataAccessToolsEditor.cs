@@ -1,6 +1,6 @@
 using System.Text.Json;
-using ManagedGameDataAccessToolsEditor.Interop;
-using ManagedGameDataAccessToolsEditor.Serialization;
+using GameDataAccessTools.Editor.Interop;
+using GameDataAccessTools.Editor.Serialization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using UnrealInject;

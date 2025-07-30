@@ -1,9 +1,9 @@
-﻿using ManagedGameDataAccessToolsEditor.Serialization.Native;
+﻿using GameDataAccessTools.Editor.Serialization.Native;
 using UnrealSharp;
 using UnrealSharp.Binds;
 using UnrealSharp.Core;
 
-namespace ManagedGameDataAccessToolsEditor.Interop;
+namespace GameDataAccessTools.Editor.Interop;
 
 [NativeCallbacks]
 public static unsafe partial class FJsonObjectExporter

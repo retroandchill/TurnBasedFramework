@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace ManagedGameDataAccessToolsEditor.Serialization.Native;
+namespace GameDataAccessTools.Editor.Serialization.Native;
 
 [StructLayout(LayoutKind.Sequential)]
 public struct NativeJsonValue
