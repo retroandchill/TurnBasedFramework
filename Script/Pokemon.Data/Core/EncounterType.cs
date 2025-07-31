@@ -12,7 +12,7 @@ namespace Pokemon.Data.Core;
 [GameDataEntry]
 public class UEncounterType : UObject, IGameDataEntry
 {
-    public const string TagCategory = "Pokemon.Data.Core.EncounterType";
+    public const string TagCategory = "Pokemon.Data.EncounterTypes";
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
     [UMetaData("Categories", TagCategory)]

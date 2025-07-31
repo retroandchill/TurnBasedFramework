@@ -20,7 +20,7 @@ public enum EEggGroupType : byte
 [GameDataEntry]
 public class UEggGroup : UObject, IGameDataEntry
 {
-    public const string TagCategory = "Pokemon.Data.Core.EggGroup";
+    public const string TagCategory = "Pokemon.Data.EggGroups";
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
     [UMetaData("Categories", TagCategory)]

@@ -20,7 +20,7 @@ public enum ETargetCount : byte
 [GameDataEntry]
 public class UTargetType : UObject, IGameDataEntry
 {
-    public const string TagCategory = "Pokemon.Data.Core.TargetType";
+    public const string TagCategory = "Pokemon.Data.TargetTypes";
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
     [UMetaData("Categories", TagCategory)]

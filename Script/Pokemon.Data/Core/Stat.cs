@@ -20,12 +20,12 @@ public enum EStatType : byte
 [GameDataEntry]
 public class UStat : UObject, IGameDataEntry
 {
-    public const string TagCategory = "Pokemon.Data.Core.Stat";
-    public const string MainOnlyCategory = "Pokemon.Data.Core.Stat.Main";
-    public const string MainBattleCategory = "Pokemon.Data.Core.Stat.MainBattle";
-    public const string BattleOnlyCategory = "Pokemon.Data.Core.Stat.Battle";
-    public const string AnyMainCategory = "Pokemon.Data.Core.Stat.Main,Pokemon.Data.Core.Stat.MainBattle";
-    public const string AnyBattleCategory = "Pokemon.Data.Core.Stat.Battle,Pokemon.Data.Core.Stat.MainBattle";
+    public const string TagCategory = "Pokemon.Data.Stats";
+    public const string MainOnlyCategory = $"{TagCategory}.Main";
+    public const string MainBattleCategory = $"{TagCategory}.MainBattle";
+    public const string BattleOnlyCategory = $"{TagCategory}.Battle";
+    public const string AnyMainCategory = $"{MainOnlyCategory},{MainBattleCategory}";
+    public const string AnyBattleCategory = $"{BattleOnlyCategory},{MainBattleCategory}";
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
     [UMetaData("Categories", TagCategory)]

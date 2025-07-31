@@ -16,7 +16,7 @@ public class UEvolutionConditionData : UObject;
 [GameDataEntry]
 public class UEvolutionMethod : UObject, IGameDataEntry
 {
-    public const string TagCategory = "Pokemon.Data.Core.EvolutionMethod";
+    public const string TagCategory = "Pokemon.Data.EvolutionMethods";
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
     [UMetaData("Categories", TagCategory)]

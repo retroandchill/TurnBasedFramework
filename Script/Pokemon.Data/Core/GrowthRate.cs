@@ -77,7 +77,7 @@ public class UGrowthRateFormula : UObject
 public class UGrowthRate : UObject, IGameDataEntry
 {
     public static int MaxLevel => GetDefault<UGameDataSettings>().MaxLevel;
-    public const string TagCategory = "Pokemon.Data.Core.GrowthRate";
+    public const string TagCategory = "Pokemon.Data.GrowthRates";
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
     [UMetaData("Categories", TagCategory)]

@@ -12,7 +12,8 @@ namespace Pokemon.Data.Pbs;
 [GameDataEntry]
 public class UType : UObject, IGameDataEntry
 {
-    public const string TagCategory = "Pokemon.Data.PBS.Type";
+    public const string TagCategory = "Pokemon.Data.Types";
+    public const string MetadataCategory = "Pokemon.Metadata.Types";
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
     [UMetaData("Categories", TagCategory)]
@@ -49,6 +50,7 @@ public class UType : UObject, IGameDataEntry
     public FGameplayTagContainer Immunities { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Metadata")]
+    [UMetaData("Categories", MetadataCategory)]
     public FGameplayTagContainer Tags { get; init; }
 
     [UFunction(FunctionFlags.BlueprintPure, Category = "Types")]

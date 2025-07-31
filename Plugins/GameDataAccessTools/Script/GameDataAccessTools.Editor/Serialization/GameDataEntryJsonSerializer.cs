@@ -1,17 +1,16 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Nodes;
 using GameDataAccessTools.Core.DataRetrieval;
-using GameDataAccessTools.Editor.Serialization;
+using GameDataAccessTools.Editor.Interop;
 using GameDataAccessTools.Editor.Serialization.Marshallers;
 using GameDataAccessTools.Editor.Serialization.Native;
 using Retro.ReadOnlyParams.Annotations;
 using UnrealSharp;
 using UnrealSharp.Core;
 using UnrealSharp.CoreUObject;
-using UnrealSharp.GameDataAccessTools;
 using UnrealSharp.Interop;
 
-namespace GameDataAccessTools.Editor.Interop;
+namespace GameDataAccessTools.Editor.Serialization;
 
 public class GameDataEntryJsonSerializer<TEntry>([ReadOnly] JsonSerializerOptions jsonSerializerOptions) 
     : IGameDataEntrySerializer<TEntry> where TEntry : UObject, IGameDataEntry

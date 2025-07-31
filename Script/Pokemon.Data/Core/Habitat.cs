@@ -12,7 +12,7 @@ namespace Pokemon.Data.Core;
 [GameDataEntry]
 public class UHabitat : UObject, IGameDataEntry
 {
-    public const string TagCategory = "Pokemon.Data.Core.Habitat";
+    public const string TagCategory = "Pokemon.Data.Habitats";
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
     [UMetaData("Categories", TagCategory)]

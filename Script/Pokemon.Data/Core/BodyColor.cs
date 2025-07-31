@@ -12,7 +12,7 @@ namespace Pokemon.Data.Core;
 [GameDataEntry]
 public class UBodyColor : UObject, IGameDataEntry
 {
-    public const string TagCategory = "Pokemon.Data.Core.BodyColor";
+    public const string TagCategory = "Pokemon.Data.BodyColors";
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
     [UMetaData("Categories", TagCategory)]

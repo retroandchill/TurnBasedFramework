@@ -30,7 +30,7 @@ public enum ESpecialGenderRatio : byte
 [GameDataEntry]
 public class UGenderRatio : UObject, IGameDataEntry
 {
-    public const string TagCategory = "Pokemon.Data.Core.GenderRatio";
+    public const string TagCategory = "Pokemon.Data.GenderRatios";
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
     [UMetaData("Categories", TagCategory)]

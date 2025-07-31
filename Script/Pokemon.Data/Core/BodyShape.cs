@@ -12,7 +12,7 @@ namespace Pokemon.Data.Core;
 [GameDataEntry]
 public class UBodyShape : UObject, IGameDataEntry
 {
-    public const string TagCategory = "Pokemon.Data.Core.BodyShape";
+    public const string TagCategory = "Pokemon.Data.BodyShapes";
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
     [UMetaData("Categories", TagCategory)]

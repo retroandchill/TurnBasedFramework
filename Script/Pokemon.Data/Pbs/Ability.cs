@@ -12,7 +12,8 @@ namespace Pokemon.Data.Pbs;
 [GameDataEntry]
 public class UAbility : UObject, IGameDataEntry
 {
-    public const string TagCategory = "Pokemon.Data.PBS.Ability";
+    public const string TagCategory = "Pokemon.Data.Abilities";
+    public const string MetadataCategory = "Pokemon.Metadata.Abilities";
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
     [UMetaData("Categories", TagCategory)]
@@ -28,5 +29,6 @@ public class UAbility : UObject, IGameDataEntry
     public FText Description { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Metadata")]
+    [UMetaData("Categories", MetadataCategory)]
     public FGameplayTagContainer Tags { get; init; }
 }
