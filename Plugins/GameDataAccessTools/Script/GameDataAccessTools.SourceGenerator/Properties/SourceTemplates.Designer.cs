@@ -67,21 +67,21 @@ namespace GameAccessTools.SourceGenerator.Properties {
         ///using UnrealSharp.CoreUObject;
         ///using UnrealSharp.Interop;
         ///using GameDataAccessTools.Core.DataRetrieval;
-        ///using ManagedGameDataAccessToolsEditor;
         ///
         ///namespace {{Namespace}};
         ///
-        ///partial {{ObjectType}} {{ClassName}} : IGameDataEntryAccessor&lt;{{ReferenceClassName}}&gt; 
+        ///partial {{ObjectType}} {{ClassName}} : IGameDataEntryInitializer&lt;{{ReferenceClassName}}&gt; 
         ///{
         ///    public {{ReferenceClassName}} Entry { get; }
         ///
         ///    {{#Properties}}
         ///    private static int {{Name}}_Offset;
-        ///    {{#MarshallerInstanced}}        /// [rest of string was truncated]&quot;;.
+        ///    {{#MarshallerInstanced}}
+        ///    private static IntPtr {{Name}}_Na [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string GameDataEntryAccessorTemplate {
+        internal static string GameDataEntrInitializerTemplate {
             get {
-                return ResourceManager.GetString("GameDataEntryAccessorTemplate", resourceCulture);
+                return ResourceManager.GetString("GameDataEntrInitializerTemplate", resourceCulture);
             }
         }
         
@@ -117,6 +117,7 @@ namespace GameAccessTools.SourceGenerator.Properties {
         ///using System.Diagnostics.CodeAnalysis;
         ///using UnrealSharp;
         ///using UnrealSharp.Attributes;
+        ///using UnrealSharp.CoreUObject;
         ///using UnrealSharp.GameDataAccessTools;
         ///using UnrealSharp.GameplayTags;
         ///using GameDataAccessTools.Core.DataRetrieval;
@@ -125,9 +126,7 @@ namespace GameAccessTools.SourceGenerator.Properties {
         ///
         ///[UClass]
         ///public partial class {{AssetClassName}} : UGameDataRepository, IGameDataRepository&lt;{{EntryName}}&gt; {
-        ///    public TSubclassOf&lt;{{EntryName}}&gt; EntryClass { get; } = new(typeof({{EntryName}}));
-        ///
-        ///    [UProperty [rest of string was truncated]&quot;;.
+        ///    public TSubclassOf&lt;{{EntryName}}&gt; EntryClass { get; } = new(typeof({{ [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GameDataRepositoryTemplate {
             get {

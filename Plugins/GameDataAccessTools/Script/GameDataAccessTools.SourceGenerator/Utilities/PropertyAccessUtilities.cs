@@ -34,13 +34,13 @@ public static class PropertyAccessUtilities
                     switch (genericType.MetadataName)
                     {
                         case "IReadOnlyList`1" or "IList`1":
-                            return new MarshallerInfo($"ArrayMarshaller<{typeArguments[0]}>",
+                            return new MarshallerInfo($"ArrayCopyMarshaller<{typeArguments[0]}>",
                                 typeArguments[0].GetMarshallerName().Name);
                         case "TNativeArray`1" or "ReadOnlySpan`1":
                             return new MarshallerInfo($"NativeArrayMarshaller<{typeArguments[0]}>",
                                 typeArguments[0].GetMarshallerName().Name);
                         case "IReadOnlyDictionary`2" or "IDictionary`2":
-                            return new MarshallerInfo($"MapMarshaller<{typeArguments[0]}, {typeArguments[1]}>",
+                            return new MarshallerInfo($"MapCopyMarshaller<{typeArguments[0]}, {typeArguments[1]}>",
                                 typeArguments[0].GetMarshallerName().Name, typeArguments[1].GetMarshallerName().Name);
                         case "IReadOnlySet`1" or "ISet`1":
                             return new MarshallerInfo($"SetCopyMarshaller<{typeArguments[0]}>",
@@ -54,7 +54,8 @@ public static class PropertyAccessUtilities
                         case "TSoftClassPtr`1":
                             return new MarshallerInfo($"SoftClassMarshaller<{typeArguments[0]}>");
                         case "Option`1":
-                            return new MarshallerInfo($"OptionMarshaller<{typeArguments[0]}>");
+                            return new MarshallerInfo($"OptionMarshaller<{typeArguments[0]}>",
+                                typeArguments[0].GetMarshallerName().Name);
                     }
                 }
 
@@ -98,7 +99,11 @@ public static class PropertyAccessUtilities
                         : new MarshallerInfo($"ManagedObjectMarshaller<{typeSymbol.ToDisplayString()}>");
                 }
 
-                return new MarshallerInfo($"StructMarshaller<{typeSymbol.ToDisplayString()}>");
+                return typeSymbol.AllInterfaces.Any(i =>
+                    i.IsGenericType && i.ToDisplayString() ==
+                    $"UnrealSharp.MarshalledStruct<{typeSymbol.ToDisplayString()}>")
+                    ? new MarshallerInfo($"StructMarshaller<{typeSymbol.ToDisplayString()}>")
+                    : new MarshallerInfo($"CSharpStructMarshaller<{typeSymbol.ToDisplayString()}>");
             }
         }
     }

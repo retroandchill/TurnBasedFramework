@@ -11,7 +11,7 @@ namespace GameAccessTools.SourceGenerator.Attributes;
 #if GAME_DATA_ACCESS_TOOLS_GENERATOR
 [IncludeFile]
 #endif
-public class GameDataRepositoryProviderAttribute : Attribute
+internal class GameDataRepositoryProviderAttribute : Attribute
 {
     public string? SettingsDisplayName { get; init; }
 }

@@ -8,6 +8,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Retro.SourceGeneratorUtilities.Utilities.Attributes;
+using RhoMicro.CodeAnalysis.Library.Extensions;
 
 namespace GameAccessTools.SourceGenerator.Generators;
 
@@ -62,6 +63,11 @@ internal class GameDataRepositoryGenerator : IIncrementalGenerator
             .Where(x => x.HasValue)
             .Select(x => x!.Value)
             .ToDictionary(x => x.AssetClassName);
+
+        foreach (var (_, info) in foundDataEntries)
+        {
+            GeneratePropertyAccessorType(info.EntryType, context);
+        }
 
         foreach (var providerType in providerTypes)
         {
@@ -315,5 +321,55 @@ internal class GameDataRepositoryGenerator : IIncrementalGenerator
         }
         
         return propertySymbol.Name.EndsWith("s") ? propertySymbol.Name[0..^1] : propertySymbol.Name;
+    }
+    
+    private static void GeneratePropertyAccessorType(INamedTypeSymbol targetType, SourceProductionContext context)
+    {
+        List<ITypeSymbol> allTypes = [targetType];
+        var baseType = targetType.BaseType;
+        while (baseType is not null)
+        {
+            allTypes.Add(baseType);
+            if (baseType.ToDisplayString() == SourceContextNames.UObject)
+            {
+                break;
+            }
+            
+            baseType = baseType.BaseType;
+        }
+        
+        var properties = ((IEnumerable<ITypeSymbol>) allTypes).Reverse()
+            .SelectMany(x => x.GetMembers())
+            .OfType<IPropertySymbol>()
+            .Where(x => !x.IsStatic)
+            .Where(x => x.GetAttributes()
+                            .Any(y =>
+                                y.AttributeClass?.ToDisplayString() == SourceContextNames.UPropertyAttribute))
+            .Select(x => x.GetPropertyInfo())
+            .ToImmutableArray();
+
+        var templateParams = new
+        {
+            Namespace = targetType.ContainingNamespace.ToDisplayString(),
+            ClassName = targetType.Name,
+            EngineName = targetType.Name[1..],
+            Properties = properties
+        };
+
+        var handlebars = Handlebars.Create();
+        handlebars.Configuration.TextEncoder = null;
+
+        context.AddSource($"{templateParams.EngineName}Initializer.g.cs",
+            handlebars.Compile(SourceTemplates.GameDataEntrInitializerTemplate)(templateParams));
+    }
+
+    private static string GetClassType(INamedTypeSymbol classSymbol)
+    {
+        if (classSymbol.TypeKind == TypeKind.Struct)
+        {
+            return classSymbol.IsRecord ? "record struct" : "struct";
+        }
+
+        return classSymbol.IsRecord ? "record" : "class";
     }
 }

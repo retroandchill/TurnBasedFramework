@@ -4,4 +4,4 @@ using Retro.SourceGeneratorUtilities.Utilities.Attributes;
 namespace GameAccessTools.SourceGenerator.Model;
 
 [AttributeInfoType<SingularNameAttribute>]
-public record struct SingularNameInfo(string Name);
+public readonly record struct SingularNameInfo(string Name);

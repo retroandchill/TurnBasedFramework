@@ -12,8 +12,6 @@ public interface IGameDataRepository<T> : IDataRepository<FGameplayTag, T> where
 
     IReadOnlyDictionary<FGameplayTag, T> Entries { get; }
 
-    IReadOnlyList<T> AllEntries { get; }
-
     int NumEntries { get; }
 
     T GetEntry(int key);

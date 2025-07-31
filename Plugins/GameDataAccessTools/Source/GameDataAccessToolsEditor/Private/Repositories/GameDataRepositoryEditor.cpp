@@ -471,7 +471,10 @@ void FGameDataRepositoryEditor::OnPropertyChanged(const FPropertyChangedEvent& P
         return;
     }
 
-    check(CurrentRow.IsSet());
+    if (!CurrentRow.IsSet())
+    {
+        return;
+    }
     auto& [Index, CurrentName] = CurrentRow.GetValue();
     const auto SelectedEntry = (*GameDataEntries)[Index];
     if (auto Id = GetId(SelectedEntry); !Id.IsValid() || !VerifyRowNameUnique(Id))

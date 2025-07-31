@@ -5,13 +5,15 @@ using UnrealSharp.Engine.Core.Modules;
 
 namespace UnrealInject;
 
+[UsedImplicitly]
 public sealed class FUnrealInjectModule : IModuleInterface
 {
     private static FUnrealInjectModule? _instance;
 
     private readonly ServiceCollection _serviceCollection = [];
-    
-    public IServiceCollection Services => _serviceCollection;
+    private bool _servicesBuilt;
+
+    public event Action<IServiceProvider>? OnServiceProviderRebuilt;
 
     private IServiceProviderFactory<object> _serviceProviderFactory =
         new ServiceProviderFactoryAdapter<IServiceCollection>(new DefaultServiceProviderFactory());
@@ -31,11 +33,13 @@ public sealed class FUnrealInjectModule : IModuleInterface
 
     public void StartupModule()
     {
+        _servicesBuilt = false;
         _instance = this;
     }
 
     public void ShutdownModule()
     {
+        _servicesBuilt = false;
         _instance = null;
     }
 
@@ -46,10 +50,22 @@ public sealed class FUnrealInjectModule : IModuleInterface
         return this;
     }
 
+    public FUnrealInjectModule ConfigureServices(Action<IServiceCollection> configureDelegate)
+    {
+        configureDelegate(_serviceCollection);
+        if (_servicesBuilt)
+        {
+            OnServiceProviderRebuilt?.Invoke(BuildServiceProvider());
+        }
+        return this;
+    }
+
     internal IServiceProvider BuildServiceProvider()
     {
         var containerBuilder = _serviceProviderFactory.CreateBuilder(_serviceCollection);
-        return _serviceProviderFactory.CreateServiceProvider(containerBuilder);
+        var provider = _serviceProviderFactory.CreateServiceProvider(containerBuilder);
+        _servicesBuilt = true;
+        return provider;
     }
 
     private sealed class ServiceProviderFactoryAdapter<TBuilder>([ReadOnly] IServiceProviderFactory<TBuilder> factory)

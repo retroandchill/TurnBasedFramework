@@ -1,4 +1,5 @@
-﻿using GameAccessTools.SourceGenerator.Attributes;
+﻿using System.Diagnostics.CodeAnalysis;
+using GameAccessTools.SourceGenerator.Attributes;
 using GameDataAccessTools.Core.DataRetrieval;
 using LanguageExt;
 using Pokemon.Data.Core;
@@ -60,6 +61,48 @@ public readonly struct FLevelUpMove
     public T Match<T>(Func<int, T> onLevelUp, Func<T> onEvolution)
     {
         return _evolutionMove ? onEvolution() : onLevelUp(_level);
+    }
+}
+
+[UStruct]
+public readonly struct FEvolutionCondition
+{
+    [field: UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)]
+    [field: UMetaData("Categories", USpecies.TagCategory)]
+    public FGameplayTag Species { get; init; }
+    
+    [field: UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)]
+    [field: UMetaData("Categories", UEvolutionMethod.TagCategory)]
+    public FGameplayTag Method { get; init; }
+
+    [field: UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere | PropertyFlags.Instanced)]
+    public UEvolutionConditionData Data { get; init; }
+    
+    public bool IsValid => Method.IsValid && Data is not null 
+                                          && GameData.EvolutionMethods.GetEntry(Method)
+                                              .ConditionType.IsChildOf(Data.GetType());
+
+    public UEvolutionConditionData GetData<T>() where T : UEvolutionConditionData
+    {
+        if (TryGetData<T>(out var data))
+        {
+            return data;
+        }
+        
+        throw new InvalidOperationException($"Evolution condition data is not of type {typeof(T)}");
+    }
+
+    public bool TryGetData<T>([NotNullWhen(true)] out T? data) where T : UEvolutionConditionData
+    {
+        if (GameData.EvolutionMethods.TryGetEntry(Method, out var entry) && 
+            entry.ConditionType.IsChildOf(typeof(T)) && Data is T typedData)
+        {
+            data = typedData;
+            return true;
+        }
+        
+        data = null;
+        return false;
     }
 }
 
@@ -156,6 +199,9 @@ public class USpecies : UObject, IGameDataEntry
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Breeding")]
     [UMetaData("Categories", TagCategory)]
     public IReadOnlyList<FGameplayTag> Offspring { get; init; }
+    
+    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Evolution")]
+    public IReadOnlyList<FEvolutionCondition> Evolutions { get; init; }
 
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Pokédex")]
     [ClampMin("0")]

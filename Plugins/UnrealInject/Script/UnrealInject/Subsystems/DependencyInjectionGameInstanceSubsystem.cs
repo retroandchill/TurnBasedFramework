@@ -14,15 +14,29 @@ public sealed class UDependencyInjectionGameInstanceSubsystem : UCSGameInstanceS
     protected override void Initialize(FSubsystemCollectionBaseRef collection)
     {
         var engineSubsystem = GetEngineSubsystem<UDependencyInjectionEngineSubsystem>();
+        engineSubsystem.OnServiceProviderRebuilt += RebuildServiceProvider;
+        
         _serviceScope = engineSubsystem.CreateScope();
     }
 
     protected override void Deinitialize()
     {
+        var engineSubsystem = GetEngineSubsystem<UDependencyInjectionEngineSubsystem>();
+        engineSubsystem.OnServiceProviderRebuilt -= RebuildServiceProvider;
         if (_serviceScope is IDisposable disposable)
         {
             disposable.Dispose();
         }
+    }
+    
+    private void RebuildServiceProvider(IServiceProvider provider)
+    {
+        if (_serviceScope is IDisposable disposable)
+        {
+            disposable.Dispose();
+        }
+
+        _serviceScope = provider.CreateScope();
     }
 
     public object? GetService(Type serviceType)
