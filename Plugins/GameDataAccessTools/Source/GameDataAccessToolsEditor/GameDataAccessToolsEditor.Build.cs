@@ -13,7 +13,6 @@ public class GameDataAccessToolsEditor : ModuleRules
                 "UnrealSharpCore",
                 "UnrealEd",
                 "GameDataAccessTools",
-                "Json"
             }
         );
 

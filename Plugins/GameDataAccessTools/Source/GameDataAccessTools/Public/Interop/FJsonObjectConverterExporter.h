@@ -12,7 +12,7 @@
  * 
  */
 UCLASS()
-class GAMEDATAACCESSTOOLSEDITOR_API UFJsonObjectConverterExporter : public UObject
+class GAMEDATAACCESSTOOLS_API UFJsonObjectConverterExporter : public UObject
 {
     GENERATED_BODY()
 

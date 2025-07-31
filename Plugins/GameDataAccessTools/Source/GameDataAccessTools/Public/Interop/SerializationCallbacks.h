@@ -25,7 +25,7 @@ struct FSerializationActions
     FDeserializeFromString DeserializeFromString = nullptr;
 };
 
-class FSerializationCallbacks
+class GAMEDATAACCESSTOOLS_API FSerializationCallbacks
 {
     FSerializationCallbacks() = default;
     ~FSerializationCallbacks() = default;

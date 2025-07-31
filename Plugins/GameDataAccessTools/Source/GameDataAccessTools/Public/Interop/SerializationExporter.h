@@ -12,7 +12,7 @@
  * 
  */
 UCLASS()
-class GAMEDATAACCESSTOOLSEDITOR_API USerializationExporter : public UObject
+class GAMEDATAACCESSTOOLS_API USerializationExporter : public UObject
 {
     GENERATED_BODY()
 

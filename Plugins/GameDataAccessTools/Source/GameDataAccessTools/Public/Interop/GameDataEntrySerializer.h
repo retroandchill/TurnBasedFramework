@@ -8,7 +8,7 @@
 
 class UGameDataRepository;
 
-class GAMEDATAACCESSTOOLSEDITOR_API FGameDataEntrySerializer
+class GAMEDATAACCESSTOOLS_API FGameDataEntrySerializer
 {
 public:
     explicit FGameDataEntrySerializer(const FGCHandleIntPtr Ptr) : Handle(Ptr) {}

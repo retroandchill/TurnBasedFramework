@@ -25,7 +25,7 @@ public class GameDataAccessTools : ModuleRules
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"Core", "GameplayTags", "UnrealSharpBinds", "UnrealSharpCore",
+				"Core", "GameplayTags", "UnrealSharpBinds", "UnrealSharpCore", "Json",
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -38,7 +38,7 @@ public class GameDataAccessTools : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
-				// ... add private dependencies that you statically link with here ...	
+				"JsonUtilities"
 			}
 			);
 		
@@ -46,7 +46,6 @@ public class GameDataAccessTools : ModuleRules
 		DynamicallyLoadedModuleNames.AddRange(
 			new string[]
 			{
-				// ... add any modules that your module loads dynamically here ...
 			}
 			);
 	}
