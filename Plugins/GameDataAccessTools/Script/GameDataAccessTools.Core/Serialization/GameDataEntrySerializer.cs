@@ -7,6 +7,8 @@ namespace GameDataAccessTools.Core.Serialization;
 
 public interface IGameDataEntrySerializer
 {
+    FName FormatTag { get; }
+    
     FText FormatName { get; }
     
     string FileExtensionText { get; }

@@ -15,12 +15,12 @@ class GAMEDATAACCESSTOOLS_API UTextSerializationBlueprintLibrary : public UBluep
     GENERATED_BODY()
 
 public:
-    UFUNCTION(BlueprintPure, Category = "Serialization|Text", meta=(ExtensionMethod, ScriptMethod))
+    UFUNCTION(BlueprintPure, Category = "Serialization|Text", meta=(ExtensionMethod))
     static FText FromLocalizedString(const FString& LocalizedString);
 
-    UFUNCTION(BlueprintPure, Category = "Serialization|Text", meta=(ExtensionMethod, ScriptMethod))
+    UFUNCTION(BlueprintPure, Category = "Serialization|Text", meta=(ExtensionMethod))
     static FString ToLocalizedString(const FText& Text);
 
-    UFUNCTION(BlueprintPure, Category = "Serialization|Text", meta=(ExtensionMethod, ScriptMethod))
+    UFUNCTION(BlueprintPure, Category = "Serialization|Text", meta=(ExtensionMethod))
     static TSubclassOf<UObject> GetClassFromPath(const FString& Path);
 };

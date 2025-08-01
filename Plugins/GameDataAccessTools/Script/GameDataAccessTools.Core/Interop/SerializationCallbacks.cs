@@ -73,8 +73,10 @@ public static class SerializationCallbacks
         {
             throw new InvalidOperationException("No serialization actions found.");
         }
-
-        foreach (var action in result)
+        
+        foreach (var action in result
+                     .GroupBy(s => s.FormatTag)
+                     .Select(g => g.Last()))
         {
             var handle = GCHandle.Alloc(action, GCHandleType.Normal);
             var handlePtr = GCHandle.ToIntPtr(handle);

@@ -4,6 +4,7 @@ using GameDataAccessTools.Core.Interop;
 using GameDataAccessTools.Core.Serialization;
 using GameDataAccessTools.Core.Serialization.Json;
 using JetBrains.Annotations;
+using Microsoft.Extensions.DependencyInjection;
 using UnrealInject;
 using UnrealSharp.Engine.Core.Modules;
 
@@ -33,6 +34,8 @@ public class FManagedGameDataAccessTools : IModuleInterface
                 options.Converters.Add(new GameplayTagJsonConverter());
                 options.Converters.Add(new SubclassOfJsonConverterFactory());
             });
+
+            services.AddSingleton(typeof(IGameDataEntrySerializer<>), typeof(GameDataEntryJsonSerializer<>));
         });
     }
 
