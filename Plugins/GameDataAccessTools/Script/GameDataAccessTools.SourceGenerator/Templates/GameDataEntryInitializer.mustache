@@ -52,7 +52,7 @@ public readonly partial struct {{EngineName}}Initializer : IGameDataEntryInitial
 
     static {{EngineName}}Initializer()
     {
-        NativeClassPtr = UCoreUObjectExporter.CallGetNativeStructFromName(typeof({{ClassName}}).GetAssemblyName(), "{{Namespace}}", "{{ClassEngineName}}");
+        NativeClassPtr = UCoreUObjectExporter.CallGetNativeClassFromName(typeof({{ClassName}}).GetAssemblyName(), "{{Namespace}}", "{{EngineName}}");
         {{#Properties}}
         {{^MarshallerInstanced}}IntPtr {{/MarshallerInstanced}}{{Name}}_NativeProperty = FPropertyExporter.CallGetNativePropertyFromName(NativeClassPtr, "{{Name}}");
         {{Name}}_Offset = FPropertyExporter.CallGetPropertyOffset({{Name}}_NativeProperty);

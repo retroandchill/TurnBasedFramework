@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Collections.Immutable;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using GameDataAccessTools.Core.DataRetrieval;
 using GameDataAccessTools.Core.Serialization;
@@ -9,6 +10,7 @@ using UnrealSharp.Core;
 using UnrealSharp.Core.Marshallers;
 using UnrealSharp.CoreUObject;
 using UnrealSharp.GameDataAccessTools;
+using UnrealSharp.GameplayTags;
 using UnrealSharp.Interop;
 
 namespace GameDataAccessTools.Core.Interop;
@@ -177,7 +179,8 @@ public static class SerializationCallbacks
         }
         catch (Exception e)
         {
-            StringMarshaller.ToNative(exceptionString, 0, $"{e.Message}\n{e.StackTrace}");
+            var trueException = e is TargetInvocationException && e.InnerException is not null ? e.InnerException : e;
+            StringMarshaller.ToNative(exceptionString, 0, $"{trueException.Message}\n{trueException.StackTrace}");
             return NativeBool.False;
         }
     }
@@ -192,9 +195,21 @@ public static class SerializationCallbacks
         {
             throw new InvalidOperationException("Invalid repository.");
         }
-
+        
+        var foundTags = new HashSet<FGameplayTag>();
         foreach (var entry in action.DeserializeData(inputString, repositoryObject))
         {
+            var id = entry.Id;
+            if (!id.IsValid)
+            {
+                throw new InvalidOperationException("One or more invalid entry IDs were found. Please ensure that all entries have a valid ID.");
+            }
+
+            if (!foundTags.Add(id))
+            {
+                throw new InvalidOperationException($"Duplicate entry ID '{id}' found. Please ensure that all entries have unique IDs.");
+            }
+
             SerializationExporter.CallAddEntryToCollection(destinationCollection, entry.NativeObject);
         }
     }
