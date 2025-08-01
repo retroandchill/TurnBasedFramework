@@ -18,4 +18,16 @@ public static partial class NatureMapper
     public static partial NatureInfo ToNatureInfo(this UNature nature);
 
     private static partial NatureInitializer ToNatureInitializer(this NatureInfo nature, UObject? outer = null);
+
+    private static IReadOnlyList<NatureStatMultiplier> ToStatMultiplierList(
+        this IReadOnlyDictionary<FGameplayTag, int> multipliers)
+    {
+        return multipliers.Select(x => new NatureStatMultiplier(x.Key, x.Value)).ToList();
+    }
+    
+    private static IReadOnlyDictionary<FGameplayTag, int> ToStatMultiplierList(
+        this IReadOnlyList<NatureStatMultiplier> multipliers)
+    {
+        return multipliers.ToDictionary(x => x.Stat, x => x.Change);
+    }
 }

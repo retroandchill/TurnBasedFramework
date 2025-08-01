@@ -18,4 +18,6 @@ public static partial class EncounterTypeMapper
     public static partial EncounterTypeInfo ToEncounterTypeInfo(this UEncounterType encounterType);
 
     private static partial EncounterTypeInitializer ToEncounterTypeInitializer(this EncounterTypeInfo encounterType, UObject? outer = null);
+    
+    private static FGameplayTag ValueOrDefault(FGameplayTag? tag) => tag ?? default;
 }

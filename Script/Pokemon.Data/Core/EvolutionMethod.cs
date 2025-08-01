@@ -31,3 +31,10 @@ public class UEvolutionMethod : UObject, IGameDataEntry
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Evolution")]
     public TSubclassOf<UEvolutionConditionData> ConditionType { get; init; }
 }
+
+[UClass(ClassFlags.EditInlineNew)]
+public class UIntEvolutionCondition : UEvolutionConditionData
+{
+    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)]
+    public int Parameter { get; init; }
+}
