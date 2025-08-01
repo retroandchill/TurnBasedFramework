@@ -46,7 +46,7 @@ public class UGenderRatio : UObject, IGameDataEntry
     private ESpecialGenderRatio SpecialGenderRatio { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Ratio")]
-    [EditCondition("SpecialGenderRatio == ESpecialGenderRatio::None")]
+    [EditCondition("SpecialGenderRatio == SpecialGenderRatio::None")]
     [UMetaData("EditConditionHides")]
     private byte FemaleChance { get; init; }
 

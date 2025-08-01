@@ -7,7 +7,7 @@ namespace Pokemon.Editor.Model.Data.Pbs;
 public record MoveInfo
 {
     public required FGameplayTag Id { get; init; }
-    public required int RowIndex { get; init; }
+    public int RowIndex { get; init; }
     public required FText DisplayName { get; init; }
     
     public required FText Description { get; init; }

@@ -9,14 +9,15 @@
 
 bool UGameplayTagHandlingUtils::TryAddGameplayTagToIni(const FName TagSource, const FString& TagName, FString& Error)
 {
-    if (UGameplayTagsManager::Get().IsValidGameplayTagString(TagName))
+    auto &Manager = UGameplayTagsManager::Get();
+    if (const auto RequestedTag = Manager.RequestGameplayTag(FName(TagName), false); RequestedTag.IsValid())
     {
         Error.Empty();
         return true;
     }
 
     FText ErrorMsg;
-    if (!UGameplayTagsManager::Get().IsValidGameplayTagString(TagName, &ErrorMsg))
+    if (!Manager.IsValidGameplayTagString(TagName, &ErrorMsg))
     {
         Error = ErrorMsg.ToString();
         return false;

@@ -12,7 +12,7 @@ public class GameplayTagJsonConverter : JsonConverter<FGameplayTag>
     {
         if (reader.TokenType != JsonTokenType.String)
         {
-            throw new JsonException("Expected string value for FName");
+            throw new JsonException("Expected string value for FGameplayTag");
         }
         
         var gameplayTagString = reader.GetString()!;
