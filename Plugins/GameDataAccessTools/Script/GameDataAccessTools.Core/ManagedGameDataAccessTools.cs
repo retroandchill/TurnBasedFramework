@@ -33,6 +33,8 @@ public class FManagedGameDataAccessTools : IModuleInterface
                 options.Converters.Add(new TextJsonConverter());
                 options.Converters.Add(new GameplayTagJsonConverter());
                 options.Converters.Add(new SubclassOfJsonConverterFactory());
+                options.Converters.Add(new SoftObjectPtrJsonConverterFactory());
+                options.Converters.Add(new SoftClassPtrJsonConverterFactory());
             });
 
             services.AddSingleton(typeof(IGameDataEntrySerializer<>), typeof(GameDataEntryJsonSerializer<>));

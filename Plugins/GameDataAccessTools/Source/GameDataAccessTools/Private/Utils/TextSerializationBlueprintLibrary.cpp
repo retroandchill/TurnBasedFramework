@@ -26,3 +26,13 @@ TSubclassOf<UObject> UTextSerializationBlueprintLibrary::GetClassFromPath(
     const TSoftClassPtr SoftPath(Path);
     return SoftPath.LoadSynchronous();
 }
+
+TSoftObjectPtr<> UTextSerializationBlueprintLibrary::GetSoftObjectPtrFromPath(const FString& Path)
+{
+    return TSoftObjectPtr(FSoftObjectPath(Path));
+}
+
+TSoftClassPtr<> UTextSerializationBlueprintLibrary::GetSoftClassPtrFromPath(const FString& Path)
+{
+    return TSoftClassPtr(FSoftClassPath(Path));
+}

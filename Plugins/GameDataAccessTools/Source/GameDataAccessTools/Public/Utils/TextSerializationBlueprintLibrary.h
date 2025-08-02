@@ -23,4 +23,10 @@ public:
 
     UFUNCTION(BlueprintPure, Category = "Serialization|Text", meta=(ExtensionMethod))
     static TSubclassOf<UObject> GetClassFromPath(const FString& Path);
+    
+    UFUNCTION(BlueprintPure, Category = "Serialization|Text", meta=(ExtensionMethod))
+    static TSoftObjectPtr<UObject> GetSoftObjectPtrFromPath(const FString& Path);
+
+    UFUNCTION(BlueprintPure, Category = "Serialization|Text", meta=(ExtensionMethod))
+    static TSoftClassPtr<UObject> GetSoftClassPtrFromPath(const FString& Path);
 };
