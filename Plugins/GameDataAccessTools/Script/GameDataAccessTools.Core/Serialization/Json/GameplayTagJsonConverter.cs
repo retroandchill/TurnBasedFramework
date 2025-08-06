@@ -16,7 +16,7 @@ public class GameplayTagJsonConverter : JsonConverter<FGameplayTag>
         }
         
         var gameplayTagString = reader.GetString()!;
-        #if !PACKAGE
+        #if WITH_EDITOR
         var tagSource = UObject.GetDefault<UGameDataAccessToolsSettings>().NewGameplayTagsPath;
         if (!UGameplayTagHandlingUtils.TryAddGameplayTagToIni(tagSource, gameplayTagString, out var error))
         {

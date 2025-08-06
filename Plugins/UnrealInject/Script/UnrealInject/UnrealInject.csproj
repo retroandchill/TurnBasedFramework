@@ -8,7 +8,14 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>UnrealInject</RootNamespace>
   </PropertyGroup>
-  <ItemGroup>
+
+    <PropertyGroup>
+        <DefineConstants>WITH_EDITOR</DefineConstants>
+        <DefineConstants Condition="'$(DisableWithEditor)' == 'true'">$(DefineConstants.Replace('WITH_EDITOR;', '').Replace('WITH_EDITOR', ''))</DefineConstants>
+        <DefineConstants Condition="'$(DefineAdditionalConstants)' != ''">$(DefineConstants);$(DefineAdditionalConstants)</DefineConstants>
+    </PropertyGroup>
+
+    <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
     <PackageReference Include="LanguageExt.Core" Version="4.4.9" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.7" />

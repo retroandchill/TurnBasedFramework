@@ -7,7 +7,7 @@ namespace GameDataAccessTools.Core;
 [UClass(ClassFlags.DefaultConfig, DisplayName = "Game Data Access Tools", ConfigCategory = "Game")]
 public class UGameDataAccessToolsSettings : UDeveloperSettings
 {
-    #if !PACKAGE
+    #if WITH_EDITOR
     [UProperty(PropertyFlags.EditDefaultsOnly | PropertyFlags.BlueprintReadOnly | PropertyFlags.Config, Category = "Serializers")]
     public FName NewGameplayTagsPath { get; }
     #endif
