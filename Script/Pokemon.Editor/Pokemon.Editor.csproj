@@ -26,6 +26,6 @@
     <Analyzer Include="..\..\Plugins\UnrealSharp\Binaries\Managed\UnrealSharp.SourceGenerators.dll" />
     <ProjectReference Include="..\..\Plugins\GameDataAccessTools\Script\GameDataAccessTools.SourceGenerator\GameDataAccessTools.SourceGenerator.csproj"  OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
     <ProjectReference Include="..\Pokemon.Data\Pokemon.Data.csproj" />
-    <ProjectReference Include="..\ProjectGlue\ProjectGlue.csproj" />
+    <ProjectReference Include="..\TurnBasedFramework.Glue\TurnBasedFramework.Glue.csproj" />
   </ItemGroup>
 </Project>

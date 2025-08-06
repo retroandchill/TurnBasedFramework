@@ -420,7 +420,7 @@ fabric.properties
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
 
-/GameDataAccessTools.PluginGlue/*
-!/GameDataAccessTools.PluginGlue/GameDataAccessTools.PluginGlue.csproj
-!/GameDataAccessTools.PluginGlue/.glueignore
-!/GameDataAccessTools.PluginGlue/Extensions/
+/GameDataAccessTools.Glue/*
+!/GameDataAccessTools.Glue/GameDataAccessTools.Glue.csproj
+!/GameDataAccessTools.Glue/.glueignore
+!/GameDataAccessTools.Glue/Extensions/

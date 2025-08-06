@@ -420,7 +420,7 @@ fabric.properties
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
 
-/ProjectGlue/*
-!/ProjectGlue/ProjectGlue.csproj
-!/ProjectGlue/.glueignore
-!/ProjectGlue/Extensions/
+/TurnBasedFramework.Glue/*
+!/TurnBasedFramework.Glue/TurnBasedFramework.Glue.csproj
+!/TurnBasedFramework.Glue/.glueignore
+!/TurnBasedFramework.Glue/Extensions/
