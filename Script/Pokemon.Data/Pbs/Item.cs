@@ -85,7 +85,7 @@ public class UItem : UObject, IGameDataEntry
     public const string MetadataCategory = "Pokemon.Metadata.Items";
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
-    [UMetaData("Categories", TagCategory)]
+    [Categories(TagCategory)]
     public FGameplayTag Id { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.VisibleAnywhere, Category = "Identification")]
@@ -125,7 +125,7 @@ public class UItem : UObject, IGameDataEntry
     public FText Description { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "BagInfo")]
-    [UMetaData("Categories", TagCategory)]
+    [Categories(TagCategory)]
     public FGameplayTag Pocket { get; init; }
 
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Price")]
@@ -134,13 +134,13 @@ public class UItem : UObject, IGameDataEntry
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Price")]
     [EditCondition(nameof(CanSell))]
     [ClampMin("1")]
-    [UMetaData("UIMin", "1")]
+    [UIMin("1")]
     public int Price { get; init; } = 1;
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, DisplayName = "Sell Price", Category = "Price")]
     [EditCondition(nameof(CanSell))]
     [ClampMin("1")]
-    [UMetaData("UIMin", "1")]
+    [UIMin("1")]
     private Option<int> PriceToSell { get; init; }
     
     public int SellPrice
@@ -152,7 +152,7 @@ public class UItem : UObject, IGameDataEntry
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, DisplayName = "BP Price", Category = "Price")]
     [EditCondition(nameof(CanSell))]
     [ClampMin("1")]
-    [UMetaData("UIMin", "1")]
+    [UIMin("1")]
     public int BpPrice { get; init; } = 1;
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Usage")]
@@ -163,7 +163,7 @@ public class UItem : UObject, IGameDataEntry
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Usage")]
     [EditCondition($"{nameof(BattleUse)} != {nameof(EBattleUse)}::{nameof(EBattleUse.NoBattleUse)}")]
-    [UMetaData("EditConditionHides")]
+    [EditConditionHides]
     public FGameplayTagContainer BattleUsageCategories { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Usage")]
@@ -173,11 +173,11 @@ public class UItem : UObject, IGameDataEntry
     [EditCondition($"{nameof(FieldUse)} == {nameof(EFieldUse)}::{nameof(EFieldUse.TM)} || " +
                    $"{nameof(FieldUse)} == {nameof(EFieldUse)}::{nameof(EFieldUse.TR)} || " +
                    $"{nameof(FieldUse)} == {nameof(EFieldUse)}::{nameof(EFieldUse.HM)}")]
-    [UMetaData("EditConditionHides")]
+    [EditConditionHides]
     public FGameplayTag Move { get; init; }
 
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Metadata")]
-    [UMetaData("Categories", MetadataCategory)]
+    [Categories(MetadataCategory)]
     public FGameplayTagContainer Tags { get; init; }
 
     public bool IsTM

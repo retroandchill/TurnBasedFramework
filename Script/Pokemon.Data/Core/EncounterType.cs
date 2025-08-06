@@ -2,6 +2,7 @@
 using GameDataAccessTools.Core.DataRetrieval;
 using UnrealSharp;
 using UnrealSharp.Attributes;
+using UnrealSharp.Attributes.MetaTags;
 using UnrealSharp.CoreUObject;
 using UnrealSharp.GameDataAccessTools;
 using UnrealSharp.GameplayTags;
@@ -15,7 +16,7 @@ public class UEncounterType : UObject, IGameDataEntry
     public const string TagCategory = "Pokemon.Data.EncounterTypes";
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
-    [UMetaData("Categories", TagCategory)]
+    [Categories(TagCategory)]
     public FGameplayTag Id { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.VisibleAnywhere, Category = "Identification")]
@@ -25,7 +26,7 @@ public class UEncounterType : UObject, IGameDataEntry
     public FText DisplayName { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Encounters")]
-    [UMetaData("Categories", "Pokemon.Field.Encounters.Triggers")]
+    [Categories("Pokemon.Field.Encounters.Triggers")]
     public FGameplayTag Trigger { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Encounters")]

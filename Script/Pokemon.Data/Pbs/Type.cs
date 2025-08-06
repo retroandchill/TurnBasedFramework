@@ -2,6 +2,7 @@
 using GameDataAccessTools.Core.DataRetrieval;
 using UnrealSharp;
 using UnrealSharp.Attributes;
+using UnrealSharp.Attributes.MetaTags;
 using UnrealSharp.CoreUObject;
 using UnrealSharp.GameDataAccessTools;
 using UnrealSharp.GameplayTags;
@@ -16,7 +17,7 @@ public class UType : UObject, IGameDataEntry
     public const string MetadataCategory = "Pokemon.Metadata.Types";
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
-    [UMetaData("Categories", TagCategory)]
+    [Categories(TagCategory)]
     public FGameplayTag Id { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.VisibleAnywhere, Category = "Identification")]
@@ -38,23 +39,23 @@ public class UType : UObject, IGameDataEntry
     public bool IsPseudoType  { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Type Info")]
-    [UMetaData("Categories", TagCategory)]
+    [Categories(TagCategory)]
     public FGameplayTagContainer Weaknesses { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Type Info")]
-    [UMetaData("Categories", TagCategory)]
+    [Categories(TagCategory)]
     public FGameplayTagContainer Resistances { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Type Info")]
-    [UMetaData("Categories", TagCategory)]
+    [Categories(TagCategory)]
     public FGameplayTagContainer Immunities { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Metadata")]
-    [UMetaData("Categories", MetadataCategory)]
+    [Categories(MetadataCategory)]
     public FGameplayTagContainer Tags { get; init; }
 
     [UFunction(FunctionFlags.BlueprintPure, Category = "Types")]
-    public float GetEffectiveness([UMetaData("Categories", TagCategory)] FGameplayTag otherType)
+    public float GetEffectiveness([Categories(TagCategory)] FGameplayTag otherType)
     {
         if (!otherType.IsValid) return Effectiveness.NormalMultiplier;
         

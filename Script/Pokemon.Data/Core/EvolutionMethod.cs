@@ -4,6 +4,7 @@ using GameDataAccessTools.Core.DataRetrieval;
 using Pokemon.Data.Pbs;
 using UnrealSharp;
 using UnrealSharp.Attributes;
+using UnrealSharp.Attributes.MetaTags;
 using UnrealSharp.CoreUObject;
 using UnrealSharp.Engine;
 using UnrealSharp.GameDataAccessTools;
@@ -21,7 +22,7 @@ public class UEvolutionMethod : UObject, IGameDataEntry
     public const string TagCategory = "Pokemon.Data.EvolutionMethods";
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
-    [UMetaData("Categories", TagCategory)]
+    [Categories(TagCategory)]
     public FGameplayTag Id { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.VisibleAnywhere, Category = "Identification")]
@@ -45,7 +46,7 @@ public class UIntEvolutionConditionData : UEvolutionConditionData
 public class UMoveEvolutionConditionData : UEvolutionConditionData
 {
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, DisplayName = "Move ID")]
-    [UMetaData("Categories", UMove.MetadataCategory)]
+    [Categories(UMove.MetadataCategory)]
     public FGameplayTag MoveId { get; init; }
 }
 
@@ -53,7 +54,7 @@ public class UMoveEvolutionConditionData : UEvolutionConditionData
 public class UTypeEvolutionConditionData : UEvolutionConditionData
 {
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, DisplayName = "Type ID")]
-    [UMetaData("Categories", UType.MetadataCategory)]
+    [Categories(UType.MetadataCategory)]
     public FGameplayTag TypeId { get; init; }
 }
 
@@ -61,7 +62,7 @@ public class UTypeEvolutionConditionData : UEvolutionConditionData
 public class UItemEvolutionConditionData : UEvolutionConditionData
 {
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, DisplayName = "Item ID")]
-    [UMetaData("Categories", UItem.MetadataCategory)]
+    [Categories(UItem.MetadataCategory)]
     public FGameplayTag ItemId { get; init; }
 }
 
@@ -69,7 +70,7 @@ public class UItemEvolutionConditionData : UEvolutionConditionData
 public class USpeciesEvolutionConditionData : UEvolutionConditionData
 {
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, DisplayName = "Species ID")]
-    [UMetaData("Categories", USpecies.MetadataCategory)]
+    [Categories(USpecies.MetadataCategory)]
     public FGameplayTag SpeciesId { get; init; }
 }
 

@@ -33,7 +33,7 @@ public class UGenderRatio : UObject, IGameDataEntry
     public const string TagCategory = "Pokemon.Data.GenderRatios";
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
-    [UMetaData("Categories", TagCategory)]
+    [Categories(TagCategory)]
     public FGameplayTag Id { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.VisibleAnywhere, Category = "Identification")]
@@ -47,7 +47,7 @@ public class UGenderRatio : UObject, IGameDataEntry
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Ratio")]
     [EditCondition("SpecialGenderRatio == SpecialGenderRatio::None")]
-    [UMetaData("EditConditionHides")]
+    [EditConditionHides]
     private byte FemaleChance { get; init; }
 
     public bool IsSingleGender

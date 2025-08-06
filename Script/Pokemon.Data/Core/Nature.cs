@@ -16,7 +16,7 @@ public class UNature : UObject, IGameDataEntry
     public const string TagCategory = "Pokemon.Data.Natures";
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
-    [UMetaData("Categories", TagCategory)]
+    [Categories(TagCategory)]
     public FGameplayTag Id { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.VisibleAnywhere, Category = "Identification")]
@@ -26,7 +26,7 @@ public class UNature : UObject, IGameDataEntry
     public FText DisplayName { get; init; }
 
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Stats")]
-    [UMetaData("Categories", UStat.MainBattleCategory)]
+    [Categories(UStat.MainBattleCategory)]
     [ClampMin("-100")]
     [ClampMax("100")]
     public IReadOnlyDictionary<FGameplayTag, int> StatMultipliers { get; init; }

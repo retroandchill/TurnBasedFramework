@@ -34,7 +34,7 @@ public class UMove : UObject, IGameDataEntry
     public const string FunctionCodeCategory = "Pokemon.Battle.Moves.FunctionCode";
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
-    [UMetaData("Categories", TagCategory)]
+    [Categories(TagCategory)]
     public FGameplayTag Id { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.VisibleAnywhere, Category = "Identification")]
@@ -47,7 +47,7 @@ public class UMove : UObject, IGameDataEntry
     public FText Description { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Classification")]
-    [UMetaData("Categories", UType.TagCategory)]
+    [Categories(UType.TagCategory)]
     public FGameplayTag Type { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Classification")]
@@ -58,9 +58,9 @@ public class UMove : UObject, IGameDataEntry
 
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Stats")]
     [ClampMin("5")]
-    [UMetaData("UIMin", "5")]
+    [UIMin("5")]
     [EditCondition($"{nameof(DamageType)} == {nameof(EDamageType)}::{nameof(EDamageType.FixedPower)}")]
-    [UMetaData("EditConditionHides")]
+    [EditConditionHides]
     public int Power { get; init; } = 5;
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Stats")]
@@ -69,26 +69,26 @@ public class UMove : UObject, IGameDataEntry
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Stats")]
     [ClampMin("1")]
     [ClampMax("100")]
-    [UMetaData("UIMin", "1")]
-    [UMetaData("UIMax", "100")]
+    [UIMin("1")]
+    [UIMax("100")]
     [EditCondition($"!{nameof(AlwaysHits)}")]
-    [UMetaData("EditConditionHides")]
+    [EditConditionHides]
     public int Accuracy { get; init; } = 100;
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Stats")]
     [ClampMin("1")]
-    [UMetaData("UIMin", "1")]
+    [UIMin("1")]
     public int TotalPP { get; init; } = 1;
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "BattleUsage")]
     public int Priority { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "BattleUsage")]
-    [UMetaData("Categories", UTargetType.TagCategory)]
+    [Categories(UTargetType.TagCategory)]
     public FGameplayTag Target { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Effect")]
-    [UMetaData("Categories", FunctionCodeCategory)]
+    [Categories(FunctionCodeCategory)]
     public FGameplayTag FunctionCode { get; init; }
 
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Effect")]
@@ -97,14 +97,14 @@ public class UMove : UObject, IGameDataEntry
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Effect")]
     [ClampMin("1")]
     [ClampMax("100")]
-    [UMetaData("UIMin", "1")]
-    [UMetaData("UIMax", "100")]
+    [UIMin("1")]
+    [UIMax("100")]
     [EditCondition($"!{nameof(GuaranteedEffect)}")]
-    [UMetaData("EditConditionHides")]
+    [EditConditionHides]
     public int EffectChance { get; init; } = 30;
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Metadata")]
-    [UMetaData("Categories", MetadataCategory)]
+    [Categories(MetadataCategory)]
     public FGameplayTagContainer Tags { get; init; }
 
     public bool IsPhysical

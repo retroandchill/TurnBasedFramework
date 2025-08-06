@@ -2,6 +2,7 @@
 using GameDataAccessTools.Core.DataRetrieval;
 using UnrealSharp;
 using UnrealSharp.Attributes;
+using UnrealSharp.Attributes.MetaTags;
 using UnrealSharp.CoreUObject;
 using UnrealSharp.GameDataAccessTools;
 using UnrealSharp.GameplayTags;
@@ -23,7 +24,7 @@ public class UEggGroup : UObject, IGameDataEntry
     public const string TagCategory = "Pokemon.Data.EggGroups";
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
-    [UMetaData("Categories", TagCategory)]
+    [Categories(TagCategory)]
     public FGameplayTag Id { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.VisibleAnywhere, Category = "Identification")]

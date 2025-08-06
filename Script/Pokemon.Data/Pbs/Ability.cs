@@ -2,6 +2,7 @@
 using GameDataAccessTools.Core.DataRetrieval;
 using UnrealSharp;
 using UnrealSharp.Attributes;
+using UnrealSharp.Attributes.MetaTags;
 using UnrealSharp.CoreUObject;
 using UnrealSharp.GameDataAccessTools;
 using UnrealSharp.GameplayTags;
@@ -16,7 +17,7 @@ public class UAbility : UObject, IGameDataEntry
     public const string MetadataCategory = "Pokemon.Metadata.Abilities";
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
-    [UMetaData("Categories", TagCategory)]
+    [Categories(TagCategory)]
     public FGameplayTag Id { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.VisibleAnywhere, Category = "Identification")]
@@ -29,6 +30,6 @@ public class UAbility : UObject, IGameDataEntry
     public FText Description { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Metadata")]
-    [UMetaData("Categories", MetadataCategory)]
+    [Categories(MetadataCategory)]
     public FGameplayTagContainer Tags { get; init; }
 }
