@@ -1,3 +1,4 @@
+using System.Text.Json.Nodes;
 using Pokemon.Data.Core;
 using UnrealSharp;
 using UnrealSharp.GameplayTags;
@@ -6,7 +7,9 @@ namespace Pokemon.Editor.Model.Data.Pbs;
 
 public record struct LevelUpMoveInfo(FGameplayTag Move, int? Level = null);
 
-public record struct EvolutionConditionInfo(FGameplayTag Species, FGameplayTag Method, UEvolutionConditionData Data);
+public record struct EvolutionConditionInfo(FGameplayTag Species, FGameplayTag Method, 
+                                            TSubclassOf<UEvolutionConditionData> DataType, 
+                                            JsonObject? Data);
 
 public record SpeciesInfo
 {

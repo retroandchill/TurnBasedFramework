@@ -76,7 +76,7 @@ public readonly struct FEvolutionCondition
     public FGameplayTag Method { get; init; }
 
     [field: UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere | PropertyFlags.Instanced)]
-    public UEvolutionConditionData Data { get; init; }
+    public UEvolutionConditionData? Data { get; init; }
     
     public bool IsValid => Method.IsValid && Data is not null 
                                           && GameData.EvolutionMethods.GetEntry(Method)
@@ -252,4 +252,16 @@ public class USpecies : UObject, IGameDataEntry
     [Categories(MetadataCategory)]
     public FGameplayTagContainer Tags { get; init; }
     
+}
+
+public partial struct SpeciesInitializer
+{
+    public IEnumerable<Func<UObject, FEvolutionCondition>> EvolutionConditionInitializers
+    {
+        init
+        {
+            var entry = Entry;
+            Evolutions = value.Select(func => func(entry)).ToList();
+        }
+    }
 }
