@@ -9,6 +9,8 @@ using Microsoft.Extensions.Options;
 using UnrealSharp;
 using UnrealSharp.Core;
 using UnrealSharp.CoreUObject;
+using UnrealSharp.GameDataAccessToolsEditor;
+using UnrealSharp.GameplayTags;
 using UnrealSharp.Interop;
 
 namespace GameDataAccessTools.Core.Serialization;
@@ -64,5 +66,22 @@ public static class SerializationExtensions
     private static unsafe string ConvertTextDataToString(ref FTextData textData)
     {
         return new string(FTextExporter.CallToString(ref textData));
+    }
+
+    public static FGameplayTag GetGameplayTagUnchecked(string gameplayTagString)
+    {
+        
+    }
+    
+    public static FGameplayTag GetOrCreateGameplayTag(string gameplayTagString)
+    {
+#if WITH_EDITOR
+        var tagSource = UObject.GetDefault<UGameDataAccessToolsSettings>().NewGameplayTagsPath;
+        if (!UGameplayTagHandlingUtils.TryAddGameplayTagToIni(tagSource, gameplayTagString, out var error))
+        {
+            throw new InvalidOperationException(error);
+        }
+#endif
+        return new FGameplayTag(gameplayTagString);
     }
 }

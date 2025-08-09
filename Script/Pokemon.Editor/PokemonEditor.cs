@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Pokemon.Data.Core;
 using Pokemon.Data.Pbs;
 using Pokemon.Editor.Serializers.Json;
+using Pokemon.Editor.Serializers.Pbs.Serializers;
 using UnrealInject;
 using UnrealSharp.Engine.Core.Modules;
 
@@ -37,7 +38,8 @@ public class FPokemonEditor : IModuleInterface
             .AddSingleton<IGameDataEntrySerializer<UStat>, StatJsonSerializer>()
             .AddSingleton<IGameDataEntrySerializer<UStatusEffect>, StatusEffectJsonSerializer>()
             .AddSingleton<IGameDataEntrySerializer<UTargetType>, TargetTypeJsonSerializer>()
-            .AddSingleton<IGameDataEntrySerializer<UType>, TypeJsonSerializer>());
+            .AddSingleton<IGameDataEntrySerializer<UType>, TypeJsonSerializer>()
+            .AddSingleton<IGameDataEntrySerializer<UType>, TypePbsSerializer>());
     }
 
     public void ShutdownModule()

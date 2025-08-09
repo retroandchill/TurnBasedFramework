@@ -1,8 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using UnrealSharp.CoreUObject;
-using UnrealSharp.GameDataAccessToolsEditor;
 using UnrealSharp.GameplayTags;
+using static GameDataAccessTools.Core.Serialization.SerializationExtensions;
 
 namespace GameDataAccessTools.Core.Serialization.Json;
 
@@ -16,14 +15,14 @@ public class GameplayTagJsonConverter : JsonConverter<FGameplayTag>
         }
         
         var gameplayTagString = reader.GetString()!;
-        #if WITH_EDITOR
-        var tagSource = UObject.GetDefault<UGameDataAccessToolsSettings>().NewGameplayTagsPath;
-        if (!UGameplayTagHandlingUtils.TryAddGameplayTagToIni(tagSource, gameplayTagString, out var error))
+        try
         {
-            throw new JsonException(error);
+            return GetOrCreateGameplayTag(gameplayTagString);
+        } 
+        catch (InvalidOperationException e)
+        {
+            throw new JsonException($"Failed to parse gameplay tag {gameplayTagString}", e);
         }
-        #endif
-        return new FGameplayTag(gameplayTagString);
     }
 
     public override void Write(Utf8JsonWriter writer, FGameplayTag value, JsonSerializerOptions options)
