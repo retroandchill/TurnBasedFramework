@@ -50,7 +50,7 @@ public static class PbsMetamodel
 
     private static RepeatMode GetRepeatMode(this PropertyInfo property)
     {
-        if (property.GetCustomAttribute<AllowMultipleAttribute>() is not null)
+        if (property.GetCustomAttribute<PbsAllowMultipleAttribute>() is not null)
         {
             return RepeatMode.KeyRepeat;
         }
@@ -75,7 +75,8 @@ public static class PbsMetamodel
         {
             GameplayTagNamespace = gameplayTag?.Namespace,
             CreateNewGameplayTag = gameplayTag is not null && gameplayTag.Create,
-            NumericBounds = property.CreateNumericBounds()
+            NumericBounds = property.CreateNumericBounds(),
+            LocalizedTextNamespace = property.CreateLocalizedTextNamespace()
         };
     }
 
@@ -89,7 +90,7 @@ public static class PbsMetamodel
 
         return (INumericBounds?) typeof(PbsMetamodel).GetMethod(nameof(CreateNumericBoundsInternal),
             BindingFlags.Static | BindingFlags.NonPublic)!
-            .MakeGenericMethod(property.PropertyType.GetGenericArguments()[0])
+            .MakeGenericMethod(property.PropertyType)
             .Invoke(null, [property]);
     }
 
@@ -97,6 +98,12 @@ public static class PbsMetamodel
     {
         var rangeAttribute = property.GetCustomAttribute<PbsRangeAttribute<T>>();
         return rangeAttribute is not null ? new NumericBounds<T>(rangeAttribute.Min, rangeAttribute.Max) : default;
+    }
+
+    private static LocalizedTextNamespace? CreateLocalizedTextNamespace(this PropertyInfo property)
+    {
+        var localizedTextAttribute = property.GetCustomAttribute<PbsLocalizedTextAttribute>();
+        return localizedTextAttribute is not null ? new LocalizedTextNamespace(localizedTextAttribute.Namespace, localizedTextAttribute.KeyFormat) : null;
     }
 
     private static ImmutableArray<PbsScalarDescriptor> GetScalarDescriptors(this PropertyInfo property)
@@ -123,7 +130,7 @@ public static class PbsMetamodel
         ];
     }
 
-    private static bool IsScalarType(this Type type)
+    public static bool IsScalarType(this Type type)
     {
         return type.IsEnum || ScalarTypes.Contains(type);
     }
@@ -163,7 +170,7 @@ public static class PbsMetamodel
         return false;
     }
 
-    private static bool TryGetCollectionType(this PropertyInfo property, [NotNullWhen(true)] out Type? elementType)
+    public static bool TryGetCollectionType(this PropertyInfo property, [NotNullWhen(true)] out Type? elementType)
     {
         // For now only worry about FGameplayTagContainer and IReadOnlyList
         if (property.PropertyType == typeof(FGameplayTagContainer))

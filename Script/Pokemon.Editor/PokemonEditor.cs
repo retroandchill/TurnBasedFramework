@@ -39,7 +39,8 @@ public class FPokemonEditor : IModuleInterface
             .AddSingleton<IGameDataEntrySerializer<UStatusEffect>, StatusEffectJsonSerializer>()
             .AddSingleton<IGameDataEntrySerializer<UTargetType>, TargetTypeJsonSerializer>()
             .AddSingleton<IGameDataEntrySerializer<UType>, TypeJsonSerializer>()
-            .AddSingleton<IGameDataEntrySerializer<UType>, TypePbsSerializer>());
+            .AddSingleton<IGameDataEntrySerializer<UType>, TypePbsSerializer>()
+            .AddSingleton<IGameDataEntrySerializer<UAbility>, AbilityPbsSerializer>());
     }
 
     public void ShutdownModule()

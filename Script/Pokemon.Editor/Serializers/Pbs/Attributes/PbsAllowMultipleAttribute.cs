@@ -1,4 +1,4 @@
 ﻿namespace Pokemon.Editor.Serializers.Pbs.Attributes;
 
 [AttributeUsage(AttributeTargets.Property)]
-public class AllowMultipleAttribute : Attribute;
+public class PbsAllowMultipleAttribute : Attribute;

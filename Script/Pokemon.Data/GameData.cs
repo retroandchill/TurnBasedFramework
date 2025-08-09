@@ -57,4 +57,7 @@ public partial class GameData
     
     [SettingsCategory("Pbs")]
     public static partial UTypeDataRepository Types { get; }
+    
+    [SettingsCategory("Pbs")]
+    public static partial UAbilityDataRepository Abilities { get; }
 }

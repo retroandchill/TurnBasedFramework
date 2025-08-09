@@ -67,11 +67,6 @@ public static class SerializationExtensions
     {
         return new string(FTextExporter.CallToString(ref textData));
     }
-
-    public static FGameplayTag GetGameplayTagUnchecked(string gameplayTagString)
-    {
-        
-    }
     
     public static FGameplayTag GetOrCreateGameplayTag(string gameplayTagString)
     {

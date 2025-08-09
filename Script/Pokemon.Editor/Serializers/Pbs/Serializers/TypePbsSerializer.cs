@@ -7,18 +7,15 @@ using UnrealSharp.CoreUObject;
 
 namespace Pokemon.Editor.Serializers.Pbs.Serializers;
 
-public class TypePbsSerializer : IGameDataEntrySerializer<UType>
+public sealed class TypePbsSerializer : PbsSerializerBase<UType>
 {
-    public FName FormatTag => "PBS";
-    public FText FormatName => "PBS";
-    public string FileExtensionText => "PBS file |*.txt|";
     
-    public string SerializeData(IEnumerable<UType> entries)
+    public override string SerializeData(IEnumerable<UType> entries)
     {
-        throw new NotImplementedException();
+        return PbsCompiler.WritePbs(entries.Select(x => x.ToTypeInfo()));
     }
 
-    public IEnumerable<UType> DeserializeData(string source, UObject outer)
+    public override IEnumerable<UType> DeserializeData(string source, UObject outer)
     {
         return PbsCompiler.CompilePbsFile<TypeInfo>(source)
             .Select(x => x.Value)

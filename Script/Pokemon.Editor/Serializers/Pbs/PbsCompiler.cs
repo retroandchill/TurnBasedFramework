@@ -1,8 +1,10 @@
-﻿using System.Collections.Immutable;
+﻿using System.Collections;
+using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Numerics;
 using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
 using CsvHelper;
 using CsvHelper.Configuration;
@@ -10,6 +12,7 @@ using UnrealSharp;
 using UnrealSharp.GameDataAccessTools;
 using UnrealSharp.GameplayTags;
 using static GameDataAccessTools.Core.Serialization.SerializationExtensions;
+using static UnrealSharp.GameDataAccessTools.UTextSerializationBlueprintLibrary;
 
 namespace Pokemon.Editor.Serializers.Pbs;
 
@@ -147,12 +150,12 @@ public static partial class PbsCompiler
         return csv.Parser.Record ?? [];
     }
 
-    public static object? GetCsvRecord(string input, PbsFieldDescriptor schema)
+    public static object? GetCsvRecord(string input, PbsFieldDescriptor schema, string? sectionName)
     {
         var targetType = schema.TargetProperty.PropertyType;
         if (schema.IsScalar)
         {
-            return GetCsvValue(input, schema.Elements.Single());
+            return GetCsvValue(input, schema.Elements.Single(), sectionName);
         }
 
         var subLists = schema is { Repeat: RepeatMode.CsvRepeat, Elements.Length: > 1 };
@@ -171,7 +174,7 @@ public static partial class PbsCompiler
                     continue;
                 }
 
-                record[i] = GetCsvValue(values[idx], element);
+                record[i] = GetCsvValue(values[idx], element, sectionName);
             }
 
             if (subLists)
@@ -189,7 +192,7 @@ public static partial class PbsCompiler
         return targetType.TryGetCollectionFactory(out var factory) ? factory(result) : result.Single();
     }
 
-    private static object GetCsvValue(string input, PbsScalarDescriptor scalarDescriptor)
+    private static object GetCsvValue(string input, PbsScalarDescriptor scalarDescriptor, string? sectionName)
     {
         if (scalarDescriptor.Type == typeof(bool))
         {
@@ -203,12 +206,21 @@ public static partial class PbsCompiler
 
         if (scalarDescriptor.Type == typeof(FName))
         {
-            return new FName(input);
+            return new FName(scalarDescriptor.GameplayTagNamespace is not null
+                ? $"{scalarDescriptor.GameplayTagNamespace}.{input}"
+                : input);
         }
 
         if (scalarDescriptor.Type == typeof(FText))
         {
-            return input.FromLocalizedString();
+            if (sectionName is null || !scalarDescriptor.LocalizedTextNamespace.HasValue)
+            {
+                return input.FromLocalizedString();
+            }
+            
+            var localizationKey = string.Format(scalarDescriptor.LocalizedTextNamespace.Value.KeyFormat, sectionName);
+
+            return CreateLocalizedText(scalarDescriptor.LocalizedTextNamespace.Value.Namespace, localizationKey, input);
         }
 
         if (scalarDescriptor.Type == typeof(FGameplayTag))
@@ -295,7 +307,7 @@ public static partial class PbsCompiler
             {
                 if (field.IsIdentifier)
                 {
-                    field.TargetProperty.SetValue(instance, GetCsvRecord(sectionName, field));
+                    field.TargetProperty.SetValue(instance, GetCsvRecord(sectionName, field, sectionName));
                     continue;
                 }
 
@@ -309,7 +321,7 @@ public static partial class PbsCompiler
 
                 if (field.Repeat == RepeatMode.KeyRepeat)
                 {
-                    var value = contentValue.Select(x => GetCsvRecord(x, field));
+                    var value = contentValue.Select(x => GetCsvRecord(x, field, sectionName));
                     if (!field.TargetProperty.PropertyType.TryGetCollectionFactory(out var factory))
                     {
                         throw new InvalidOperationException($"Unsupported collection type {field.TargetProperty.PropertyType}");
@@ -319,7 +331,7 @@ public static partial class PbsCompiler
                 }
                 else
                 {
-                    field.TargetProperty.SetValue(instance, GetCsvRecord(contentValue.Single(), field));
+                    field.TargetProperty.SetValue(instance, GetCsvRecord(contentValue.Single(), field, sectionName));
                 }
             }
 
@@ -327,5 +339,153 @@ public static partial class PbsCompiler
         }
 
         return result;
+    }
+    
+    public static string WritePbs<T>(IEnumerable<T> entries)
+    {
+        var schema = PbsMetamodel.GetSchema<T>();
+        var keyField = schema.Fields.Values.Single(x => x.IsIdentifier);
+        var defaultValue = Activator.CreateInstance<T>();
+        var builder = new StringBuilder();
+        builder.AppendLine("# See the documentation on the wiki to learn how to edit this file.");
+        foreach (var entry in entries)
+        {
+            builder.AppendLine("#-------------------------------");
+            var sectionName = WriteCsvRecord(keyField.TargetProperty.GetValue(entry), keyField);
+            builder.AppendLine($"[{sectionName}]");
+
+            foreach (var field in schema.Fields.Values)
+            {
+                if (field.IsIdentifier || field.IsRowIndex) continue;
+
+                var value = field.TargetProperty.GetValue(entry);
+                if (value is null || !ShouldWriteValue(value, field.TargetProperty.GetValue(defaultValue))) continue;
+                
+                if (field.Repeat == RepeatMode.KeyRepeat && value is IEnumerable enumerable)
+                {
+                    foreach (var item in enumerable)
+                    {
+                        builder.AppendLine($"{field.KeyName} = {WriteCsvRecord(item, field, sectionName)}");
+                    }
+                }
+                else
+                {
+                    builder.AppendLine($"{field.KeyName} = {WriteCsvRecord(value, field, sectionName)}");
+                }
+            }
+        }
+        
+        return builder.ToString();
+    }
+
+    private static bool ShouldWriteValue(object value, object? defaultValue)
+    {
+        return value switch
+        {
+            FGameplayTagContainer gameplayTagContainer => gameplayTagContainer.GameplayTags.Any(),
+            IEnumerable enumerable => enumerable.Cast<object>().Any(),
+            _ => !value.Equals(defaultValue)
+        };
+    }
+
+    private static string WriteCsvRecord(object? record, PbsFieldDescriptor schema, string? sectionName = null)
+    {
+        if (schema.IsScalar)
+        {
+            return WriteCsvValue(record, schema.Elements.Single(), sectionName);
+        }
+
+        if (schema.Repeat != RepeatMode.CsvRepeat)
+        {
+            return string.Join(",", DeconstructComplexType(record, schema.TargetProperty.PropertyType, schema));
+        }
+
+        switch (record)
+        {
+            case FGameplayTagContainer gameplayTagContainer:
+            {
+                var scalar = schema.Elements.Single();
+                return string.Join(",", gameplayTagContainer.GameplayTags.Select(x => WriteCsvValue(x, scalar, sectionName)));
+            }
+            case IEnumerable enumerable when schema.Elements.Length == 1 && schema.Elements[0].Type.IsScalarType():
+            {
+                var scalar = schema.Elements[0];
+                return string.Join(",", enumerable.Cast<object>().Select(x => WriteCsvValue(x, scalar, sectionName)));
+            }
+            case IEnumerable enumerable:
+            {
+                if (!schema.TargetProperty.TryGetCollectionType(out var elementType))
+                {
+                    throw new InvalidOperationException("Could not get collection type");
+                }
+                    
+                return string.Join(",", enumerable.Cast<object>()
+                    .SelectMany(x => DeconstructComplexType(x, elementType, schema)));
+            }
+            default:
+                throw new InvalidOperationException($"Invalid repeating CSV type {record?.GetType().ToString() ?? "null"}");
+        }
+    }
+
+    private static IEnumerable<string> DeconstructComplexType(object? record, Type targetType, PbsFieldDescriptor schema, string? sectionName = null)
+    {
+
+        var deconstructMethod = targetType.GetMethods(BindingFlags.CreateInstance | BindingFlags.Public)
+            .Single(m => IsValidDeconstructMethod(m, schema));
+
+        var args = new object?[schema.Elements.Length];
+        
+        deconstructMethod.Invoke(record, args);
+        return schema.Elements
+            .Select((e, i) => WriteCsvValue(args[i], e, sectionName));
+    }
+
+    private static bool IsValidDeconstructMethod(MethodInfo method, PbsFieldDescriptor schema)
+    {
+        if (method.Name != "Deconstruct") return false;
+        
+        if (method.ReturnType != typeof(void)) return false;
+        
+        var parameters = method.GetParameters();
+        if (parameters.Length != schema.Elements.Length) return false;
+        
+        for (var i = 0; i < parameters.Length; i++)
+        {
+            var parameter = parameters[i];
+            var element = schema.Elements[i];
+            if (parameter.ParameterType != element.Type) return false;
+            if (!parameter.IsOut) return false;
+        }
+        
+        return true;
+    }
+
+    private static string WriteCsvValue(object? value, PbsScalarDescriptor schema, string? sectionName)
+    {
+        return value switch
+        {
+            FGameplayTag or FName => StripGameplayTagNamespace(value.ToString()!, schema.GameplayTagNamespace),
+            FText text => WriteLocalizedString(text, schema.LocalizedTextNamespace, sectionName),
+            bool b => b ? "true" : "false",
+            _ => value?.ToString() ?? throw new ArgumentNullException(nameof(value))
+        };
+    }
+    
+    private static string StripGameplayTagNamespace(string value, string? namespacePrefix)
+    {
+        ArgumentNullException.ThrowIfNull(value);
+        return namespacePrefix is not null && value.StartsWith($"{namespacePrefix}.") ? value[$"{namespacePrefix}.".Length..] : value;
+    }
+
+    private static string WriteLocalizedString(FText value, LocalizedTextNamespace? localizedTextNamespace, string? sectionName)
+    {
+        if (sectionName is null || !localizedTextNamespace.HasValue) return value.ToLocalizedString();
+
+        if (value.TryGetNamespace(out var ns) && value.TryGetKey(out var key) && (ns == localizedTextNamespace.Value.Namespace || key == string.Format(localizedTextNamespace.Value.KeyFormat, sectionName)))
+        {
+            return value.ToString();
+        }
+
+        return value.ToLocalizedString();
     }
 }

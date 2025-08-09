@@ -20,6 +20,36 @@ FString UTextSerializationBlueprintLibrary::ToLocalizedString(const FText& Text)
     return Output;
 }
 
+FText UTextSerializationBlueprintLibrary::CreateLocalizedText(const FString& Namespace, const FString& Key,
+    const FString& DefaultValue)
+{
+    return FText::AsLocalizable_Advanced(Namespace, Key, DefaultValue);
+}
+
+bool UTextSerializationBlueprintLibrary::TryGetNamespace(const FText& Text, FString& OutNamespace)
+{
+    if (auto Namespace = FTextInspector::GetNamespace(Text); Namespace.IsSet())
+    {
+        OutNamespace = Namespace.GetValue();
+        return true;
+    }
+
+    OutNamespace.Empty();
+    return false;
+}
+
+bool UTextSerializationBlueprintLibrary::TryGetKey(const FText& Text, FString& OutKey)
+{
+    if (auto Namespace = FTextInspector::GetKey(Text); Namespace.IsSet())
+    {
+        OutKey = Namespace.GetValue();
+        return true;
+    }
+
+    OutKey.Empty();
+    return false;
+}
+
 TSubclassOf<UObject> UTextSerializationBlueprintLibrary::GetClassFromPath(
     const FString& Path)
 {

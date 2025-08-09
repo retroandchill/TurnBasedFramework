@@ -15,6 +15,8 @@ public enum RepeatMode
     CsvRepeat
 }
 
+public readonly record struct LocalizedTextNamespace(string Namespace, string KeyFormat);
+
 public sealed record PbsScalarDescriptor(Type Type, bool IsOptional = false)
 {
     public string? GameplayTagNamespace { get; init; }
@@ -22,6 +24,8 @@ public sealed record PbsScalarDescriptor(Type Type, bool IsOptional = false)
     public bool CreateNewGameplayTag { get; init; }
     
     public INumericBounds? NumericBounds { get; init; }
+    
+    public LocalizedTextNamespace? LocalizedTextNamespace { get; init; }
 }
 
 public sealed record PbsFieldDescriptor(

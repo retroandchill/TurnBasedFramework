@@ -16,7 +16,8 @@ public record TypeInfo
     public int RowIndex { get; init; }
     
     [PbsName("Name")]
-    public required FText DisplayName { get; init; }
+    [PbsLocalizedText("PokemonTypes", "{0}_DisplayName")]
+    public FText DisplayName { get; init; } = "Unnamed";
     public bool IsSpecialType { get; init; }
     public bool IsPseudoType { get; init; }
 
@@ -32,5 +33,9 @@ public record TypeInfo
     
     [PbsName("Flags")]
     [PbsGameplayTag(UType.MetadataCategory, Create = true)]
-    public FGameplayTagContainer Tags { get; init; }
+    public FGameplayTagContainer Tags { get; init; } = new()
+    {
+        GameplayTags = [],
+        ParentTags = []
+    };
 }
