@@ -40,7 +40,8 @@ public class FPokemonEditor : IModuleInterface
             .AddSingleton<IGameDataEntrySerializer<UTargetType>, TargetTypeJsonSerializer>()
             .AddSingleton<IGameDataEntrySerializer<UType>, TypeJsonSerializer>()
             .AddSingleton<IGameDataEntrySerializer<UType>, TypePbsSerializer>()
-            .AddSingleton<IGameDataEntrySerializer<UAbility>, AbilityPbsSerializer>());
+            .AddSingleton<IGameDataEntrySerializer<UAbility>, AbilityPbsSerializer>()
+            .AddSingleton<IGameDataEntrySerializer<UMove>, MovePbsSerializer>());
     }
 
     public void ShutdownModule()

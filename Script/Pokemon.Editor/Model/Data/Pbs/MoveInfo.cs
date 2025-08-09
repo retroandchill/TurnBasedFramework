@@ -1,4 +1,6 @@
+using Pokemon.Data.Core;
 using Pokemon.Data.Pbs;
+using Pokemon.Editor.Serializers.Pbs.Attributes;
 using UnrealSharp;
 using UnrealSharp.GameplayTags;
 
@@ -6,35 +8,46 @@ namespace Pokemon.Editor.Model.Data.Pbs;
 
 public record MoveInfo
 {
+    [PbsKey]
+    [PbsGameplayTag(UMove.TagCategory, Create = true)]
     public required FGameplayTag Id { get; init; }
+    
+    [PbsIndex]
     public int RowIndex { get; init; }
-    public required FText DisplayName { get; init; }
     
-    public required FText Description { get; init; }
+    [PbsName("Name")]
+    public FText DisplayName { get; init; } = "Unnamed";
+
+    public FText Description { get; init; } = "???";
     
-    public required FGameplayTag Type { get; init; }
     
-    public required EDamageCategory Category { get; init; }
+    [PbsGameplayTag(UType.TagCategory)]
+    public FGameplayTag Type { get; init; }
     
-    public required EDamageType DamageType { get; init; }
+    public EDamageCategory Category { get; init; } = EDamageCategory.Status;
     
-    public int Power { get; init; } = 5;
-    
-    public bool AlwaysHits { get; init; } = false;
+    public int Power { get; init; }
     
     public int Accuracy { get; init; } = 100;
     
-    public int TotalPP { get; init; } = 1;
+    public int TotalPP { get; init; } = 5;
     
     public int Priority { get; init; }
     
+    [PbsGameplayTag(UTargetType.TagCategory)]
     public FGameplayTag Target { get; init; }
     
+    
+    [PbsGameplayTag(UMove.FunctionCodeCategory, Create = true)]
     public FGameplayTag FunctionCode { get; init; }
     
-    public bool GuaranteedEffect { get; init; } = true;
+    public int EffectChance { get; init; }
     
-    public int EffectChance { get; init; } = 30;
-    
-    public FGameplayTagContainer Tags { get; init; }
+    [PbsName("Flags")]
+    [PbsGameplayTag(UMove.MetadataCategory, Create = true)]
+    public FGameplayTagContainer Tags { get; init; } = new()
+    {
+        GameplayTags = [],
+        ParentTags = []
+    };
 }
