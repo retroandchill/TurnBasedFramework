@@ -8,20 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aa1e9cdd-86d7-4878-ad99-f01b0434e94b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Data/Pbs/Types.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Data/Pbs/Types.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.Core/Serialization/SerializationExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.Core/Serialization/SerializationExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Source/GameDataAccessTools/Private/Utils/TextSerializationBlueprintLibrary.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Source/GameDataAccessTools/Private/Utils/TextSerializationBlueprintLibrary.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Source/GameDataAccessTools/Public/Utils/TextSerializationBlueprintLibrary.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Source/GameDataAccessTools/Public/Utils/TextSerializationBlueprintLibrary.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Model/Data/Pbs/AbilityInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Model/Data/Pbs/AbilityInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Model/Data/Pbs/TypeInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Model/Data/Pbs/TypeInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/PokemonEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/PokemonEditor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Attributes/AllowMultipleAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Attributes/PbsAllowMultipleAttribute.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/PbsCompiler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/PbsCompiler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/PbsMetamodel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/PbsMetamodel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/PbsSchema.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/PbsSchema.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Serializers/TypePbsSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Serializers/TypePbsSerializer.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -1151,7 +1138,7 @@
       <workItem from="1754520374281" duration="17000" />
       <workItem from="1754520437973" duration="3858000" />
       <workItem from="1754679902451" duration="688000" />
-      <workItem from="1754701613673" duration="2103000" />
+      <workItem from="1754701613673" duration="2506000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed a missing with editor define">
       <option name="closed" value="true" />
