@@ -82,6 +82,7 @@ public class UItem : UObject, IGameDataEntry
 {
     public const string TagCategory = "Pokemon.Data.Items";
     public const string PocketCategory = "Pokemon.Bag.Pocket";
+    public const string BattleUsageCategory = "Pokemon.Battle.Items.Category";
     public const string MetadataCategory = "Pokemon.Metadata.Items";
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
@@ -135,7 +136,7 @@ public class UItem : UObject, IGameDataEntry
     [EditCondition(nameof(CanSell))]
     [ClampMin("1")]
     [UIMin("1")]
-    public int Price { get; init; } = 1;
+    public int Price { get; init; } = 0;
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, DisplayName = "Sell Price", Category = "Price")]
     [EditCondition(nameof(CanSell))]
@@ -159,9 +160,10 @@ public class UItem : UObject, IGameDataEntry
     public EFieldUse FieldUse { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Usage")]
-    public EFieldUse BattleUse { get; init; }
+    public EBattleUse BattleUse { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Usage")]
+    [Categories(BattleUsageCategory)]
     [EditCondition($"{nameof(BattleUse)} != {nameof(EBattleUse)}::{nameof(EBattleUse.NoBattleUse)}")]
     [EditConditionHides]
     public FGameplayTagContainer BattleUsageCategories { get; init; }
@@ -170,9 +172,9 @@ public class UItem : UObject, IGameDataEntry
     public bool IsConsumable { get; init; }
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Usage")]
-    [EditCondition($"{nameof(FieldUse)} == {nameof(EFieldUse)}::{nameof(EFieldUse.TM)} || " +
-                   $"{nameof(FieldUse)} == {nameof(EFieldUse)}::{nameof(EFieldUse.TR)} || " +
-                   $"{nameof(FieldUse)} == {nameof(EFieldUse)}::{nameof(EFieldUse.HM)}")]
+    [EditCondition($"{nameof(FieldUse)} == FieldUse::{nameof(EFieldUse.TM)} || " +
+                   $"{nameof(FieldUse)} == FieldUse::{nameof(EFieldUse.TR)} || " +
+                   $"{nameof(FieldUse)} == FieldUse::{nameof(EFieldUse.HM)}")]
     [EditConditionHides]
     public FGameplayTag Move { get; init; }
 

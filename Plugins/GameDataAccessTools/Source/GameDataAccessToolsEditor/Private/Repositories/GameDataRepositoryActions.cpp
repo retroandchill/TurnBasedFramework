@@ -93,7 +93,7 @@ void FGameDataRepositoryActions::ExportAsset(const UGameDataRepository* Reposito
         const FString& FileName = FileNames[0];
         FEditorDirectories::Get().SetLastDirectory(ELastDirectory::UNR, *FPaths::GetPath(FileName));
         FScopedSlowTask SlowTask(0, NSLOCTEXT("GameDataRepository", "Exporting", "Exporting..."));
-        SlowTask.MakeDialogDelayed(0.1f);
+        SlowTask.MakeDialog(false);
         if (auto Serialized = Serializer->SerializeData(Repository); Serialized.has_value())
         {
             FFileHelper::SaveStringToFile(Serialized.value(), *FileName);

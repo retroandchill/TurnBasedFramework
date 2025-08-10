@@ -26,10 +26,14 @@ public record MoveInfo
     
     public EDamageCategory Category { get; init; } = EDamageCategory.Status;
     
+    
+    [PbsRange<int>(0)]
     public int Power { get; init; }
     
+    [PbsRange<int>(0, 100)]
     public int Accuracy { get; init; } = 100;
     
+    [PbsRange<int>(1)]
     public int TotalPP { get; init; } = 5;
     
     public int Priority { get; init; }
@@ -41,6 +45,7 @@ public record MoveInfo
     [PbsGameplayTag(UMove.FunctionCodeCategory, Create = true)]
     public FGameplayTag FunctionCode { get; init; }
     
+    [PbsRange<int>(0, 100)]
     public int EffectChance { get; init; }
     
     [PbsName("Flags")]

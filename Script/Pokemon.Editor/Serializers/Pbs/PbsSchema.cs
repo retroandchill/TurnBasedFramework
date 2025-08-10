@@ -23,9 +23,13 @@ public sealed record PbsScalarDescriptor(Type Type, bool IsOptional = false)
     
     public bool CreateNewGameplayTag { get; init; }
     
+    public string? GameplayTagSeparator { get; init; }
+    
     public INumericBounds? NumericBounds { get; init; }
     
     public LocalizedTextNamespace? LocalizedTextNamespace { get; init; }
+    
+    public ImmutableArray<Type> ScalarConverterTypes { get; init; }
 }
 
 public sealed record PbsFieldDescriptor(

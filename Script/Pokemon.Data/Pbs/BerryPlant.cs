@@ -11,7 +11,7 @@ namespace Pokemon.Data.Pbs;
 [GameDataEntry]
 public class UBerryPlant : UObject, IGameDataEntry
 {
-    public const string TagCategory = "Pokemon.Data.BerryPlants";
+    public const string TagCategory = UItem.TagCategory;
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
     [Categories(TagCategory)]

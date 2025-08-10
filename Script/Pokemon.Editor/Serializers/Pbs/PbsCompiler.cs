@@ -8,6 +8,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using CsvHelper;
 using CsvHelper.Configuration;
+using Pokemon.Editor.Serializers.Pbs.Attributes;
+using Pokemon.Editor.Serializers.Pbs.Converters;
 using UnrealSharp;
 using UnrealSharp.GameDataAccessTools;
 using UnrealSharp.GameplayTags;
@@ -23,6 +25,8 @@ public readonly record struct PbsSectionData(
 
 public static partial class PbsCompiler
 {
+    private const string NameNone = "None";
+    
     public static IEnumerable<PbsSectionData> EachFileSection(string contents, PbsSchema? schema = null)
     {
         var sectionIndex = 0;
@@ -189,65 +193,90 @@ public static partial class PbsCompiler
             if (schema.Repeat != RepeatMode.CsvRepeat || idx >= values.Count - 1) break;
         }
 
-        return targetType.TryGetCollectionFactory(out var factory) ? factory(result) : result.Single();
+        return targetType.TryGetCollectionFactory(out var factory) ? factory(result) : Activator.CreateInstance(targetType, result.ToArray());
     }
 
-    private static object GetCsvValue(string input, PbsScalarDescriptor scalarDescriptor, string? sectionName)
+    private static object? GetCsvValue(string input, PbsScalarDescriptor schema, string? sectionName)
     {
-        if (scalarDescriptor.Type == typeof(bool))
+        foreach (var converter in schema.ScalarConverterTypes
+                     .Select(converterType => (IPbsConverter)Activator.CreateInstance(converterType)!)
+                     .Where(converter => converter.Type.IsAssignableFrom(schema.Type)))
+        {
+            return converter.GetCsvValue(input, schema, sectionName);
+        }
+        
+        var schemaType = schema.Type;
+        if (schemaType.IsGenericType && schemaType.GetGenericTypeDefinition() == typeof(Nullable<>))
+        {
+            schemaType = schemaType.GetGenericArguments()[0];
+        }
+        
+        if (schemaType == typeof(bool))
         {
             return ParseBool(input);
         }
 
-        if (scalarDescriptor.Type == typeof(string))
+        if (schemaType == typeof(string))
         {
             return input;
         }
 
-        if (scalarDescriptor.Type == typeof(FName))
+        if (schemaType == typeof(FName))
         {
-            return new FName(scalarDescriptor.GameplayTagNamespace is not null
-                ? $"{scalarDescriptor.GameplayTagNamespace}.{input}"
-                : input);
+            return input.Equals(NameNone, StringComparison.OrdinalIgnoreCase) ? FName.None : new FName(GetGameplayTagName(input, schema));
         }
 
-        if (scalarDescriptor.Type == typeof(FText))
+        if (schemaType == typeof(FText))
         {
-            if (sectionName is null || !scalarDescriptor.LocalizedTextNamespace.HasValue)
+            if (sectionName is null || !schema.LocalizedTextNamespace.HasValue)
             {
                 return input.FromLocalizedString();
             }
             
-            var localizationKey = string.Format(scalarDescriptor.LocalizedTextNamespace.Value.KeyFormat, sectionName);
+            var localizationKey = string.Format(schema.LocalizedTextNamespace.Value.KeyFormat, sectionName);
 
-            return CreateLocalizedText(scalarDescriptor.LocalizedTextNamespace.Value.Namespace, localizationKey, input);
+            return CreateLocalizedText(schema.LocalizedTextNamespace.Value.Namespace, localizationKey, input);
         }
 
-        if (scalarDescriptor.Type == typeof(FGameplayTag))
+        if (schemaType == typeof(FGameplayTag))
         {
-            var tagName = scalarDescriptor.GameplayTagNamespace is not null
-                ? $"{scalarDescriptor.GameplayTagNamespace}.{input}"
-                : input;
-            return scalarDescriptor.CreateNewGameplayTag ? GetOrCreateGameplayTag(tagName) : new FGameplayTag(tagName);
+            if (input.Equals(NameNone, StringComparison.OrdinalIgnoreCase))
+            {
+                return new FGameplayTag();           
+            }
+            
+            var tagName = GetGameplayTagName(input, schema);;
+            return schema.CreateNewGameplayTag ? GetOrCreateGameplayTag(tagName) : new FGameplayTag(tagName);
         }
 
-        if (scalarDescriptor.Type.IsEnum)
+        if (schemaType.IsEnum)
         {
-            return Enum.Parse(scalarDescriptor.Type, input, true);
+            return Enum.Parse(schemaType, input, true);
         }
 
-        if (scalarDescriptor.Type.GetInterfaces()
+        if (schemaType.GetInterfaces()
             .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(INumber<>)))
         {
             var parseNumber = typeof(PbsCompiler)
                 .GetMethod(nameof(ParseNumber), BindingFlags.Static | BindingFlags.Public)!
-                .MakeGenericMethod(scalarDescriptor.Type.GetGenericArguments()[0]);
-            return parseNumber.Invoke(null, [input, scalarDescriptor.NumericBounds, null])!;
+                .MakeGenericMethod(schemaType);
+            return parseNumber.Invoke(null, [input, schema.NumericBounds, null])!;
         }
 
-        throw new InvalidOperationException($"Unsupported scalar type {scalarDescriptor.Type}");
+        throw new InvalidOperationException($"Unsupported scalar type {schema.Type}");
     }
-    
+
+    private static string GetGameplayTagName(string input, PbsScalarDescriptor scalarDescriptor)
+    {
+        if (scalarDescriptor.GameplayTagNamespace is null)
+        {
+            return input;
+        }
+        
+        var tagLeaf = scalarDescriptor.GameplayTagSeparator is not null ? input.Replace(scalarDescriptor.GameplayTagSeparator, ".") : input;
+        return $"{scalarDescriptor.GameplayTagNamespace}.{tagLeaf}";
+    }
+
     public static bool ParseBool(string input)
     {
         var trueRegex = TrueRegex();
@@ -399,7 +428,7 @@ public static partial class PbsCompiler
         {
             return string.Join(",", DeconstructComplexType(record, schema.TargetProperty.PropertyType, schema));
         }
-
+        
         switch (record)
         {
             case FGameplayTagContainer gameplayTagContainer:
@@ -462,6 +491,13 @@ public static partial class PbsCompiler
 
     private static string WriteCsvValue(object? value, PbsScalarDescriptor schema, string? sectionName)
     {
+        foreach (var converter in schema.ScalarConverterTypes
+                     .Select(converterType => (IPbsConverter)Activator.CreateInstance(converterType)!)
+                     .Where(converter => converter.Type.IsAssignableFrom(schema.Type)))
+        {
+            return converter.WriteCsvValue(value, schema, sectionName);
+        }
+
         return value switch
         {
             FGameplayTag or FName => StripGameplayTagNamespace(value.ToString()!, schema.GameplayTagNamespace),

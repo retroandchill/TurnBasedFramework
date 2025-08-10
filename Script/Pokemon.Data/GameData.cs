@@ -60,4 +60,16 @@ public partial class GameData
     
     [SettingsCategory("Pbs")]
     public static partial UAbilityDataRepository Abilities { get; }
+    
+    [SettingsCategory("Pbs")]
+    public static partial UMoveDataRepository Moves { get; }
+    
+    [SettingsCategory("Pbs")]
+    public static partial UItemDataRepository Items { get; }
+    
+    [SettingsCategory("Pbs")]
+    public static partial UBerryPlantDataRepository BerryPlants { get; }
+    
+    [SettingsCategory("Pbs")]
+    public static partial USpeciesDataRepository Species { get; }
 }

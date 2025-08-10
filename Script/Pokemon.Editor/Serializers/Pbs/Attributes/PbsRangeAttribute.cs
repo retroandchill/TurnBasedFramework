@@ -5,7 +5,24 @@ namespace Pokemon.Editor.Serializers.Pbs.Attributes;
 [AttributeUsage(AttributeTargets.Property)]
 public class PbsRangeAttribute<T> : Attribute where T : struct, INumber<T>
 {
-    public T? Min { get; init; }
+    public PbsRangeAttribute(T min)
+    {
+        Min = min;
+    }
     
-    public T? Max { get; init; }
+    public PbsRangeAttribute(T min, T max)
+    {
+        Min = min;
+        Max = max;
+    }
+    
+    public PbsRangeAttribute(object? min, T max)
+    {
+        Min = min is T t ? t : default;
+        Max = max;
+    }
+    
+    public T? Min { get; }
+    
+    public T? Max { get; }
 }

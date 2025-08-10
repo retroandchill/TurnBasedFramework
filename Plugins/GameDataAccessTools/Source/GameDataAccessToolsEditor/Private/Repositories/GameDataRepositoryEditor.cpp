@@ -244,7 +244,7 @@ void FGameDataRepositoryEditor::ImportGameDataRepository(TSharedRef<FGameDataEnt
         FEditorDirectories::Get().SetLastDirectory(ELastDirectory::UNR, *FPaths::GetPath(FileName));
 
         FScopedSlowTask SlowTask(0, NSLOCTEXT("GameDataRepository", "Importing", "Importing..."));
-        SlowTask.MakeDialogDelayed(0.1f);
+        SlowTask.MakeDialog(false);
         if (auto Serialized = Serializer->DeserializeData(FileContent, GameDataRepository); Serialized.has_value())
         {
             *GameDataEntries = MoveTemp(Serialized.value());

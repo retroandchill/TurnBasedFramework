@@ -59,7 +59,7 @@ public class UMove : UObject, IGameDataEntry
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Stats")]
     [ClampMin("5")]
     [UIMin("5")]
-    [EditCondition($"{nameof(DamageType)} == {nameof(EDamageType)}::{nameof(EDamageType.FixedPower)}")]
+    [EditCondition($"{nameof(DamageType)} == DamageType::{nameof(EDamageType.FixedPower)}")]
     [EditConditionHides]
     public int Power { get; init; } = 5;
     

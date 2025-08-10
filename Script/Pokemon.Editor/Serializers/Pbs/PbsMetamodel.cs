@@ -75,9 +75,24 @@ public static class PbsMetamodel
         {
             GameplayTagNamespace = gameplayTag?.Namespace,
             CreateNewGameplayTag = gameplayTag is not null && gameplayTag.Create,
+            GameplayTagSeparator = gameplayTag?.Separator,
             NumericBounds = property.CreateNumericBounds(),
-            LocalizedTextNamespace = property.CreateLocalizedTextNamespace()
+            LocalizedTextNamespace = property.CreateLocalizedTextNamespace(),
+            ScalarConverterTypes = GetScalarConverterTypes(type, property)
         };
+    }
+
+    private static ImmutableArray<Type> GetScalarConverterTypes(Type elementType, PropertyInfo property)
+    {
+        var builder = ImmutableArray.CreateBuilder<Type>(2);
+        var propertyLevelConverter = property.GetCustomAttribute<PbsScalarAttribute>()?.ConverterType;
+
+        if (propertyLevelConverter is not null) builder.Add(propertyLevelConverter);
+        
+        var typeLevelConverter = elementType.GetCustomAttribute<PbsScalarAttribute>()?.ConverterType;
+        if (typeLevelConverter is not null) builder.Add(typeLevelConverter);
+        
+        return builder.ToImmutable();
     }
 
     private static INumericBounds? CreateNumericBounds(this PropertyInfo property)
@@ -108,7 +123,7 @@ public static class PbsMetamodel
 
     private static ImmutableArray<PbsScalarDescriptor> GetScalarDescriptors(this PropertyInfo property)
     {
-        if (property.PropertyType.IsScalarType())
+        if (property.PropertyType.IsScalarType() || property.PropertyType.GetCustomAttribute<PbsScalarAttribute>() is not null)
         {
             return [CreateScalarDescriptor(property)];
         }
@@ -132,7 +147,12 @@ public static class PbsMetamodel
 
     public static bool IsScalarType(this Type type)
     {
-        return type.IsEnum || ScalarTypes.Contains(type);
+        if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+        {
+            type = type.GetGenericArguments()[0];
+        }
+        
+        return type.IsEnum || ScalarTypes.Contains(type) || type.GetCustomAttribute<PbsScalarAttribute>() is not null;
     }
 
     private static ConstructorInfo GetComplexTypeConstructor(this Type type)
