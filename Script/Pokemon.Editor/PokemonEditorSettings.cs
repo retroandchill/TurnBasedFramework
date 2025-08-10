@@ -1,6 +1,11 @@
-﻿using Pokemon.Data.Pbs;
+﻿using GameDataAccessTools.Core.DataRetrieval;
+using Pokemon.Data;
+using Pokemon.Data.Core;
+using Pokemon.Data.Pbs;
+using UnrealSharp;
 using UnrealSharp.Attributes;
 using UnrealSharp.Attributes.MetaTags;
+using UnrealSharp.CoreUObject;
 using UnrealSharp.DeveloperSettings;
 using UnrealSharp.GameplayTags;
 
@@ -14,4 +19,8 @@ public class UPokemonEditorSettings : UDeveloperSettings
     [UIMax("1")]
     [Categories(UItem.PocketCategory)]
     public IReadOnlyDictionary<int, FGameplayTag> PocketNumberToGameplayTag { get; }
+
+    [UProperty(PropertyFlags.EditDefaultsOnly | PropertyFlags.BlueprintReadWrite | PropertyFlags.Config, Category = "Pbs")]
+    [Categories(UEvolutionMethod.TagCategory)]
+    public IReadOnlyDictionary<FName, FGameplayTag> EvolutionConditionToGameplayTag { get; }
 }

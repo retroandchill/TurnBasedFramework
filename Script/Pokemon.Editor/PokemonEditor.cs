@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Pokemon.Data.Core;
 using Pokemon.Data.Pbs;
+using Pokemon.Editor.Interop;
 using Pokemon.Editor.Serializers.Json;
 using Pokemon.Editor.Serializers.Pbs.Serializers;
 using UnrealInject;
@@ -16,6 +17,9 @@ public class FPokemonEditor : IModuleInterface
 {
     public void StartupModule()
     {
+        var actions = PokemonManagedActions.Create();
+        PokemonActionsExporter.CallSetActions(ref actions);
+        
         FUnrealInjectModule.Instance.ConfigureServices(services => services
             .AddSingleton<IGameDataEntrySerializer<UAbility>, AbilityJsonSerializer>()
             .AddSingleton<IGameDataEntrySerializer<UBattleTerrain>, BattleTerrainJsonSerializer>()

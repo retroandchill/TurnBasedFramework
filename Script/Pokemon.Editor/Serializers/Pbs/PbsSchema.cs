@@ -1,6 +1,7 @@
 ﻿using System.Collections.Immutable;
 using System.Numerics;
 using System.Reflection;
+using Pokemon.Editor.Serializers.Pbs.Converters;
 
 namespace Pokemon.Editor.Serializers.Pbs;
 
@@ -29,7 +30,7 @@ public sealed record PbsScalarDescriptor(Type Type, bool IsOptional = false)
     
     public LocalizedTextNamespace? LocalizedTextNamespace { get; init; }
     
-    public ImmutableArray<Type> ScalarConverterTypes { get; init; }
+    public IPbsConverter? ScalarConverter { get; init; }
 }
 
 public sealed record PbsFieldDescriptor(

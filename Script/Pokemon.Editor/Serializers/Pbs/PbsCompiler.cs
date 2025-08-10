@@ -198,11 +198,9 @@ public static partial class PbsCompiler
 
     private static object? GetCsvValue(string input, PbsScalarDescriptor schema, string? sectionName)
     {
-        foreach (var converter in schema.ScalarConverterTypes
-                     .Select(converterType => (IPbsConverter)Activator.CreateInstance(converterType)!)
-                     .Where(converter => converter.Type.IsAssignableFrom(schema.Type)))
+        if (schema.ScalarConverter is not null)
         {
-            return converter.GetCsvValue(input, schema, sectionName);
+            return schema.ScalarConverter.GetCsvValue(input, schema, sectionName);
         }
         
         var schemaType = schema.Type;
@@ -230,7 +228,7 @@ public static partial class PbsCompiler
         {
             if (sectionName is null || !schema.LocalizedTextNamespace.HasValue)
             {
-                return input.FromLocalizedString();
+                return FromLocalizedString(input);
             }
             
             var localizationKey = string.Format(schema.LocalizedTextNamespace.Value.KeyFormat, sectionName);
@@ -491,11 +489,9 @@ public static partial class PbsCompiler
 
     private static string WriteCsvValue(object? value, PbsScalarDescriptor schema, string? sectionName)
     {
-        foreach (var converter in schema.ScalarConverterTypes
-                     .Select(converterType => (IPbsConverter)Activator.CreateInstance(converterType)!)
-                     .Where(converter => converter.Type.IsAssignableFrom(schema.Type)))
+        if (schema.ScalarConverter is not null)
         {
-            return converter.WriteCsvValue(value, schema, sectionName);
+            return schema.ScalarConverter.WriteCsvValue(value, schema, sectionName);
         }
 
         return value switch

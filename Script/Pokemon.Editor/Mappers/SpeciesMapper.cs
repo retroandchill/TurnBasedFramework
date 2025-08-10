@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Text.Json.Nodes;
 using GameDataAccessTools.Core.Serialization;
 using LanguageExt;
@@ -7,6 +8,7 @@ using Pokemon.Editor.Model.Data.Pbs;
 using Riok.Mapperly.Abstractions;
 using UnrealSharp;
 using UnrealSharp.CoreUObject;
+using UnrealSharp.GameplayTags;
 
 namespace Pokemon.Editor.Mappers;
 
@@ -18,10 +20,12 @@ public static partial class SpeciesMapper
         return speciesInfo.ToSpeciesInitializer(outer);
     }
 
+    [MapProperty(nameof(USpecies.EvYield), nameof(SpeciesInfo.EvYield), Use = nameof(MapEvYieldDictionary))]
     public static partial SpeciesInfo ToSpeciesInfo(this USpecies species);
     
     [MapperIgnoreTarget(nameof(SpeciesInitializer.Evolutions))]
     [MapProperty(nameof(SpeciesInfo.Evolutions), nameof(SpeciesInitializer.EvolutionConditionInitializers), Use = nameof(ToEvolutionConditionInitializers))]
+    [MapProperty(nameof(SpeciesInfo.EvYield), nameof(SpeciesInitializer.EvYield), Use = nameof(MapEvYieldList))]
     private static partial SpeciesInitializer ToSpeciesInitializer(this SpeciesInfo species, UObject? outer = null);
 
     private static LevelUpMoveInfo ToLevelUpMoveInfo(this FLevelUpMove move)
@@ -31,8 +35,8 @@ public static partial class SpeciesMapper
     
     private static FLevelUpMove ToLevelUpMove(this LevelUpMoveInfo move)
     {
-        return move.Level.HasValue
-            ? FLevelUpMove.LevelUp(move.Level.Value, move.Move)
+        return move.Level == 0
+            ? FLevelUpMove.LevelUp(move.Level, move.Move)
             : FLevelUpMove.Evolution(move.Move);
     }
     
@@ -55,7 +59,7 @@ public static partial class SpeciesMapper
             data = null;
         }
 
-        return new EvolutionConditionInfo(condition.Species, condition.Method, conditionData, data);
+        return new EvolutionConditionInfo(condition.Species.TagName, condition.Method, conditionData, data);
     }
 
     private static IEnumerable<Func<UObject, FEvolutionCondition>> ToEvolutionConditionInitializers(
@@ -68,9 +72,24 @@ public static partial class SpeciesMapper
     {
         return new FEvolutionCondition
         {
-            Species = condition.Species,
+            Species = new FGameplayTag(condition.Species),
             Method = condition.Method,
-            Data = condition.Data?.DeserializeObjectFromJson(null, condition.DataType)
+            Data = condition.Data?.DeserializeObjectFromJson(outer, condition.DataType)
         };
+    }
+
+    private static IReadOnlyDictionary<FGameplayTag, int> MapEvYieldList(IReadOnlyList<EvYield> evYields)
+    {
+        return evYields.ToDictionary(x => x.Stat, x => x.Amount);
+    }
+    
+    private static IReadOnlyList<EvYield> MapEvYieldDictionary(IReadOnlyDictionary<FGameplayTag, int> evYields)
+    {
+        return evYields.Select(x => new EvYield(x.Key, x.Value)).ToImmutableList();
+    }
+    
+    private static FName GameplayTagToName(FGameplayTag tag)
+    {
+        return tag.TagName;
     }
 }

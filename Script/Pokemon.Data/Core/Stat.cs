@@ -46,4 +46,7 @@ public class UStat : UObject, IGameDataEntry
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Metadata", DisplayName = "PBS Order")]
     public int PbsOrder { get; init; }
+    
+    public bool IsMainStat => StatType is EStatType.Main or EStatType.MainBattle;
+    public bool IsBattleStat => StatType is EStatType.Battle or EStatType.MainBattle;
 }

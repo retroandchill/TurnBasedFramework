@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 using System.Reflection;
 using Pokemon.Editor.Serializers.Pbs.Attributes;
+using Pokemon.Editor.Serializers.Pbs.Converters;
 using UnrealSharp;
 using UnrealSharp.GameplayTags;
 
@@ -78,21 +79,20 @@ public static class PbsMetamodel
             GameplayTagSeparator = gameplayTag?.Separator,
             NumericBounds = property.CreateNumericBounds(),
             LocalizedTextNamespace = property.CreateLocalizedTextNamespace(),
-            ScalarConverterTypes = GetScalarConverterTypes(type, property)
+            ScalarConverter = GetScalarConverterTypes(type, property)
+                .Select(converterType => (IPbsConverter)Activator.CreateInstance(converterType)!)
+                .FirstOrDefault(converter => converter.Type.IsAssignableFrom(type))
         };
     }
 
-    private static ImmutableArray<Type> GetScalarConverterTypes(Type elementType, PropertyInfo property)
+    private static IEnumerable<Type> GetScalarConverterTypes(Type elementType, PropertyInfo property)
     {
-        var builder = ImmutableArray.CreateBuilder<Type>(2);
         var propertyLevelConverter = property.GetCustomAttribute<PbsScalarAttribute>()?.ConverterType;
 
-        if (propertyLevelConverter is not null) builder.Add(propertyLevelConverter);
+        if (propertyLevelConverter is not null) yield return propertyLevelConverter;
         
         var typeLevelConverter = elementType.GetCustomAttribute<PbsScalarAttribute>()?.ConverterType;
-        if (typeLevelConverter is not null) builder.Add(typeLevelConverter);
-        
-        return builder.ToImmutable();
+        if (typeLevelConverter is not null) yield return typeLevelConverter;
     }
 
     private static INumericBounds? CreateNumericBounds(this PropertyInfo property)

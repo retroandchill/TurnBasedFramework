@@ -2,6 +2,7 @@
 using System.Text.Json.Serialization;
 using UnrealSharp;
 using UnrealSharp.GameDataAccessTools;
+using static UnrealSharp.GameDataAccessTools.UTextSerializationBlueprintLibrary;
 
 namespace GameDataAccessTools.Core.Serialization.Json;
 
@@ -14,7 +15,7 @@ public class TextJsonConverter : JsonConverter<FText>
             throw new JsonException("Expected string value for FName");
         }
         
-        return reader.GetString()!.FromLocalizedString();
+        return FromLocalizedString(reader.GetString()!);
     }
 
     public override void Write(Utf8JsonWriter writer, FText value, JsonSerializerOptions options)

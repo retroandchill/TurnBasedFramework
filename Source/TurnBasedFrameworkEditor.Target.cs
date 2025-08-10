@@ -16,6 +16,6 @@ public class TurnBasedFrameworkEditorTarget : TargetRules
 
 	private void RegisterModulesCreatedByRider()
 	{
-		ExtraModuleNames.AddRange(new string[] { "TurnBasedCore" });
+		ExtraModuleNames.AddRange(new string[] { "TurnBasedCore", "PokemonEditorTools" });
 	}
 }

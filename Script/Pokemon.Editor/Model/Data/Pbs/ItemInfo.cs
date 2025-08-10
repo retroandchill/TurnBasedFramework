@@ -61,6 +61,7 @@ public record ItemInfo
     [PbsGameplayTag(UMove.TagCategory)]
     public FGameplayTag? Move { get; init; }
     
+    [PbsName("Flags")]
     [PbsGameplayTag(UItem.MetadataCategory, Create = true, Separator = "_")]
     public FGameplayTagContainer Tags { get; init; }
 }

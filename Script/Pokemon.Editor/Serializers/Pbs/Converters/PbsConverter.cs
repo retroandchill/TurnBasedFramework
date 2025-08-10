@@ -11,7 +11,7 @@ public interface IPbsConverter
 
 public interface IPbsConverter<T> : IPbsConverter
 {
-    string WriteCsvValue(T? value, PbsScalarDescriptor schema,string? sectionName);
+    string WriteCsvValue(T value, PbsScalarDescriptor schema, string? sectionName);
     
     new T? GetCsvValue(string input, PbsScalarDescriptor scalarDescriptor, string? sectionName);
 }
@@ -22,10 +22,11 @@ public abstract class PbsConverterBase<T> : IPbsConverter<T>
 
     string IPbsConverter.WriteCsvValue(object? value, PbsScalarDescriptor schema, string? sectionName)
     {
-        return WriteCsvValue((T?) value, schema, sectionName);
+        ArgumentNullException.ThrowIfNull(value);
+        return WriteCsvValue((T) value, schema, sectionName);
     }
 
-    public abstract string WriteCsvValue(T? value, PbsScalarDescriptor schema, string? sectionName);
+    public abstract string WriteCsvValue(T value, PbsScalarDescriptor schema, string? sectionName);
 
 
     object? IPbsConverter.GetCsvValue(string input, PbsScalarDescriptor scalarDescriptor, string? sectionName)

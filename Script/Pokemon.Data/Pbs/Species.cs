@@ -197,6 +197,10 @@ public class USpecies : UObject, IGameDataEntry
     public int HatchSteps { get; init; } = 1;
     
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Breeding")]
+    [Categories(UItem.TagCategory)]
+    public FGameplayTag Incense { get; init; }
+    
+    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Breeding")]
     [Categories(TagCategory)]
     public IReadOnlyList<FGameplayTag> Offspring { get; init; }
     
