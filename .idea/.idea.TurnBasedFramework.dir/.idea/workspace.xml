@@ -9,29 +9,30 @@
   <component name="ChangeListManager">
     <list default="true" id="aa1e9cdd-86d7-4878-ad99-f01b0434e94b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultGame.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultGame.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/Tags/PokemonData.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/Tags/PokemonData.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Data/Pbs/Items.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Data/Pbs/Items.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Data/Pbs/Moves.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Data/Pbs/Moves.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.Core/Marshallers/CSharpStructMarshaller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.Core/Marshallers/CSharpStructMarshaller.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.Core/Serialization/Json/SubclassOfJsonConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.Core/Serialization/Json/SubclassOfJsonConverter.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.Core/Serialization/Json/TextJsonConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.Core/Serialization/Json/TextJsonConverter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Source/GameDataAccessTools/Public/DataRetrieval/GameDataRepository.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Extensions/GameplayTags/GameplayTag.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Extensions/GameplayTags/GameplayTag.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/Extensions/Libraries/CSGameplayTagExtensions.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/Extensions/Libraries/CSGameplayTagExtensions.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/Extensions/Libraries/CSGameplayTagExtensions.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/Extensions/Libraries/CSGameplayTagExtensions.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Data/Core/Stat.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Data/Core/Stat.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Data/Pbs/Species.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Data/Pbs/Species.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Source/GameDataAccessTools/Public/Utils/TextSerializationBlueprintLibrary.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Source/GameDataAccessTools/Public/Utils/TextSerializationBlueprintLibrary.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Data/Core/EvolutionMethod.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Data/Core/EvolutionMethod.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Mappers/SpeciesMapper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Mappers/SpeciesMapper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Model/Data/Pbs/BerryPlantInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Model/Data/Pbs/BerryPlantInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Model/Data/Pbs/ItemInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Model/Data/Pbs/ItemInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Model/Data/Pbs/MoveInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Model/Data/Pbs/MoveInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Model/Data/Pbs/SpeciesInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Model/Data/Pbs/SpeciesInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Pokemon.Editor.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Pokemon.Editor.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/PokemonEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/PokemonEditor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/PokemonEditorSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/PokemonEditorSettings.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Converters/PbsConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Converters/PbsConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Attributes/PbsGameplayTag.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Attributes/PbsGameplayTag.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Attributes/PbsLocalizedTextAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Attributes/PbsLocalizedTextAttribute.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Attributes/PbsNameAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Attributes/PbsNameAttribute.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Attributes/PbsRangeAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Attributes/PbsRangeAttribute.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Attributes/PbsScalarAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Attributes/PbsScalarAttribute.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Converters/BaseStatsConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Converters/BaseStatsConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Converters/EvolutionMethodConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Converters/EvolutionMethodConverter.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/PbsCompiler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/PbsCompiler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/PbsMetamodel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/PbsMetamodel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/PbsSchema.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/PbsSchema.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TurnBasedFramework.Target.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TurnBasedFramework.Target.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TurnBasedFrameworkEditor.Target.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TurnBasedFrameworkEditor.Target.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TurnBasedFramework.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/TurnBasedFramework.uproject" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TurnBasedFramework.uproject.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/TurnBasedFramework.uproject.DotSettings.user" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -1142,6 +1143,7 @@
     <setting file="file://$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.SourceGenerator/Model/AccessiblePropertyInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.SourceGenerator/Utilities/PropertyAccessUtilities.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/GameDataAccessTools/Source/GameDataAccessTools/GameDataAccessTools.Build.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/GameDataAccessTools/Source/GameDataAccessTools/Public/DataRetrieval/GameDataRepository.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp.Core/Attributes/GeneratedType.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Attributes/UPropertyAttribute.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Extensions/CoreUObject/Object.cs" root0="SKIP_HIGHLIGHTING" />
@@ -1161,6 +1163,7 @@
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/CSUnrealSharpSettings.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/Export/FSubsystemCollectionBaseRefExporter.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/Export/FSubsystemCollectionBaseRefExporter.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/UnrealSharp/Source/UnrealSharpCore/Extensions/Libraries/CSGameplayTagExtensions.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/UnrealSharpCore.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpEditor/UnrealSharpEditor.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpEditor/UnrealSharpEditor.h" root0="FORCE_HIGHLIGHTING" />
@@ -1168,6 +1171,9 @@
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpManagedGlue/PropertyTranslators/PropertyTranslator.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Script/Pokemon.Data/Pbs/BerryPlant.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://D:/dev/TurnBasedFramework/Script/Pokemon.Data/Pbs/BerryPlant.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Converters/BaseStatsConverter.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Converters/EvolutionMethodConverter.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/dev/TurnBasedFramework/Script/Pokemon.Editor/Serializers/Pbs/Converters/EvolutionMethodConverter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Serializers/BerryPlantPbsSerializer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/PokemonEditorTools/Public/PokemonEditorTools.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/TurnBasedCore/Private/Units/TurnBasedUnit.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -1304,7 +1310,7 @@
       <workItem from="1754701613673" duration="2506000" />
       <workItem from="1754709317140" duration="979000" />
       <workItem from="1754754629592" duration="8528000" />
-      <workItem from="1754846931082" duration="13943000" />
+      <workItem from="1754846931082" duration="16437000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed a missing with editor define">
       <option name="closed" value="true" />
@@ -1346,7 +1352,23 @@
       <option name="project" value="LOCAL" />
       <updated>1754853066084</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added some additional methods to Gameplay Tags">
+      <option name="closed" value="true" />
+      <created>1754866887961</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1754866887961</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Started work on the species PBS parser">
+      <option name="closed" value="true" />
+      <created>1754866921118</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1754866921118</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1384,7 +1406,9 @@
     <MESSAGE value="Updated the UnrealSharp plugin" />
     <MESSAGE value="Updated UnrealSharp" />
     <MESSAGE value="Added all the PBS converters up to berry plants" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added all the PBS converters up to berry plants" />
+    <MESSAGE value="Added some additional methods to Gameplay Tags" />
+    <MESSAGE value="Started work on the species PBS parser" />
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

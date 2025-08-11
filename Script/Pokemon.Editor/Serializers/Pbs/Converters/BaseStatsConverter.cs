@@ -17,6 +17,7 @@ public sealed class BaseStatsConverter : PbsConverterBase<IReadOnlyDictionary<FG
         var settings = UObject.GetDefault<UGameDataSettings>();
         var statsRepository = ((TSoftObjectPtr<UObject>)settings.Stats).LoadSynchronous() as IGameDataRepository<UStat>;
         ArgumentNullException.ThrowIfNull(statsRepository);
+        statsRepository.Refresh();
         _statOrder = [
             ..statsRepository.AllEntries
                 .Where(x => x.IsMainStat)

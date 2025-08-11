@@ -69,7 +69,7 @@ public static class PbsMetamodel
         return CreateScalarDescriptor(property.PropertyType, property);
     }
 
-    private static PbsScalarDescriptor CreateScalarDescriptor(Type type, PropertyInfo property, bool isOptional = false)
+    private static PbsScalarDescriptor CreateScalarDescriptor(Type type, ICustomAttributeProvider property, bool isOptional = false)
     {
         var gameplayTag = property.GetCustomAttribute<PbsGameplayTag>();
         return new PbsScalarDescriptor(type, isOptional)
@@ -85,7 +85,12 @@ public static class PbsMetamodel
         };
     }
 
-    private static IEnumerable<Type> GetScalarConverterTypes(Type elementType, PropertyInfo property)
+    private static T? GetCustomAttribute<T>(this ICustomAttributeProvider provider) where T : Attribute
+    {
+        return provider.GetCustomAttributes(typeof(T), false).FirstOrDefault() as T;
+    }
+
+    private static IEnumerable<Type> GetScalarConverterTypes(Type elementType, ICustomAttributeProvider property)
     {
         var propertyLevelConverter = property.GetCustomAttribute<PbsScalarAttribute>()?.ConverterType;
 
@@ -95,9 +100,15 @@ public static class PbsMetamodel
         if (typeLevelConverter is not null) yield return typeLevelConverter;
     }
 
-    private static INumericBounds? CreateNumericBounds(this PropertyInfo property)
+    private static INumericBounds? CreateNumericBounds(this ICustomAttributeProvider property)
     {
-        if (!property.PropertyType.IsValueType || !property.PropertyType.GetInterfaces()
+        var numberType = property switch
+        {
+            PropertyInfo p => p.PropertyType,
+            ParameterInfo p => p.ParameterType,
+            _ => throw new InvalidOperationException()
+        };
+        if (!numberType.IsValueType || !numberType.GetInterfaces()
             .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(INumber<>)))
         {
             return null;
@@ -105,17 +116,17 @@ public static class PbsMetamodel
 
         return (INumericBounds?) typeof(PbsMetamodel).GetMethod(nameof(CreateNumericBoundsInternal),
             BindingFlags.Static | BindingFlags.NonPublic)!
-            .MakeGenericMethod(property.PropertyType)
+            .MakeGenericMethod(numberType)
             .Invoke(null, [property]);
     }
 
-    private static NumericBounds<T> CreateNumericBoundsInternal<T>(this PropertyInfo property) where T : struct, INumber<T>
+    private static NumericBounds<T> CreateNumericBoundsInternal<T>(this ICustomAttributeProvider property) where T : struct, INumber<T>
     {
         var rangeAttribute = property.GetCustomAttribute<PbsRangeAttribute<T>>();
         return rangeAttribute is not null ? new NumericBounds<T>(rangeAttribute.Min, rangeAttribute.Max) : default;
     }
 
-    private static LocalizedTextNamespace? CreateLocalizedTextNamespace(this PropertyInfo property)
+    private static LocalizedTextNamespace? CreateLocalizedTextNamespace(this ICustomAttributeProvider property)
     {
         var localizedTextAttribute = property.GetCustomAttribute<PbsLocalizedTextAttribute>();
         return localizedTextAttribute is not null ? new LocalizedTextNamespace(localizedTextAttribute.Namespace, localizedTextAttribute.KeyFormat) : null;
@@ -123,25 +134,25 @@ public static class PbsMetamodel
 
     private static ImmutableArray<PbsScalarDescriptor> GetScalarDescriptors(this PropertyInfo property)
     {
-        if (property.PropertyType.IsScalarType() || property.PropertyType.GetCustomAttribute<PbsScalarAttribute>() is not null)
+        if (property.PropertyType.IsScalarType() || property.GetCustomAttribute<PbsScalarAttribute>() is not null)
         {
             return [CreateScalarDescriptor(property)];
         }
 
         if (property.TryGetCollectionType(out var elementType))
         {
-            return elementType.IsScalarType() ? [CreateScalarDescriptor(elementType, property)] : GetComplexTypeDescriptors(elementType, property);
+            return elementType.IsScalarType() ? [CreateScalarDescriptor(elementType, property)] : GetComplexTypeDescriptors(elementType);
         }
         
-        return GetComplexTypeDescriptors(property.PropertyType, property);
+        return GetComplexTypeDescriptors(property.PropertyType);
     }
 
-    private static ImmutableArray<PbsScalarDescriptor> GetComplexTypeDescriptors(Type elementType, PropertyInfo property)
+    private static ImmutableArray<PbsScalarDescriptor> GetComplexTypeDescriptors(Type elementType)
     {
         var constructor = elementType.GetComplexTypeConstructor();
         return [
             ..constructor.GetParameters()
-                .Select(p => CreateScalarDescriptor(p.ParameterType, property, p.HasDefaultValue))
+                .Select(p => CreateScalarDescriptor(p.ParameterType, p, p.HasDefaultValue))
         ];
     }
 

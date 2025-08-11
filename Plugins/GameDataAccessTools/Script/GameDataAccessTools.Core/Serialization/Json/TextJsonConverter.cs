@@ -20,6 +20,6 @@ public class TextJsonConverter : JsonConverter<FText>
 
     public override void Write(Utf8JsonWriter writer, FText value, JsonSerializerOptions options)
     {
-        writer.WriteStringValue(value.ToLocalizedString());
+        writer.WriteStringValue(ToLocalizedString(value));
     }
 }

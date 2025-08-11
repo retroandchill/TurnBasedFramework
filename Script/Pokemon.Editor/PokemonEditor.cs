@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Pokemon.Data.Core;
 using Pokemon.Data.Pbs;
 using Pokemon.Editor.Interop;
+using Pokemon.Editor.Mappers;
 using Pokemon.Editor.Serializers.Json;
 using Pokemon.Editor.Serializers.Pbs.Serializers;
 using UnrealInject;
@@ -47,7 +48,8 @@ public class FPokemonEditor : IModuleInterface
             .AddSingleton<IGameDataEntrySerializer<UAbility>, AbilityPbsSerializer>()
             .AddSingleton<IGameDataEntrySerializer<UMove>, MovePbsSerializer>()
             .AddSingleton<IGameDataEntrySerializer<UItem>, ItemPbsSerializer>()
-            .AddSingleton<IGameDataEntrySerializer<UBerryPlant>, BerryPlantPbsSerializer>());
+            .AddSingleton<IGameDataEntrySerializer<UBerryPlant>, BerryPlantPbsSerializer>()
+            .AddSingleton<IGameDataEntrySerializer<USpecies>, SpeciesPbsSerializer>());
     }
 
     public void ShutdownModule()

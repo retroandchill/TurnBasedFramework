@@ -1,6 +1,6 @@
 ﻿namespace Pokemon.Editor.Serializers.Pbs.Attributes;
 
-[AttributeUsage(AttributeTargets.Property)]
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Parameter)]
 public class PbsGameplayTag(string ns) : Attribute
 {
     public string Namespace { get; } = ns;

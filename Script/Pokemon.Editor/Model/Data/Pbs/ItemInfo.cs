@@ -16,20 +16,25 @@ public record ItemInfo
     public int RowIndex { get; init; }
     
     [PbsName("Name")]
+    [PbsLocalizedText("PokemonItems", "{0}_DisplayName")]
     public FText DisplayName { get; init; } = "Unnamed";
     
     [PbsName("NamePlural")]
+    [PbsLocalizedText("PokemonItems", "{0}_DisplayNamePlural")]
     public FText DisplayNamePlural { get; init; } = "Unnamed";
     
     [PbsName("PortionName")]
+    [PbsLocalizedText("PokemonItems", "{0}_PortionDisplayName")]
     public FText? PortionDisplayName { get; init; }
     
     [PbsName("PortionNamePlural")]
+    [PbsLocalizedText("PokemonItems", "{0}_PortionDisplayNamePlural")]
     public FText? PortionDisplayNamePlural { get; init; }
     
     [PbsName("ShowQuantity")]
     public bool? ShouldShowQuantity { get; init; }
 
+    [PbsLocalizedText("PokemonItems", "{0}_Description")]
     public FText Description { get; init; } = "???";
     
     [PbsScalar<ItemPocketConverter>]

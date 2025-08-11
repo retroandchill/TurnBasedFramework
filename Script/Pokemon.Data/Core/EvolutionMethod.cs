@@ -36,14 +36,14 @@ public class UEvolutionMethod : UObject, IGameDataEntry
 }
 
 [UClass(ClassFlags.EditInlineNew)]
-public class UIntEvolutionConditionData : UEvolutionConditionData
+public sealed class UIntEvolutionConditionData : UEvolutionConditionData
 {
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)]
     public int Parameter { get; init; }
 }
 
 [UClass(ClassFlags.EditInlineNew)]
-public class UMoveEvolutionConditionData : UEvolutionConditionData
+public sealed class UMoveEvolutionConditionData : UEvolutionConditionData
 {
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, DisplayName = "Move ID")]
     [Categories(UMove.MetadataCategory)]

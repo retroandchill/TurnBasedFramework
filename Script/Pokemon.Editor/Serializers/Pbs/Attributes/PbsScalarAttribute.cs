@@ -8,7 +8,7 @@ public abstract class PbsScalarAttribute : Attribute
 }
 
 
-[AttributeUsage(AttributeTargets.Property | AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum | AttributeTargets.Interface)]
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Parameter | AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum | AttributeTargets.Interface)]
 public sealed class PbsScalarAttribute<T> : PbsScalarAttribute where T : IPbsConverter
 {
     public override Type ConverterType => typeof(T);

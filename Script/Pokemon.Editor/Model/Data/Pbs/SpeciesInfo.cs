@@ -8,17 +8,18 @@ using UnrealSharp.GameplayTags;
 
 namespace Pokemon.Editor.Model.Data.Pbs;
 
-public readonly record struct EvYield([property: PbsScalar<MainStatConverter>] FGameplayTag Stat, 
-                                      [property: PbsRange<int>(1)]int Amount);
+public readonly record struct EvYield([PbsScalar<MainStatConverter>] FGameplayTag Stat, 
+                                      [PbsRange<int>(1)]int Amount);
 
-public record struct LevelUpMoveInfo([property: PbsGameplayTag(UMove.TagCategory)] FGameplayTag Move, 
-                                     [property: PbsRange<int>(0)] int Level = 0);
+public record struct LevelUpMoveInfo([PbsRange<int>(0)] int Level,
+                                     [PbsGameplayTag(UMove.TagCategory)] FGameplayTag Move);
 
 [PbsScalar<EvolutionMethodConverter>]
-public record struct EvolutionConditionInfo(FName Species, 
-                                            FGameplayTag Method, 
-                                            TSubclassOf<UEvolutionConditionData> DataType, 
-                                            JsonObject? Data);
+public record struct EvolutionConditionInfo(
+    FName Species,
+    FGameplayTag Method,
+    TSubclassOf<UEvolutionConditionData> DataType = default,
+    JsonObject? Data = null);
 
 public record SpeciesInfo
 {
@@ -26,10 +27,14 @@ public record SpeciesInfo
     [PbsGameplayTag(USpecies.TagCategory, Create = true)]
     public required FGameplayTag Id { get; init; }
 
-    [PbsIndex] public int RowIndex { get; init; }
+    [PbsIndex] 
+    public int RowIndex { get; init; }
 
-    [PbsName("Name")] public FText DisplayName { get; init; } = "Unnamed";
+    [PbsName("Name")] 
+    [PbsLocalizedText("PokemonSpecies", "{0}_DisplayName")]
+    public FText DisplayName { get; init; } = "Unnamed";
 
+    [PbsLocalizedText("PokemonSpecies", "{0}_FormName")]
     public FText? FormName { get; init; }
 
     [PbsGameplayTag(UType.TagCategory, Create = true)]
@@ -54,6 +59,7 @@ public record SpeciesInfo
 
     public int BaseExp { get; init; } = 100;
 
+    [PbsName("EVs")]
     public IReadOnlyList<EvYield> EvYield { get; init; } = [];
 
     [PbsRange<int>(3, 255)]
@@ -91,6 +97,7 @@ public record SpeciesInfo
     public IReadOnlyList<FName> Offspring { get; init; } = [];
     
     [PbsAllowMultiple]
+    [PbsName("Evolution")]
     public IReadOnlyList<EvolutionConditionInfo> Evolutions { get; init; } = [];
 
     [PbsRange<float>(0.1f)]
@@ -110,8 +117,10 @@ public record SpeciesInfo
     [PbsGameplayTag(UHabitat.TagCategory)]
     public FGameplayTag Habitat { get; init; }
     
+    [PbsLocalizedText("PokemonSpecies", "{0}_Category")]
     public FText Category { get; init; } = "???";
     
+    [PbsLocalizedText("PokemonSpecies", "{0}_Pokedex")]
     public FText Pokedex { get; init; } = "???";
     
     [PbsGameplayTag(UItem.TagCategory)]

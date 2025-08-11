@@ -5,8 +5,8 @@ using UnrealSharp.GameplayTags;
 
 namespace Pokemon.Editor.Model.Data.Pbs;
 
-public readonly record struct IntBounds([property: PbsRange<int>(0)] int Min, 
-                                        [property: PbsRange<int>(1)] int Max);
+public readonly record struct IntBounds([PbsRange<int>(0)] int Min, 
+                                        [PbsRange<int>(1)] int Max);
 
 public record BerryPlantInfo
 {

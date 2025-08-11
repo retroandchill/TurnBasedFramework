@@ -15,6 +15,8 @@ namespace Pokemon.Editor.Mappers;
 [Mapper(RequiredMappingStrategy = RequiredMappingStrategy.Target, PreferParameterlessConstructors = false)]
 public static partial class SpeciesMapper
 {
+    private const int EvolutionLearnLevel = 0;
+    
     public static USpecies ToSpecies(this SpeciesInfo speciesInfo, UObject? outer = null)
     {
         return speciesInfo.ToSpeciesInitializer(outer);
@@ -30,12 +32,12 @@ public static partial class SpeciesMapper
 
     private static LevelUpMoveInfo ToLevelUpMoveInfo(this FLevelUpMove move)
     {
-        return move.Match(level => new LevelUpMoveInfo(move.Move, level), () => new LevelUpMoveInfo(move.Move));
+        return move.Match(level => new LevelUpMoveInfo(level, move.Move), () => new LevelUpMoveInfo(EvolutionLearnLevel, move.Move));
     }
     
     private static FLevelUpMove ToLevelUpMove(this LevelUpMoveInfo move)
     {
-        return move.Level == 0
+        return move.Level == EvolutionLearnLevel
             ? FLevelUpMove.LevelUp(move.Level, move.Move)
             : FLevelUpMove.Evolution(move.Move);
     }

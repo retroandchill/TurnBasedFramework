@@ -2,7 +2,7 @@
 
 namespace Pokemon.Editor.Serializers.Pbs.Attributes;
 
-[AttributeUsage(AttributeTargets.Property)]
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Parameter)]
 public class PbsRangeAttribute<T> : Attribute where T : struct, INumber<T>
 {
     public PbsRangeAttribute(T min)

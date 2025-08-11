@@ -1,6 +1,6 @@
 ﻿namespace Pokemon.Editor.Serializers.Pbs.Attributes;
 
-[AttributeUsage(AttributeTargets.Property)]
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Parameter)]
 public class PbsLocalizedTextAttribute(string ns, string keyFormat) : Attribute
 {
     public string Namespace { get; } = ns;

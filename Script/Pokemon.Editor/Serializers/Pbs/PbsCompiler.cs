@@ -71,12 +71,12 @@ public static partial class PbsCompiler
                     {
                         if (!lastSection.TryGetValue(key, out var existingValue))
                         {
-                            existingValue = [value.TrimEnd()];
+                            existingValue = [];
                             lastSection[key] = existingValue;
                             continue;
                         }
 
-                        lastSection[key] = existingValue.Append(value.TrimEnd()).ToList();
+                        existingValue.Add(value.TrimEnd());
                     }
                     else
                     {
@@ -162,7 +162,7 @@ public static partial class PbsCompiler
             return GetCsvValue(input, schema.Elements.Single(), sectionName);
         }
 
-        var subLists = schema is { Repeat: RepeatMode.CsvRepeat, Elements.Length: > 1 };
+        var subLists = schema.TargetProperty.TryGetCollectionType(out var innerType) && schema is { Repeat: RepeatMode.CsvRepeat, Elements.Length: > 1 };
         var values = SplitCsvLine(input);
         var idx = -1;
         var result = new List<object?>();
@@ -183,7 +183,7 @@ public static partial class PbsCompiler
 
             if (subLists)
             {
-                result.Add(Activator.CreateInstance(targetType, record));
+                result.Add(Activator.CreateInstance(innerType!, record));
             }
             else
             {

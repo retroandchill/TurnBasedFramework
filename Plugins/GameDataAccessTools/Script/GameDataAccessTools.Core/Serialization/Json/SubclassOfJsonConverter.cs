@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using UnrealSharp;
 using UnrealSharp.CoreUObject;
 using UnrealSharp.GameDataAccessTools;
+using static UnrealSharp.GameDataAccessTools.UTextSerializationBlueprintLibrary;
 
 namespace GameDataAccessTools.Core.Serialization.Json;
 
@@ -17,7 +18,7 @@ public class SubclassOfJsonConverter<T> : JsonConverter<TSubclassOf<T>> where T 
             case JsonTokenType.String:
             {
                 var pathString = reader.GetString()!;
-                var path = pathString.GetClassFromPath();
+                var path = GetClassFromPath(pathString);
                 if (!path.Valid)
                 {
                     throw new JsonException($"Invalid path {pathString}");   

@@ -16,8 +16,10 @@ public record MoveInfo
     public int RowIndex { get; init; }
     
     [PbsName("Name")]
+    [PbsLocalizedText("PokemonMoves", "{0}_DisplayName")]
     public FText DisplayName { get; init; } = "Unnamed";
 
+    [PbsLocalizedText("PokemonMoves", "{0}_Description")]
     public FText Description { get; init; } = "???";
     
     
@@ -45,7 +47,7 @@ public record MoveInfo
     [PbsGameplayTag(UMove.FunctionCodeCategory, Create = true)]
     public FGameplayTag FunctionCode { get; init; }
     
-    [PbsRange<int>(0, 100)]
+    [PbsRange<int>(0)]
     public int EffectChance { get; init; }
     
     [PbsName("Flags")]
