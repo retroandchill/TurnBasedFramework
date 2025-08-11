@@ -26,15 +26,6 @@ void FGameDataAccessToolsEditorModule::StartupModule()
                     FOnGetPropertyTypeCustomizationInstance::CreateStatic(
                         &FDataHandleCustomization::MakeInstance),
                         MakeShared<FDataHandlePropertyIdentifier>());
-
-    FCoreDelegates::OnPostEngineInit.AddLambda([]
-    {
-        auto TargetFunction = FindObject<UFunction>(nullptr, TEXT("TurnBasedDataHelpers_C.GetAllSkills"));
-        for (const auto Function : TObjectRange<UFunction>())
-        {
-            UE_LOG(LogTemp, Warning, TEXT("%s"), *Function->GetName());
-        }
-    });
 }
 
 void FGameDataAccessToolsEditorModule::ShutdownModule()

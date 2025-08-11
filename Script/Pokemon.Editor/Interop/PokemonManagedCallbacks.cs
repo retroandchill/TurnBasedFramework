@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
-using GameDataAccessTools.Core.Interop;
 using JetBrains.Annotations;
+using Pokemon.Data.Core;
 using Pokemon.Editor.Utils;
 using UnrealSharp;
 using UnrealSharp.Core;
@@ -14,12 +14,15 @@ public unsafe struct PokemonManagedActions
 {
     [UsedImplicitly]
     public required delegate* unmanaged<IntPtr, IntPtr, IntPtr, NativeBool> PopulateEvolutions { get; init; }
+    [UsedImplicitly]
+    public required delegate* unmanaged<FGameplayTag, IntPtr, IntPtr, NativeBool> GetEvolutionConditionClass { get; init; }
     
     public static PokemonManagedActions Create()
     {
         return new PokemonManagedActions
         {
             PopulateEvolutions = &PokemonManagedCallbacks.PopulateEvolutions,
+            GetEvolutionConditionClass = &PokemonManagedCallbacks.GetEvolutionConditionClass
         };
     }
 }
@@ -43,5 +46,21 @@ public static class PokemonManagedCallbacks
             return NativeBool.False;
         }
         
+    }
+
+    [UnmanagedCallersOnly]
+    public static NativeBool GetEvolutionConditionClass(FGameplayTag tag, IntPtr evolutionMethodResult, IntPtr resultString)
+    {
+        try
+        {
+            var evolutionMethodTag = PopulationUtils.GetEvolutionMethodClass(tag);
+            SubclassOfMarshaller<UEvolutionConditionData>.ToNative(evolutionMethodResult, 0, evolutionMethodTag);
+            return NativeBool.True;
+        }
+        catch (Exception e)
+        {
+            StringMarshaller.ToNative(resultString, 0, $"{e.Message}\n{e.StackTrace}");
+            return NativeBool.False;
+        }
     }
 }

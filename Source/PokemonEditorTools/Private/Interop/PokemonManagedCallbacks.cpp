@@ -26,3 +26,14 @@ tl::expected<void, FString> FPokemonManagedCallbacks::PopulateEvolutions(const F
 
     return tl::unexpected(MoveTemp(Error));
 }
+
+tl::expected<UClass*, FString> FPokemonManagedCallbacks::GetEvolutionConditionClass(const FGameplayTag Tag) const
+{
+    FString Error;
+    if (TSubclassOf<UObject> Result; Actions.GetEvolutionConditionClass(Tag, &Result, &Error))
+    {
+        return Result;
+    }
+
+    return tl::unexpected(MoveTemp(Error));
+}

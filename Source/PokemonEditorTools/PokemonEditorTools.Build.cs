@@ -22,7 +22,8 @@ public class PokemonEditorTools : ModuleRules
                 "Engine",
                 "Slate",
                 "SlateCore",
-                "UnrealEd"
+                "UnrealEd",
+                "UnrealSharpCore"
             }
         );
     }

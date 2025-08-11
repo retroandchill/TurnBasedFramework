@@ -8,9 +8,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aa1e9cdd-86d7-4878-ad99-f01b0434e94b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Data/Core/EvolutionMethod.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Data/Core/EvolutionMethod.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Model/Data/Core/EvolutionMethodInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Model/Data/Core/EvolutionMethodInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Converters/EvolutionMethodConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Converters/EvolutionMethodConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Data/Pbs/Species.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Data/Pbs/Species.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Source/GameDataAccessToolsEditor/Private/GameDataAccessToolsEditor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Source/GameDataAccessToolsEditor/Private/GameDataAccessToolsEditor.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Interop/PokemonManagedCallbacks.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Interop/PokemonManagedCallbacks.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Utils/PopulationUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Utils/PopulationUtils.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/PokemonEditorTools/PokemonEditorTools.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/PokemonEditorTools/PokemonEditorTools.Build.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/PokemonEditorTools/Private/Interop/PokemonManagedCallbacks.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/PokemonEditorTools/Private/Interop/PokemonManagedCallbacks.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/PokemonEditorTools/Private/PokemonEditorTools.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/PokemonEditorTools/Private/PokemonEditorTools.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/PokemonEditorTools/Public/Interop/PokemonManagedCallbacks.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/PokemonEditorTools/Public/Interop/PokemonManagedCallbacks.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +48,7 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
@@ -90,7 +97,25 @@
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="cidr-memory-view://19" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="cidr-memory-view://6" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Plugins/AI/MassAI/Source/MassAIBehavior/MassAIBehavior.Build.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Plugins/Animation/ControlRig/Source/ControlRig/Private/ControlRigReplay.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Plugins/AudioGameplay/Source/AudioGameplayTests/AudioGameplayTests.build.cs" root0="SKIP_HIGHLIGHTING" />
@@ -1121,7 +1146,6 @@
     <setting file="file://$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.SourceGenerator/Model/AccessiblePropertyInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.SourceGenerator/Utilities/PropertyAccessUtilities.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/GameDataAccessTools/Source/GameDataAccessTools/GameDataAccessTools.Build.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/GameDataAccessTools/Source/GameDataAccessTools/Public/DataRetrieval/GameDataRepository.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp.Core/Attributes/GeneratedType.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Attributes/UPropertyAttribute.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Extensions/CoreUObject/Object.cs" root0="SKIP_HIGHLIGHTING" />
@@ -1141,18 +1165,16 @@
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/CSUnrealSharpSettings.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/Export/FSubsystemCollectionBaseRefExporter.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/Export/FSubsystemCollectionBaseRefExporter.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/UnrealSharp/Source/UnrealSharpCore/Extensions/Libraries/CSGameplayTagExtensions.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/UnrealSharpCore.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpEditor/UnrealSharpEditor.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpEditor/UnrealSharpEditor.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpManagedGlue/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpManagedGlue/PropertyTranslators/PropertyTranslator.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Script/Pokemon.Data/Pbs/BerryPlant.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/dev/TurnBasedFramework/Script/Pokemon.Data/Pbs/BerryPlant.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Converters/BaseStatsConverter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Converters/EvolutionMethodConverter.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/dev/TurnBasedFramework/Script/Pokemon.Editor/Serializers/Pbs/Converters/EvolutionMethodConverter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Serializers/BerryPlantPbsSerializer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/dev/TurnBasedFramework/Source/PokemonEditorTools/Private/PokemonEditorTools.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/PokemonEditorTools/Public/PokemonEditorTools.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/TurnBasedCore/Private/Units/TurnBasedUnit.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/TurnBasedCore/Public/Attributes/UnitAttribute.h" root0="FORCE_HIGHLIGHTING" />
@@ -1175,21 +1197,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Uproject.TurnBasedFramework.executor": "Debug",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "SolutionBuilderGeneralOptionsPage",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Uproject.TurnBasedFramework.executor&quot;: &quot;Debug&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;SolutionBuilderGeneralOptionsPage&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="TurnBasedFramework" type="Uproject" factoryName="rider.uproject">
       <configuration_1 setup="1">
@@ -1260,14 +1282,6 @@
       <option name="DEFAULT_PROJECT_PATH" value="$PROJECT_DIR$/TurnBasedFramework.uproject" />
       <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/TurnBasedFramework.uproject" />
       <option name="AUTO_SELECT_PRIORITY" value="10010" />
-      <method v="2">
-        <option name="Build" />
-      </method>
-    </configuration>
-    <configuration default="true" type="Uproject" factoryName="rider.uproject">
-      <option name="DEFAULT_PROJECT_PATH" value="" />
-      <option name="PROJECT_FILE_PATH" value="" />
-      <option name="AUTO_SELECT_PRIORITY" value="0" />
       <method v="2">
         <option name="Build" />
       </method>
@@ -1407,6 +1421,16 @@
           <url>file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/CSManagedGCHandle.h</url>
           <line>93</line>
           <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/PropertyEditor/Private/PropertyHandleImpl.cpp</url>
+          <line>4314</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Source/PokemonEditorTools/Private/Customization/EvolutionConditionDetails.cpp</url>
+          <line>115</line>
+          <option name="timeStamp" value="21" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
