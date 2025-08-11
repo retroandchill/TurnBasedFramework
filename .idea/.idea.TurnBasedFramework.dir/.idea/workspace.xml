@@ -8,31 +8,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aa1e9cdd-86d7-4878-ad99-f01b0434e94b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/Tags/PokemonData.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/Tags/PokemonData.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Data/Pbs/Items.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Data/Pbs/Items.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Data/Pbs/Moves.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Data/Pbs/Moves.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.Core/Marshallers/CSharpStructMarshaller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.Core/Marshallers/CSharpStructMarshaller.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.Core/Serialization/Json/SubclassOfJsonConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.Core/Serialization/Json/SubclassOfJsonConverter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.Core/Serialization/Json/TextJsonConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.Core/Serialization/Json/TextJsonConverter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Source/GameDataAccessTools/Public/Utils/TextSerializationBlueprintLibrary.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Source/GameDataAccessTools/Public/Utils/TextSerializationBlueprintLibrary.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Script/Pokemon.Data/Core/EvolutionMethod.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Data/Core/EvolutionMethod.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Mappers/SpeciesMapper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Mappers/SpeciesMapper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Model/Data/Pbs/BerryPlantInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Model/Data/Pbs/BerryPlantInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Model/Data/Pbs/ItemInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Model/Data/Pbs/ItemInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Model/Data/Pbs/MoveInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Model/Data/Pbs/MoveInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Model/Data/Pbs/SpeciesInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Model/Data/Pbs/SpeciesInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Pokemon.Editor.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Pokemon.Editor.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/PokemonEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/PokemonEditor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Attributes/PbsGameplayTag.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Attributes/PbsGameplayTag.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Attributes/PbsLocalizedTextAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Attributes/PbsLocalizedTextAttribute.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Attributes/PbsNameAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Attributes/PbsNameAttribute.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Attributes/PbsRangeAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Attributes/PbsRangeAttribute.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Attributes/PbsScalarAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Attributes/PbsScalarAttribute.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Converters/BaseStatsConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Converters/BaseStatsConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Model/Data/Core/EvolutionMethodInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Model/Data/Core/EvolutionMethodInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Converters/EvolutionMethodConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Converters/EvolutionMethodConverter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/PbsCompiler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/PbsCompiler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/PbsMetamodel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/PbsMetamodel.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

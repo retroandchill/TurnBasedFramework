@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using GameAccessTools.SourceGenerator.Attributes;
 using GameDataAccessTools.Core.DataRetrieval;
+using Pokemon.Data.Attributes;
 using Pokemon.Data.Pbs;
 using UnrealSharp;
 using UnrealSharp.Attributes;
@@ -46,7 +47,8 @@ public sealed class UIntEvolutionConditionData : UEvolutionConditionData
 public sealed class UMoveEvolutionConditionData : UEvolutionConditionData
 {
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, DisplayName = "Move ID")]
-    [Categories(UMove.MetadataCategory)]
+    [Categories(UMove.TagCategory)]
+    [ParentTag(UMove.TagCategory)]
     public FGameplayTag MoveId { get; init; }
 }
 
@@ -55,6 +57,7 @@ public class UTypeEvolutionConditionData : UEvolutionConditionData
 {
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, DisplayName = "Type ID")]
     [Categories(UType.MetadataCategory)]
+    [ParentTag(UType.TagCategory)]
     public FGameplayTag TypeId { get; init; }
 }
 
@@ -62,7 +65,8 @@ public class UTypeEvolutionConditionData : UEvolutionConditionData
 public class UItemEvolutionConditionData : UEvolutionConditionData
 {
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, DisplayName = "Item ID")]
-    [Categories(UItem.MetadataCategory)]
+    [Categories(UItem.TagCategory)]
+    [ParentTag(UItem.TagCategory)]
     public FGameplayTag ItemId { get; init; }
 }
 
@@ -70,7 +74,8 @@ public class UItemEvolutionConditionData : UEvolutionConditionData
 public class USpeciesEvolutionConditionData : UEvolutionConditionData
 {
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, DisplayName = "Species ID")]
-    [Categories(USpecies.MetadataCategory)]
+    [Categories(USpecies.TagCategory)]
+    [ParentTag(USpecies.TagCategory)]
     public FGameplayTag SpeciesId { get; init; }
 }
 
@@ -84,6 +89,10 @@ public class ULocationEvolutionConditionData : UEvolutionConditionData
 [UClass(ClassFlags.EditInlineNew)]
 public class ULocationFlagEvolutionConditionData : UEvolutionConditionData
 {
+    public const string TagCategory = "Pokemon.Field.Location.Evolution";
+    
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)]
+    [Categories(TagCategory)]
+    [ParentTag(TagCategory)]
     public FGameplayTag Flag { get; init; }
 }
