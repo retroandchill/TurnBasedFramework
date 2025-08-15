@@ -5,6 +5,21 @@ using UnrealSharp.Engine.Core.Modules;
 
 namespace UnrealInject;
 
+#if WITH_EDITOR
+public sealed class GameInstanceServiceProviderOverride : IDisposable
+{
+    public GameInstanceServiceProviderOverride(IServiceProvider serviceProvider)
+    {
+        FUnrealInjectModule.Instance.GameInstanceServiceProviderOverride = serviceProvider;
+    }
+    
+    public void Dispose()
+    {
+        FUnrealInjectModule.Instance.GameInstanceServiceProviderOverride = null;
+    }
+}
+#endif
+
 [UsedImplicitly]
 public sealed class FUnrealInjectModule : IModuleInterface
 {
@@ -12,6 +27,23 @@ public sealed class FUnrealInjectModule : IModuleInterface
 
     private readonly ServiceCollection _serviceCollection = [];
     private bool _servicesBuilt;
+    #if WITH_EDITOR
+    private IServiceProvider? _gameInstanceServiceProviderOverride;
+    internal IServiceProvider? GameInstanceServiceProviderOverride
+    {
+        get => _gameInstanceServiceProviderOverride;
+        set
+        {
+            if (_gameInstanceServiceProviderOverride is IDisposable disposable)
+            {
+                disposable.Dispose();
+            }
+            _gameInstanceServiceProviderOverride = value;
+            OnGameInstanceServiceProviderChanged?.Invoke(_gameInstanceServiceProviderOverride);
+        }
+    }
+    internal event Action<IServiceProvider?>? OnGameInstanceServiceProviderChanged;
+    #endif
 
     public event Action<IServiceProvider>? OnServiceProviderRebuilt;
 

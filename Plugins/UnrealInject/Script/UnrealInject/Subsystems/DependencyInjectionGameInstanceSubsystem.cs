@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Runtime.CompilerServices;
+using Microsoft.Extensions.DependencyInjection;
 using UnrealSharp.Attributes;
 using UnrealSharp.UnrealSharpCore;
 
@@ -13,6 +14,19 @@ public sealed class UDependencyInjectionGameInstanceSubsystem : UCSGameInstanceS
 
     protected override void Initialize(FSubsystemCollectionBaseRef collection)
     {
+        SetServiceScope(FUnrealInjectModule.Instance.GameInstanceServiceProviderOverride);
+    }
+
+    private void SetServiceScope(IServiceProvider? serviceProviderOverride)
+    {
+        #if WITH_EDITOR
+        if (serviceProviderOverride is not null)
+        {
+            _serviceScope = serviceProviderOverride.CreateScope();
+            FUnrealInjectModule.Instance.OnGameInstanceServiceProviderChanged += SetServiceScope;
+            return;       
+        }
+        #endif
         var engineSubsystem = GetEngineSubsystem<UDependencyInjectionEngineSubsystem>();
         engineSubsystem.OnServiceProviderRebuilt += RebuildServiceProvider;
         
@@ -21,6 +35,9 @@ public sealed class UDependencyInjectionGameInstanceSubsystem : UCSGameInstanceS
 
     protected override void Deinitialize()
     {
+#if WITH_EDITOR
+        FUnrealInjectModule.Instance.OnGameInstanceServiceProviderChanged -= SetServiceScope; 
+#endif
         var engineSubsystem = GetEngineSubsystem<UDependencyInjectionEngineSubsystem>();
         engineSubsystem.OnServiceProviderRebuilt -= RebuildServiceProvider;
         if (_serviceScope is IDisposable disposable)
@@ -29,7 +46,7 @@ public sealed class UDependencyInjectionGameInstanceSubsystem : UCSGameInstanceS
         }
     }
     
-    private void RebuildServiceProvider(IServiceProvider provider)
+    internal void RebuildServiceProvider(IServiceProvider provider)
     {
         if (_serviceScope is IDisposable disposable)
         {
