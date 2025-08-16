@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "ManagedTestingCallbacks.h"
+#include "Runner/ManagedTestCase.h"
 #include "UnrealSharpBinds/Public/CSBindsManager.h"
 #include "UObject/Object.h"
 #include "ManagedTestingExporter.generated.h"
@@ -22,4 +23,10 @@ public:
 
     UNREALSHARP_FUNCTION()
     static void AddTest(TArray<FString>& Handles, const TCHAR* TestName);
+
+    UNREALSHARP_FUNCTION()
+    static FGCHandleIntPtr GetManagedAssembly(FName AssemblyName);
+
+    UNREALSHARP_FUNCTION()
+    static void AddTestCase(TArray<FManagedTestCase>& TestCases, FManagedTestCase& TestCase);
 };

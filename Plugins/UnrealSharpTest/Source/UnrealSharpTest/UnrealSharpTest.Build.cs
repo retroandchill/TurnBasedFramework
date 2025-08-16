@@ -38,7 +38,7 @@ public class UnrealSharpTest : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
-				"UnrealSharpBinds"
+				"UnrealSharpBinds", "UnrealSharpProcHelper"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

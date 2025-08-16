@@ -4,11 +4,7 @@
 #include "Handles/DataHandleCustomization.h"
 
 #include "DetailWidgetRow.h"
-#include "IDetailChildrenBuilder.h"
-#include "PropertyPathHelpers.h"
 #include "SSearchableComboBox.h"
-#include "TypeGenerator/CSScriptStruct.h"
-#include "TypeGenerator/Register/TypeInfo/CSStructInfo.h"
 
 
 TSharedRef<IPropertyTypeCustomization> FDataHandleCustomization::MakeInstance()

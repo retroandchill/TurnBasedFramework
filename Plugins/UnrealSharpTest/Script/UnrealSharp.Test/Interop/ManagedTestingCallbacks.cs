@@ -1,8 +1,12 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Text.Json;
 using JetBrains.Annotations;
 using UnrealSharp.Core;
 using UnrealSharp.Core.Marshallers;
+using UnrealSharp.Test.Discovery;
+using UnrealSharp.Test.Mappers;
+using UnrealSharp.UnrealSharpTest;
 
 namespace UnrealSharp.Test.Interop;
 
@@ -10,10 +14,7 @@ namespace UnrealSharp.Test.Interop;
 public unsafe struct ManagedTestingActions
 {
     [UsedImplicitly]
-    public required delegate* unmanaged<FName, IntPtr, UnmanagedArray*, void> LoadAssemblyTests { get; init; }
-
-    [UsedImplicitly]
-    public required delegate* unmanaged<FName, void> UnloadAssemblyTests { get; init; }
+    public required delegate* unmanaged<IntPtr, int, UnmanagedArray*, void> CollectTestCases { get; init; }
     
     [UsedImplicitly]
     public required delegate* unmanaged<FName, IntPtr, IntPtr> StartTest { get; init; }
@@ -25,8 +26,7 @@ public unsafe struct ManagedTestingActions
     {
         return new ManagedTestingActions
         {
-            LoadAssemblyTests = &ManagedTestingCallbacks.LoadAssemblyTests,
-            UnloadAssemblyTests = &ManagedTestingCallbacks.UnloadAssemblyTests,
+            CollectTestCases = &ManagedTestingCallbacks.CollectTestCases,
             StartTest = &ManagedTestingCallbacks.StartTest,
             CheckTaskComplete = &ManagedTestingCallbacks.CheckTaskComplete
         };
@@ -36,27 +36,19 @@ public unsafe struct ManagedTestingActions
 public static unsafe class ManagedTestingCallbacks
 {
     [UnmanagedCallersOnly]
-    public static void LoadAssemblyTests(FName assemblyName, IntPtr assemblyPtr, UnmanagedArray* outArray)
+    public static void CollectTestCases(IntPtr assemblyNamesPtr, int assemblyNamesLength, UnmanagedArray* outputArrayPtr)
     {
-        var assembly = GCHandleUtilities.GetObjectFromHandlePtr<Assembly>(assemblyPtr);
-        ArgumentNullException.ThrowIfNull(assembly);
-        var runner = FUnrealSharpTestModule.Instance.RegisterRunner(assemblyName, assembly);
-        if (runner is null) return;
+        var testCases = Enumerable.Range(0, assemblyNamesLength)
+            .Select(i => StringMarshaller.FromNative(assemblyNamesPtr, i))
+            .ToArray();
         
-        foreach (var fullName in runner.TestCases)
+        var nativeStruct = stackalloc byte[FManagedTestCaseMarshaller.GetNativeDataSize()];
+        foreach (var unrealStruct in UnrealSharpTestDiscoveryClient.DiscoverTests(testCases)
+                     .Select(x => x.ToManagedTestCase()))
         {
-            fixed (char* nativeString = fullName)
-            {
-                // The native side will move the unmanaged array, removing the need to clear the string
-                ManagedTestingExporter.CallAddTest(ref *outArray, nativeString);
-            }
+            FManagedTestCaseMarshaller.ToNative((IntPtr)nativeStruct, 0, unrealStruct);
+            ManagedTestingExporter.CallAddTestCase(ref *outputArrayPtr, (IntPtr)nativeStruct);
         }
-    }
-
-    [UnmanagedCallersOnly]
-    public static void UnloadAssemblyTests(FName assemblyName)
-    {
-        FUnrealSharpTestModule.Instance.UnregisterRunner(assemblyName);
     }
 
     [UnmanagedCallersOnly]

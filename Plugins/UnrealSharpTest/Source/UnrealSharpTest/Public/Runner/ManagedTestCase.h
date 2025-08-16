@@ -3,12 +3,25 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ManagedTestCase.generated.h"
 
 /**
  * 
  */
+USTRUCT(BlueprintType)
 struct FManagedTestCase
 {
-    const FGuid Id;
-    const FName AssemblyName;
+    GENERATED_BODY()
+    
+    UPROPERTY(BlueprintReadOnly)
+    FString FullyQualifiedName;
+
+    UPROPERTY(BlueprintReadOnly)
+    FString ExecutorUri;
+
+    UPROPERTY(BlueprintReadOnly)
+    FString Source;
+
+    UPROPERTY(BlueprintReadOnly)
+    int32 LineNumber;
 };

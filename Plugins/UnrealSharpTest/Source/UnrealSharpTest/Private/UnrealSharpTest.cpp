@@ -4,36 +4,35 @@
 
 #include "CSManager.h"
 #include "Interop/ManagedTestingCallbacks.h"
+#include "Runner/CSharpAutomationTest.h"
+#include "UnrealSharpProcHelper/CSProcHelper.h"
 
 #define LOCTEXT_NAMESPACE "FUnrealSharpTestModule"
 
-FUnrealSharpTestModule* FUnrealSharpTestModule::Instance = nullptr;
-
 void FUnrealSharpTestModule::StartupModule()
 {
-    Instance = this;
-
-    FCoreDelegates::OnPostEngineInit.AddLambda([this]
+    FCoreDelegates::OnAllModuleLoadingPhasesComplete.AddLambda([this]
     {
-        auto& Manager = UCSManager::Get();
-        Manager.ForEachManagedAssembly([this](const FName Name, const TSharedPtr<FCSAssembly>&)
+        auto& TestFramework = FAutomationTestFramework::Get();
+        for (const auto &Test : Tests)
         {
-            OnAssemblyLoaded(Name);
-        });
-        Manager.OnManagedAssemblyLoadedEvent().AddRaw(this, &FUnrealSharpTestModule::OnAssemblyLoaded);
+            TestFramework.UnregisterAutomationTest(Test->GetTestFullName());
+        }
+        Tests.Reset();
+        
+        TArray<FString> Paths;
+        FCSProcHelper::GetAssemblyPathsByLoadOrder(Paths);
+        
+        for (auto TestCases = FManagedTestingCallbacks::Get().CollectTestCases(Paths); auto &TestCase : TestCases)
+        {
+            auto &Test = Tests.Emplace_GetRef(MakeShared<FCSharpAutomationTest>(MoveTemp(TestCase)));
+            TestFramework.RegisterAutomationTest(Test->GetTestFullName(), &Test.Get()); 
+        }
     });
 }
 
 void FUnrealSharpTestModule::ShutdownModule()
 {
-    Instance = nullptr;  
-}
-
-void FUnrealSharpTestModule::OnAssemblyLoaded(const FName &AssemblyName)
-{
-    const auto &Callbacks = FManagedTestingCallbacks::Get();
-    const auto Assembly = UCSManager::Get().FindAssembly(AssemblyName);
-    TestIds.Add(AssemblyName, Callbacks.LoadAssemblyTests(AssemblyName, Assembly->GetManagedAssemblyHandle()->Handle));
 }
 
 #undef LOCTEXT_NAMESPACE

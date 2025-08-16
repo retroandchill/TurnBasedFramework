@@ -4,7 +4,6 @@
 #include "Handles/DataHandlePropertyIdentifier.h"
 
 #include "TypeGenerator/CSScriptStruct.h"
-#include "TypeGenerator/Register/TypeInfo/CSStructInfo.h"
 
 bool FDataHandlePropertyIdentifier::IsPropertyTypeCustomized(const IPropertyHandle& PropertyHandle) const
 {
@@ -15,7 +14,6 @@ bool FDataHandlePropertyIdentifier::IsPropertyTypeCustomized(const IPropertyHand
         return false;
     }
 
-    
-    return ManagedStruct->GetTypeInfo()->TypeMetaData->MetaData.Contains("DataHandle")
+    return ManagedStruct->HasMetaData("DataHandle")
         && ManagedStruct->FindPropertyByName("Id") != nullptr;
 }

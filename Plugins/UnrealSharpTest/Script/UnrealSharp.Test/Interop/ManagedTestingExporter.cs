@@ -9,4 +9,6 @@ public static unsafe partial class ManagedTestingExporter
 {
     private static readonly delegate* unmanaged<ref ManagedTestingActions, void> SetManagedActions;
     private static readonly delegate* unmanaged<ref UnmanagedArray, char*, void> AddTest;
+    private static readonly delegate* unmanaged<FName, IntPtr> GetManagedAssembly;
+    private static readonly delegate* unmanaged<ref UnmanagedArray, IntPtr, void> AddTestCase;
 }

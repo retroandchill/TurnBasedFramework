@@ -4,16 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "CSManagedGCHandle.h"
+#include "Runner/ManagedTestCase.h"
 
 struct FManagedTestingActions
 {
+    using FCollectTestCases = void(__stdcall*)(const FString*, int32, TArray<FManagedTestCase>*);
     using FLoadLoadAssemblyTests = void(__stdcall*)(FName, FGCHandleIntPtr, TArray<FString>*);
-    using FUnloadLoadAssemblyTests = void(__stdcall*)(FName);
     using FStartTest = FGCHandleIntPtr(__stdcall*)(FName, const FString*);
     using FCheckTaskComplete = bool(__stdcall*)(FGCHandleIntPtr);
 
-    FLoadLoadAssemblyTests LoadLoadAssemblyTests;
-    FUnloadLoadAssemblyTests UnloadLoadAssemblyTests;
+    FCollectTestCases CollectTestCases;
     FStartTest StartTest;
     FCheckTaskComplete CheckTaskComplete;
 };
@@ -31,8 +31,7 @@ public:
 
     void SetActions(const FManagedTestingActions& InActions);
 
-    TArray<FString> LoadAssemblyTests(const FName AssemblyName, const FGCHandleIntPtr Assembly) const;
-    void UnloadAssemblyTests(const FName AssemblyName) const;
+    TArray<FManagedTestCase> CollectTestCases(TConstArrayView<FString> AssemblyPaths) const;
     FSharedGCHandle StartTest(const FName AssemblyName, const FString& TestName) const;
     bool CheckTaskComplete(const FSharedGCHandle& Task) const;
 
