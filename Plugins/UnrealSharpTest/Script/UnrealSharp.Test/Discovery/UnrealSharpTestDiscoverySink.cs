@@ -5,7 +5,7 @@ namespace UnrealSharp.Test.Discovery;
 
 public class UnrealSharpTestDiscoverySink : ITestCaseDiscoverySink
 {
-    private static readonly List<TestCase> _testCases = [];
+    private readonly List<TestCase> _testCases = [];
     public IEnumerable<TestCase> TestCases => _testCases;
     
     public void SendTestCase(TestCase discoveredTest)

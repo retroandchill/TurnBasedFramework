@@ -22,11 +22,5 @@ public:
     static void SetManagedActions(const FManagedTestingActions& InActions);
 
     UNREALSHARP_FUNCTION()
-    static void AddTest(TArray<FString>& Handles, const TCHAR* TestName);
-
-    UNREALSHARP_FUNCTION()
-    static FGCHandleIntPtr GetManagedAssembly(FName AssemblyName);
-
-    UNREALSHARP_FUNCTION()
     static void AddTestCase(TArray<FManagedTestCase>& TestCases, FManagedTestCase& TestCase);
 };

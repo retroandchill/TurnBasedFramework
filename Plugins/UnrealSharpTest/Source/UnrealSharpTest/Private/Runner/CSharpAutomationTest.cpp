@@ -6,6 +6,16 @@
 #include "Runner/CSharpTestLatentCommand.h"
 
 
+FString FCSharpAutomationTest::GetTestSourceFileName() const
+{
+    return ManagedTestCase.CodeFilePath;
+}
+
+int32 FCSharpAutomationTest::GetTestSourceFileLine() const
+{
+    return ManagedTestCase.LineNumber;
+}
+
 EAutomationTestFlags FCSharpAutomationTest::GetTestFlags() const
 {
     return EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter;

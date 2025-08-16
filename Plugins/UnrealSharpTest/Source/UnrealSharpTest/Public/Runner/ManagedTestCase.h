@@ -23,5 +23,8 @@ struct FManagedTestCase
     FString Source;
 
     UPROPERTY(BlueprintReadOnly)
+    FString CodeFilePath;
+
+    UPROPERTY(BlueprintReadOnly)
     int32 LineNumber;
 };

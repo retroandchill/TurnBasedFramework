@@ -16,16 +16,8 @@ public:
     {
     }
 
-    FString GetTestSourceFileName() const override
-    {
-        return ManagedTestCase.Source;
-    }
-
-    int32 GetTestSourceFileLine() const override
-    {
-        return ManagedTestCase.LineNumber;
-    }
-
+    FString GetTestSourceFileName() const override;
+    int32 GetTestSourceFileLine() const override;
     EAutomationTestFlags GetTestFlags() const override;
     FString GetBeautifiedTestName() const override;
     uint32 GetRequiredDeviceNum() const override;
