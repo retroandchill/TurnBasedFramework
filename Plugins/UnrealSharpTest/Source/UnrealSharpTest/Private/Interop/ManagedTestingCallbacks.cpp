@@ -23,9 +23,9 @@ TArray<FManagedTestCase> FManagedTestingCallbacks::CollectTestCases(const TConst
 }
 
 
-FSharedGCHandle FManagedTestingCallbacks::StartTest(const FName AssemblyName, const FString& TestName) const
+FSharedGCHandle FManagedTestingCallbacks::StartTest(const FManagedTestCase& TestCase) const
 {
-    return FSharedGCHandle(Actions.StartTest(AssemblyName, &TestName));
+    return FSharedGCHandle(Actions.StartTest(&TestCase));
 }
 
 bool FManagedTestingCallbacks::CheckTaskComplete(const FSharedGCHandle& Task) const

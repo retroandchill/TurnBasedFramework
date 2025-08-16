@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "CSManagedGCHandle.h"
+#include "ManagedTestCase.h"
 
 /**
  * 
@@ -11,7 +12,7 @@
 class UNREALSHARPTEST_API FCSharpTestLatentCommand final : public IAutomationLatentCommand
 {
 public:
-    explicit FCSharpTestLatentCommand(const FName AssemblyName, const FString& TestName);
+    explicit FCSharpTestLatentCommand(const FManagedTestCase& TestCase);
 
     bool Update() override;
 

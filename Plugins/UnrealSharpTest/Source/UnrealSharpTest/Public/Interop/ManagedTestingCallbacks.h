@@ -10,7 +10,7 @@ struct FManagedTestingActions
 {
     using FCollectTestCases = void(__stdcall*)(const FString*, int32, TArray<FManagedTestCase>*);
     using FLoadLoadAssemblyTests = void(__stdcall*)(FName, FGCHandleIntPtr, TArray<FString>*);
-    using FStartTest = FGCHandleIntPtr(__stdcall*)(FName, const FString*);
+    using FStartTest = FGCHandleIntPtr(__stdcall*)(const FManagedTestCase*);
     using FCheckTaskComplete = bool(__stdcall*)(FGCHandleIntPtr);
 
     FCollectTestCases CollectTestCases;
@@ -32,7 +32,7 @@ public:
     void SetActions(const FManagedTestingActions& InActions);
 
     TArray<FManagedTestCase> CollectTestCases(TConstArrayView<FString> AssemblyPaths) const;
-    FSharedGCHandle StartTest(const FName AssemblyName, const FString& TestName) const;
+    FSharedGCHandle StartTest( const FManagedTestCase& TestCase) const;
     bool CheckTaskComplete(const FSharedGCHandle& Task) const;
 
 private:

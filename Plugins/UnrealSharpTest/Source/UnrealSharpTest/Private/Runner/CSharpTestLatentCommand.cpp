@@ -5,11 +5,9 @@
 
 #include "Interop/ManagedTestingCallbacks.h"
 
-
-FCSharpTestLatentCommand::FCSharpTestLatentCommand(const FName AssemblyName, const FString& TestName)
-    : TestTask(FManagedTestingCallbacks::Get().StartTest(AssemblyName, TestName))
+FCSharpTestLatentCommand::FCSharpTestLatentCommand(const FManagedTestCase& TestCase)
+    : TestTask(FManagedTestingCallbacks::Get().StartTest(TestCase))
 {
-    
 }
 
 bool FCSharpTestLatentCommand::Update()

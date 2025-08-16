@@ -3,6 +3,8 @@
 
 #include "Runner/CSharpAutomationTest.h"
 
+#include "Runner/CSharpTestLatentCommand.h"
+
 
 EAutomationTestFlags FCSharpAutomationTest::GetTestFlags() const
 {
@@ -27,5 +29,6 @@ void FCSharpAutomationTest::GetTests(TArray<FString>& OutBeautifiedNames, TArray
 
 bool FCSharpAutomationTest::RunTest(const FString& Parameters)
 {
+    ADD_LATENT_AUTOMATION_COMMAND(FCSharpTestLatentCommand(ManagedTestCase));
     return true;
 }

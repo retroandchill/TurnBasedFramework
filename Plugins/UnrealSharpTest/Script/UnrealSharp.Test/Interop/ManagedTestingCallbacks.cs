@@ -6,6 +6,7 @@ using UnrealSharp.Core;
 using UnrealSharp.Core.Marshallers;
 using UnrealSharp.Test.Discovery;
 using UnrealSharp.Test.Mappers;
+using UnrealSharp.Test.Runner;
 using UnrealSharp.UnrealSharpTest;
 
 namespace UnrealSharp.Test.Interop;
@@ -17,7 +18,7 @@ public unsafe struct ManagedTestingActions
     public required delegate* unmanaged<IntPtr, int, UnmanagedArray*, void> CollectTestCases { get; init; }
     
     [UsedImplicitly]
-    public required delegate* unmanaged<FName, IntPtr, IntPtr> StartTest { get; init; }
+    public required delegate* unmanaged<IntPtr, IntPtr> StartTest { get; init; }
     
     [UsedImplicitly]
     public required delegate* unmanaged<IntPtr, NativeBool> CheckTaskComplete { get; init; }
@@ -46,28 +47,19 @@ public static unsafe class ManagedTestingCallbacks
         foreach (var unrealStruct in UnrealSharpTestDiscoveryClient.DiscoverTests(testCases)
                      .Select(x => x.ToManagedTestCase()))
         {
-            FManagedTestCaseMarshaller.ToNative((IntPtr)nativeStruct, 0, unrealStruct);
+            unrealStruct.ToNative((IntPtr)nativeStruct);
             ManagedTestingExporter.CallAddTestCase(ref *outputArrayPtr, (IntPtr)nativeStruct);
         }
     }
 
     [UnmanagedCallersOnly]
-    public static IntPtr StartTest(FName assemblyName, IntPtr testNamePtr)
+    public static IntPtr StartTest(IntPtr nativeStruct)
     {
-        if (!FUnrealSharpTestModule.Instance.TryGetRunner(assemblyName, out var runner)) return IntPtr.Zero;
-        
-        var testName = StringMarshaller.FromNative(testNamePtr, 0);
-        try
-        {
-            var testTask = runner.RunTest(testName);
-            var taskHandle = GCHandle.Alloc(testTask);
-            return GCHandle.ToIntPtr(taskHandle);
-        }
-        catch (Exception e)
-        {
-            LogUnrealSharpTest.LogError($"Failed to run test {testName}: {e}");
-            return IntPtr.Zero;
-        } 
+        var managedStruct = FManagedTestCase.FromNative(nativeStruct);
+        var testCase = managedStruct.ToTestCase();
+        var testTask = UnrealSharpTestExecutor.RunTestInProcess(testCase);
+        var taskHandle = GCHandle.Alloc(testTask);
+        return GCHandle.ToIntPtr(taskHandle);
     }
     
     [UnmanagedCallersOnly]
@@ -76,7 +68,11 @@ public static unsafe class ManagedTestingCallbacks
         var task = GCHandleUtilities.GetObjectFromHandlePtr<Task>(taskHandlePtr);
         ArgumentNullException.ThrowIfNull(task);
         if (!task.IsCompleted) return NativeBool.False;
-        
+
+        if (task.IsFaulted)
+        {
+            LogUnrealSharpTest.LogError(task.Exception!.ToString());
+        }
         task.Dispose();
         return NativeBool.True;
 
