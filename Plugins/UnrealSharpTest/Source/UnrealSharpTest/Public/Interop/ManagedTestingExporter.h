@@ -21,5 +21,5 @@ public:
     static void SetManagedActions(const FManagedTestingActions& InActions);
 
     UNREALSHARP_FUNCTION()
-    static void AddTest(TMap<FString, FManagedTestHandle>& Handles, FGCHandleIntPtr Handle);
+    static void AddTest(TArray<FString>& Handles, const TCHAR* TestName);
 };

@@ -3,28 +3,18 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "CSharpAutomationTestBase.h"
-#include "ManagedTestListenerHandle.h"
+#include "CSManagedGCHandle.h"
 
 /**
  * 
  */
-class UNREALSHARPTEST_API FCSharpTestLatentCommand : public IAutomationLatentCommand
+class UNREALSHARPTEST_API FCSharpTestLatentCommand final : public IAutomationLatentCommand
 {
 public:
-    FCSharpTestLatentCommand(FCSharpAutomationTestBase& InTest, FGCHandleIntPtr ManagedListener) : Test(InTest), ListenerHandle(ManagedListener) {}
+    explicit FCSharpTestLatentCommand(const FName AssemblyName, const FString& TestName);
 
-    void AddInfo(const FString& Message) const
-    {
-        Test.AddInfo(Message);
-    }
-
-    void AddError(const FString& Message) const
-    {
-        Test.AddError(Message);
-    }
+    bool Update() override;
 
 private:
-    FCSharpAutomationTestBase& Test;
-    FManagedTestListenerHandle ListenerHandle;
+    FSharedGCHandle TestTask;
 };

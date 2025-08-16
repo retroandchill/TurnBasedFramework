@@ -15,8 +15,12 @@ void FUnrealSharpTestModule::StartupModule()
 
     FCoreDelegates::OnPostEngineInit.AddLambda([this]
     {
-        OnAssembliesLoaded();
-        UCSManager::Get().OnAssembliesLoadedEvent().AddRaw(this, &FUnrealSharpTestModule::OnAssembliesLoaded);  
+        auto& Manager = UCSManager::Get();
+        Manager.ForEachManagedAssembly([this](const FName Name, const TSharedPtr<FCSAssembly>&)
+        {
+            OnAssemblyLoaded(Name);
+        });
+        Manager.OnManagedAssemblyLoadedEvent().AddRaw(this, &FUnrealSharpTestModule::OnAssemblyLoaded);
     });
 }
 
@@ -25,9 +29,11 @@ void FUnrealSharpTestModule::ShutdownModule()
     Instance = nullptr;  
 }
 
-void FUnrealSharpTestModule::OnAssembliesLoaded()
+void FUnrealSharpTestModule::OnAssemblyLoaded(const FName &AssemblyName)
 {
-    TestHandles = FManagedTestingCallbacks::Get().GetManagedTests(); 
+    const auto &Callbacks = FManagedTestingCallbacks::Get();
+    const auto Assembly = UCSManager::Get().FindAssembly(AssemblyName);
+    TestIds.Add(AssemblyName, Callbacks.LoadAssemblyTests(AssemblyName, Assembly->GetManagedAssemblyHandle()->Handle));
 }
 
 #undef LOCTEXT_NAMESPACE

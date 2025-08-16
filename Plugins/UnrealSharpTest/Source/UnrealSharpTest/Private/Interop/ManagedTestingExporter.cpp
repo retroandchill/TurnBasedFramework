@@ -8,9 +8,7 @@ void UManagedTestingExporter::SetManagedActions(const FManagedTestingActions& In
     FManagedTestingCallbacks::Get().SetActions(InActions);  
 }
 
-void UManagedTestingExporter::AddTest(TMap<FString, FManagedTestHandle>& Handles, const FGCHandleIntPtr Handle)
+void UManagedTestingExporter::AddTest(TArray<FString>& Handles, const TCHAR* TestName)
 {
-    FManagedTestHandle TestHandle(Handle);
-    auto Name = TestHandle.GetFullyQualifiedName();
-    Handles.Emplace(MoveTemp(Name), MoveTemp(TestHandle));  
+    Handles.Emplace(TestName); 
 }

@@ -1,14 +1,16 @@
 ﻿using NUnit.Framework.Interfaces;
-using Retro.ReadOnlyParams.Annotations;
 
-namespace UnrealSharp.Test.Runner;
+namespace UnrealSharp.Test.Runner.NUnit;
 
-public class UnrealSharpTestListener([ReadOnly] IntPtr latentTestAction) : ITestListener
+public class UnrealSharpTestListener : ITestListener
 {
+    private readonly TaskCompletionSource _completionSource = new();
+    
+    public Task Completion => _completionSource.Task;
     
     public void TestStarted(ITest test)
     {
-        // We don't need to do anything here
+        // Nothing needed on start
     }
 
     public void TestFinished(ITestResult result)
@@ -16,27 +18,28 @@ public class UnrealSharpTestListener([ReadOnly] IntPtr latentTestAction) : ITest
         switch (result.ResultState.Status)
         {
             case TestStatus.Inconclusive:
-                break;
             case TestStatus.Skipped:
-                break;
             case TestStatus.Passed:
                 break;
             case TestStatus.Warning:
+                LogUnrealSharpTest.LogWarning(result.Message);
                 break;
             case TestStatus.Failed:
+                LogUnrealSharpTest.LogError(result.Message);
                 break;
             default:
-                throw new ArgumentOutOfRangeException();
+                throw new InvalidOperationException();
         }
+        _completionSource.SetResult();
     }
 
     public void TestOutput(TestOutput output)
     {
-        throw new NotImplementedException();
+        LogUnrealSharpTest.Log(output.Text);
     }
 
     public void SendMessage(TestMessage message)
     {
-        throw new NotImplementedException();
+        LogUnrealSharpTest.Log(message.Message);
     }
 }

@@ -8,12 +8,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aa1e9cdd-86d7-4878-ad99-f01b0434e94b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/UnrealSharp.Test.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/UnrealInject/Script/UnrealInject/Subsystems/DependencyInjectionGameInstanceSubsystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealInject/Script/UnrealInject/Subsystems/DependencyInjectionGameInstanceSubsystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/UnrealInject/Script/UnrealInject/UnrealInject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealInject/Script/UnrealInject/UnrealInject.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/ManagedTurnBasedFramework.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Script/ManagedTurnBasedFramework.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp.Plugins/PluginLoadContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp.Plugins/PluginLoadContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/CSManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/CSManager.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Discovery/DynamicAssemblyBuilder.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Discovery/UnifiedTestDiscoverer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Discovery/UnrealSharpTestCase.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Interop/ManagedTestingCallbacks.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Interop/ManagedTestingCallbacks.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Interop/ManagedTestingExporter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Interop/ManagedTestingExporter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Runner/UnrealSharpTestListener.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Runner/UnrealSharpTestRunner.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/UnrealSharpTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/UnrealSharpTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharpTest.Glue/UnrealSharpTest.Glue.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharpTest.Glue/UnrealSharpTest.Glue.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/Interop/ManagedTestingCallbacks.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/Interop/ManagedTestingCallbacks.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/Interop/ManagedTestingExporter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/Interop/ManagedTestingExporter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/Runner/CSharpAutomationTest.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/Runner/CSharpAutomationTest.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/Runner/CSharpAutomationTestBase.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/Runner/CSharpTestLatentCommand.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/Runner/CSharpTestLatentCommand.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/Runner/ManagedTestHandle.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/Runner/ManagedTestListenerHandle.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/UnrealSharpTest.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/UnrealSharpTest.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/Interop/ManagedTestingCallbacks.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/Interop/ManagedTestingCallbacks.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/Interop/ManagedTestingExporter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/Interop/ManagedTestingExporter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/Runner/CSharpAutomationTestBase.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/Runner/CSharpTestLatentCommand.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/Runner/CSharpTestLatentCommand.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/Runner/ManagedTestHandle.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/Runner/ManagedTestListenerHandle.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/UnrealSharpTest.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/UnrealSharpTest.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TurnBasedFramework.uproject.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/TurnBasedFramework.uproject.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global.json" beforeDir="false" afterPath="$PROJECT_DIR$/global.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,7 +180,43 @@
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="cidr-memory-view://15" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="cidr-memory-view://23" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Plugins/AI/MassAI/Source/MassAIBehavior/MassAIBehavior.Build.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Plugins/Animation/ControlRig/Source/ControlRig/Private/ControlRigReplay.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Plugins/AudioGameplay/Source/AudioGameplayTests/AudioGameplayTests.build.cs" root0="SKIP_HIGHLIGHTING" />
@@ -213,6 +273,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Plugins/VirtualProduction/PerformanceCaptureWorkflow/Source/PerformanceCaptureWorkflow/PerformanceCaptureWorkflow.Build.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Plugins/VirtualProduction/VirtualCameraCore/Source/PixelStreamingVCam/PixelStreamingVCam.Build.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Developer/AITestSuite/AITestSuite.Build.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Developer/AITestSuite/Private/Tests/AITestsCommon.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Developer/AITestSuite/Public/AITestsCommon.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Developer/Android/AndroidDeviceDetection/AndroidDeviceDetection.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Developer/Android/AndroidTargetPlatform/AndroidTargetPlatform.Build.cs" root0="FORCE_HIGHLIGHTING" />
@@ -232,6 +293,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Developer/AutomationWindow/AutomationWindow.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Developer/BSPUtils/BSPUtils.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Developer/BlankModule/BlankModule.Build.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Developer/CQTest/Private/Commands/TestCommands.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Developer/CQTest/Public/Commands/TestCommands.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Developer/CookMetadata/CookMetadata.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Developer/CookOnTheFlyNetServer/CookOnTheFlyNetServer.Build.cs" root0="FORCE_HIGHLIGHTING" />
@@ -318,6 +380,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/ContentBrowser/Private/ContentBrowserSingleton.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/ContentBrowser/Private/ContentBrowserSingleton.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/ContentBrowser/Private/Menus/AssetViewMenus.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/ContentBrowser/Private/PathViewTypes.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/ContentBrowser/Private/SContentBrowser.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/ContentBrowser/Private/SourcesViewWidgets.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/CurveEditor/Private/CurveEditorCommands.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -518,6 +581,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/MovieSceneTools/Private/MovieSceneDirectorBlueprintUtils.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/MovieSceneTools/Private/Sections/ComponentMaterialParameterSection.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/MovieSceneTools/Private/TrackEditors/PropertyTrackEditors/BoolPropertyTrackEditor.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/MovieSceneTools/Public/MovieSceneDynamicBindingCustomization.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/Persona/Private/AnimAssetFindReplace.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/Persona/Private/AnimAssetFindReplaceCurves.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/Persona/Private/AnimAssetFindReplaceNotifies.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -890,6 +954,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/ApplicationCore/Private/Windows/Accessibility/WindowsUIAWidgetProvider.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/AudioCaptureCore/Private/AudioCaptureCoreModule.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/AutoRTFM/AutoRTFM.Build.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/AutoRTFM/Public/AutoRTFM.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/BuildSettings/BuildSettings.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/CUDA/Source/Private/CudaWrapper.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Cbor/Public/CborTypes.h" root0="FORCE_HIGHLIGHTING" />
@@ -930,6 +995,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Core/Public/Audio/SimpleWaveReader.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Core/Public/Containers/Array.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Core/Public/Containers/Map.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Core/Public/Containers/Queue.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Core/Public/Containers/Set.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Core/Public/Containers/SparseArray.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Core/Public/Containers/UnrealString.h.inl" root0="FORCE_HIGHLIGHTING" />
@@ -1082,6 +1148,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/Tests/AutoRTFM/AutoRTFMGameplayTagTests.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/Tests/IntSerializationTest.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/Tests/Loading/AsyncLoadingTests_Shared.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/Tests/NetworkAutomationTests.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/TimerManager.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Public/CollisionDebugDrawingPublic.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Public/DebugRenderSceneProxy.h" root0="FORCE_HIGHLIGHTING" />
@@ -1143,6 +1210,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/MovieSceneTracks/Private/Tracks/MovieScenePropertyTrack.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/NavigationSystem/NavigationSystem.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/NavigationSystem/Public/NavNodeInterface.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Navmesh/Private/Recast/RecastRasterization.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Navmesh/Public/DebugUtils/DebugDraw.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Navmesh/Public/Recast/RecastAssert.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Navmesh/Recast-Readme.txt" root0="FORCE_HIGHLIGHTING" />
@@ -1204,18 +1272,20 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/ThirdParty/nvTriStrip/nvTriStrip.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/ThirdParty/pugixml/pugixml.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/ThirdParty/xxhash/xxhash.Build.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/ThirdParty/xxhash/xxhash.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.SourceGenerator/Attributes/GameDataEntryAttribute.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.SourceGenerator/Generators/GameDataRepositoryGenerator.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.SourceGenerator/Model/AccessiblePropertyInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.SourceGenerator/Utilities/PropertyAccessUtilities.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/GameDataAccessTools/Source/GameDataAccessTools/GameDataAccessTools.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp.Core/Attributes/GeneratedType.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp.Plugins/PluginLoadContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp.Plugins/PluginLoadContext.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Attributes/UPropertyAttribute.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Extensions/CoreUObject/Object.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Extensions/CoreUObject/Quat.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Extensions/GameplayTags/GameplayTag.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Generated/Landscape/LandscapeEditLayerBase.generated.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Generated/UMGWidgetPreview/WidgetPreview.generated.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Interop/UScriptStructExporter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharpPrograms/UnrealSharpBuildTool/Actions/BuildToolAction.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharpPrograms/UnrealSharpBuildTool/Actions/GenerateProject.cs" root0="SKIP_HIGHLIGHTING" />
@@ -1440,7 +1510,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754950816680</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Created a new plugin to handle running NUnit tests">
+      <option name="closed" value="true" />
+      <created>1755300687419</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1755300687419</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1481,7 +1559,8 @@
     <MESSAGE value="Added some additional methods to Gameplay Tags" />
     <MESSAGE value="Started work on the species PBS parser" />
     <MESSAGE value="Set changing the evolution method to auto create the target object" />
-    <option name="LAST_COMMIT_MESSAGE" value="Set changing the evolution method to auto create the target object" />
+    <MESSAGE value="Created a new plugin to handle running NUnit tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created a new plugin to handle running NUnit tests" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1498,11 +1577,6 @@
           <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
           <option name="timeStamp" value="3" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/CSManagedGCHandle.h</url>
-          <line>93</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

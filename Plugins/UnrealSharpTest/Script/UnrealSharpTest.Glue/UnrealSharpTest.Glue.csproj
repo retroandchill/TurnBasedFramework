@@ -17,4 +17,7 @@
     </Reference>
     <Analyzer Include="..\..\..\UnrealSharp\Binaries\Managed\UnrealSharp.SourceGenerators.dll" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
 </Project>

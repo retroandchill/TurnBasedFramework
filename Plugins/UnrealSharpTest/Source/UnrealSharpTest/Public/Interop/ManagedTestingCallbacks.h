@@ -3,17 +3,19 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Runner/ManagedTestHandle.h"
-
-struct FGCHandleIntPtr;
+#include "CSManagedGCHandle.h"
 
 struct FManagedTestingActions
 {
-    using FGetManagedTests = void(__stdcall*)(TMap<FString, FManagedTestHandle>*);
-    using FGetFullyQualifiedName = void(__stdcall*)(const FGCHandleIntPtr, FString*);
+    using FLoadLoadAssemblyTests = void(__stdcall*)(FName, FGCHandleIntPtr, TArray<FString>*);
+    using FUnloadLoadAssemblyTests = void(__stdcall*)(FName);
+    using FStartTest = FGCHandleIntPtr(__stdcall*)(FName, const FString*);
+    using FCheckTaskComplete = bool(__stdcall*)(FGCHandleIntPtr);
 
-    FGetManagedTests GetManagedTests;
-    FGetFullyQualifiedName GetFullyQualifiedName;
+    FLoadLoadAssemblyTests LoadLoadAssemblyTests;
+    FUnloadLoadAssemblyTests UnloadLoadAssemblyTests;
+    FStartTest StartTest;
+    FCheckTaskComplete CheckTaskComplete;
 };
 
 /**
@@ -29,8 +31,10 @@ public:
 
     void SetActions(const FManagedTestingActions& InActions);
 
-    TMap<FString, FManagedTestHandle> GetManagedTests() const;
-    FString GetFullyQualifiedName(const FGCHandleIntPtr& Handle) const;
+    TArray<FString> LoadAssemblyTests(const FName AssemblyName, const FGCHandleIntPtr Assembly) const;
+    void UnloadAssemblyTests(const FName AssemblyName) const;
+    FSharedGCHandle StartTest(const FName AssemblyName, const FString& TestName) const;
+    bool CheckTaskComplete(const FSharedGCHandle& Task) const;
 
 private:
     FManagedTestingActions Actions;

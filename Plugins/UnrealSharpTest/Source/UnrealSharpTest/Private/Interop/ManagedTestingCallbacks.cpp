@@ -15,16 +15,24 @@ void FManagedTestingCallbacks::SetActions(const FManagedTestingActions& InAction
     Actions = InActions;   
 }
 
-TMap<FString, FManagedTestHandle> FManagedTestingCallbacks::GetManagedTests() const
+TArray<FString> FManagedTestingCallbacks::LoadAssemblyTests(const FName AssemblyName, const FGCHandleIntPtr Assembly) const
 {
-    TMap<FString, FManagedTestHandle> Result;
-    Actions.GetManagedTests(&Result);
-    return Result;  
+    TArray<FString> Result;
+    Actions.LoadLoadAssemblyTests(AssemblyName, Assembly, &Result);
+    return Result; 
 }
 
-FString FManagedTestingCallbacks::GetFullyQualifiedName(const FGCHandleIntPtr& Handle) const
+void FManagedTestingCallbacks::UnloadAssemblyTests(const FName AssemblyName) const
 {
-    FString Result;
-    Actions.GetFullyQualifiedName(Handle, &Result);
-    return Result;
+    Actions.UnloadLoadAssemblyTests(AssemblyName); 
+}
+
+FSharedGCHandle FManagedTestingCallbacks::StartTest(const FName AssemblyName, const FString& TestName) const
+{
+    return FSharedGCHandle(Actions.StartTest(AssemblyName, &TestName));
+}
+
+bool FManagedTestingCallbacks::CheckTaskComplete(const FSharedGCHandle& Task) const
+{
+    return Actions.CheckTaskComplete(Task.GetHandle());
 }

@@ -17,14 +17,15 @@ public:
         check(Instance != nullptr); 
         return *Instance;  
     }
-    const TMap<FString, FManagedTestHandle>& GetTestHandles() const
+    
+    const TMap<FName, TArray<FString>>& GetTestIds() const
     {
-        return TestHandles;   
+        return TestIds;   
     }
 
 private:
-    void OnAssembliesLoaded();
+    void OnAssemblyLoaded(const FName &AssemblyName);
     
     static FUnrealSharpTestModule* Instance;
-    TMap<FString, FManagedTestHandle> TestHandles;
+    TMap<FName, TArray<FString>> TestIds;
 };

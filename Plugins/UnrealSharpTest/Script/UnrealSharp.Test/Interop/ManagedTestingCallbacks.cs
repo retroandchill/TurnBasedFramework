@@ -1,8 +1,8 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Reflection;
+using System.Runtime.InteropServices;
 using JetBrains.Annotations;
+using UnrealSharp.Core;
 using UnrealSharp.Core.Marshallers;
-using UnrealSharp.Plugins;
-using UnrealSharp.Test.Discovery;
 
 namespace UnrealSharp.Test.Interop;
 
@@ -10,41 +10,83 @@ namespace UnrealSharp.Test.Interop;
 public unsafe struct ManagedTestingActions
 {
     [UsedImplicitly]
-    public required delegate* unmanaged<IntPtr, void> GetManagedTests { get; init; }
+    public required delegate* unmanaged<FName, IntPtr, UnmanagedArray*, void> LoadAssemblyTests { get; init; }
+
+    [UsedImplicitly]
+    public required delegate* unmanaged<FName, void> UnloadAssemblyTests { get; init; }
     
     [UsedImplicitly]
-    public required delegate* unmanaged<IntPtr, IntPtr, void> GetFullyQualifiedName { get; init; }
+    public required delegate* unmanaged<FName, IntPtr, IntPtr> StartTest { get; init; }
     
+    [UsedImplicitly]
+    public required delegate* unmanaged<IntPtr, NativeBool> CheckTaskComplete { get; init; }
+
     public static ManagedTestingActions Create()
     {
         return new ManagedTestingActions
         {
-            GetManagedTests = &ManagedTestingCallbacks.GetManagedTests,
-            GetFullyQualifiedName = &ManagedTestingCallbacks.GetFullQualifiedName
+            LoadAssemblyTests = &ManagedTestingCallbacks.LoadAssemblyTests,
+            UnloadAssemblyTests = &ManagedTestingCallbacks.UnloadAssemblyTests,
+            StartTest = &ManagedTestingCallbacks.StartTest,
+            CheckTaskComplete = &ManagedTestingCallbacks.CheckTaskComplete
         };
     }
 }
 
-public static class ManagedTestingCallbacks
+public static unsafe class ManagedTestingCallbacks
 {
     [UnmanagedCallersOnly]
-    public static void GetManagedTests(IntPtr outMap)
+    public static void LoadAssemblyTests(FName assemblyName, IntPtr assemblyPtr, UnmanagedArray* outArray)
     {
-        foreach (var testCase in FUnrealSharpTest.Instance.Discoverer.DiscoverTests(PluginLoader.LoadedPlugins
-                     .Select(x => x.LoadContext)
-                     .Where(x => x is not null)!))
+        var assembly = GCHandleUtilities.GetObjectFromHandlePtr<Assembly>(assemblyPtr);
+        ArgumentNullException.ThrowIfNull(assembly);
+        var runner = FUnrealSharpTestModule.Instance.RegisterRunner(assemblyName, assembly);
+        if (runner is null) return;
+        
+        foreach (var fullName in runner.TestCases)
         {
-            var testCaseHandle = GCHandle.Alloc(testCase);
-            var testCasePtr = GCHandle.ToIntPtr(testCaseHandle);
-            ManagedTestingExporter.CallAddTest(outMap, testCasePtr);
+            fixed (char* nativeString = fullName)
+            {
+                // The native side will move the unmanaged array, removing the need to clear the string
+                ManagedTestingExporter.CallAddTest(ref *outArray, nativeString);
+            }
         }
     }
 
     [UnmanagedCallersOnly]
-    public static void GetFullQualifiedName(IntPtr managedPtr, IntPtr stringPtr)
+    public static void UnloadAssemblyTests(FName assemblyName)
     {
-        var testCaseHandle = GCHandle.FromIntPtr(managedPtr);
-        var testCase = (UnrealSharpTestCase) testCaseHandle.Target!;
-        StringMarshaller.ToNative(stringPtr, 0, testCase.FullName);
+        FUnrealSharpTestModule.Instance.UnregisterRunner(assemblyName);
+    }
+
+    [UnmanagedCallersOnly]
+    public static IntPtr StartTest(FName assemblyName, IntPtr testNamePtr)
+    {
+        if (!FUnrealSharpTestModule.Instance.TryGetRunner(assemblyName, out var runner)) return IntPtr.Zero;
+        
+        var testName = StringMarshaller.FromNative(testNamePtr, 0);
+        try
+        {
+            var testTask = runner.RunTest(testName);
+            var taskHandle = GCHandle.Alloc(testTask);
+            return GCHandle.ToIntPtr(taskHandle);
+        }
+        catch (Exception e)
+        {
+            LogUnrealSharpTest.LogError($"Failed to run test {testName}: {e}");
+            return IntPtr.Zero;
+        } 
+    }
+    
+    [UnmanagedCallersOnly]
+    public static NativeBool CheckTaskComplete(IntPtr taskHandlePtr)
+    {
+        var task = GCHandleUtilities.GetObjectFromHandlePtr<Task>(taskHandlePtr);
+        ArgumentNullException.ThrowIfNull(task);
+        if (!task.IsCompleted) return NativeBool.False;
+        
+        task.Dispose();
+        return NativeBool.True;
+
     }
 }
