@@ -14,5 +14,8 @@ public:
     void ShutdownModule() override;
 
 private:
+    void RegisterTests();
+
+    FDelegateHandle RegisterTestsHandle;
     TArray<TSharedRef<FCSharpAutomationTest>> Tests;
 };
