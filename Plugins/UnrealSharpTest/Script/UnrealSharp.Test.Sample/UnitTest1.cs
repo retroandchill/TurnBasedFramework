@@ -22,6 +22,36 @@ public class Tests
         Assert.Fail("This test is failing");
     }
     
+    [AutomationTest]
+    public async Task Test3()
+    {
+        await Task.Delay(1000);
+        Assert.Pass();
+    }
+    
+    [AutomationTest]
+    public async ValueTask Test4()
+    {
+        await Task.Delay(1000);
+        Assert.Pass();
+    }
+    
+    [AutomationTest]
+    public async Task<bool> Test5()
+    {
+        await Task.Delay(1000);
+        Assert.Pass();
+        return true;
+    }
+    
+    [AutomationTest]
+    public async ValueTask<bool> Test6()
+    {
+        await Task.Delay(1000);
+        Assert.Pass();
+        return true;
+    }
+    
     /*
     [TestCase(12, 3, 4)]
     [TestCase(12, 2, 6)]

@@ -13,7 +13,7 @@ public static class UnrealSharpTestExecutor
 
         var testInstance = Activator.CreateInstance(testClass);
 
-        await RunTestMethod(testInstance, testCase.SetupMethod, testCase.Arguments);
+        await RunTestMethod(testInstance, testCase.SetupMethod);
 
         try
         {
@@ -29,7 +29,7 @@ public static class UnrealSharpTestExecutor
         }
         finally
         {
-            await RunTestMethod(testInstance, testCase.TearDownMethod, testCase.Arguments);
+            await RunTestMethod(testInstance, testCase.TearDownMethod);
         }
     }
 
@@ -56,8 +56,12 @@ public static class UnrealSharpTestExecutor
             var genericTypeDefinition = resultType.GetGenericTypeDefinition();
             if (genericTypeDefinition == typeof(ValueTask<>))
             {
-                var asValueTask = (ValueTask)Convert.ChangeType(result, typeof(ValueTask));
-                await asValueTask;
+                var awaitMethod = typeof(UnrealSharpTestExecutor)
+                    .GetMethod(nameof(AwaitValueTask), BindingFlags.NonPublic | BindingFlags.Static)!
+                    .MakeGenericMethod(resultType.GenericTypeArguments[0]);
+                
+                var awaitTask = (ValueTask)awaitMethod.Invoke(null, [result])!;
+                await awaitTask;
             }
         }
         catch (TargetInvocationException e)
@@ -69,5 +73,10 @@ public static class UnrealSharpTestExecutor
             
             throw e.InnerException;
         }
+    }
+    
+    private static async ValueTask AwaitValueTask<T>(ValueTask<T> valueTask)
+    {
+        await valueTask;
     }
 }
