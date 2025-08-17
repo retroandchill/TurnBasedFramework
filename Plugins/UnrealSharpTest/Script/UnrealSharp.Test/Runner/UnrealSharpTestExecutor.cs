@@ -33,11 +33,15 @@ public static class UnrealSharpTestExecutor
         }
     }
 
-    private static async ValueTask RunTestMethod(object? testFixture, MethodInfo? methodInfo, params object[] arguments)
+    private static async ValueTask RunTestMethod(object? testFixture, MethodInfo? methodInfo, params object?[] arguments)
     {
+        if (methodInfo is null) return;
+        
+        var convertedArguments = ConvertProvidedArguments(methodInfo, arguments);
+
         try
         {
-            var result = methodInfo?.Invoke(testFixture, arguments);
+            var result = methodInfo.Invoke(testFixture, convertedArguments);
             switch (result)
             {
                 case null:
@@ -74,7 +78,36 @@ public static class UnrealSharpTestExecutor
             throw e.InnerException;
         }
     }
-    
+
+    private static object?[] ConvertProvidedArguments(MethodInfo methodInfo, object?[] arguments)
+    {
+        var parameters = methodInfo.GetParameters();
+        var requiredParameters = parameters.TakeWhile(p => p.HasDefaultValue == false).Count();
+        
+        if (requiredParameters > arguments.Length)
+        {
+            throw new InvalidOperationException($"Test method {methodInfo.Name} has more parameters than provided");
+        }
+        
+        if (parameters.Length < arguments.Length)
+        {
+            LogUnrealSharpTest.LogWarning($"Test method {methodInfo.Name} has less parameters than provided");
+        }
+        
+        var convertedArguments = new object?[parameters.Length];
+        for (var i = 0; i < parameters.Length; i++)
+        {
+            if (i < arguments.Length)
+            {
+                convertedArguments[i] = parameters[i].DefaultValue;
+            }
+            
+            convertedArguments[i] = Convert.ChangeType(arguments[i], parameters[i].ParameterType);
+        }
+
+        return convertedArguments;
+    }
+
     private static async ValueTask AwaitValueTask<T>(ValueTask<T> valueTask)
     {
         await valueTask;

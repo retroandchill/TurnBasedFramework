@@ -9,7 +9,7 @@ public sealed record UnrealTestCase(
     MethodInfo? TearDownMethod,
     MethodInfo Method)
 {
-    public object[] Arguments { get; init; } = [];
+    public object?[] Arguments { get; init; } = [];
     public string? CodeFilePath { get; init; }
     public int LineNumber { get; init; }
 }

@@ -45,7 +45,7 @@ public static class UnrealSharpTestDiscoveryClient
 
     private static bool IsTestMethod(MethodInfo method)
     {
-        return method.GetCustomAttribute<AutomationTestAttribute>() is not null;
+        return method.GetCustomAttribute<AutomationTestAttribute>() is not null || method.GetCustomAttributes<AutomationTestCaseAttribute>().Any();
     }
 
     private static IEnumerable<UnrealTestCase> DiscoverTests(FName assemblyName, Type testClass)
@@ -81,16 +81,36 @@ public static class UnrealSharpTestDiscoveryClient
 
         var sequencePoint = method.GetFirstSequencePoint();
         
-        return
-        [
-            new UnrealTestCase(assemblyName, testName, setupMethod, teardownMethod, method)
-            {
-                CodeFilePath = sequencePoint?.Document.ToString(),
-                LineNumber = sequencePoint?.StartLine ?? 0,
-            }
-        ];
+        var testCases = method.GetCustomAttributes<AutomationTestCaseAttribute>()
+            .ToArray();
+
+        if (testCases.Length == 0)
+        {
+            return [CreateTestCase(assemblyName, testName, method, setupMethod, teardownMethod, sequencePoint)];
+        }
+
+        return testCases
+            .DistinctBy(GetArgumentsName)
+            .Select(t =>
+                CreateTestCase(assemblyName, $"{testName}.{GetArgumentsName(t)}", 
+                    method, setupMethod, teardownMethod, sequencePoint, t.Arguments));
     }
-    
-    
+
+    private static UnrealTestCase CreateTestCase(FName assemblyName, string testName, MethodInfo method,
+                                                 MethodInfo? setupMethod, MethodInfo? teardownMethod, 
+                                                 SequencePoint? sequencePoint, params object?[] arguments)
+    {
+        return new UnrealTestCase(assemblyName, testName, setupMethod, teardownMethod, method)
+        {
+            Arguments = arguments,
+            CodeFilePath = sequencePoint?.Document.ToString(),
+            LineNumber = sequencePoint?.StartLine ?? 0,
+        };
+    }
+
+    private static string GetArgumentsName(AutomationTestCaseAttribute testCase)
+    {
+        return testCase.DisplayName ?? $"({string.Join(";", testCase.Arguments.Select(a => a?.ToString() ?? "null"))})";
+    }
 
 }

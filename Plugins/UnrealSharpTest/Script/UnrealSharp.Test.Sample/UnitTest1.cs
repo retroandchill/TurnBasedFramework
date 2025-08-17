@@ -52,13 +52,11 @@ public class Tests
         return true;
     }
     
-    /*
-    [TestCase(12, 3, 4)]
-    [TestCase(12, 2, 6)]
-    [TestCase(12, 4, 3)]
+    [AutomationTestCase(12, 3, 4)]
+    [AutomationTestCase(12, 2, 6)]
+    [AutomationTestCase(12, 4, 3)]
     public void DivideTest(int n, int d, int q)
     {
         Assert.That(n / d, Is.EqualTo(q));
     }
-    */
 }
