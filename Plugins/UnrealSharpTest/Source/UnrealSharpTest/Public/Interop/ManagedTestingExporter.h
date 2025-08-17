@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "ManagedTestingCallbacks.h"
-#include "Runner/ManagedTestCase.h"
+#include "Model/ManagedTestCase.h"
 #include "UnrealSharpBinds/Public/CSBindsManager.h"
 #include "UObject/Object.h"
 #include "ManagedTestingExporter.generated.h"
@@ -22,5 +22,11 @@ public:
     static void SetManagedActions(const FManagedTestingActions& InActions);
 
     UNREALSHARP_FUNCTION()
-    static void AddTestCase(TArray<FManagedTestCase>& TestCases, FManagedTestCase& TestCase);
+    static FGCHandleIntPtr FindUserAssembly(FName AssemblyName);
+
+    UNREALSHARP_FUNCTION()
+    static void AddTestCase(TArray<FManagedTestCaseHandle>& TestCases, FManagedTestCase& TestCase, FGCHandleIntPtr ManagedTest);
+
+    UNREALSHARP_FUNCTION()
+    static void RemoveTestCasesForAssembly(FName AssemblyName);
 };

@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "ManagedTestCase.h"
+#include "Model/ManagedTestCase.h"
 
 /**
  * 

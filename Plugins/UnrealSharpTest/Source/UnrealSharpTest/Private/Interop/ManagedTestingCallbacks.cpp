@@ -15,17 +15,17 @@ void FManagedTestingCallbacks::SetActions(const FManagedTestingActions& InAction
     Actions = InActions;   
 }
 
-TArray<FManagedTestCase> FManagedTestingCallbacks::CollectTestCases(const TConstArrayView<FString> AssemblyPaths) const
+TArray<FManagedTestCaseHandle> FManagedTestingCallbacks::CollectTestCases(const TConstArrayView<FString> AssemblyPaths) const
 {
-    TArray<FManagedTestCase> Result;
+    TArray<FManagedTestCaseHandle> Result;
     Actions.CollectTestCases(AssemblyPaths.GetData(), AssemblyPaths.Num(), &Result);
     return Result;  
 }
 
 
-FSharedGCHandle FManagedTestingCallbacks::StartTest(const FManagedTestCase& TestCase) const
+FSharedGCHandle FManagedTestingCallbacks::StartTest(const FGCHandleIntPtr ManagedTest) const
 {
-    return FSharedGCHandle(Actions.StartTest(&TestCase));
+    return FSharedGCHandle(Actions.StartTest(ManagedTest));
 }
 
 bool FManagedTestingCallbacks::CheckTaskComplete(const FSharedGCHandle& Task) const

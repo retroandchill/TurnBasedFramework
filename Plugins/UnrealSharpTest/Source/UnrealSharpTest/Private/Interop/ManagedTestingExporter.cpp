@@ -3,12 +3,28 @@
 
 #include "Interop/ManagedTestingExporter.h"
 
+#include "CSManager.h"
+#include "UnrealSharpTest.h"
+
 void UManagedTestingExporter::SetManagedActions(const FManagedTestingActions& InActions)
 {
     FManagedTestingCallbacks::Get().SetActions(InActions);  
 }
 
-void UManagedTestingExporter::AddTestCase(TArray<FManagedTestCase>& TestCases, FManagedTestCase& TestCase)
+FGCHandleIntPtr UManagedTestingExporter::FindUserAssembly(const FName AssemblyName)
 {
-    TestCases.Add(MoveTemp(TestCase));
+    const auto Assembly = UCSManager::Get().FindAssembly(AssemblyName);
+    if (Assembly == nullptr) return FGCHandleIntPtr();
+    return Assembly->GetManagedAssemblyHandle()->GetHandle();
+}
+
+void UManagedTestingExporter::AddTestCase(TArray<FManagedTestCaseHandle>& TestCases, FManagedTestCase& TestCase,
+    FGCHandleIntPtr ManagedTest)
+{
+    TestCases.Emplace(MoveTemp(TestCase), ManagedTest);
+}
+
+void UManagedTestingExporter::RemoveTestCasesForAssembly(const FName AssemblyName)
+{
+    FUnrealSharpTestModule::Get().UnregisterTests(AssemblyName);  
 }

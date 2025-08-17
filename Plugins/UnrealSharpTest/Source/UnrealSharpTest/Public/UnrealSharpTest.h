@@ -12,10 +12,18 @@ class FUnrealSharpTestModule final : public IModuleInterface
 public:
     void StartupModule() override;
     void ShutdownModule() override;
+    
+    static FUnrealSharpTestModule& Get()
+    {
+        return *Instance;   
+    }
 
 private:
     void RegisterTests();
+    void UnregisterTests(FName AssemblyName);
 
-    FDelegateHandle RegisterTestsHandle;
-    TArray<TSharedRef<FCSharpAutomationTest>> Tests;
+    static FUnrealSharpTestModule* Instance;
+    TMap<FName, TArray<TSharedRef<FCSharpAutomationTest>>> Tests;
+
+    friend class UManagedTestingExporter;
 };

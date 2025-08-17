@@ -44,11 +44,15 @@ public static unsafe class ManagedTestingCallbacks
             .ToArray();
         
         var nativeStruct = stackalloc byte[FManagedTestCaseMarshaller.GetNativeDataSize()];
-        foreach (var unrealStruct in UnrealSharpTestDiscoveryClient.DiscoverTests(testCases)
-                     .Select(x => x.ToManagedTestCase()))
+        foreach (var testCase in UnrealSharpTestDiscoveryClient.DiscoverTests(testCases))
         {
+            var unrealStruct = testCase.ToManagedTestCase();
             unrealStruct.ToNative((IntPtr)nativeStruct);
-            ManagedTestingExporter.CallAddTestCase(ref *outputArrayPtr, (IntPtr)nativeStruct);
+            
+            var testCaseHandle = GCHandle.Alloc(testCase);
+            var testCaseHandlePtr = GCHandle.ToIntPtr(testCaseHandle);
+            
+            ManagedTestingExporter.CallAddTestCase(ref *outputArrayPtr, (IntPtr)nativeStruct, testCaseHandlePtr);
         }
     }
 

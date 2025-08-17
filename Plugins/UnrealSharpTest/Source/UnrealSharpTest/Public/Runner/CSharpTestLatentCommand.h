@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "CSManagedGCHandle.h"
-#include "ManagedTestCase.h"
+#include "Model/ManagedTestCase.h"
 
 /**
  * 
