@@ -8,8 +8,47 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aa1e9cdd-86d7-4878-ad99-f01b0434e94b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/UnrealSharpTest.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/UnrealSharpTest.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/UnrealSharpTest.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/UnrealSharpTest.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/shelf/Uncommitted_changes_before_Update_at_8_11_2025_3_38_PM__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.Core/ManagedGameDataAccessTools.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.Core/ManagedGameDataAccessTools.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.Core/Serialization/GameDataEntryJsonSerializer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.Core/Serialization/SerializationExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.Core/Serialization/SerializationExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp.Plugins/Plugin.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp.Plugins/Plugin.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp.Plugins/PluginLoadContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp.Plugins/PluginLoadContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp.Plugins/PluginLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp.Plugins/PluginLoader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/CSAssembly.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/CSAssembly.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/CSManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/CSManager.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/CSManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/CSManager.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/AbilityJsonSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/AbilityJsonSerializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/BattleTerrainJsonSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/BattleTerrainJsonSerializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/BattleWeatherJsonSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/BattleWeatherJsonSerializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/BerryPlantJsonSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/BerryPlantJsonSerializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/BodyColorJsonSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/BodyColorJsonSerializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/BodyShapeJsonSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/BodyShapeJsonSerializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/EggGroupJsonSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/EggGroupJsonSerializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/EncounterTypeJsonSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/EncounterTypeJsonSerializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/EnvironmentJsonSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/EnvironmentJsonSerializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/EvolutionMethodJsonSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/EvolutionMethodJsonSerializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/FieldWeatherJsonSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/FieldWeatherJsonSerializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/GenderRatioJsonSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/GenderRatioJsonSerializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/GrowthRateJsonSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/GrowthRateJsonSerializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/HabitatJsonSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/HabitatJsonSerializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/ItemJsonSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/ItemJsonSerializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/MoveJsonSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/MoveJsonSerializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/NatureJsonSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/NatureJsonSerializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/SpeciesJsonSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/SpeciesJsonSerializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/StatJsonSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/StatJsonSerializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/StatusEffectJsonSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/StatusEffectJsonSerializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/TargetTypeJsonSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/TargetTypeJsonSerializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/TypeJsonSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Json/TypeJsonSerializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Serializers/AbilityPbsSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Serializers/AbilityPbsSerializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Serializers/BerryPlantPbsSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Serializers/BerryPlantPbsSerializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Serializers/ItemPbsSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Serializers/ItemPbsSerializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Serializers/MovePbsSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Serializers/MovePbsSerializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Serializers/PbsSerializerBase.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Serializers/SpeciesPbsConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Serializers/SpeciesPbsConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Serializers/TypePbsSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Serializers/TypePbsSerializer.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +64,7 @@
         <entry key="$PROJECT_DIR$/Plugins/UnrealSharp" value="feature/gameplay-tag-additions" />
       </map>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/Plugins/UnrealSharp" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
@@ -44,135 +83,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="cidr-memory-view://19" root0="FORCE_HIGHLIGHTING" />
+    <setting file="cidr-memory-view://0" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Plugins/AI/MassAI/Source/MassAIBehavior/MassAIBehavior.Build.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Plugins/Animation/AnimationWarping/Source/Editor/AnimationWarpingEditor.Build.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Plugins/Animation/ControlRig/Source/ControlRig/Private/ControlRigReplay.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -749,6 +660,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Private/Commandlets/DumpMaterialExpressionInfo.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Private/Commandlets/ExportPakDependencies.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Private/Commandlets/ExtractLocResCommandlet.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Private/Commandlets/GatherTextFromMetadataCommandlet.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Private/Commandlets/GatherTextFromSourceCommandlet.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Private/Commandlets/GenerateBlueprintAPICommandlet.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Private/Commandlets/GenerateDistillFileSetsCommandlet.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -1057,6 +969,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/CoreUObject/Public/Misc/DataValidation.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/CoreUObject/Public/Misc/UObjectTestUtils.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/CoreUObject/Public/StructUtils/UserDefinedStruct.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/CoreUObject/Public/Templates/SubclassOf.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/CoreUObject/Public/UObject/Class.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/CoreUObject/Public/UObject/EnumProperty.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/CoreUObject/Public/UObject/FastReferenceCollector.h" root0="FORCE_HIGHLIGHTING" />
@@ -1094,6 +1007,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/Engine/BlueprintGeneratedClass.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/Engine/DataAsset.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/Engine/DataTable.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/Engine/Engine.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/Engine/EngineBaseTypes.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/Engine/HitResult.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/Engine/InheritableComponentHandler.h" root0="FORCE_HIGHLIGHTING" />
@@ -1114,6 +1028,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/Elements/Interfaces/TypedElementWorldInterface.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/KismetSystemLibrary.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/Materials/MaterialShared.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/Pawn.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/SCS_Node.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/Streaming/LevelTextureManager.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/Subsystems/SubsystemCollection.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -1122,6 +1037,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/Tests/Loading/AsyncLoadingTests_Shared.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/Tests/NetworkAutomationTests.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/TimerManager.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/UnrealEngine.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Public/CollisionDebugDrawingPublic.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Public/DebugRenderSceneProxy.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Public/MaterialExpressionIO.h" root0="FORCE_HIGHLIGHTING" />
@@ -1278,13 +1194,9 @@
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpEditor/UnrealSharpEditor.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpManagedGlue/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpManagedGlue/PropertyTranslators/PropertyTranslator.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/Runner/CSharpAutomationTest.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/Runner/CSharpAutomationTest.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/Runner/CSharpAutomationTest.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Script/Pokemon.Data/Pbs/BerryPlant.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Converters/BaseStatsConverter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Converters/EvolutionMethodConverter.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Serializers/BerryPlantPbsSerializer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/PokemonEditorTools/Public/PokemonEditorTools.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/TurnBasedCore/Private/Units/TurnBasedUnit.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/TurnBasedCore/Public/Attributes/UnitAttribute.h" root0="FORCE_HIGHLIGHTING" />
@@ -1312,7 +1224,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Uproject.TurnBasedFramework.executor": "Run",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "bugfix/load-assembly-by-path",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -1486,6 +1398,7 @@
       <workItem from="1754709317140" duration="979000" />
       <workItem from="1754754629592" duration="8528000" />
       <workItem from="1754846931082" duration="16437000" />
+      <workItem from="1755379246029" duration="3928000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed a missing with editor define">
       <option name="closed" value="true" />
@@ -1575,7 +1488,15 @@
       <option name="project" value="LOCAL" />
       <updated>1755371760872</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Added the reload support for testing">
+      <option name="closed" value="true" />
+      <created>1755371995100</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1755371995100</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1618,7 +1539,8 @@
     <MESSAGE value="Set changing the evolution method to auto create the target object" />
     <MESSAGE value="Created a new plugin to handle running NUnit tests" />
     <MESSAGE value="Adjusted the mapping for code files" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adjusted the mapping for code files" />
+    <MESSAGE value="Added the reload support for testing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added the reload support for testing" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

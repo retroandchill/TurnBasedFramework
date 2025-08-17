@@ -5,7 +5,7 @@ using GameDataAccessTools.Core.Serialization.Marshallers;
 using GameDataAccessTools.Core.Serialization.Native;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Options;
+using UnrealInject.Options;
 using UnrealSharp;
 using UnrealSharp.Core;
 using UnrealSharp.CoreUObject;
@@ -17,12 +17,18 @@ namespace GameDataAccessTools.Core.Serialization;
 
 public static class SerializationExtensions
 {
-    public static IServiceCollection ConfigureJsonSerialization(this IServiceCollection services,
-                                                                Action<JsonSerializerOptions> configure)
+    public static IServiceCollection ConfigureJsonSerialization(this IServiceCollection services)
     {
-        services.TryAddSingleton(typeof(IOptions<>), typeof(OptionsManager<>));
         services.TryAddSingleton(_ => new JsonSerializerOptions());
-        services.Configure(configure);
+        services.AddConfigOptions();
+        services.AddSingleton<IOptionsConfiguration<JsonSerializerOptions>, BaseJsonConfigurer>();
+        return services;
+    }
+
+    public static IServiceCollection RemoveJsonSerialization(this IServiceCollection services)
+    {
+        services.RemoveAll<JsonSerializerOptions>();
+        services.RemoveAll<IOptionsConfiguration<JsonSerializerOptions>>();
         return services;
     }
 

@@ -1,18 +1,24 @@
-﻿using Pokemon.Data.Pbs;
+﻿using GameDataAccessTools.Core.Serialization;
+using Pokemon.Data.Pbs;
 using Pokemon.Editor.Mappers;
 using Pokemon.Editor.Model.Data.Pbs;
+using UnrealSharp;
 using UnrealSharp.CoreUObject;
 
 namespace Pokemon.Editor.Serializers.Pbs.Serializers;
 
-public class ItemPbsSerializer : PbsSerializerBase<UItem>
+public class ItemPbsSerializer : IGameDataEntrySerializer<UItem>
 {
-    public override string SerializeData(IEnumerable<UItem> entries)
+    public FName FormatTag => PbsConstants.FormatTag;
+    public FText FormatName => PbsConstants.FormatName;
+    public string FileExtensionText => PbsConstants.FileExtensionText;
+    
+    public string SerializeData(IEnumerable<UItem> entries)
     {
         return PbsCompiler.WritePbs(entries.Select(x => x.ToItemInfo()));
     }
 
-    public override IEnumerable<UItem> DeserializeData(string source, UObject outer)
+    public IEnumerable<UItem> DeserializeData(string source, UObject outer)
     {
         return PbsCompiler.CompilePbsFile<ItemInfo>(source)
             .Select(x => x.Value)

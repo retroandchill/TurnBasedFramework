@@ -5,6 +5,7 @@ using GameDataAccessTools.Core.Serialization;
 using GameDataAccessTools.Core.Serialization.Json;
 using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using UnrealInject;
 using UnrealSharp.Engine.Core.Modules;
 
@@ -20,28 +21,17 @@ public class FManagedGameDataAccessTools : IModuleInterface
 
         FUnrealInjectModule.Instance.ConfigureServices(services =>
         {
-            services.ConfigureJsonSerialization(options =>
-            {
-                options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-                options.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;
-                options.PropertyNameCaseInsensitive = true;
-                options.AllowTrailingCommas = true;
-                options.WriteIndented = true;
-                
-                options.Converters.Add(new JsonStringEnumConverter());
-                options.Converters.Add(new NameJsonConverter());
-                options.Converters.Add(new TextJsonConverter());
-                options.Converters.Add(new GameplayTagJsonConverter());
-                options.Converters.Add(new SubclassOfJsonConverterFactory());
-                options.Converters.Add(new SoftObjectPtrJsonConverterFactory());
-                options.Converters.Add(new SoftClassPtrJsonConverterFactory());
-            });
-
-            services.AddSingleton(typeof(IGameDataEntrySerializer<>), typeof(GameDataEntryJsonSerializer<>));
+            services.ConfigureJsonSerialization()
+                .AddSingleton(typeof(IGameDataEntrySerializer<>), typeof(GameDataEntryJsonSerializer<>));
         });
     }
 
     public void ShutdownModule()
     {
+        FUnrealInjectModule.Instance.ConfigureServices(services =>
+        {
+            services.RemoveJsonSerialization()
+                .RemoveAll(typeof(IGameDataEntrySerializer<>));
+        });
     }
 }
