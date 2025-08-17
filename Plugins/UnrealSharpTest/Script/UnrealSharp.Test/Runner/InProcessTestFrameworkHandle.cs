@@ -6,7 +6,7 @@ namespace UnrealSharp.Test.Runner;
 
 public class InProcessTestFrameworkHandle : IFrameworkHandle
 {
-    private TaskCompletionSource _completionSource = new();
+    private readonly TaskCompletionSource _completionSource = new();
     public Task CompletionTask => _completionSource.Task;
 
     public bool EnableShutdownAfterTestRun { get; set; }
