@@ -8,14 +8,14 @@
 
 struct FManagedTestingActions
 {
-    using FCollectTestCases = void(__stdcall*)(const FString*, int32, TArray<FManagedTestCaseHandle>*);
+    using FCollectTestCases = void(__stdcall*)(const FName*, int32, TArray<FManagedTestCaseHandle>*);
     using FLoadLoadAssemblyTests = void(__stdcall*)(FName, FGCHandleIntPtr, TArray<FString>*);
     using FStartTest = FGCHandleIntPtr(__stdcall*)(FGCHandleIntPtr);
     using FCheckTaskComplete = bool(__stdcall*)(FGCHandleIntPtr);
 
-    FCollectTestCases CollectTestCases;
-    FStartTest StartTest;
-    FCheckTaskComplete CheckTaskComplete;
+    FCollectTestCases CollectTestCases = nullptr;
+    FStartTest StartTest = nullptr;
+    FCheckTaskComplete CheckTaskComplete = nullptr;
 };
 
 /**
@@ -29,9 +29,14 @@ class UNREALSHARPTEST_API FManagedTestingCallbacks
 public:
     static FManagedTestingCallbacks& Get();
 
+    bool IsValid() const
+    {
+        return Actions.CollectTestCases != nullptr;
+    }
+    
     void SetActions(const FManagedTestingActions& InActions);
 
-    TArray<FManagedTestCaseHandle> CollectTestCases(TConstArrayView<FString> AssemblyPaths) const;
+    TArray<FManagedTestCaseHandle> CollectTestCases(TConstArrayView<FName> AssemblyPaths) const;
     FSharedGCHandle StartTest(FGCHandleIntPtr ManagedTest) const;
     bool CheckTaskComplete(const FSharedGCHandle& Task) const;
 

@@ -8,12 +8,12 @@
 
 FString FCSharpAutomationTest::GetTestSourceFileName() const
 {
-    return ManagedTestCase.CodeFilePath;
+    return ManagedTestCase.TestCase.CodeFilePath;
 }
 
 int32 FCSharpAutomationTest::GetTestSourceFileLine() const
 {
-    return ManagedTestCase.LineNumber;
+    return ManagedTestCase.TestCase.LineNumber;
 }
 
 EAutomationTestFlags FCSharpAutomationTest::GetTestFlags() const
@@ -23,7 +23,7 @@ EAutomationTestFlags FCSharpAutomationTest::GetTestFlags() const
 
 FString FCSharpAutomationTest::GetBeautifiedTestName() const
 {
-    return ManagedTestCase.FullyQualifiedName;
+    return ManagedTestCase.TestCase.FullyQualifiedName;
 }
 
 uint32 FCSharpAutomationTest::GetRequiredDeviceNum() const
@@ -39,6 +39,6 @@ void FCSharpAutomationTest::GetTests(TArray<FString>& OutBeautifiedNames, TArray
 
 bool FCSharpAutomationTest::RunTest(const FString& Parameters)
 {
-    ADD_LATENT_AUTOMATION_COMMAND(FCSharpTestLatentCommand(ManagedTestCase));
+    ADD_LATENT_AUTOMATION_COMMAND(FCSharpTestLatentCommand(ManagedTestCase.ManagedTestCase.GetHandle()));
     return true;
 }

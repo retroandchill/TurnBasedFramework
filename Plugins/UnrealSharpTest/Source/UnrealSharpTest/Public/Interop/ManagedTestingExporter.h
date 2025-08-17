@@ -26,7 +26,4 @@ public:
 
     UNREALSHARP_FUNCTION()
     static void AddTestCase(TArray<FManagedTestCaseHandle>& TestCases, FManagedTestCase& TestCase, FGCHandleIntPtr ManagedTest);
-
-    UNREALSHARP_FUNCTION()
-    static void RemoveTestCasesForAssembly(FName AssemblyName);
 };

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CSManagedGCHandle.h"
 #include "ManagedTestCase.generated.h"
 
 /**

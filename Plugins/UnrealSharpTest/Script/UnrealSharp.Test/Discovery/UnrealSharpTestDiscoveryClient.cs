@@ -1,6 +1,7 @@
 ﻿using System.Collections.Immutable;
 using System.Reflection;
 using System.Reflection.Metadata;
+using System.Runtime.Loader;
 using UnrealSharp.Core;
 using UnrealSharp.Test.Attributes;
 using UnrealSharp.Test.Interop;
@@ -11,11 +12,11 @@ namespace UnrealSharp.Test.Discovery;
 
 public static class UnrealSharpTestDiscoveryClient
 {
-    public static IEnumerable<UnrealTestCase> DiscoverTests(IReadOnlyList<string> assemblyPaths)
+    public static IEnumerable<UnrealTestCase> DiscoverTests(ReadOnlySpan<FName> assemblyPaths)
     {
-        foreach (var assemblyPath in assemblyPaths)
+        var testCases = new List<UnrealTestCase>();
+        foreach (var assemblyName in assemblyPaths)
         {
-            FName assemblyName = Path.GetFileNameWithoutExtension(assemblyPath);
             var assemblyPtr = ManagedTestingExporter.CallFindUserAssembly(assemblyName);
             var assembly = GCHandleUtilities.GetObjectFromHandlePtr<Assembly>(assemblyPtr);
             if (assembly is null)
@@ -23,14 +24,13 @@ public static class UnrealSharpTestDiscoveryClient
                 LogUnrealSharpTest.LogError($"Assembly {assemblyName} not found");
                 continue;
             }
-
-            foreach (var testCase in assembly.GetTypes()
-                         .Where(IsTestClass)
-                         .SelectMany(t => DiscoverTests(assemblyName, t)))
-            {
-                yield return testCase;
-            }
+            
+            testCases.AddRange(assembly.GetTypes()
+                .Where(IsTestClass)
+                .SelectMany(t => DiscoverTests(assemblyName, t)));
         }
+        
+        return testCases;
     }
 
     private static bool IsTestClass(Type type)

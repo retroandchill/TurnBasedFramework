@@ -12,7 +12,7 @@
 class UNREALSHARPTEST_API FCSharpTestLatentCommand final : public IAutomationLatentCommand
 {
 public:
-    explicit FCSharpTestLatentCommand(const FManagedTestCase& TestCase);
+    explicit FCSharpTestLatentCommand(FGCHandleIntPtr TestCase);
 
     bool Update() override;
 

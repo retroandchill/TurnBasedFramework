@@ -11,8 +11,8 @@
 class UNREALSHARPTEST_API FCSharpAutomationTest : public FAutomationTestBase
 {
 public:
-    explicit FCSharpAutomationTest(FManagedTestCase TestCase)
-        : FAutomationTestBase(TestCase.FullyQualifiedName, false), ManagedTestCase(MoveTemp(TestCase))
+    explicit FCSharpAutomationTest(FManagedTestCaseHandle TestCase)
+        : FAutomationTestBase(TestCase.TestCase.FullyQualifiedName, false), ManagedTestCase(MoveTemp(TestCase))
     {
     }
 
@@ -27,5 +27,5 @@ protected:
     bool RunTest(const FString& Parameters) override;
 
 private:
-    FManagedTestCase ManagedTestCase;
+    FManagedTestCaseHandle ManagedTestCase;
 };

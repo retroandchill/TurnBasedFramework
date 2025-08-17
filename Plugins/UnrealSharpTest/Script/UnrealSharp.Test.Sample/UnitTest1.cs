@@ -1,24 +1,28 @@
-﻿namespace UnrealSharp.Test.Sample;
+﻿using UnrealSharp.Test.Asserts;
+using UnrealSharp.Test.Attributes;
+
+namespace UnrealSharp.Test.Sample;
 
 public class Tests
 {
-    [SetUp]
+    [AutomationSetup]
     public void Setup()
     {
     }
 
-    [Test]
+    [AutomationTest]
     public void Test1()
     {
         Assert.Pass();
     }
 
-    [Test]
+    [AutomationTest]
     public void Test2()
     {
         Assert.Fail("This test is failing");
     }
     
+    /*
     [TestCase(12, 3, 4)]
     [TestCase(12, 2, 6)]
     [TestCase(12, 4, 3)]
@@ -26,4 +30,5 @@ public class Tests
     {
         Assert.That(n / d, Is.EqualTo(q));
     }
+    */
 }

@@ -6,6 +6,7 @@ using UnrealSharp.Core;
 using UnrealSharp.Core.Marshallers;
 using UnrealSharp.Test.Discovery;
 using UnrealSharp.Test.Mappers;
+using UnrealSharp.Test.Model;
 using UnrealSharp.Test.Runner;
 using UnrealSharp.UnrealSharpTest;
 
@@ -39,9 +40,7 @@ public static unsafe class ManagedTestingCallbacks
     [UnmanagedCallersOnly]
     public static void CollectTestCases(IntPtr assemblyNamesPtr, int assemblyNamesLength, UnmanagedArray* outputArrayPtr)
     {
-        var testCases = Enumerable.Range(0, assemblyNamesLength)
-            .Select(i => StringMarshaller.FromNative(assemblyNamesPtr, i))
-            .ToArray();
+        var testCases = new ReadOnlySpan<FName>((FName*) assemblyNamesPtr, assemblyNamesLength);
         
         var nativeStruct = stackalloc byte[FManagedTestCaseMarshaller.GetNativeDataSize()];
         foreach (var testCase in UnrealSharpTestDiscoveryClient.DiscoverTests(testCases))
@@ -57,10 +56,14 @@ public static unsafe class ManagedTestingCallbacks
     }
 
     [UnmanagedCallersOnly]
-    public static IntPtr StartTest(IntPtr nativeStruct)
+    public static IntPtr StartTest(IntPtr managedTestCasePtr)
     {
-        var managedStruct = FManagedTestCase.FromNative(nativeStruct);
-        var testCase = managedStruct.ToTestCase();
+        var testCase = GCHandleUtilities.GetObjectFromHandlePtr<UnrealTestCase>(managedTestCasePtr);
+        if (testCase is null)
+        {
+            return IntPtr.Zero;
+        }
+        
         var testTask = UnrealSharpTestExecutor.RunTestInProcess(testCase);
         var taskHandle = GCHandle.Alloc(testTask);
         return GCHandle.ToIntPtr(taskHandle);

@@ -20,10 +20,10 @@ public:
 
 private:
     void RegisterTests();
-    void UnregisterTests(FName AssemblyName);
+    void RegisterTests(const FName& AssemblyName);
+    void RegisterTests(TConstArrayView<FName, int> Assemblies);
+    void UnregisterTests(const FName& AssemblyName);
 
     static FUnrealSharpTestModule* Instance;
     TMap<FName, TArray<TSharedRef<FCSharpAutomationTest>>> Tests;
-
-    friend class UManagedTestingExporter;
 };

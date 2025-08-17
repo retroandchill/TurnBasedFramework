@@ -15,7 +15,7 @@ void FManagedTestingCallbacks::SetActions(const FManagedTestingActions& InAction
     Actions = InActions;   
 }
 
-TArray<FManagedTestCaseHandle> FManagedTestingCallbacks::CollectTestCases(const TConstArrayView<FString> AssemblyPaths) const
+TArray<FManagedTestCaseHandle> FManagedTestingCallbacks::CollectTestCases(const TConstArrayView<FName> AssemblyPaths) const
 {
     TArray<FManagedTestCaseHandle> Result;
     Actions.CollectTestCases(AssemblyPaths.GetData(), AssemblyPaths.Num(), &Result);

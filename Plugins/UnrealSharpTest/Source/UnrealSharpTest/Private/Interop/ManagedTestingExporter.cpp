@@ -23,8 +23,3 @@ void UManagedTestingExporter::AddTestCase(TArray<FManagedTestCaseHandle>& TestCa
 {
     TestCases.Emplace(MoveTemp(TestCase), ManagedTest);
 }
-
-void UManagedTestingExporter::RemoveTestCasesForAssembly(const FName AssemblyName)
-{
-    FUnrealSharpTestModule::Get().UnregisterTests(AssemblyName);  
-}
