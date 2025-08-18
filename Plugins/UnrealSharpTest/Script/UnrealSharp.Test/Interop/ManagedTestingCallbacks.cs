@@ -1,9 +1,6 @@
-﻿using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Text.Json;
+﻿using System.Runtime.InteropServices;
 using JetBrains.Annotations;
 using UnrealSharp.Core;
-using UnrealSharp.Core.Marshallers;
 using UnrealSharp.Test.Discovery;
 using UnrealSharp.Test.Mappers;
 using UnrealSharp.Test.Model;
@@ -19,7 +16,7 @@ public unsafe struct ManagedTestingActions
     public required delegate* unmanaged<IntPtr, int, UnmanagedArray*, void> CollectTestCases { get; init; }
     
     [UsedImplicitly]
-    public required delegate* unmanaged<IntPtr, IntPtr> StartTest { get; init; }
+    public required delegate* unmanaged<WeakAutomationTestReference*, IntPtr, IntPtr> StartTest { get; init; }
     
     [UsedImplicitly]
     public required delegate* unmanaged<IntPtr, NativeBool> CheckTaskComplete { get; init; }
@@ -56,7 +53,7 @@ public static unsafe class ManagedTestingCallbacks
     }
 
     [UnmanagedCallersOnly]
-    public static IntPtr StartTest(IntPtr managedTestCasePtr)
+    public static IntPtr StartTest(WeakAutomationTestReference* nativeTest, IntPtr managedTestCasePtr)
     {
         var testCase = GCHandleUtilities.GetObjectFromHandlePtr<UnrealTestCase>(managedTestCasePtr);
         if (testCase is null)
@@ -64,7 +61,7 @@ public static unsafe class ManagedTestingCallbacks
             return IntPtr.Zero;
         }
         
-        var testTask = UnrealSharpTestExecutor.RunTestInProcess(testCase);
+        var testTask = UnrealSharpTestExecutor.RunTestInProcess(ref *nativeTest, testCase);
         var taskHandle = GCHandle.Alloc(testTask);
         return GCHandle.ToIntPtr(taskHandle);
     }

@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics;
+using System.Reflection;
+using UnrealSharp.CoreUObject;
 using UnrealSharp.Test.Asserts;
 using UnrealSharp.Test.Model;
 
@@ -6,30 +8,56 @@ namespace UnrealSharp.Test.Runner;
 
 public static class UnrealSharpTestExecutor
 {
-    public static async Task RunTestInProcess(UnrealTestCase testCase)
+    private static ITestExecutionContext? _executionContext;
+    
+    public static ITestExecutionContext Context
     {
-        var testClass = testCase.Method.DeclaringType;
-        ArgumentNullException.ThrowIfNull(testClass);
+      get => _executionContext ?? throw new InvalidOperationException("ExecutionContext is not set");
+      set => _executionContext = value;
+    }
 
-        var testInstance = Activator.CreateInstance(testClass);
+    public static void ClearContext()
+    {
+        _executionContext = null;
+    }
+    
+    public static Task RunTestInProcess(ref WeakAutomationTestReference automationTestReference, UnrealTestCase testCase)
+    {
+        Context = new AutomationTestExecutionContext(ref automationTestReference);
+        return RunTestInProcessInternal(testCase);
+    }
 
-        await RunTestMethod(testInstance, testCase.SetupMethod);
-
+    private static async Task RunTestInProcessInternal(UnrealTestCase testCase)
+    {
+        using var context = Context;
         try
         {
-            await RunTestMethod(testInstance, testCase.Method, testCase.Arguments);
+            var testClass = testCase.Method.DeclaringType;
+            ArgumentNullException.ThrowIfNull(testClass);
+
+            var testInstance = Activator.CreateInstance(testClass);
+
+            try
+            {
+                await RunTestMethod(testInstance, testCase.SetupMethod);
+                await RunTestMethod(testInstance, testCase.Method, testCase.Arguments);
+            }
+            catch (AutomationException)
+            {
+                // Do nothing, just swallow the exception, the logging has already handled it
+            }
+            finally
+            {
+                await RunTestMethod(testInstance, testCase.TearDownMethod);
+            }
         }
-        catch (SuccessException)
+        catch (Exception e)
         {
-            // Do nothing, just swallow the exception
-        }
-        catch (AssertionException e)
-        {
-            LogUnrealSharpTest.LogError(e.Message);
+            Context.LogEvent($"Unexpected exception was thrown: {e}", EAutomationEventType.Error, EventLocation.FromException(e));
         }
         finally
         {
-            await RunTestMethod(testInstance, testCase.TearDownMethod);
+            ClearContext();
         }
     }
 

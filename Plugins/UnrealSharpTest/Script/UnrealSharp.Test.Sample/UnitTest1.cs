@@ -13,7 +13,7 @@ public class Tests
     [AutomationTest]
     public void Test1()
     {
-        Assert.Pass();
+        Assert.Pass("This is an explicit pass");
     }
 
     [AutomationTest]

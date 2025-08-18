@@ -6,16 +6,18 @@
 #include "CSManagedGCHandle.h"
 #include "Model/ManagedTestCase.h"
 
+class FCSharpAutomationTest;
 /**
  * 
  */
 class UNREALSHARPTEST_API FCSharpTestLatentCommand final : public IAutomationLatentCommand
 {
 public:
-    explicit FCSharpTestLatentCommand(FGCHandleIntPtr TestCase);
+    FCSharpTestLatentCommand(TWeakPtr<FCSharpAutomationTest> InOwner, FGCHandleIntPtr TestCase);
 
     bool Update() override;
 
 private:
+    TWeakPtr<FCSharpAutomationTest> Owner;
     FSharedGCHandle TestTask;
 };
