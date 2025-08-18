@@ -10,6 +10,8 @@ public static class UnrealSharpTestExecutor
 {
     private static ITestExecutionContext? _executionContext;
     
+    private static readonly Dictionary<Type, object?> TestClassInstances = new();
+    
     public static ITestExecutionContext Context
     {
       get => _executionContext ?? throw new InvalidOperationException("ExecutionContext is not set");
@@ -19,6 +21,11 @@ public static class UnrealSharpTestExecutor
     public static void ClearContext()
     {
         _executionContext = null;
+    }
+
+    internal static void ClearTestClassInstances()
+    {
+        TestClassInstances.Clear();
     }
     
     public static Task RunTestInProcess(ref WeakAutomationTestReference automationTestReference, UnrealTestCase testCase)
@@ -35,7 +42,11 @@ public static class UnrealSharpTestExecutor
             var testClass = testCase.Method.DeclaringType;
             ArgumentNullException.ThrowIfNull(testClass);
 
-            var testInstance = Activator.CreateInstance(testClass);
+            if (!TestClassInstances.TryGetValue(testClass, out var testInstance))
+            {
+                testInstance = Activator.CreateInstance(testClass);
+                TestClassInstances[testClass] = testInstance;
+            }
 
             try
             {

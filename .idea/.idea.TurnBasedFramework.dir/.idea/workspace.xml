@@ -9,16 +9,14 @@
   <component name="ChangeListManager">
     <list default="true" id="aa1e9cdd-86d7-4878-ad99-f01b0434e94b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test.Sample/UnitTest1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test.Sample/UnitTest1.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Asserts/Assert.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Asserts/Assert.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Interop/ManagedTestingCallbacks.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Interop/ManagedTestingCallbacks.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Model/AutomationEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Model/AutomationEvent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Runner/UnrealSharpTestExecutor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Runner/UnrealSharpTestExecutor.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/Interop/ManagedTestingCallbacks.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/Interop/ManagedTestingCallbacks.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/Runner/CSharpAutomationTest.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/Runner/CSharpAutomationTest.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/Runner/CSharpTestLatentCommand.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/Runner/CSharpTestLatentCommand.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/UnrealSharpTest.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/UnrealSharpTest.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/Interop/ManagedTestingCallbacks.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/Interop/ManagedTestingCallbacks.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/Runner/CSharpAutomationTest.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/Runner/CSharpAutomationTest.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/Runner/CSharpTestLatentCommand.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/Runner/CSharpTestLatentCommand.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/UnrealSharpTest.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/UnrealSharpTest.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,7 +182,9 @@
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="cidr-memory-view://7" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="cidr-memory-view://9" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Plugins/AI/MassAI/Source/MassAIBehavior/MassAIBehavior.Build.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Plugins/Animation/AnimationWarping/Source/Editor/AnimationWarpingEditor.Build.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Plugins/Animation/ControlRig/Source/ControlRig/Private/ControlRigReplay.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -1327,6 +1327,7 @@
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpEditor/UnrealSharpEditor.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpManagedGlue/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpManagedGlue/PropertyTranslators/PropertyTranslator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Asserts/AssertContext.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Asserts/Constraints/EqualConstraint.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/UnrealSharpTest.Build.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Script/Pokemon.Data/Pbs/BerryPlant.cs" root0="SKIP_HIGHLIGHTING" />
@@ -1657,7 +1658,15 @@
       <option name="project" value="LOCAL" />
       <updated>1755464381265</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Updated the assertion model to be a bit more complex">
+      <option name="closed" value="true" />
+      <created>1755555775838</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1755555775839</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1692,7 +1701,8 @@
     <MESSAGE value="Added a new event for when an assembly is unloaded" />
     <MESSAGE value="Fixed pathing issues with the copying over from the intermediate directory" />
     <MESSAGE value="Finalized a basic lightweight assertion system" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finalized a basic lightweight assertion system" />
+    <MESSAGE value="Updated the assertion model to be a bit more complex" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated the assertion model to be a bit more complex" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

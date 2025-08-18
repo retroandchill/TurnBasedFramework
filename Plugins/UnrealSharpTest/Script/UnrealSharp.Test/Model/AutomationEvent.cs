@@ -5,14 +5,14 @@ namespace UnrealSharp.Test.Model;
 
 public readonly record struct EventLocation(string File, int Line)
 {
+    public static EventLocation From(string? file, int line)
+    {
+        return new EventLocation(file ?? "unknown", line);
+    }
+    
     public static EventLocation FromException(Exception e)
     {
         return FromStackTrace(new StackTrace(e, true));
-    }
-    
-    public static EventLocation FromCurrentStack(int offset = 0)
-    {
-        return FromStackTrace(new StackTrace(true), offset + 1);
     }
 
     public static EventLocation FromStackTrace(StackTrace stackTrace, int offset = 0)

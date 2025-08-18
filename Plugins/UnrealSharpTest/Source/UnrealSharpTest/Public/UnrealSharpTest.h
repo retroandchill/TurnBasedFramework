@@ -26,4 +26,6 @@ private:
 
     static FUnrealSharpTestModule* Instance;
     TMap<FName, TArray<TSharedRef<FCSharpAutomationTest>>> Tests;
+    FDelegateHandle RegisterTestsDelegateHandle;
+    FDelegateHandle ClearTestCacheDelegateHandle;
 };

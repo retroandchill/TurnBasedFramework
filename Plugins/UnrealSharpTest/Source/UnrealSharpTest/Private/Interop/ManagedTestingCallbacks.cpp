@@ -34,3 +34,8 @@ bool FManagedTestingCallbacks::CheckTaskComplete(const FSharedGCHandle& Task) co
 {
     return Actions.CheckTaskComplete(Task.GetHandle());
 }
+
+void FManagedTestingCallbacks::ClearTestClassInstances() const
+{
+    Actions.ClearTestClassInstances(); 
+}

@@ -14,15 +14,21 @@ public static class Assert
     internal static IAssertContext Context { get; set; } = new SingleAssertContext();
     
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void That<T>(T actual, IResolveConstraint<T> constraint)
+    public static void That<T>(T actual, IResolveConstraint<T> constraint,
+                               [CallerFilePath] string? filePath = null,
+                               [CallerLineNumber] int lineNumber = 0)
     {
         if (!constraint.Matches(actual))
         {
-            Context.LogAssertionFailure(constraint.GetFailureMessage(actual), location: EventLocation.FromCurrentStack(1));
+            Context.LogAssertionFailure(constraint.GetFailureMessage(actual), 
+                location: EventLocation.From(filePath, lineNumber));
         }
     }
 
-    public static void Throws<TException>(Action action) where TException : Exception
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static void Throws<TException>(Action action,
+                                          [CallerFilePath] string? filePath = null,
+                                          [CallerLineNumber] int lineNumber = 0) where TException : Exception
     {
         try
         {
@@ -34,11 +40,16 @@ public static class Assert
         }
         catch (Exception e)
         {
-            Context.LogAssertionFailure($"Expected exception {typeof(TException).Name} but was {e.GetType().Name}\n{e}");
+            Context.LogAssertionFailure($"Expected exception {typeof(TException).Name} but was {e.GetType().Name}\n{e}", 
+                location: EventLocation.From(filePath, lineNumber));
         }
     }
     
-    public static async ValueTask ThrowsAsync<TException>(Func<Task> action) where TException : Exception
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static async ValueTask ThrowsAsync<TException>(Func<Task> action,
+                                                          [CallerFilePath] string? filePath = null,
+                                                          [CallerLineNumber] int lineNumber = 0) 
+        where TException : Exception
     {
         try
         {
@@ -50,11 +61,16 @@ public static class Assert
         }
         catch (Exception e)
         {
-            Context.LogAssertionFailure($"Expected exception {typeof(TException).Name} but was {e.GetType().Name}\n{e}");
+            Context.LogAssertionFailure($"Expected exception {typeof(TException).Name} but was {e.GetType().Name}\n{e}", 
+                location: EventLocation.From(filePath, lineNumber));
         }
     }
     
-    public static async ValueTask ThrowsAsync<TException>(Func<ValueTask> action) where TException : Exception
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static async ValueTask ThrowsAsync<TException>(Func<ValueTask> action,
+                                                          [CallerFilePath] string? filePath = null,
+                                                          [CallerLineNumber] int lineNumber = 0) 
+        where TException : Exception
     {
         try
         {
@@ -70,7 +86,10 @@ public static class Assert
         }
     }
 
-    public static void DoesNotThrow(Action action)
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static void DoesNotThrow(Action action,
+                                    [CallerFilePath] string? filePath = null,
+                                    [CallerLineNumber] int lineNumber = 0)
     {
         try
         {
@@ -78,11 +97,15 @@ public static class Assert
         }
         catch (Exception e)
         {
-            Context.LogAssertionFailure($"Expected no exception but was {e.GetType().Name}\n{e}");
+            Context.LogAssertionFailure($"Expected no exception but was {e.GetType().Name}\n{e}", 
+                location: EventLocation.From(filePath, lineNumber));
         }
     }
 
-    public static async ValueTask DoesNotThrowAsync(Func<Task> action)
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static async ValueTask DoesNotThrowAsync(Func<Task> action,
+                                                    [CallerFilePath] string? filePath = null,
+                                                    [CallerLineNumber] int lineNumber = 0)
     {
         try
         {
@@ -90,11 +113,15 @@ public static class Assert
         }
         catch (Exception e)
         {
-            Context.LogAssertionFailure($"Expected no exception but was {e.GetType().Name}\n{e}");
+            Context.LogAssertionFailure($"Expected no exception but was {e.GetType().Name}\n{e}", 
+                location: EventLocation.From(filePath, lineNumber));
         }
     }
 
-    public static async ValueTask DoesNotThrowAsync(Func<ValueTask> action)
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static async ValueTask DoesNotThrowAsync(Func<ValueTask> action,
+                                                    [CallerFilePath] string? filePath = null,
+                                                    [CallerLineNumber] int lineNumber = 0)
     {
         try
         {
@@ -102,7 +129,8 @@ public static class Assert
         }
         catch (Exception e)
         {
-            Context.LogAssertionFailure($"Expected no exception but was {e.GetType().Name}\n{e}");
+            Context.LogAssertionFailure($"Expected no exception but was {e.GetType().Name}\n{e}", 
+                location: EventLocation.From(filePath, lineNumber));
         }
     }
 
@@ -124,13 +152,19 @@ public static class Assert
         await action();
     }
 
-    public static void Pass(string? message = null)
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static void Pass(string? message = null,
+                            [CallerFilePath] string? filePath = null,
+                            [CallerLineNumber] int lineNumber = 0)
     {
-        Context.LogPass(message, location: EventLocation.FromCurrentStack(1));
+        Context.LogPass(message, location: EventLocation.From(filePath, lineNumber));
     }
     
-    public static void Fail(string message)
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static void Fail(string message,
+                            [CallerFilePath] string? filePath = null,
+                            [CallerLineNumber] int lineNumber = 0)
     {
-        Context.LogAssertionFailure(message, location: EventLocation.FromCurrentStack(1));
+        Context.LogAssertionFailure(message, location: EventLocation.From(filePath, lineNumber));
     }
 }

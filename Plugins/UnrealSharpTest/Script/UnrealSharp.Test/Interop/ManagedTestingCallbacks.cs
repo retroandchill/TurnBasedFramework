@@ -20,6 +20,9 @@ public unsafe struct ManagedTestingActions
     
     [UsedImplicitly]
     public required delegate* unmanaged<IntPtr, NativeBool> CheckTaskComplete { get; init; }
+    
+    [UsedImplicitly]
+    public required delegate* unmanaged<void> ClearTestClassInstances { get; init; }
 
     public static ManagedTestingActions Create()
     {
@@ -27,7 +30,8 @@ public unsafe struct ManagedTestingActions
         {
             CollectTestCases = &ManagedTestingCallbacks.CollectTestCases,
             StartTest = &ManagedTestingCallbacks.StartTest,
-            CheckTaskComplete = &ManagedTestingCallbacks.CheckTaskComplete
+            CheckTaskComplete = &ManagedTestingCallbacks.CheckTaskComplete,
+            ClearTestClassInstances = &ManagedTestingCallbacks.ClearTestClassInstances
         };
     }
 }
@@ -79,6 +83,11 @@ public static unsafe class ManagedTestingCallbacks
         }
         task.Dispose();
         return NativeBool.True;
-
+    }
+    
+    [UnmanagedCallersOnly]
+    public static void ClearTestClassInstances()
+    {
+        UnrealSharpTestExecutor.ClearTestClassInstances();
     }
 }

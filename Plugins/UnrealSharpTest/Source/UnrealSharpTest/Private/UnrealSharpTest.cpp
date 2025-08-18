@@ -14,7 +14,7 @@ FUnrealSharpTestModule* FUnrealSharpTestModule::Instance = nullptr;
 void FUnrealSharpTestModule::StartupModule()
 {
     Instance = this;
-    FCoreDelegates::OnAllModuleLoadingPhasesComplete.AddLambda([this]
+    RegisterTestsDelegateHandle = FCoreDelegates::OnAllModuleLoadingPhasesComplete.AddLambda([this]
     {
         RegisterTests();
 
@@ -22,11 +22,18 @@ void FUnrealSharpTestModule::StartupModule()
         Manager.OnManagedAssemblyLoadedEvent().AddRaw(this, &FUnrealSharpTestModule::RegisterTests);
         Manager.OnManagedAssemblyUnloadedEvent().AddRaw(this, &FUnrealSharpTestModule::UnregisterTests);
     });
+
+    ClearTestCacheDelegateHandle = FAutomationTestFramework::Get().OnAfterAllTestsEvent.AddLambda([]
+    {
+        FManagedTestingCallbacks::Get().ClearTestClassInstances();
+    });
 }
 
 void FUnrealSharpTestModule::ShutdownModule()
 {
     Instance = nullptr;
+    FAutomationTestFramework::Get().OnAfterAllTestsEvent.Remove(ClearTestCacheDelegateHandle);
+    FCoreDelegates::OnAllModuleLoadingPhasesComplete.Remove(RegisterTestsDelegateHandle);
 }
 
 void FUnrealSharpTestModule::RegisterTests()

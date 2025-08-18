@@ -11,13 +11,14 @@ class FCSharpAutomationTest;
 struct FManagedTestingActions
 {
     using FCollectTestCases = void(__stdcall*)(const FName*, int32, TArray<FManagedTestCaseHandle>*);
-    using FLoadLoadAssemblyTests = void(__stdcall*)(FName, FGCHandleIntPtr, TArray<FString>*);
     using FStartTest = FGCHandleIntPtr(__stdcall*)(const TWeakPtr<FCSharpAutomationTest>*, FGCHandleIntPtr);
     using FCheckTaskComplete = bool(__stdcall*)(FGCHandleIntPtr);
+    using FClearTestClassInstances = void(__stdcall*)();
 
     FCollectTestCases CollectTestCases = nullptr;
     FStartTest StartTest = nullptr;
     FCheckTaskComplete CheckTaskComplete = nullptr;
+    FClearTestClassInstances ClearTestClassInstances = nullptr;
 };
 
 /**
@@ -41,6 +42,7 @@ public:
     TArray<FManagedTestCaseHandle> CollectTestCases(TConstArrayView<FName> AssemblyPaths) const;
     FSharedGCHandle StartTest(const TWeakPtr<FCSharpAutomationTest>& Test, FGCHandleIntPtr ManagedTest) const;
     bool CheckTaskComplete(const FSharedGCHandle& Task) const;
+    void ClearTestClassInstances() const;
 
 private:
     FManagedTestingActions Actions;
