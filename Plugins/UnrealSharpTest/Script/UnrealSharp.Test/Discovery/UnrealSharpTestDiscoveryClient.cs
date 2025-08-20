@@ -16,22 +16,38 @@ public static class UnrealSharpTestDiscoveryClient
         var testCases = new List<UnrealTestCase>();
         foreach (var assemblyName in assemblyPaths)
         {
-            var assemblyPtr = ManagedTestingExporter.CallFindUserAssembly(assemblyName);
-            var assembly = GCHandleUtilities.GetObjectFromHandlePtr<Assembly>(assemblyPtr);
-            if (assembly is null)
+            try
             {
-                LogUnrealSharpTest.LogError($"Assembly {assemblyName} not found");
-                continue;
-            }
+                var assemblyPtr = ManagedTestingExporter.CallFindUserAssembly(assemblyName);
+                var assembly = GCHandleUtilities.GetObjectFromHandlePtr<Assembly>(assemblyPtr);
+                if (assembly is null)
+                {
+                    LogUnrealSharpTest.LogError($"Assembly {assemblyName} not found");
+                    continue;
+                }
 
-            if (assembly.GetCustomAttribute<TestAssemblyAttribute>() is null)
-            {
-                continue;
+                if (assembly.GetCustomAttribute<TestAssemblyAttribute>() is null)
+                {
+                    continue;
+                }
+
+                foreach (var type in assembly.GetTypes()
+                             .Where(IsTestClass))
+                {
+                    try
+                    {
+                        DiscoverTests(testCases, assemblyName, type);
+                    }
+                    catch (Exception e)
+                    {
+                        LogUnrealSharpTest.LogError($"Failed to load test class {type}: {e}");
+                    }
+                }
             }
-            
-            testCases.AddRange(assembly.GetTypes()
-                .Where(IsTestClass)
-                .SelectMany(t => DiscoverTests(assemblyName, t)));
+            catch (Exception e)
+            {
+                LogUnrealSharpTest.LogError($"Failed to load assembly {assemblyName}: {e}");
+            }
         }
         
         return testCases;
@@ -52,7 +68,7 @@ public static class UnrealSharpTestDiscoveryClient
         return method.GetCustomAttribute<TestAttribute>() is not null || method.GetCustomAttributes<TestCaseAttribute>().Any();
     }
 
-    private static IEnumerable<UnrealTestCase> DiscoverTests(FName assemblyName, Type testClass)
+    private static void DiscoverTests(List<UnrealTestCase> testCases, FName assemblyName, Type testClass)
     {
         var category = testClass.GetCustomAttribute<TestFixtureAttribute>()?.Category;
         var prefix = category ?? testClass.FullName ?? testClass.Name;
@@ -73,31 +89,51 @@ public static class UnrealSharpTestDiscoveryClient
             teardownMethod = method;
         }
 
-        return testClass.GetMethods()
-            .Where(IsTestMethod)
-            .SelectMany(m => GetTestCases(assemblyName, prefix, m, setupMethod, teardownMethod));
+        foreach (var method in testClass.GetMethods()
+                     .Where(IsTestMethod))
+        {
+            GetTestCases(testCases, assemblyName, prefix, method, setupMethod, teardownMethod);
+        }
     }
 
-    private static IEnumerable<UnrealTestCase> GetTestCases(FName assemblyName, string prefix, MethodInfo method, MethodInfo? setupMethod, MethodInfo? teardownMethod)
+    private static void GetTestCases(List<UnrealTestCase> testCases, FName assemblyName, string prefix,
+                                     MethodInfo method, MethodInfo? setupMethod, MethodInfo? teardownMethod)
     {
         var displayName = method.GetCustomAttribute<TestAttribute>()?.Description;
         var testName = displayName is not null ? $"{prefix}.{displayName}" : $"{prefix}.{method.Name}";
 
         var sequencePoint = method.GetFirstSequencePoint();
         
-        var testCases = method.GetCustomAttributes<TestCaseAttribute>()
+        var testCasesAttributes = method.GetCustomAttributes<TestCaseAttribute>()
             .ToArray();
 
-        if (testCases.Length == 0)
+        if (testCasesAttributes.Length == 0)
         {
-            return [CreateTestCase(assemblyName, testName, method, setupMethod, teardownMethod, sequencePoint)];
+            try
+            {
+                testCases.Add(
+                    CreateTestCase(assemblyName, testName, method, setupMethod, teardownMethod, sequencePoint));
+            }
+            catch (Exception e)
+            {
+                LogUnrealSharpTest.LogError($"Failed to create test case {testName}: {e}");
+            }
+
+            return;
         }
 
-        return testCases
-            .DistinctBy(GetArgumentsName)
-            .Select(t =>
-                CreateTestCase(assemblyName, $"{testName}.{GetArgumentsName(t)}", 
-                    method, setupMethod, teardownMethod, sequencePoint, t.Arguments));
+        foreach (var testCase in testCasesAttributes
+                     .DistinctBy(GetArgumentsName))
+        {
+            try
+            {
+                testCases.Add(CreateTestCase(assemblyName, testName, method, setupMethod, teardownMethod, sequencePoint, testCase.Arguments));
+            }
+            catch (Exception e)
+            {
+                LogUnrealSharpTest.LogError($"Failed to create test case {testName}: {e}");
+            }
+        }
     }
 
     private static UnrealTestCase CreateTestCase(FName assemblyName, string testName, MethodInfo method,
