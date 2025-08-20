@@ -16,7 +16,7 @@ public unsafe struct ManagedTestingActions
     public required delegate* unmanaged<IntPtr, int, UnmanagedArray*, void> CollectTestCases { get; init; }
     
     [UsedImplicitly]
-    public required delegate* unmanaged<WeakAutomationTestReference*, IntPtr, IntPtr> StartTest { get; init; }
+    public required delegate* unmanaged<IntPtr, IntPtr, NativeBool> RunTest { get; init; }
     
     [UsedImplicitly]
     public required delegate* unmanaged<IntPtr, NativeBool> CheckTaskComplete { get; init; }
@@ -29,7 +29,7 @@ public unsafe struct ManagedTestingActions
         return new ManagedTestingActions
         {
             CollectTestCases = &ManagedTestingCallbacks.CollectTestCases,
-            StartTest = &ManagedTestingCallbacks.StartTest,
+            RunTest = &ManagedTestingCallbacks.RunTest,
             CheckTaskComplete = &ManagedTestingCallbacks.CheckTaskComplete,
             ClearTestClassInstances = &ManagedTestingCallbacks.ClearTestClassInstances
         };
@@ -57,17 +57,15 @@ public static unsafe class ManagedTestingCallbacks
     }
 
     [UnmanagedCallersOnly]
-    public static IntPtr StartTest(WeakAutomationTestReference* nativeTest, IntPtr managedTestCasePtr)
+    public static NativeBool RunTest(IntPtr nativeTest, IntPtr managedTestCasePtr)
     {
         var testCase = GCHandleUtilities.GetObjectFromHandlePtr<UnrealTestCase>(managedTestCasePtr);
         if (testCase is null)
         {
-            return IntPtr.Zero;
+            return NativeBool.False;
         }
         
-        var testTask = UnrealSharpTestExecutor.RunTestInProcess(ref *nativeTest, testCase);
-        var taskHandle = GCHandle.Alloc(testTask);
-        return GCHandle.ToIntPtr(taskHandle);
+        return UnrealSharpTestExecutor.RunTestInProcess(new AutomationTestRef(nativeTest), testCase).ToNativeBool();
     }
     
     [UnmanagedCallersOnly]

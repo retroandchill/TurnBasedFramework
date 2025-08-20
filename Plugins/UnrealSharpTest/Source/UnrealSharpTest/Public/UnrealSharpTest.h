@@ -7,6 +7,8 @@
 class FCSharpAutomationTest;
 class FManagedTestHandle;
 
+DECLARE_LOG_CATEGORY_EXTERN(LogUnrealSharpTestNative, Log, All);
+
 class FUnrealSharpTestModule final : public IModuleInterface
 {
 public:
@@ -23,6 +25,7 @@ private:
     void RegisterTests(const FName& AssemblyName);
     void RegisterTests(TConstArrayView<FName, int> Assemblies);
     void UnregisterTests(const FName& AssemblyName);
+    void ClearTestCache();
 
     static FUnrealSharpTestModule* Instance;
     TMap<FName, TArray<TSharedRef<FCSharpAutomationTest>>> Tests;

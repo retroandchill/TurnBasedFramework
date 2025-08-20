@@ -3,7 +3,7 @@
 
 #include "Runner/CSharpAutomationTest.h"
 
-#include "Runner/CSharpTestLatentCommand.h"
+#include "Interop/ManagedTestingCallbacks.h"
 
 
 FString FCSharpAutomationTest::GetTestSourceFileName() const
@@ -31,24 +31,6 @@ uint32 FCSharpAutomationTest::GetRequiredDeviceNum() const
     return 1;
 }
 
-void FCSharpAutomationTest::LogInfo(FStringView Message, FStringView SourceFile, int32 LineNumber)
-{
-    AddInfo(FString(Message), 0, true);
-    OverrideTargetFile(SourceFile, LineNumber);
-}
-
-void FCSharpAutomationTest::LogWarning(FStringView Message, FStringView SourceFile, int32 LineNumber)
-{
-    AddWarning(FString(Message));
-    OverrideTargetFile(SourceFile, LineNumber);
-}
-
-void FCSharpAutomationTest::LogError(FStringView Message, FStringView SourceFile, int32 LineNumber)
-{
-    AddError(FString(Message));
-    OverrideTargetFile(SourceFile, LineNumber);
-}
-
 void FCSharpAutomationTest::GetTests(TArray<FString>& OutBeautifiedNames, TArray<FString>& OutTestCommands) const
 {
     OutBeautifiedNames.Add("");
@@ -57,13 +39,5 @@ void FCSharpAutomationTest::GetTests(TArray<FString>& OutBeautifiedNames, TArray
 
 bool FCSharpAutomationTest::RunTest(const FString& Parameters)
 {
-    ADD_LATENT_AUTOMATION_COMMAND(FCSharpTestLatentCommand(AsShared(), ManagedTestCase.ManagedTestCase.GetHandle()));
-    return true;
-}
-
-void FCSharpAutomationTest::OverrideTargetFile(FStringView SourceFile, const int32 LineNumber)
-{
-    auto &MostRecentEntry = const_cast<FAutomationExecutionEntry&>(ExecutionInfo.GetEntries().Last());
-    MostRecentEntry.Filename = SourceFile;
-    MostRecentEntry.LineNumber = LineNumber;   
+    return FManagedTestingCallbacks::Get().RunTest(*this, ManagedTestCase.ManagedTestCase.GetHandle());  
 }

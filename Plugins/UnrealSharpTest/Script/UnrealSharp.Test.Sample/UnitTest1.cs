@@ -1,62 +1,59 @@
-﻿using UnrealSharp.Test.Asserts;
-using UnrealSharp.Test.Attributes;
+﻿using NUnit.Framework;
 
 namespace UnrealSharp.Test.Sample;
 
 public class Tests
 {
-    [AutomationSetup]
+    [SetUp]
     public void Setup()
     {
     }
 
-    [AutomationTest]
-    public void Test1()
+    [Test]
+    public void PassingTest()
     {
         Assert.Pass("This is an explicit pass");
     }
 
-    [AutomationTest]
-    public void Test2()
+    [Test]
+    public void FailingTest()
     {
         Assert.Fail("This test is failing");
     }
     
-    [AutomationTest]
-    public async Task Test3()
-    {
-        await Task.Delay(1000);
-        Assert.Pass();
-    }
-    
-    [AutomationTest]
-    public async ValueTask Test4()
-    {
-        await Task.Delay(1000);
-        Assert.Pass();
-    }
-    
-    [AutomationTest]
-    public async Task<bool> Test5()
-    {
-        await Task.Delay(1000);
-        Assert.Pass();
-        return true;
-    }
-    
-    [AutomationTest]
-    public async ValueTask<bool> Test6()
-    {
-        await Task.Delay(1000);
-        Assert.Pass();
-        return true;
-    }
-    
-    [AutomationTestCase(12, 3, 4)]
-    [AutomationTestCase(12, 2, 6)]
-    [AutomationTestCase(12, 4, 3)]
+    [TestCase(12, 3, 4)]
+    [TestCase(12, 2, 6)]
+    [TestCase(12, 4, 3)]
     public void DivideTest(int n, int d, int q)
     {
         Assert.That(n / d, Is.EqualTo(q));
+    }
+    
+    [Test]
+    public void BooleanValueTest()
+    {
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That(true, Is.True);
+            Assert.That(false, Is.False);
+        }
+    }
+
+    [Test]
+    public void StringValueTest()
+    {
+        Assert.That("Hello", Is.EqualTo("Hello"));
+        
+        Assert.That("Hello", Is.Not.EqualTo("World"));
+    }
+
+    [Test]
+    public void NullValueTest()
+    {
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That((object?)null, Is.Null);
+            Assert.That("", Is.Not.Null);
+        }
     }
 }

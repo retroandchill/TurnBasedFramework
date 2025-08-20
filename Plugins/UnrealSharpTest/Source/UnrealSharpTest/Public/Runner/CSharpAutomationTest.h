@@ -22,16 +22,10 @@ public:
     FString GetBeautifiedTestName() const override;
     uint32 GetRequiredDeviceNum() const override;
 
-    void LogInfo(FStringView Message, FStringView SourceFile, int32 LineNumber);
-    void LogWarning(FStringView Message, FStringView SourceFile, int32 LineNumber);
-    void LogError(FStringView Message, FStringView SourceFile, int32 LineNumber);
-
 protected:
     void GetTests(TArray<FString>& OutBeautifiedNames, TArray<FString>& OutTestCommands) const override;
     bool RunTest(const FString& Parameters) override;
 
 private:
-    void OverrideTargetFile(FStringView SourceFile, int32 LineNumber);
-    
     FManagedTestCaseHandle ManagedTestCase;
 };

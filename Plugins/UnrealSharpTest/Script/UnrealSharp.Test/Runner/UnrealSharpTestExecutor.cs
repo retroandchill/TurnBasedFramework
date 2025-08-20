@@ -1,42 +1,38 @@
-﻿using System.Diagnostics;
-using System.Reflection;
+﻿using System.Reflection;
+using NUnit.Framework.Interfaces;
+using NUnit.Framework.Internal;
 using UnrealSharp.CoreUObject;
-using UnrealSharp.Test.Asserts;
+using UnrealSharp.Test.Interop;
 using UnrealSharp.Test.Model;
 
 namespace UnrealSharp.Test.Runner;
 
 public static class UnrealSharpTestExecutor
 {
-    private static ITestExecutionContext? _executionContext;
-    
     private static readonly Dictionary<Type, object?> TestClassInstances = new();
-    
-    public static ITestExecutionContext Context
-    {
-      get => _executionContext ?? throw new InvalidOperationException("ExecutionContext is not set");
-      set => _executionContext = value;
-    }
-
-    public static void ClearContext()
-    {
-        _executionContext = null;
-    }
 
     internal static void ClearTestClassInstances()
     {
         TestClassInstances.Clear();
     }
     
-    public static Task RunTestInProcess(ref WeakAutomationTestReference automationTestReference, UnrealTestCase testCase)
+    public static bool RunTestInProcess(AutomationTestRef automationTestReference, UnrealTestCase testCase)
     {
-        Context = new AutomationTestExecutionContext(ref automationTestReference);
-        return RunTestInProcessInternal(testCase);
+        var testTask = RunTestInProcessInternal(testCase);
+        if (testTask.IsCompletedSuccessfully)
+        {
+            return testTask.Result;
+        }
+        
+        automationTestReference.EnqueueNativeTask(testTask.AsTask());
+        return true;
     }
 
-    private static async Task RunTestInProcessInternal(UnrealTestCase testCase)
+    private static async ValueTask<bool> RunTestInProcessInternal(UnrealTestCase testCase)
     {
-        using var context = Context;
+        using var nunitContext = new TestExecutionContext.IsolatedContext();
+        var testResult = TestExecutionContext.CurrentContext.CurrentResult;
+
         try
         {
             var testClass = testCase.Method.DeclaringType;
@@ -53,34 +49,72 @@ public static class UnrealSharpTestExecutor
                 await RunTestMethod(testInstance, testCase.SetupMethod);
                 await RunTestMethod(testInstance, testCase.Method, testCase.Arguments);
             }
-            catch (AutomationException)
+            catch (Exception e)
             {
-                // Do nothing, just swallow the exception, the logging has already handled it
+                testResult.RecordException(e);
             }
             finally
             {
-                await RunTestMethod(testInstance, testCase.TearDownMethod);
+                try
+                {
+                    await RunTestMethod(testInstance, testCase.TearDownMethod);
+                }
+                catch (Exception e)
+                {
+                    testResult.RecordTearDownException(e);
+                }
             }
         }
         catch (Exception e)
         {
-            Context.LogEvent($"Unexpected exception was thrown: {e}", EAutomationEventType.Error, EventLocation.FromException(e));
+            testResult.RecordException(e);
         }
-        finally
+
+        LogTestResult(testResult);
+        return testResult.ResultState.Status != TestStatus.Failed;
+    }
+
+    public static void LogTestResult(TestResult result)
+    {
+        if (!string.IsNullOrWhiteSpace(result.Message) 
+            && result.AssertionResults.All(r => r.Message != result.Message))
         {
-            ClearContext();
+            LogTestMessage(result.Message);
+        }
+        
+        foreach (var assertion in result.AssertionResults)
+        {
+            var eventType = assertion.Status switch
+            {
+                AssertionStatus.Inconclusive => EAutomationEventType.Info,
+                AssertionStatus.Passed => EAutomationEventType.Info,
+                AssertionStatus.Warning => EAutomationEventType.Warning,
+                AssertionStatus.Failed => EAutomationEventType.Error,
+                AssertionStatus.Error => EAutomationEventType.Error,
+                _ => throw new InvalidOperationException("Unknown assertion status")
+            };
+            
+            LogTestMessage(assertion.Message, eventType);
+        }
+    }
+
+    private static void LogTestMessage(string message, EAutomationEventType eventType = EAutomationEventType.Info)
+    {
+        unsafe
+        {
+            fixed (char* messagePtr = message)
+            {
+                AutomationTestExporter.CallLogEvent(messagePtr, eventType);
+            }
         }
     }
 
     private static async ValueTask RunTestMethod(object? testFixture, MethodInfo? methodInfo, params object?[] arguments)
     {
         if (methodInfo is null) return;
-        
-        var convertedArguments = ConvertProvidedArguments(methodInfo, arguments);
-
         try
         {
-            var result = methodInfo.Invoke(testFixture, convertedArguments);
+            var result = methodInfo.Invoke(testFixture, arguments);
             switch (result)
             {
                 case null:
@@ -116,35 +150,6 @@ public static class UnrealSharpTestExecutor
             
             throw e.InnerException;
         }
-    }
-
-    private static object?[] ConvertProvidedArguments(MethodInfo methodInfo, object?[] arguments)
-    {
-        var parameters = methodInfo.GetParameters();
-        var requiredParameters = parameters.TakeWhile(p => p.HasDefaultValue == false).Count();
-        
-        if (requiredParameters > arguments.Length)
-        {
-            throw new InvalidOperationException($"Test method {methodInfo.Name} has more parameters than provided");
-        }
-        
-        if (parameters.Length < arguments.Length)
-        {
-            LogUnrealSharpTest.LogWarning($"Test method {methodInfo.Name} has less parameters than provided");
-        }
-        
-        var convertedArguments = new object?[parameters.Length];
-        for (var i = 0; i < parameters.Length; i++)
-        {
-            if (i < arguments.Length)
-            {
-                convertedArguments[i] = parameters[i].DefaultValue;
-            }
-            
-            convertedArguments[i] = Convert.ChangeType(arguments[i], parameters[i].ParameterType);
-        }
-
-        return convertedArguments;
     }
 
     private static async ValueTask AwaitValueTask<T>(ValueTask<T> valueTask)

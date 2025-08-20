@@ -13,7 +13,7 @@ class FCSharpAutomationTest;
 class UNREALSHARPTEST_API FCSharpTestLatentCommand final : public IAutomationLatentCommand
 {
 public:
-    FCSharpTestLatentCommand(TWeakPtr<FCSharpAutomationTest> InOwner, FGCHandleIntPtr TestCase);
+    FCSharpTestLatentCommand(TWeakPtr<FCSharpAutomationTest> Owner, FGCHandleIntPtr TestTask);
 
     bool Update() override;
 

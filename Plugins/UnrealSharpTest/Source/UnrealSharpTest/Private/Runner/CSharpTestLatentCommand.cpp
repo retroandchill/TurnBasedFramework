@@ -5,8 +5,8 @@
 
 #include "Interop/ManagedTestingCallbacks.h"
 
-FCSharpTestLatentCommand::FCSharpTestLatentCommand(TWeakPtr<FCSharpAutomationTest> InOwner, const FGCHandleIntPtr TestCase)
-    : Owner(MoveTemp(InOwner)), TestTask(FManagedTestingCallbacks::Get().StartTest(Owner, TestCase))
+FCSharpTestLatentCommand::FCSharpTestLatentCommand(TWeakPtr<FCSharpAutomationTest> Owner, const FGCHandleIntPtr TestTask)
+    : Owner(MoveTemp(Owner)), TestTask(TestTask)
 {
 }
 

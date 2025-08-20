@@ -24,10 +24,9 @@ TArray<FManagedTestCaseHandle> FManagedTestingCallbacks::CollectTestCases(const 
     return Result;  
 }
 
-
-FSharedGCHandle FManagedTestingCallbacks::StartTest(const TWeakPtr<FCSharpAutomationTest>& Test, const FGCHandleIntPtr ManagedTest) const
+bool FManagedTestingCallbacks::RunTest(FCSharpAutomationTest& Test, FGCHandleIntPtr ManagedTest) const
 {
-    return FSharedGCHandle(Actions.StartTest(&Test, ManagedTest));
+    return Actions.RunTest(&Test, ManagedTest);
 }
 
 bool FManagedTestingCallbacks::CheckTaskComplete(const FSharedGCHandle& Task) const
