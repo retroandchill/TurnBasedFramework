@@ -11,10 +11,12 @@ namespace UnrealSharp.Test.Runner;
 public static class UnrealSharpTestExecutor
 {
     private static readonly Dictionary<Type, object?> TestClassInstances = new();
+    private static readonly Dictionary<ParameterInfo, object?[]> EvaluatedParameters = new();
 
     internal static void ClearTestClassInstances()
     {
         TestClassInstances.Clear();
+        EvaluatedParameters.Clear();
     }
 
     public static bool RunTestInProcess(AutomationTestRef automationTestReference, UnrealTestMethod testMethod,
@@ -50,10 +52,13 @@ public static class UnrealSharpTestExecutor
             {
                 await RunTestMethod(testInstance, testMethod.SetupMethod);
 
-                var arguments = testMethod.TestCases.TryGetValue(testCase, out var argumentsList)
-                    ? GetArguments(argumentsList)
-                    : [];
-                await RunTestMethod(testInstance, testMethod.Method, arguments);
+                var arguments = testMethod.TestCases.GetValueOrDefault(testCase);
+                var result = await RunTestMethod(testInstance, testMethod.Method, arguments);
+
+                if (arguments?.HasExpectedResult == true)
+                {
+                    Assert.That(result, Is.EqualTo(arguments.ExpectedResult));
+                }
             }
             catch (Exception e)
             {
@@ -80,11 +85,25 @@ public static class UnrealSharpTestExecutor
         return testResult.ResultState.Status != TestStatus.Failed;
     }
 
-    private static object?[] GetArguments(TestCaseData testCaseData)
+    private static object?[] GetArguments(this TestCaseData testCaseData)
     {
         return testCaseData.Arguments
-            .Select(x => x is RandomPlaceholder randomPlaceholder ? randomPlaceholder.GetRandomValue() : x)
+            .Select(x => x is IDataPlaceholder placeholder ? placeholder.GetArguments()[placeholder.Index] : x)
             .ToArray();
+    }
+
+    private static object?[] GetArguments(this IDataPlaceholder placeholder)
+    {
+        if (EvaluatedParameters.TryGetValue(placeholder.ParameterInfo, out var arguments))
+        {
+            return arguments;
+        }
+        
+        var newArguments = placeholder.GetData()
+            .Cast<object>()
+            .ToArray();
+        EvaluatedParameters[placeholder.ParameterInfo] = newArguments;
+        return newArguments;
     }
 
     public static void LogTestResult(TestResult result)
@@ -122,38 +141,50 @@ public static class UnrealSharpTestExecutor
         }
     }
 
-    private static async ValueTask RunTestMethod(object? testFixture, MethodInfo? methodInfo,
-                                                 params object?[] arguments)
+    private static async ValueTask<object?> RunTestMethod(object? testFixture, MethodInfo? methodInfo,
+                                                         TestCaseData? testCaseData = null)
     {
-        if (methodInfo is null) return;
+        if (methodInfo is null) return null;
         try
         {
+            var arguments = testCaseData?.GetArguments() ?? [];
             var result = methodInfo.Invoke(testFixture, arguments);
             switch (result)
             {
                 case null:
-                    return;
+                    return null;
                 case Task task:
+                {
                     await task;
-                    break;
+                    if (!task.GetType().IsGenericType || task.GetType().GetGenericTypeDefinition() != typeof(Task<>))
+                        return null;
+                    
+                    var awaitMethod = typeof(UnrealSharpTestExecutor)
+                        .GetMethod(nameof(AwaitTask), BindingFlags.NonPublic | BindingFlags.Static)!
+                        .MakeGenericMethod(task.GetType().GenericTypeArguments[0]);
+                        
+                    var awaitTask = (ValueTask<object?>) awaitMethod.Invoke(null, [task])!;
+                    return await awaitTask;
+
+                }
                 case ValueTask valueTask:
                     await valueTask;
-                    break;
+                    return null;
             }
 
             var resultType = result.GetType();
-            if (!resultType.IsGenericType) return;
+            if (!resultType.IsGenericType) return result;
 
             var genericTypeDefinition = resultType.GetGenericTypeDefinition();
-            if (genericTypeDefinition == typeof(ValueTask<>))
-            {
-                var awaitMethod = typeof(UnrealSharpTestExecutor)
-                    .GetMethod(nameof(AwaitValueTask), BindingFlags.NonPublic | BindingFlags.Static)!
-                    .MakeGenericMethod(resultType.GenericTypeArguments[0]);
+            if (genericTypeDefinition != typeof(ValueTask<>)) return result;
+            
+            var valueAwaitMethod = typeof(UnrealSharpTestExecutor)
+                .GetMethod(nameof(AwaitValueTask), BindingFlags.NonPublic | BindingFlags.Static)!
+                .MakeGenericMethod(resultType.GenericTypeArguments[0]);
 
-                var awaitTask = (ValueTask)awaitMethod.Invoke(null, [result])!;
-                await awaitTask;
-            }
+            var awaitValueTask = (ValueTask<object?>) valueAwaitMethod.Invoke(null, [result])!;
+            return await awaitValueTask;
+
         }
         catch (TargetInvocationException e)
         {
@@ -166,8 +197,13 @@ public static class UnrealSharpTestExecutor
         }
     }
 
-    private static async ValueTask AwaitValueTask<T>(ValueTask<T> valueTask)
+    private static async ValueTask<object?> AwaitTask<T>(Task<T> task)
     {
-        await valueTask;
+        return await task;
+    }
+
+    private static async ValueTask<object?> AwaitValueTask<T>(ValueTask<T> valueTask)
+    {
+        return await valueTask;
     }
 }

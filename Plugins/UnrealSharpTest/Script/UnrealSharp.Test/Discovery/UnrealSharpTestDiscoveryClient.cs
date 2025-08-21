@@ -71,7 +71,10 @@ public static class UnrealSharpTestDiscoveryClient
     {
         return method.GetCustomAttribute<TestAttribute>() is not null 
                || method.GetCustomAttributes<TestCaseAttribute>().Any() 
-               || method.GetCustomAttributes<TestCaseSourceAttribute>().Any();
+               || method.GetCustomAttributes<TestCaseSourceAttribute>().Any()
+               || method.GetCustomAttributes<CombinatorialAttribute>().Any()
+               || method.GetCustomAttributes<SequentialAttribute>().Any()
+               || method.GetCustomAttributes<PairwiseAttribute>().Any();
     }
 
     private static void DiscoverTests(List<UnrealTestMethod> testCases, FName assemblyName, Type testClass)
@@ -138,10 +141,9 @@ public static class UnrealSharpTestDiscoveryClient
         try
         {
             var methodWrapper = new MethodWrapper(method.DeclaringType!, method);
-            testCases.AddRange(CreateTestCase(assemblyName, testName, method, setupMethod, 
-                teardownMethod, sequencePoint, GetPossibleValues(methodWrapper.GetParameters())));
-            testCases.AddRange(CreateTestCase(assemblyName, testName, method, setupMethod, 
-                teardownMethod, sequencePoint));
+            testCases.Add(CreateTestCase(assemblyName, testName, method, setupMethod, 
+                teardownMethod, sequencePoint, GetPossibleValues(methodWrapper.GetParameters(), 
+                    method.GetCombinationMode())));
             
         }
         catch (Exception e)
@@ -149,9 +151,27 @@ public static class UnrealSharpTestDiscoveryClient
             LogUnrealSharpTest.LogError($"Failed to create test case {testName}: {e}");
         }
     }
+
+    private static CombinationMode GetCombinationMode(this MethodInfo methodInfo)
+    {
+        var sequentialAttribute = methodInfo.GetCustomAttribute<SequentialAttribute>();
+        if (sequentialAttribute is null)
+        {
+            return CombinationMode.Sequential;
+        }
+        
+        var pairwiseAttribute = methodInfo.GetCustomAttribute<PairwiseAttribute>();
+        if (pairwiseAttribute is null)
+        {
+            return CombinationMode.Pairwise;
+        }
+        
+        return CombinationMode.Combinatorial;
+    }
     
     
-    private static IEnumerable<TestCaseData> GetPossibleValues(IEnumerable<IParameterInfo> parameters)
+    private static IEnumerable<TestCaseData> GetPossibleValues(IEnumerable<IParameterInfo> parameters, 
+                                                               CombinationMode combinationMode)
     {
         var parameterSources = parameters
             .Select(GetPossibleValues)
@@ -160,51 +180,44 @@ public static class UnrealSharpTestDiscoveryClient
         if (parameterSources.Length == 0)
             return [];
 
-        // Start with first parameter's values as initial result
-        var result = parameterSources[0].Select(x => new[] { x });
-
-        // For each additional parameter, create cartesian product
-        for (var i = 1; i < parameterSources.Length; i++)
+        var result = combinationMode switch
         {
-            var parameter = parameterSources[i];
-            result = result
-                .SelectMany(_ => parameter, (curr, value) => curr.Concat([value]).ToArray());
-        }
-
-        return result.Select(x => new TestCaseData(x));
+            CombinationMode.Combinatorial => parameterSources.CartesianProduct(),
+            CombinationMode.Sequential => parameterSources.SequentialGrouping(),
+            CombinationMode.Pairwise => parameterSources.PairwiseGrouping(),
+            _ => throw new ArgumentOutOfRangeException(nameof(combinationMode), combinationMode, null)
+        };
+        
+        return result
+            .Select(x => x.ToArray())
+            .Select(x => new TestCaseData(x));
     }
 
     private static object?[] GetPossibleValues(IParameterInfo parameter)
     {
-        var valuesAttribute = parameter.ParameterInfo.GetCustomAttribute<ValuesAttribute>();
-        if (valuesAttribute is not null)
+        var allParameterOptions = parameter.ParameterInfo.GetCustomAttributes<NUnitAttribute>()
+            .SelectMany(a => GetPossibleValues(parameter, a))
+            .ToArray();
+
+        if (allParameterOptions.Length > 0)
         {
-            return valuesAttribute.GetData(parameter).Cast<object>().ToArray();
-        }
-        
-        var rangeAttribute = parameter.ParameterInfo.GetCustomAttribute<RangeAttribute>();
-        if (rangeAttribute is not null)
-        {
-            return rangeAttribute.GetData(parameter).Cast<object>().ToArray();
-        }
-        
-        var valueSourceAttribute = parameter.ParameterInfo.GetCustomAttribute<ValueSourceAttribute>();
-        if (valueSourceAttribute is not null)
-        {
-            return valueSourceAttribute.GetData(parameter).Cast<object>().ToArray();
-        }
-        
-        var randomAttribute = parameter.ParameterInfo.GetCustomAttribute<RandomAttribute>();
-        if (randomAttribute is not null)
-        {
-            return randomAttribute.GetData(parameter)
-                .Cast<object>()
-                .Select(_ => new RandomPlaceholder(randomAttribute, parameter))
-                .Cast<object>()
-                .ToArray();
+            return allParameterOptions;
         }
         
         return parameter.ParameterType.IsValueType ? [Activator.CreateInstance(parameter.ParameterType)] : [null];
+    }
+
+    private static IEnumerable<object?> GetPossibleValues(IParameterInfo parameter, NUnitAttribute attribute)
+    {
+        return attribute switch
+        {
+            ValuesAttribute valuesAttribute => valuesAttribute.GetData(parameter).Cast<object>(),
+            RangeAttribute rangeAttribute => rangeAttribute.GetData(parameter).Cast<object>(),
+            ValueSourceAttribute valueSourceAttribute => valueSourceAttribute.GetData(parameter).Cast<object>(),
+            DynamicRandomAttribute randomAttribute => Enumerable.Range(0, randomAttribute.Count)
+                .Select(i => new RandomPlaceholder(randomAttribute, parameter.ParameterInfo, i)),
+            _ => []
+        };
     }
     
     private static void CreateTestCases(List<UnrealTestMethod> testCases, FName assemblyName, MethodInfo method, MethodInfo? setupMethod,
