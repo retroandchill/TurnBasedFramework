@@ -18,9 +18,9 @@ public static class UnrealSharpTestExecutor
     }
 
     public static bool RunTestInProcess(AutomationTestRef automationTestReference, UnrealTestMethod testMethod,
-                                        FName testCase, CancellationToken cancellationToken = default)
+                                        FName testCase)
     {
-        var testTask = RunTestInProcessInternal(testMethod, testCase, cancellationToken);
+        var testTask = RunTestInProcessInternal(testMethod, testCase);
         if (testTask.IsCompletedSuccessfully)
         {
             return testTask.Result;
@@ -30,8 +30,7 @@ public static class UnrealSharpTestExecutor
         return true;
     }
 
-    private static async ValueTask<bool> RunTestInProcessInternal(UnrealTestMethod testMethod, FName testCase,
-                                                                  CancellationToken cancellationToken)
+    private static async ValueTask<bool> RunTestInProcessInternal(UnrealTestMethod testMethod, FName testCase)
     {
         using var nunitContext = new TestExecutionContext.IsolatedContext();
         var testResult = TestExecutionContext.CurrentContext.CurrentResult;
@@ -49,16 +48,11 @@ public static class UnrealSharpTestExecutor
 
             try
             {
-                object?[] setupParams = testMethod.SetupMethodCancellable ? [cancellationToken] : [];
-                await RunTestMethod(testInstance, testMethod.SetupMethod, setupParams);
+                await RunTestMethod(testInstance, testMethod.SetupMethod);
 
                 var arguments = testMethod.TestCases.TryGetValue(testCase, out var argumentsList)
-                    ? GetArguments(argumentsList, cancellationToken)
-                    : testMethod.Method.GetParameters()
-                        .Select(p => p.ParameterType == typeof(CancellationToken)
-                            ? cancellationToken
-                            : p.DefaultValue)
-                        .ToArray();
+                    ? GetArguments(argumentsList)
+                    : [];
                 await RunTestMethod(testInstance, testMethod.Method, arguments);
             }
             catch (Exception e)
@@ -69,8 +63,7 @@ public static class UnrealSharpTestExecutor
             {
                 try
                 {
-                    object?[] tearDownParams = testMethod.TearDownMethodCancellable ? [cancellationToken] : [];
-                    await RunTestMethod(testInstance, testMethod.TearDownMethod, tearDownParams);
+                    await RunTestMethod(testInstance, testMethod.TearDownMethod);
                 }
                 catch (Exception e)
                 {
@@ -87,15 +80,10 @@ public static class UnrealSharpTestExecutor
         return testResult.ResultState.Status != TestStatus.Failed;
     }
 
-    private static object?[] GetArguments(TestCaseData testCaseData, CancellationToken cancellationToken)
+    private static object?[] GetArguments(TestCaseData testCaseData)
     {
         return testCaseData.Arguments
-            .Select(x => x switch
-            {
-                RandomPlaceholder randomPlaceholder => randomPlaceholder.GetRandomValue(),
-                CancellationTokenPlaceholder => cancellationToken,
-                _ => x
-            })
+            .Select(x => x is RandomPlaceholder randomPlaceholder ? randomPlaceholder.GetRandomValue() : x)
             .ToArray();
     }
 

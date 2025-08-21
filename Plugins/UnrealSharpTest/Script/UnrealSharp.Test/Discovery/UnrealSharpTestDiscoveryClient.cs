@@ -203,11 +203,6 @@ public static class UnrealSharpTestDiscoveryClient
                 .Cast<object>()
                 .ToArray();
         }
-
-        if (parameter.ParameterType == typeof(CancellationToken))
-        {
-            return [CancellationTokenPlaceholder.Default];
-        }
         
         return parameter.ParameterType.IsValueType ? [Activator.CreateInstance(parameter.ParameterType)] : [null];
     }
