@@ -69,7 +69,9 @@ public static class UnrealSharpTestDiscoveryClient
 
     private static bool IsTestMethod(MethodInfo method)
     {
-        return method.GetCustomAttribute<TestAttribute>() is not null || method.GetCustomAttributes<TestCaseAttribute>().Any() || method.GetCustomAttributes<TestCaseSourceAttribute>().Any();
+        return method.GetCustomAttribute<TestAttribute>() is not null 
+               || method.GetCustomAttributes<TestCaseAttribute>().Any() 
+               || method.GetCustomAttributes<TestCaseSourceAttribute>().Any();
     }
 
     private static void DiscoverTests(List<UnrealTestMethod> testCases, FName assemblyName, Type testClass)
@@ -190,6 +192,21 @@ public static class UnrealSharpTestDiscoveryClient
         if (valueSourceAttribute is not null)
         {
             return valueSourceAttribute.GetData(parameter).Cast<object>().ToArray();
+        }
+        
+        var randomAttribute = parameter.ParameterInfo.GetCustomAttribute<RandomAttribute>();
+        if (randomAttribute is not null)
+        {
+            return randomAttribute.GetData(parameter)
+                .Cast<object>()
+                .Select(_ => new RandomPlaceholder(randomAttribute, parameter))
+                .Cast<object>()
+                .ToArray();
+        }
+
+        if (parameter.ParameterType == typeof(CancellationToken))
+        {
+            return [CancellationTokenPlaceholder.Default];
         }
         
         return parameter.ParameterType.IsValueType ? [Activator.CreateInstance(parameter.ParameterType)] : [null];

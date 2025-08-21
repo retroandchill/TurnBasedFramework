@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using NUnit.Framework.Internal;
 using UnrealSharp.CoreUObject;
@@ -15,21 +16,22 @@ public static class UnrealSharpTestExecutor
     {
         TestClassInstances.Clear();
     }
-    
-    public static bool RunTestInProcess(AutomationTestRef automationTestReference, UnrealTestMethod testMethod, 
-                                        FName testCase)
+
+    public static bool RunTestInProcess(AutomationTestRef automationTestReference, UnrealTestMethod testMethod,
+                                        FName testCase, CancellationToken cancellationToken = default)
     {
-        var testTask = RunTestInProcessInternal(testMethod, testCase);
+        var testTask = RunTestInProcessInternal(testMethod, testCase, cancellationToken);
         if (testTask.IsCompletedSuccessfully)
         {
             return testTask.Result;
         }
-        
+
         automationTestReference.EnqueueNativeTask(testTask.AsTask());
         return true;
     }
 
-    private static async ValueTask<bool> RunTestInProcessInternal(UnrealTestMethod testMethod, FName testCase)
+    private static async ValueTask<bool> RunTestInProcessInternal(UnrealTestMethod testMethod, FName testCase,
+                                                                  CancellationToken cancellationToken)
     {
         using var nunitContext = new TestExecutionContext.IsolatedContext();
         var testResult = TestExecutionContext.CurrentContext.CurrentResult;
@@ -47,10 +49,16 @@ public static class UnrealSharpTestExecutor
 
             try
             {
+                object?[] setupParams = testMethod.SetupMethodCancellable ? [cancellationToken] : [];
+                await RunTestMethod(testInstance, testMethod.SetupMethod, setupParams);
+
                 var arguments = testMethod.TestCases.TryGetValue(testCase, out var argumentsList)
-                    ? argumentsList.Arguments
-                    : [];
-                await RunTestMethod(testInstance, testMethod.SetupMethod);
+                    ? GetArguments(argumentsList, cancellationToken)
+                    : testMethod.Method.GetParameters()
+                        .Select(p => p.ParameterType == typeof(CancellationToken)
+                            ? cancellationToken
+                            : p.DefaultValue)
+                        .ToArray();
                 await RunTestMethod(testInstance, testMethod.Method, arguments);
             }
             catch (Exception e)
@@ -61,7 +69,8 @@ public static class UnrealSharpTestExecutor
             {
                 try
                 {
-                    await RunTestMethod(testInstance, testMethod.TearDownMethod);
+                    object?[] tearDownParams = testMethod.TearDownMethodCancellable ? [cancellationToken] : [];
+                    await RunTestMethod(testInstance, testMethod.TearDownMethod, tearDownParams);
                 }
                 catch (Exception e)
                 {
@@ -78,14 +87,26 @@ public static class UnrealSharpTestExecutor
         return testResult.ResultState.Status != TestStatus.Failed;
     }
 
+    private static object?[] GetArguments(TestCaseData testCaseData, CancellationToken cancellationToken)
+    {
+        return testCaseData.Arguments
+            .Select(x => x switch
+            {
+                RandomPlaceholder randomPlaceholder => randomPlaceholder.GetRandomValue(),
+                CancellationTokenPlaceholder => cancellationToken,
+                _ => x
+            })
+            .ToArray();
+    }
+
     public static void LogTestResult(TestResult result)
     {
-        if (!string.IsNullOrWhiteSpace(result.Message) 
+        if (!string.IsNullOrWhiteSpace(result.Message)
             && result.AssertionResults.All(r => r.Message != result.Message))
         {
             LogTestMessage(result.Message);
         }
-        
+
         foreach (var assertion in result.AssertionResults)
         {
             var eventType = assertion.Status switch
@@ -97,7 +118,7 @@ public static class UnrealSharpTestExecutor
                 AssertionStatus.Error => EAutomationEventType.Error,
                 _ => throw new InvalidOperationException("Unknown assertion status")
             };
-            
+
             LogTestMessage(assertion.Message, eventType);
         }
     }
@@ -113,7 +134,8 @@ public static class UnrealSharpTestExecutor
         }
     }
 
-    private static async ValueTask RunTestMethod(object? testFixture, MethodInfo? methodInfo, params object?[] arguments)
+    private static async ValueTask RunTestMethod(object? testFixture, MethodInfo? methodInfo,
+                                                 params object?[] arguments)
     {
         if (methodInfo is null) return;
         try
@@ -140,7 +162,7 @@ public static class UnrealSharpTestExecutor
                 var awaitMethod = typeof(UnrealSharpTestExecutor)
                     .GetMethod(nameof(AwaitValueTask), BindingFlags.NonPublic | BindingFlags.Static)!
                     .MakeGenericMethod(resultType.GenericTypeArguments[0]);
-                
+
                 var awaitTask = (ValueTask)awaitMethod.Invoke(null, [result])!;
                 await awaitTask;
             }
@@ -151,7 +173,7 @@ public static class UnrealSharpTestExecutor
             {
                 throw new InvalidOperationException("Test method threw an exception but no inner exception was set", e);
             }
-            
+
             throw e.InnerException;
         }
     }
