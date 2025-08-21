@@ -1,9 +1,13 @@
-﻿using System.Reflection;
+﻿using System.Collections;
+using System.Reflection;
 using System.Reflection.Metadata;
 using NUnit.Framework;
+using NUnit.Framework.Interfaces;
+using NUnit.Framework.Internal;
 using UnrealSharp.Core;
 using UnrealSharp.Test.Attributes;
 using UnrealSharp.Test.Interop;
+using UnrealSharp.Test.Mappers;
 using UnrealSharp.Test.Model;
 using UnrealSharp.Test.Utils;
 
@@ -11,9 +15,9 @@ namespace UnrealSharp.Test.Discovery;
 
 public static class UnrealSharpTestDiscoveryClient
 {
-    public static IEnumerable<UnrealTestCase> DiscoverTests(ReadOnlySpan<FName> assemblyPaths)
+    public static IEnumerable<UnrealTestMethod> DiscoverTests(ReadOnlySpan<FName> assemblyPaths)
     {
-        var testCases = new List<UnrealTestCase>();
+        var testCases = new List<UnrealTestMethod>();
         foreach (var assemblyName in assemblyPaths)
         {
             try
@@ -65,10 +69,10 @@ public static class UnrealSharpTestDiscoveryClient
 
     private static bool IsTestMethod(MethodInfo method)
     {
-        return method.GetCustomAttribute<TestAttribute>() is not null || method.GetCustomAttributes<TestCaseAttribute>().Any();
+        return method.GetCustomAttribute<TestAttribute>() is not null || method.GetCustomAttributes<TestCaseAttribute>().Any() || method.GetCustomAttributes<TestCaseSourceAttribute>().Any();
     }
 
-    private static void DiscoverTests(List<UnrealTestCase> testCases, FName assemblyName, Type testClass)
+    private static void DiscoverTests(List<UnrealTestMethod> testCases, FName assemblyName, Type testClass)
     {
         var category = testClass.GetCustomAttribute<TestFixtureAttribute>()?.Category;
         var prefix = category ?? testClass.FullName ?? testClass.Name;
@@ -96,7 +100,7 @@ public static class UnrealSharpTestDiscoveryClient
         }
     }
 
-    private static void GetTestCases(List<UnrealTestCase> testCases, FName assemblyName, string prefix,
+    private static void GetTestCases(List<UnrealTestMethod> testCases, FName assemblyName, string prefix,
                                      MethodInfo method, MethodInfo? setupMethod, MethodInfo? teardownMethod)
     {
         var displayName = method.GetCustomAttribute<TestAttribute>()?.Description;
@@ -104,53 +108,198 @@ public static class UnrealSharpTestDiscoveryClient
 
         var sequencePoint = method.GetFirstSequencePoint();
         
-        var testCasesAttributes = method.GetCustomAttributes<TestCaseAttribute>()
+        var testCaseSourceAttributes = method.GetCustomAttributes<TestCaseSourceAttribute>(false).ToArray();
+        if (testCaseSourceAttributes.Length > 0)
+        {
+            GenerateTestCasesFromSource(testCases, assemblyName, method, setupMethod, teardownMethod, 
+                testCaseSourceAttributes, testName, sequencePoint);
+            return;
+        }
+        
+        var testCasesAttributes = method.GetCustomAttributes<TestCaseAttribute>(false)
             .ToArray();
 
-        if (testCasesAttributes.Length == 0)
+        if (testCasesAttributes.Length > 0)
         {
-            try
-            {
-                testCases.Add(
-                    CreateTestCase(assemblyName, testName, method, setupMethod, teardownMethod, sequencePoint));
-            }
-            catch (Exception e)
-            {
-                LogUnrealSharpTest.LogError($"Failed to create test case {testName}: {e}");
-            }
+            CreateTestCases(testCases, assemblyName, method, setupMethod, teardownMethod, testCasesAttributes, testName, sequencePoint);
 
             return;
         }
+        
+        CreateTestCaseFromMethod(testCases, assemblyName, method, setupMethod, teardownMethod, testName, sequencePoint);
+    }
 
-        foreach (var testCase in testCasesAttributes
-                     .DistinctBy(GetArgumentsName))
+    private static void CreateTestCaseFromMethod(List<UnrealTestMethod> testCases, FName assemblyName, MethodInfo method,
+                                                 MethodInfo? setupMethod, MethodInfo? teardownMethod, string testName,
+                                                 SequencePoint? sequencePoint)
+    {
+        try
         {
+            var methodWrapper = new MethodWrapper(method.DeclaringType!, method);
+            testCases.AddRange(CreateTestCase(assemblyName, testName, method, setupMethod, 
+                teardownMethod, sequencePoint, GetPossibleValues(methodWrapper.GetParameters())));
+            testCases.AddRange(CreateTestCase(assemblyName, testName, method, setupMethod, 
+                teardownMethod, sequencePoint));
+            
+        }
+        catch (Exception e)
+        {
+            LogUnrealSharpTest.LogError($"Failed to create test case {testName}: {e}");
+        }
+    }
+    
+    
+    private static IEnumerable<TestCaseData> GetPossibleValues(IEnumerable<IParameterInfo> parameters)
+    {
+        var parameterSources = parameters
+            .Select(GetPossibleValues)
+            .ToArray();
+
+        if (parameterSources.Length == 0)
+            return [];
+
+        // Start with first parameter's values as initial result
+        var result = parameterSources[0].Select(x => new[] { x });
+
+        // For each additional parameter, create cartesian product
+        for (var i = 1; i < parameterSources.Length; i++)
+        {
+            var parameter = parameterSources[i];
+            result = result
+                .SelectMany(_ => parameter, (curr, value) => curr.Concat([value]).ToArray());
+        }
+
+        return result.Select(x => new TestCaseData(x));
+    }
+
+    private static object?[] GetPossibleValues(IParameterInfo parameter)
+    {
+        var valuesAttribute = parameter.ParameterInfo.GetCustomAttribute<ValuesAttribute>();
+        if (valuesAttribute is not null)
+        {
+            return valuesAttribute.GetData(parameter).Cast<object>().ToArray();
+        }
+        
+        var rangeAttribute = parameter.ParameterInfo.GetCustomAttribute<RangeAttribute>();
+        if (rangeAttribute is not null)
+        {
+            return rangeAttribute.GetData(parameter).Cast<object>().ToArray();
+        }
+        
+        var valueSourceAttribute = parameter.ParameterInfo.GetCustomAttribute<ValueSourceAttribute>();
+        if (valueSourceAttribute is not null)
+        {
+            return valueSourceAttribute.GetData(parameter).Cast<object>().ToArray();
+        }
+        
+        return parameter.ParameterType.IsValueType ? [Activator.CreateInstance(parameter.ParameterType)] : [null];
+    }
+    
+    private static void CreateTestCases(List<UnrealTestMethod> testCases, FName assemblyName, MethodInfo method, MethodInfo? setupMethod,
+                                        MethodInfo? teardownMethod, TestCaseAttribute[] testCasesAttributes,
+                                        string testName, SequencePoint? sequencePoint)
+    {
             try
             {
-                testCases.Add(CreateTestCase(assemblyName, testName, method, setupMethod, teardownMethod, sequencePoint, testCase.Arguments));
+                testCases.Add(CreateTestCase(assemblyName, testName, method, setupMethod, teardownMethod, sequencePoint, testCasesAttributes
+                    .Select(t => t.ToTestCaseData())));
             }
             catch (Exception e)
             {
                 LogUnrealSharpTest.LogError($"Failed to create test case {testName}: {e}");
+            }
+    }
+
+    private static void GenerateTestCasesFromSource(List<UnrealTestMethod> testCases, FName assemblyName, MethodInfo method,
+                                                    MethodInfo? setupMethod, MethodInfo? teardownMethod,
+                                                    TestCaseSourceAttribute[] testCaseSourceAttributes, string testName,
+                                                    SequencePoint? sequencePoint)
+    {
+        foreach (var sourceAttribute in testCaseSourceAttributes)
+        {
+            try
+            {
+                testCases.Add(CreateTestCase(assemblyName, testName, method, setupMethod, teardownMethod, sequencePoint,
+                    GetTestCaseSourceArguments(method, sourceAttribute)));
+            }
+            catch (Exception e)
+            {
+                LogUnrealSharpTest.LogError($"Failed to create test cases from source for {testName}: {e}");
             }
         }
     }
 
-    private static UnrealTestCase CreateTestCase(FName assemblyName, string testName, MethodInfo method,
+    private static UnrealTestMethod CreateTestCase(FName assemblyName, string testName, MethodInfo method,
                                                  MethodInfo? setupMethod, MethodInfo? teardownMethod, 
-                                                 SequencePoint? sequencePoint, params object?[] arguments)
+                                                 SequencePoint? sequencePoint, IEnumerable<TestCaseData>? testCases = null)
     {
-        return new UnrealTestCase(assemblyName, testName, setupMethod, teardownMethod, method)
+        return new UnrealTestMethod(assemblyName, testName, setupMethod, teardownMethod, method)
         {
-            Arguments = ArgumentConverter.ConvertProvidedArguments(method, arguments),
+            TestCases = testCases?
+                .Select((t, i) => (TestCase: t, Name: new FName($"TestCase{i + 1}")))
+                .ToDictionary(x => x.Name, x => x.TestCase) ?? new Dictionary<FName, TestCaseData>(),
             CodeFilePath = sequencePoint?.Document.ToString(),
             LineNumber = sequencePoint?.StartLine ?? 0,
         };
     }
 
-    private static string GetArgumentsName(TestCaseAttribute testCase)
+    private static IEnumerable<TestCaseData> GetTestCaseSourceArguments(MethodInfo method,
+                                                                        TestCaseSourceAttribute sourceAttribute)
     {
-        return testCase.TestName ?? $"({string.Join(";", testCase.Arguments.Select(a => a?.ToString() ?? "null"))})";
+        var sourceType = sourceAttribute.SourceType ?? method.DeclaringType!;
+        var sourceName = sourceAttribute.SourceName;
+
+        foreach (var member in sourceType.GetMember(sourceName!,
+                     BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
+        {
+            switch (member)
+            {
+                case FieldInfo fieldInfo:
+                {
+                    var result = fieldInfo.GetValue(null);
+                    if (ConvertTestCaseResult(result, out var objectsEnumerable)) 
+                        return objectsEnumerable;
+                }
+                    break;
+                case PropertyInfo propertyInfo:
+                {
+                    var result = propertyInfo.GetValue(null);
+                    if (ConvertTestCaseResult(result, out var objectsEnumerable)) 
+                        return objectsEnumerable;
+                }
+                    break;
+                case MethodInfo methodInfo:
+                {
+                    var result = methodInfo.Invoke(null, null);
+                    if (ConvertTestCaseResult(result, out var objectsEnumerable)) 
+                        return objectsEnumerable;
+                }
+                    break;
+            }
+        }
+
+        throw new InvalidOperationException(
+            $"Could not find TestCaseSource {sourceName} on {sourceType.FullName}");
+
     }
 
+    private static bool ConvertTestCaseResult(object? result, out IEnumerable<TestCaseData> objectsEnumerable)
+    {
+        switch (result)
+        {
+            case IEnumerable<object?[]> arrayData:
+                objectsEnumerable = arrayData.Select(a => new TestCaseData(a));
+                return true;
+            case IEnumerable<TestCaseData> testCaseData:
+                objectsEnumerable = testCaseData;
+                return true;
+            case IEnumerable enumerable:
+                objectsEnumerable = enumerable.Cast<object>()
+                    .Select(o => new TestCaseData(o));
+                return true;
+        }
+
+        objectsEnumerable = [];
+        return false;
+    }
 }

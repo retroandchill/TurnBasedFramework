@@ -19,6 +19,9 @@ class UNREALSHARPTEST_API UAutomationTestExporter : public UObject
 
 public:
     UNREALSHARP_FUNCTION()
+    static void AddTestCase(FName ParameterName, const TCHAR* BeautifiedName, TArray<FString>& OutBeautifiedNames, TArray<FString>& OutTestCommands);
+    
+    UNREALSHARP_FUNCTION()
     static void EnqueueLatentCommand(FCSharpAutomationTest* Test, FGCHandleIntPtr TaskPtr);
 
     UNREALSHARP_FUNCTION()

@@ -33,11 +33,11 @@ uint32 FCSharpAutomationTest::GetRequiredDeviceNum() const
 
 void FCSharpAutomationTest::GetTests(TArray<FString>& OutBeautifiedNames, TArray<FString>& OutTestCommands) const
 {
-    OutBeautifiedNames.Add("");
-    OutTestCommands.Add("");
+    FManagedTestingCallbacks::Get().GetTests(ManagedTestCase.ManagedTestCase.GetHandle(),
+        OutBeautifiedNames, OutTestCommands);
 }
 
 bool FCSharpAutomationTest::RunTest(const FString& Parameters)
 {
-    return FManagedTestingCallbacks::Get().RunTest(*this, ManagedTestCase.ManagedTestCase.GetHandle());  
+    return FManagedTestingCallbacks::Get().RunTest(*this, ManagedTestCase.ManagedTestCase.GetHandle(), FName(Parameters));  
 }

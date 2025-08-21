@@ -25,7 +25,6 @@ private:
     void RegisterTests(const FName& AssemblyName);
     void RegisterTests(TConstArrayView<FName, int> Assemblies);
     void UnregisterTests(const FName& AssemblyName);
-    void ClearTestCache();
 
     static FUnrealSharpTestModule* Instance;
     TMap<FName, TArray<TSharedRef<FCSharpAutomationTest>>> Tests;

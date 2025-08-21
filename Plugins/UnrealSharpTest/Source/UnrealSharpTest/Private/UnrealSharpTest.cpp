@@ -83,13 +83,6 @@ void FUnrealSharpTestModule::RegisterTests(const TConstArrayView<FName> Assembli
 
 void FUnrealSharpTestModule::UnregisterTests(const FName& AssemblyName)
 {
-    static FName UnrealSharpTest = "UnrealSharp.Test";
-    if (AssemblyName == UnrealSharpTest)
-    {
-        ClearTestCache();
-        return;
-    }
-    
     const auto AssemblyList = Tests.Find(AssemblyName);
     if (AssemblyList == nullptr) return;
 
@@ -99,20 +92,6 @@ void FUnrealSharpTestModule::UnregisterTests(const FName& AssemblyName)
         TestFramework.UnregisterAutomationTest(Test->GetTestFullName());
     }
     Tests.Remove(AssemblyName);
-}
-
-void FUnrealSharpTestModule::ClearTestCache()
-{
-    auto &TestFramework = FAutomationTestFramework::Get();
-    for (const auto &[AssemblyName, TestList] : Tests)
-    {
-        for (const auto &Test : TestList)
-        {
-            TestFramework.UnregisterAutomationTest(Test->GetTestFullName());
-        }
-    }
-    
-    Tests.Empty();  
 }
 
 #undef LOCTEXT_NAMESPACE

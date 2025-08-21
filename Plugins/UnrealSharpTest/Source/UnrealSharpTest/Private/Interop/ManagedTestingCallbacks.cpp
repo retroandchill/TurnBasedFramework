@@ -24,9 +24,15 @@ TArray<FManagedTestCaseHandle> FManagedTestingCallbacks::CollectTestCases(const 
     return Result;  
 }
 
-bool FManagedTestingCallbacks::RunTest(FCSharpAutomationTest& Test, FGCHandleIntPtr ManagedTest) const
+void FManagedTestingCallbacks::GetTests(const FGCHandleIntPtr ManagedTest, TArray<FString>& OutBeautifiedNames,
+    TArray<FString>& OutTestCommands) const
 {
-    return Actions.RunTest(&Test, ManagedTest);
+    Actions.GetTests(ManagedTest, &OutBeautifiedNames, &OutTestCommands);
+}
+
+bool FManagedTestingCallbacks::RunTest(FCSharpAutomationTest& Test, const FGCHandleIntPtr ManagedTest, const FName TestCase) const
+{
+    return Actions.RunTest(&Test, ManagedTest, TestCase);
 }
 
 bool FManagedTestingCallbacks::CheckTaskComplete(const FSharedGCHandle& Task) const

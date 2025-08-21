@@ -16,9 +16,10 @@ public static class UnrealSharpTestExecutor
         TestClassInstances.Clear();
     }
     
-    public static bool RunTestInProcess(AutomationTestRef automationTestReference, UnrealTestCase testCase)
+    public static bool RunTestInProcess(AutomationTestRef automationTestReference, UnrealTestMethod testMethod, 
+                                        FName testCase)
     {
-        var testTask = RunTestInProcessInternal(testCase);
+        var testTask = RunTestInProcessInternal(testMethod, testCase);
         if (testTask.IsCompletedSuccessfully)
         {
             return testTask.Result;
@@ -28,14 +29,14 @@ public static class UnrealSharpTestExecutor
         return true;
     }
 
-    private static async ValueTask<bool> RunTestInProcessInternal(UnrealTestCase testCase)
+    private static async ValueTask<bool> RunTestInProcessInternal(UnrealTestMethod testMethod, FName testCase)
     {
         using var nunitContext = new TestExecutionContext.IsolatedContext();
         var testResult = TestExecutionContext.CurrentContext.CurrentResult;
 
         try
         {
-            var testClass = testCase.Method.DeclaringType;
+            var testClass = testMethod.Method.DeclaringType;
             ArgumentNullException.ThrowIfNull(testClass);
 
             if (!TestClassInstances.TryGetValue(testClass, out var testInstance))
@@ -46,8 +47,11 @@ public static class UnrealSharpTestExecutor
 
             try
             {
-                await RunTestMethod(testInstance, testCase.SetupMethod);
-                await RunTestMethod(testInstance, testCase.Method, testCase.Arguments);
+                var arguments = testMethod.TestCases.TryGetValue(testCase, out var argumentsList)
+                    ? argumentsList.Arguments
+                    : [];
+                await RunTestMethod(testInstance, testMethod.SetupMethod);
+                await RunTestMethod(testInstance, testMethod.Method, arguments);
             }
             catch (Exception e)
             {
@@ -57,7 +61,7 @@ public static class UnrealSharpTestExecutor
             {
                 try
                 {
-                    await RunTestMethod(testInstance, testCase.TearDownMethod);
+                    await RunTestMethod(testInstance, testMethod.TearDownMethod);
                 }
                 catch (Exception e)
                 {

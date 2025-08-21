@@ -9,6 +9,13 @@
 
 class FFunctionalTestBase;
 
+void UAutomationTestExporter::AddTestCase(const FName ParameterName, const TCHAR* BeautifiedName,
+    TArray<FString>& OutBeautifiedNames, TArray<FString>& OutTestCommands)
+{
+    OutBeautifiedNames.Emplace(BeautifiedName);
+    OutTestCommands.Emplace(ParameterName.IsNone() ? "" : ParameterName.ToString());  
+}
+
 void UAutomationTestExporter::EnqueueLatentCommand(FCSharpAutomationTest* Test, const FGCHandleIntPtr TaskPtr)
 {
     check(Test != nullptr);

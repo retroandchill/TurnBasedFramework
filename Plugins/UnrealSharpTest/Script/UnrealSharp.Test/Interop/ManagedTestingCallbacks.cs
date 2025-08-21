@@ -16,7 +16,10 @@ public unsafe struct ManagedTestingActions
     public required delegate* unmanaged<IntPtr, int, UnmanagedArray*, void> CollectTestCases { get; init; }
     
     [UsedImplicitly]
-    public required delegate* unmanaged<IntPtr, IntPtr, NativeBool> RunTest { get; init; }
+    public required delegate* unmanaged<IntPtr, UnmanagedArray*, UnmanagedArray*, void> GetTests { get; init; }
+    
+    [UsedImplicitly]
+    public required delegate* unmanaged<IntPtr, IntPtr, FName, NativeBool> RunTest { get; init; }
     
     [UsedImplicitly]
     public required delegate* unmanaged<IntPtr, NativeBool> CheckTaskComplete { get; init; }
@@ -29,6 +32,7 @@ public unsafe struct ManagedTestingActions
         return new ManagedTestingActions
         {
             CollectTestCases = &ManagedTestingCallbacks.CollectTestCases,
+            GetTests = &ManagedTestingCallbacks.GetTests,
             RunTest = &ManagedTestingCallbacks.RunTest,
             CheckTaskComplete = &ManagedTestingCallbacks.CheckTaskComplete,
             ClearTestClassInstances = &ManagedTestingCallbacks.ClearTestClassInstances
@@ -57,15 +61,42 @@ public static unsafe class ManagedTestingCallbacks
     }
 
     [UnmanagedCallersOnly]
-    public static NativeBool RunTest(IntPtr nativeTest, IntPtr managedTestCasePtr)
+    public static void GetTests(IntPtr managedTestCasePtr, UnmanagedArray* beautifiedNames, UnmanagedArray* testParameters)
     {
-        var testCase = GCHandleUtilities.GetObjectFromHandlePtr<UnrealTestCase>(managedTestCasePtr);
+        var managedTestCase = GCHandleUtilities.GetObjectFromHandlePtr<UnrealTestMethod>(managedTestCasePtr);
+        if (managedTestCase is null)
+        {
+            LogUnrealSharpTest.LogError("Failed to get tests");
+            return;
+        }
+
+        if (managedTestCase.TestCases.Count == 0)
+        {
+            fixed (char* testNamePtr = managedTestCase.FullyQualifiedName)
+            {
+                AutomationTestExporter.CallAddTestCase(FName.None, testNamePtr, ref *beautifiedNames, ref *testParameters);
+            }
+        }
+
+        foreach (var (testCommand, testCase) in managedTestCase.TestCases)
+        {
+            fixed (char* displayNamePtr = testCase.GetDisplayName())
+            {
+                AutomationTestExporter.CallAddTestCase(testCommand, displayNamePtr, ref *beautifiedNames, ref *testParameters);;
+            }
+        }
+    }
+    
+    [UnmanagedCallersOnly]
+    public static NativeBool RunTest(IntPtr nativeTest, IntPtr managedTestCasePtr, FName testName)
+    {
+        var testCase = GCHandleUtilities.GetObjectFromHandlePtr<UnrealTestMethod>(managedTestCasePtr);
         if (testCase is null)
         {
             return NativeBool.False;
         }
         
-        return UnrealSharpTestExecutor.RunTestInProcess(new AutomationTestRef(nativeTest), testCase).ToNativeBool();
+        return UnrealSharpTestExecutor.RunTestInProcess(new AutomationTestRef(nativeTest), testCase, testName).ToNativeBool();
     }
     
     [UnmanagedCallersOnly]

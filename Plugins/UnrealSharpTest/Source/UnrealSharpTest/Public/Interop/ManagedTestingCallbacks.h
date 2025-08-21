@@ -11,11 +11,13 @@ class FCSharpAutomationTest;
 struct FManagedTestingActions
 {
     using FCollectTestCases = void(__stdcall*)(const FName*, int32, TArray<FManagedTestCaseHandle>*);
-    using FRunTest = bool(__stdcall*)(FCSharpAutomationTest*, FGCHandleIntPtr);
+    using FGetTests = void(__stdcall*)(FGCHandleIntPtr, TArray<FString>*, TArray<FString>*);
+    using FRunTest = bool(__stdcall*)(FCSharpAutomationTest*, FGCHandleIntPtr, FName);
     using FCheckTaskComplete = bool(__stdcall*)(FGCHandleIntPtr);
     using FClearTestClassInstances = void(__stdcall*)();
 
     FCollectTestCases CollectTestCases = nullptr;
+    FGetTests GetTests = nullptr;
     FRunTest RunTest = nullptr;
     FCheckTaskComplete CheckTaskComplete = nullptr;
     FClearTestClassInstances ClearTestClassInstances = nullptr;
@@ -40,7 +42,8 @@ public:
     void SetActions(const FManagedTestingActions& InActions);
 
     TArray<FManagedTestCaseHandle> CollectTestCases(TConstArrayView<FName> AssemblyPaths) const;
-    bool RunTest(FCSharpAutomationTest& Test, FGCHandleIntPtr ManagedTest) const;
+    void GetTests(FGCHandleIntPtr ManagedTest, TArray<FString>& OutBeautifiedNames, TArray<FString>& OutTestCommands) const;
+    bool RunTest(FCSharpAutomationTest& Test, FGCHandleIntPtr ManagedTest, FName TestCase) const;
     bool CheckTaskComplete(const FSharedGCHandle& Task) const;
     void ClearTestClassInstances() const;
 

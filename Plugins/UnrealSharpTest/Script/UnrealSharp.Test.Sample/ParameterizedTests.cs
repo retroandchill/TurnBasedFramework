@@ -41,20 +41,19 @@ public class ParameterizedTests
     }
 
     // Using TestCaseSource for more complex test cases
-    private static IEnumerable<TestCaseData> DivisionTestCases()
-    {
-        yield return new TestCaseData(10, 2).Returns(5);
-        yield return new TestCaseData(0, 5).Returns(0);
-        yield return new TestCaseData(-15, 3).Returns(-5);
-        yield return new TestCaseData(1, 3).Returns(0);
-    }
+    private static readonly TestCaseData[] DivisionTestCases = [
+        new TestCaseData(10, 2).Returns(5),
+        new TestCaseData(0, 5).Returns(0),
+        new TestCaseData(-15, 3).Returns(-5),
+        new TestCaseData(1, 3).Returns(0)
+    ];
 
     [TestCaseSource(nameof(DivisionTestCases))]
     public int Divide_ValidValues_ReturnsExpectedResult(int n, int d)
     {
         return n / d;
     }
-    
+
     // Using object?[] for test cases
     private static IEnumerable<object?[]> ArrayTestCases()
     {
@@ -89,7 +88,7 @@ public class ParameterizedTests
     public void Process_MixedInputs_HandlesAllCases(Point point, string? label)
     {
         var (x, y) = point; // Using deconstruct
-        
+
         if (label == null)
         {
             Assert.That(x == y, "Coordinates should be equal when label is null");
@@ -103,8 +102,11 @@ public class ParameterizedTests
     // Using nullable complex types
     private static IEnumerable<object?[]> NullableComplexTestCases()
     {
-        yield return [new ComplexValue("Valid", 1), true];
-        yield return [null, false];
+        return
+        [
+            [new ComplexValue("Valid", 1), true],
+            [null, false]
+        ];
     }
 
     [TestCaseSource(nameof(NullableComplexTestCases))]
@@ -183,5 +185,4 @@ public class ParameterizedTests
         var result = expected; // Simplified for example
         Assert.That(result, Is.EqualTo(expected));
     }
-
 }
