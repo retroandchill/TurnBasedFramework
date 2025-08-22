@@ -195,7 +195,7 @@ public static class UnrealSharpTestDiscoveryClient
 
     private static object?[] GetPossibleValues(IParameterInfo parameter)
     {
-        var randomCount = new MovingReference<int>(0);
+        var randomCount = new ModularReference<int>(0);
         var allParameterOptions = parameter.ParameterInfo.GetCustomAttributes<NUnitAttribute>()
             .SelectMany(a => GetPossibleValues(parameter, a, randomCount))
             .Distinct()
@@ -210,7 +210,7 @@ public static class UnrealSharpTestDiscoveryClient
     }
 
     private static IEnumerable<object?> GetPossibleValues(IParameterInfo parameter, NUnitAttribute attribute,
-                                                          MovingReference<int> randomCount)
+                                                          ModularReference<int> randomCount)
     {
         return attribute switch
         {

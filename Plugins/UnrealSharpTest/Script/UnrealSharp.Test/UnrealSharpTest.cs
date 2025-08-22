@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.Loader;
+using JetBrains.Annotations;
 using NUnit.VisualStudio.TestAdapter;
 using UnrealSharp.Engine.Core.Modules;
 using UnrealSharp.Log;
@@ -14,6 +15,7 @@ namespace UnrealSharp.Test;
 [CustomLog]
 public static partial class LogUnrealSharpTest;
 
+[UsedImplicitly]
 public class FUnrealSharpTestModule : IModuleInterface
 {
     
