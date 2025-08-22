@@ -5,7 +5,7 @@ using UnrealSharp.Test.Runner;
 
 namespace UnrealSharp.Test.Attributes;
 
-[AttributeUsage(AttributeTargets.Parameter)]
+[AttributeUsage(AttributeTargets.Parameter, AllowMultiple = true)]
 public class DynamicRandomAttribute : NUnitAttribute
 {
     private IRandomDataSource? _dataSource;

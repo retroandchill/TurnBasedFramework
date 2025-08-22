@@ -3,6 +3,7 @@
 
 #include "Runner/CSharpAutomationTest.h"
 
+#include "UnrealSharpTestSettings.h"
 #include "Interop/ManagedTestingCallbacks.h"
 
 
@@ -23,6 +24,10 @@ EAutomationTestFlags FCSharpAutomationTest::GetTestFlags() const
 
 FString FCSharpAutomationTest::GetBeautifiedTestName() const
 {
+    if (const auto Settings = GetDefault<UUnrealSharpTestSettings>(); !Settings->GetSharedPrefix().IsEmpty())
+    {
+        return Settings->GetSharedPrefix() + TEXT(".") + ManagedTestCase.TestCase.FullyQualifiedName;
+    }
     return ManagedTestCase.TestCase.FullyQualifiedName;
 }
 
