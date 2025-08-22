@@ -7,13 +7,7 @@ namespace Pokemon.Tests;
 
 public class FPokemonTestsModule : IModuleInterface
 {
-    public void StartupModule()
-    {
+    public void StartupModule() { }
 
-    }
-
-    public void ShutdownModule()
-    {
-
-    }
+    public void ShutdownModule() { }
 }

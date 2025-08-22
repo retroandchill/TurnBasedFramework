@@ -21,8 +21,12 @@ public class FManagedGameDataAccessTools : IModuleInterface
 
         FUnrealInjectModule.Instance.ConfigureServices(services =>
         {
-            services.ConfigureJsonSerialization()
-                .AddSingleton(typeof(IGameDataEntrySerializer<>), typeof(GameDataEntryJsonSerializer<>));
+            services
+                .ConfigureJsonSerialization()
+                .AddSingleton(
+                    typeof(IGameDataEntrySerializer<>),
+                    typeof(GameDataEntryJsonSerializer<>)
+                );
         });
     }
 
@@ -30,8 +34,7 @@ public class FManagedGameDataAccessTools : IModuleInterface
     {
         FUnrealInjectModule.Instance.ConfigureServices(services =>
         {
-            services.RemoveJsonSerialization()
-                .RemoveAll(typeof(IGameDataEntrySerializer<>));
+            services.RemoveJsonSerialization().RemoveAll(typeof(IGameDataEntrySerializer<>));
         });
     }
 }

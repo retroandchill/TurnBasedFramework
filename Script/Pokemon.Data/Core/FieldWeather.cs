@@ -15,17 +15,23 @@ namespace Pokemon.Data.Core;
 public class UFieldWeather : UObject, IGameDataEntry
 {
     public const string TagCategory = "Pokemon.Data.FieldWeathers";
-    
-    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
+
+    [UProperty(
+        PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere,
+        Category = "Identification"
+    )]
     [Categories(TagCategory)]
     public FGameplayTag Id { get; init; }
-    
-    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.VisibleAnywhere, Category = "Identification")]
+
+    [UProperty(
+        PropertyFlags.BlueprintReadOnly | PropertyFlags.VisibleAnywhere,
+        Category = "Identification"
+    )]
     public int RowIndex { get; init; }
-    
+
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Display")]
     public FText DisplayName { get; init; }
-    
+
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Battle")]
     [Categories(UBattleWeather.TagCategory)]
     public Option<FGameplayTag> BattleWeather { get; init; }

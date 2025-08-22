@@ -12,7 +12,7 @@ public sealed class GameInstanceServiceProviderOverride : IDisposable
     {
         FUnrealInjectModule.Instance.GameInstanceServiceProviderOverride = serviceProvider;
     }
-    
+
     public void Dispose()
     {
         FUnrealInjectModule.Instance.GameInstanceServiceProviderOverride = null;
@@ -27,7 +27,7 @@ public sealed class FUnrealInjectModule : IModuleInterface
 
     private readonly ServiceCollection _serviceCollection = [];
     private bool _servicesBuilt;
-    #if WITH_EDITOR
+#if WITH_EDITOR
     private IServiceProvider? _gameInstanceServiceProviderOverride;
     internal IServiceProvider? GameInstanceServiceProviderOverride
     {
@@ -43,7 +43,7 @@ public sealed class FUnrealInjectModule : IModuleInterface
         }
     }
     internal event Action<IServiceProvider?>? OnGameInstanceServiceProviderChanged;
-    #endif
+#endif
 
     public event Action<IServiceProvider>? OnServiceProviderRebuilt;
 
@@ -75,7 +75,9 @@ public sealed class FUnrealInjectModule : IModuleInterface
         _instance = null;
     }
 
-    public FUnrealInjectModule UseServiceProviderFactory<TBuilder>(IServiceProviderFactory<TBuilder> factory)
+    public FUnrealInjectModule UseServiceProviderFactory<TBuilder>(
+        IServiceProviderFactory<TBuilder> factory
+    )
         where TBuilder : notnull
     {
         _serviceProviderFactory = new ServiceProviderFactoryAdapter<TBuilder>(factory);
@@ -100,8 +102,10 @@ public sealed class FUnrealInjectModule : IModuleInterface
         return provider;
     }
 
-    private sealed class ServiceProviderFactoryAdapter<TBuilder>([ReadOnly] IServiceProviderFactory<TBuilder> factory)
-        : IServiceProviderFactory<object> where TBuilder : notnull
+    private sealed class ServiceProviderFactoryAdapter<TBuilder>(
+        [ReadOnly] IServiceProviderFactory<TBuilder> factory
+    ) : IServiceProviderFactory<object>
+        where TBuilder : notnull
     {
         public object CreateBuilder(IServiceCollection services)
         {

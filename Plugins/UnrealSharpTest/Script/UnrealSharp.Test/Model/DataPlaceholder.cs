@@ -7,7 +7,7 @@ namespace UnrealSharp.Test.Model;
 public interface IDataPlaceholder
 {
     int Index { get; }
-    
+
     ParameterInfo ParameterInfo { get; }
 
     object?[] GetData();

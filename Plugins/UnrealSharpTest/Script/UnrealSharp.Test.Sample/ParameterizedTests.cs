@@ -17,7 +17,6 @@ public class ComplexValue(string name, int value)
     }
 }
 
-
 public class ParameterizedTests
 {
     // Basic parameterized test using TestCase attribute
@@ -41,11 +40,12 @@ public class ParameterizedTests
     }
 
     // Using TestCaseSource for more complex test cases
-    private static readonly TestCaseData[] DivisionTestCases = [
+    private static readonly TestCaseData[] DivisionTestCases =
+    [
         new TestCaseData(10, 2).Returns(5),
         new TestCaseData(0, 5).Returns(0),
         new TestCaseData(-15, 3).Returns(-5),
-        new TestCaseData(1, 3).Returns(0)
+        new TestCaseData(1, 3).Returns(0),
     ];
 
     [TestCaseSource(nameof(DivisionTestCases))]
@@ -105,7 +105,7 @@ public class ParameterizedTests
         return
         [
             [new ComplexValue("Valid", 1), true],
-            [null, false]
+            [null, false],
         ];
     }
 
@@ -164,7 +164,8 @@ public class ParameterizedTests
     private static string ProcessInput(string? input, int value)
     {
         ArgumentNullException.ThrowIfNull(input);
-        if (string.IsNullOrEmpty(input)) throw new ArgumentException("Input cannot be empty", nameof(input));
+        if (string.IsNullOrEmpty(input))
+            throw new ArgumentException("Input cannot be empty", nameof(input));
         return $"{input}:{value}";
     }
 

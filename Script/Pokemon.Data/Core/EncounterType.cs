@@ -14,21 +14,33 @@ namespace Pokemon.Data.Core;
 public class UEncounterType : UObject, IGameDataEntry
 {
     public const string TagCategory = "Pokemon.Data.EncounterTypes";
-    
-    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
+
+    [UProperty(
+        PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere,
+        Category = "Identification"
+    )]
     [Categories(TagCategory)]
     public FGameplayTag Id { get; init; }
-    
-    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.VisibleAnywhere, Category = "Identification")]
+
+    [UProperty(
+        PropertyFlags.BlueprintReadOnly | PropertyFlags.VisibleAnywhere,
+        Category = "Identification"
+    )]
     public int RowIndex { get; init; }
-    
+
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Display")]
     public FText DisplayName { get; init; }
-    
-    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Encounters")]
+
+    [UProperty(
+        PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere,
+        Category = "Encounters"
+    )]
     [Categories("Pokemon.Field.Encounters.Triggers")]
     public FGameplayTag Trigger { get; init; }
-    
-    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Encounters")]
+
+    [UProperty(
+        PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere,
+        Category = "Encounters"
+    )]
     public int TriggerChance { get; init; }
 }

@@ -13,16 +13,25 @@ namespace Pokemon.Editor.Interop;
 public unsafe struct PokemonManagedActions
 {
     [UsedImplicitly]
-    public required delegate* unmanaged<IntPtr, IntPtr, IntPtr, NativeBool> PopulateEvolutions { get; init; }
+    public required delegate* unmanaged<
+        IntPtr,
+        IntPtr,
+        IntPtr,
+        NativeBool> PopulateEvolutions { get; init; }
+
     [UsedImplicitly]
-    public required delegate* unmanaged<FGameplayTag, IntPtr, IntPtr, NativeBool> GetEvolutionConditionClass { get; init; }
-    
+    public required delegate* unmanaged<
+        FGameplayTag,
+        IntPtr,
+        IntPtr,
+        NativeBool> GetEvolutionConditionClass { get; init; }
+
     public static PokemonManagedActions Create()
     {
         return new PokemonManagedActions
         {
             PopulateEvolutions = &PokemonManagedCallbacks.PopulateEvolutions,
-            GetEvolutionConditionClass = &PokemonManagedCallbacks.GetEvolutionConditionClass
+            GetEvolutionConditionClass = &PokemonManagedCallbacks.GetEvolutionConditionClass,
         };
     }
 }
@@ -30,13 +39,22 @@ public unsafe struct PokemonManagedActions
 public static class PokemonManagedCallbacks
 {
     [UnmanagedCallersOnly]
-    public static NativeBool PopulateEvolutions(IntPtr mapProperty, IntPtr nativeMap, IntPtr resultString)
+    public static NativeBool PopulateEvolutions(
+        IntPtr mapProperty,
+        IntPtr nativeMap,
+        IntPtr resultString
+    )
     {
         try
         {
-            var managedMap = new TMap<FName, FGameplayTag>(mapProperty, nativeMap, 
-                BlittableMarshaller<FName>.FromNative, BlittableMarshaller<FName>.ToNative,
-                StructMarshaller<FGameplayTag>.FromNative, StructMarshaller<FGameplayTag>.ToNative);
+            var managedMap = new TMap<FName, FGameplayTag>(
+                mapProperty,
+                nativeMap,
+                BlittableMarshaller<FName>.FromNative,
+                BlittableMarshaller<FName>.ToNative,
+                StructMarshaller<FGameplayTag>.FromNative,
+                StructMarshaller<FGameplayTag>.ToNative
+            );
             managedMap.PopulateWithEvolutionData();
             return NativeBool.True;
         }
@@ -45,16 +63,23 @@ public static class PokemonManagedCallbacks
             StringMarshaller.ToNative(resultString, 0, $"{e.Message}\n{e.StackTrace}");
             return NativeBool.False;
         }
-        
     }
 
     [UnmanagedCallersOnly]
-    public static NativeBool GetEvolutionConditionClass(FGameplayTag tag, IntPtr evolutionMethodResult, IntPtr resultString)
+    public static NativeBool GetEvolutionConditionClass(
+        FGameplayTag tag,
+        IntPtr evolutionMethodResult,
+        IntPtr resultString
+    )
     {
         try
         {
             var evolutionMethodTag = PopulationUtils.GetEvolutionMethodClass(tag);
-            SubclassOfMarshaller<UEvolutionConditionData>.ToNative(evolutionMethodResult, 0, evolutionMethodTag);
+            SubclassOfMarshaller<UEvolutionConditionData>.ToNative(
+                evolutionMethodResult,
+                0,
+                evolutionMethodTag
+            );
             return NativeBool.True;
         }
         catch (Exception e)

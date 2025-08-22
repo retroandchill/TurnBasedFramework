@@ -15,14 +15,20 @@ namespace Pokemon.Data.Core;
 public class UEnvironment : UObject, IGameDataEntry
 {
     public const string TagCategory = "Pokemon.Data.Environments";
-    
-    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
+
+    [UProperty(
+        PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere,
+        Category = "Identification"
+    )]
     [Categories(TagCategory)]
     public FGameplayTag Id { get; init; }
-    
-    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.VisibleAnywhere, Category = "Identification")]
+
+    [UProperty(
+        PropertyFlags.BlueprintReadOnly | PropertyFlags.VisibleAnywhere,
+        Category = "Identification"
+    )]
     public int RowIndex { get; init; }
-    
+
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Display")]
     public FText DisplayName { get; init; }
 }

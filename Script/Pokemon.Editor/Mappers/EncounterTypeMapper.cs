@@ -7,17 +7,26 @@ using UnrealSharp.GameplayTags;
 
 namespace Pokemon.Editor.Mappers;
 
-[Mapper(RequiredMappingStrategy = RequiredMappingStrategy.Target, PreferParameterlessConstructors = false)]
+[Mapper(
+    RequiredMappingStrategy = RequiredMappingStrategy.Target,
+    PreferParameterlessConstructors = false
+)]
 public static partial class EncounterTypeMapper
 {
-    public static UEncounterType ToEncounterType(this EncounterTypeInfo encounterTypeInfo, UObject? outer = null)
+    public static UEncounterType ToEncounterType(
+        this EncounterTypeInfo encounterTypeInfo,
+        UObject? outer = null
+    )
     {
         return encounterTypeInfo.ToEncounterTypeInitializer(outer);
     }
 
     public static partial EncounterTypeInfo ToEncounterTypeInfo(this UEncounterType encounterType);
 
-    private static partial EncounterTypeInitializer ToEncounterTypeInitializer(this EncounterTypeInfo encounterType, UObject? outer = null);
-    
+    private static partial EncounterTypeInitializer ToEncounterTypeInitializer(
+        this EncounterTypeInfo encounterType,
+        UObject? outer = null
+    );
+
     private static FGameplayTag ValueOrDefault(FGameplayTag? tag) => tag ?? default;
 }

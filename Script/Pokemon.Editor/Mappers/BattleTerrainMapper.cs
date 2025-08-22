@@ -8,15 +8,24 @@ using UnrealSharp.GameplayTags;
 
 namespace Pokemon.Editor.Mappers;
 
-[Mapper(RequiredMappingStrategy = RequiredMappingStrategy.Target, PreferParameterlessConstructors = false)]
+[Mapper(
+    RequiredMappingStrategy = RequiredMappingStrategy.Target,
+    PreferParameterlessConstructors = false
+)]
 public static partial class BattleTerrainMapper
 {
-    public static UBattleTerrain ToBattleTerrain(this BattleTerrainInfo growthRateInfo, UObject? outer = null)
+    public static UBattleTerrain ToBattleTerrain(
+        this BattleTerrainInfo growthRateInfo,
+        UObject? outer = null
+    )
     {
         return growthRateInfo.ToBattleTerrainInitializer(outer);
     }
-    
+
     public static partial BattleTerrainInfo ToBattleTerrainInfo(this UBattleTerrain growthRate);
-    
-    private static partial BattleTerrainInitializer ToBattleTerrainInitializer(this BattleTerrainInfo growthRate, UObject? outer = null);
+
+    private static partial BattleTerrainInitializer ToBattleTerrainInitializer(
+        this BattleTerrainInfo growthRate,
+        UObject? outer = null
+    );
 }

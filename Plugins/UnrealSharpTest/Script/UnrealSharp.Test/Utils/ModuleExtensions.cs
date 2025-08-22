@@ -12,7 +12,8 @@ public static class ModuleExtensions
         try
         {
             var methodBody = methodInfo.GetMethodBody();
-            if (methodBody == null) return null;
+            if (methodBody == null)
+                return null;
 
             var methodToken = methodInfo.MetadataToken;
             var debugInfo = methodInfo.Module.GetDebugInfoOrNull(methodToken);

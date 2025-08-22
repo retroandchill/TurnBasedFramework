@@ -28,13 +28,13 @@ public abstract class RandomDataSourceBase(int count, Type type) : IRandomDataSo
                 if (iterationCount > 1000)
                     throw new InvalidOperationException("Too many iterations");
             }
-            
+
             values[i] = Convert.ChangeType(nextValue, Type);
         }
 
         return values;
     }
-    
+
     protected abstract object? GetNextValue(Randomizer random);
 }
 
@@ -44,14 +44,16 @@ public abstract class RandomDataSourceBase<T> : RandomDataSourceBase
     protected T? Max { get; }
     protected bool InRange { get; }
 
-    protected RandomDataSourceBase(int count) : base(count, typeof(T))
+    protected RandomDataSourceBase(int count)
+        : base(count, typeof(T))
     {
         Min = default!;
         Max = default!;
         InRange = false;
     }
 
-    protected RandomDataSourceBase(T min, T max, int count) : base(count, typeof(T))
+    protected RandomDataSourceBase(T min, T max, int count)
+        : base(count, typeof(T))
     {
         Min = min;
         Max = max;
@@ -61,13 +63,11 @@ public abstract class RandomDataSourceBase<T> : RandomDataSourceBase
 
 public sealed class IntRandomDataSource : RandomDataSourceBase<int>
 {
-    public IntRandomDataSource(int count) : base(count)
-    {
-    }
+    public IntRandomDataSource(int count)
+        : base(count) { }
 
-    public IntRandomDataSource(int min, int max, int count) : base(min, max, count)
-    {
-    }
+    public IntRandomDataSource(int min, int max, int count)
+        : base(min, max, count) { }
 
     protected override object GetNextValue(Randomizer random)
     {
@@ -77,14 +77,11 @@ public sealed class IntRandomDataSource : RandomDataSourceBase<int>
 
 public sealed class UIntRandomDataSource : RandomDataSourceBase<uint>
 {
-    public UIntRandomDataSource(int count) : base(count)
-    {
-    }
+    public UIntRandomDataSource(int count)
+        : base(count) { }
 
-    public UIntRandomDataSource(uint min, uint max, int count) : base(min, max, count)
-    {
-        
-    }
+    public UIntRandomDataSource(uint min, uint max, int count)
+        : base(min, max, count) { }
 
     protected override object GetNextValue(Randomizer random)
     {
@@ -94,14 +91,11 @@ public sealed class UIntRandomDataSource : RandomDataSourceBase<uint>
 
 public sealed class ShortRandomDataSource : RandomDataSourceBase<short>
 {
-    public ShortRandomDataSource(int count) : base(count)
-    {
-    }
+    public ShortRandomDataSource(int count)
+        : base(count) { }
 
-    public ShortRandomDataSource(short min, short max, int count) : base(min, max, count)
-    {
-        
-    }
+    public ShortRandomDataSource(short min, short max, int count)
+        : base(min, max, count) { }
 
     protected override object GetNextValue(Randomizer random)
     {
@@ -111,13 +105,11 @@ public sealed class ShortRandomDataSource : RandomDataSourceBase<short>
 
 public sealed class UShortRandomDataSource : RandomDataSourceBase<ushort>
 {
-    public UShortRandomDataSource(int count) : base(count)
-    {
-    }
+    public UShortRandomDataSource(int count)
+        : base(count) { }
 
-    public UShortRandomDataSource(ushort min, ushort max, int count) : base(min, max, count)
-    {
-    }
+    public UShortRandomDataSource(ushort min, ushort max, int count)
+        : base(min, max, count) { }
 
     protected override object GetNextValue(Randomizer random)
     {
@@ -127,13 +119,11 @@ public sealed class UShortRandomDataSource : RandomDataSourceBase<ushort>
 
 public sealed class ByteRandomDataSource : RandomDataSourceBase<byte>
 {
-    public ByteRandomDataSource(int count) : base(count)
-    {
-    }
+    public ByteRandomDataSource(int count)
+        : base(count) { }
 
-    public ByteRandomDataSource(byte min, byte max, int count) : base(min, max, count)
-    {
-    }
+    public ByteRandomDataSource(byte min, byte max, int count)
+        : base(min, max, count) { }
 
     protected override object GetNextValue(Randomizer random)
     {
@@ -143,14 +133,12 @@ public sealed class ByteRandomDataSource : RandomDataSourceBase<byte>
 
 public sealed class SByteRandomDataSource : RandomDataSourceBase<sbyte>
 {
-    public SByteRandomDataSource(int count) : base(count)
-    {
-    }
+    public SByteRandomDataSource(int count)
+        : base(count) { }
 
-    public SByteRandomDataSource(sbyte min, sbyte max, int count) : base(min, max, count)
-    {
-    }
-    
+    public SByteRandomDataSource(sbyte min, sbyte max, int count)
+        : base(min, max, count) { }
+
     protected override object GetNextValue(Randomizer random)
     {
         return InRange ? random.NextSByte(Min, Max) : random.NextSByte();
@@ -159,14 +147,12 @@ public sealed class SByteRandomDataSource : RandomDataSourceBase<sbyte>
 
 public sealed class LongRandomDataSource : RandomDataSourceBase<long>
 {
-    public LongRandomDataSource(int count) : base(count)
-    {
-    }
+    public LongRandomDataSource(int count)
+        : base(count) { }
 
-    public LongRandomDataSource(long min, long max, int count) : base(min, max, count)
-    {
-    }
-    
+    public LongRandomDataSource(long min, long max, int count)
+        : base(min, max, count) { }
+
     protected override object GetNextValue(Randomizer random)
     {
         return InRange ? random.NextLong(Min, Max) : random.NextLong();
@@ -175,13 +161,11 @@ public sealed class LongRandomDataSource : RandomDataSourceBase<long>
 
 public sealed class ULongRandomDataSource : RandomDataSourceBase<ulong>
 {
-    public ULongRandomDataSource(int count) : base(count)
-    {
-    }
+    public ULongRandomDataSource(int count)
+        : base(count) { }
 
-    public ULongRandomDataSource(ulong min, ulong max, int count) : base(min, max, count)
-    {
-    }
+    public ULongRandomDataSource(ulong min, ulong max, int count)
+        : base(min, max, count) { }
 
     protected override object GetNextValue(Randomizer random)
     {
@@ -191,13 +175,11 @@ public sealed class ULongRandomDataSource : RandomDataSourceBase<ulong>
 
 public sealed class FloatRandomDataSource : RandomDataSourceBase<float>
 {
-    public FloatRandomDataSource(int count) : base(count)
-    {
-    }
+    public FloatRandomDataSource(int count)
+        : base(count) { }
 
-    public FloatRandomDataSource(float min, float max, int count) : base(min, max, count)
-    {
-    }
+    public FloatRandomDataSource(float min, float max, int count)
+        : base(min, max, count) { }
 
     protected override object GetNextValue(Randomizer random)
     {
@@ -207,14 +189,12 @@ public sealed class FloatRandomDataSource : RandomDataSourceBase<float>
 
 public sealed class DoubleRandomDataSource : RandomDataSourceBase<double>
 {
-    public DoubleRandomDataSource(int count) : base(count)
-    {
-    }
+    public DoubleRandomDataSource(int count)
+        : base(count) { }
 
-    public DoubleRandomDataSource(double min, double max, int count) : base(min, max, count)
-    {
-    }
-    
+    public DoubleRandomDataSource(double min, double max, int count)
+        : base(min, max, count) { }
+
     protected override object GetNextValue(Randomizer random)
     {
         return InRange ? random.NextDouble(Min, Max) : random.NextDouble();
@@ -223,13 +203,11 @@ public sealed class DoubleRandomDataSource : RandomDataSourceBase<double>
 
 public sealed class DecimalRandomDataSource : RandomDataSourceBase<decimal>
 {
-    public DecimalRandomDataSource(int count) : base(count)
-    {
-    }
+    public DecimalRandomDataSource(int count)
+        : base(count) { }
 
-    public DecimalRandomDataSource(decimal min, decimal max, int count) : base(min, max, count)
-    {
-    }
+    public DecimalRandomDataSource(decimal min, decimal max, int count)
+        : base(min, max, count) { }
 
     protected override object GetNextValue(Randomizer random)
     {

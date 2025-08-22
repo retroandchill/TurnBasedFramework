@@ -17,46 +17,64 @@ internal class GameDataRepositoryGenerator : IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-        var dataEntries = context.SyntaxProvider.CreateSyntaxProvider(
+        var dataEntries = context
+            .SyntaxProvider.CreateSyntaxProvider(
                 (n, _) => n is ClassDeclarationSyntax,
                 (ctx, _) =>
                 {
                     var classNode = (ClassDeclarationSyntax)ctx.Node;
-                    if (ModelExtensions.GetDeclaredSymbol(ctx.SemanticModel, classNode) is not INamedTypeSymbol syntax)
+                    if (
+                        ModelExtensions.GetDeclaredSymbol(ctx.SemanticModel, classNode)
+                        is not INamedTypeSymbol syntax
+                    )
                     {
                         return null;
                     }
 
                     return syntax.HasAttribute<GameDataEntryAttribute>() ? syntax : null;
-                })
+                }
+            )
             .Where(m => m is not null)
             .Collect();
 
-        var providers = context.SyntaxProvider.CreateSyntaxProvider(
+        var providers = context
+            .SyntaxProvider.CreateSyntaxProvider(
                 (n, _) => n is ClassDeclarationSyntax,
                 (ctx, _) =>
                 {
                     var classNode = (ClassDeclarationSyntax)ctx.Node;
-                    if (ModelExtensions.GetDeclaredSymbol(ctx.SemanticModel, classNode) is not INamedTypeSymbol syntax)
+                    if (
+                        ModelExtensions.GetDeclaredSymbol(ctx.SemanticModel, classNode)
+                        is not INamedTypeSymbol syntax
+                    )
                     {
                         return null;
                     }
 
-                    return syntax.HasAttribute<GameDataRepositoryProviderAttribute>() ? syntax : null;
-                })
+                    return syntax.HasAttribute<GameDataRepositoryProviderAttribute>()
+                        ? syntax
+                        : null;
+                }
+            )
             .Where(m => m is not null)
             .Collect();
 
         var combinedInfo = dataEntries.Combine(providers);
 
-        context.RegisterSourceOutput(combinedInfo, (ctx, info) =>
-        {
-            Execute(ctx, info.Left!, info.Right!);
-        });
+        context.RegisterSourceOutput(
+            combinedInfo,
+            (ctx, info) =>
+            {
+                Execute(ctx, info.Left!, info.Right!);
+            }
+        );
     }
 
-    private static void Execute(SourceProductionContext context, ImmutableArray<INamedTypeSymbol> entryTypes,
-                                ImmutableArray<INamedTypeSymbol> providerTypes)
+    private static void Execute(
+        SourceProductionContext context,
+        ImmutableArray<INamedTypeSymbol> entryTypes,
+        ImmutableArray<INamedTypeSymbol> providerTypes
+    )
     {
         var foundDataEntries = entryTypes
             .Select(x => GenerateGameAssetData(context, x))
@@ -75,44 +93,55 @@ internal class GameDataRepositoryGenerator : IIncrementalGenerator
         }
     }
 
-    private static GameDataRepositoryInfo? GenerateGameAssetData(SourceProductionContext context,
-        INamedTypeSymbol classSymbol)
+    private static GameDataRepositoryInfo? GenerateGameAssetData(
+        SourceProductionContext context,
+        INamedTypeSymbol classSymbol
+    )
     {
         var isValidType = true;
 
-        var uclassAttributeInfo = classSymbol.GetAttributes()
-            .SingleOrDefault(x => x.AttributeClass?.ToDisplayString() == SourceContextNames.UClassAttribute);
+        var uclassAttributeInfo = classSymbol
+            .GetAttributes()
+            .SingleOrDefault(x =>
+                x.AttributeClass?.ToDisplayString() == SourceContextNames.UClassAttribute
+            );
         if (uclassAttributeInfo is null)
         {
-            context.ReportDiagnostic(Diagnostic.Create(
-                new DiagnosticDescriptor(
-                    "GDA0001",
-                    "GameDataEntry must be annotated with UClass",
-                    "{0} must be annotated with UClass",
-                    "GameDataAccessTools",
-                    DiagnosticSeverity.Error,
-                    true
-                ),
-                classSymbol.Locations.First(),
-                classSymbol.Name
-            ));
+            context.ReportDiagnostic(
+                Diagnostic.Create(
+                    new DiagnosticDescriptor(
+                        "GDA0001",
+                        "GameDataEntry must be annotated with UClass",
+                        "{0} must be annotated with UClass",
+                        "GameDataAccessTools",
+                        DiagnosticSeverity.Error,
+                        true
+                    ),
+                    classSymbol.Locations.First(),
+                    classSymbol.Name
+                )
+            );
             isValidType = false;
         }
-        else if (uclassAttributeInfo.ConstructorArguments[0].Value is ulong propertyTag &&
-                 (propertyTag & SourceContextNames.EditInlineNew) == 0)
+        else if (
+            uclassAttributeInfo.ConstructorArguments[0].Value is ulong propertyTag
+            && (propertyTag & SourceContextNames.EditInlineNew) == 0
+        )
         {
-            context.ReportDiagnostic(Diagnostic.Create(
-                new DiagnosticDescriptor(
-                    "GDA0002",
-                    "GameDataEntry must have EditInlineNew flag set on UClass",
-                    "{0} must have EditInlineNew flag set on UClass",
-                    "GameDataAccessTools",
-                    DiagnosticSeverity.Error,
-                    true
-                ),
-                classSymbol.Locations.First(),
-                classSymbol.Name
-            ));
+            context.ReportDiagnostic(
+                Diagnostic.Create(
+                    new DiagnosticDescriptor(
+                        "GDA0002",
+                        "GameDataEntry must have EditInlineNew flag set on UClass",
+                        "{0} must have EditInlineNew flag set on UClass",
+                        "GameDataAccessTools",
+                        DiagnosticSeverity.Error,
+                        true
+                    ),
+                    classSymbol.Locations.First(),
+                    classSymbol.Name
+                )
+            );
             isValidType = false;
         }
 
@@ -121,21 +150,24 @@ internal class GameDataRepositoryGenerator : IIncrementalGenerator
         {
             if (baseType.ToDisplayString() == SourceContextNames.AActor)
             {
-                context.ReportDiagnostic(Diagnostic.Create(
-                    new DiagnosticDescriptor(
-                        "GDA0005",
-                        "GameDataEntry may not inherit from AActor",
-                        "{0} may not inherit from AActor",
-                        "GameDataAccessTools",
-                        DiagnosticSeverity.Error,
-                        true),
-                    classSymbol.Locations.First(),
-                    classSymbol.Name
-                ));
+                context.ReportDiagnostic(
+                    Diagnostic.Create(
+                        new DiagnosticDescriptor(
+                            "GDA0005",
+                            "GameDataEntry may not inherit from AActor",
+                            "{0} may not inherit from AActor",
+                            "GameDataAccessTools",
+                            DiagnosticSeverity.Error,
+                            true
+                        ),
+                        classSymbol.Locations.First(),
+                        classSymbol.Name
+                    )
+                );
                 isValidType = false;
                 break;
             }
-            
+
             if (baseType.ToDisplayString() == SourceContextNames.UObject)
             {
                 break;
@@ -146,33 +178,43 @@ internal class GameDataRepositoryGenerator : IIncrementalGenerator
 
         if (baseType is null)
         {
-            context.ReportDiagnostic(Diagnostic.Create(
-                new DiagnosticDescriptor(
-                    "GDA0003",
-                    "GameDataEntry must inherit from UObject",
-                    "{0} must inherit from UObject",
-                    "GameDataAccessTools",
-                    DiagnosticSeverity.Error,
-                    true),
-                classSymbol.Locations.First(),
-                classSymbol.Name
-            ));
+            context.ReportDiagnostic(
+                Diagnostic.Create(
+                    new DiagnosticDescriptor(
+                        "GDA0003",
+                        "GameDataEntry must inherit from UObject",
+                        "{0} must inherit from UObject",
+                        "GameDataAccessTools",
+                        DiagnosticSeverity.Error,
+                        true
+                    ),
+                    classSymbol.Locations.First(),
+                    classSymbol.Name
+                )
+            );
             isValidType = false;
         }
 
-        if (!classSymbol.AllInterfaces.Any(i => i.ToDisplayString() == SourceContextNames.IGameDataEntry))
+        if (
+            !classSymbol.AllInterfaces.Any(i =>
+                i.ToDisplayString() == SourceContextNames.IGameDataEntry
+            )
+        )
         {
-            context.ReportDiagnostic(Diagnostic.Create(
-                new DiagnosticDescriptor(
-                    "GDA0004",
-                    "GameDataEntry must implement from IGameDataEntry",
-                    "{0} must implement from IGameDataEntry",
-                    "GameDataAccessTools",
-                    DiagnosticSeverity.Error,
-                    true),
-                classSymbol.Locations.First(),
-                classSymbol.Name
-            ));
+            context.ReportDiagnostic(
+                Diagnostic.Create(
+                    new DiagnosticDescriptor(
+                        "GDA0004",
+                        "GameDataEntry must implement from IGameDataEntry",
+                        "{0} must implement from IGameDataEntry",
+                        "GameDataAccessTools",
+                        DiagnosticSeverity.Error,
+                        true
+                    ),
+                    classSymbol.Locations.First(),
+                    classSymbol.Name
+                )
+            );
             isValidType = false;
         }
 
@@ -199,37 +241,48 @@ internal class GameDataRepositoryGenerator : IIncrementalGenerator
         var handlebars = Handlebars.Create();
         handlebars.Configuration.TextEncoder = null;
 
-        context.AddSource($"{generatedClassName[1..]}.g.cs",
-            handlebars.Compile(SourceTemplates.GameDataRepositoryTemplate)(templateParams));
+        context.AddSource(
+            $"{generatedClassName[1..]}.g.cs",
+            handlebars.Compile(SourceTemplates.GameDataRepositoryTemplate)(templateParams)
+        );
         return templateParams;
     }
 
-    private static void GenerateProviderType(SourceProductionContext context, INamedTypeSymbol providerType,
-                                             Dictionary<string, GameDataRepositoryInfo> foundDataEntries)
+    private static void GenerateProviderType(
+        SourceProductionContext context,
+        INamedTypeSymbol providerType,
+        Dictionary<string, GameDataRepositoryInfo> foundDataEntries
+    )
     {
-        var providerInfo = providerType.GetAttributes().GetGameDataRepositoryProviderInfos()
+        var providerInfo = providerType
+            .GetAttributes()
+            .GetGameDataRepositoryProviderInfos()
             .Single();
 
         var isValidType = true;
 
-        if (!providerType.DeclaringSyntaxReferences
-                .Select(r => r.GetSyntax())
+        if (
+            !providerType
+                .DeclaringSyntaxReferences.Select(r => r.GetSyntax())
                 .OfType<ClassDeclarationSyntax>()
                 .SelectMany(x => x.Modifiers)
-                .Any(m => m.IsKind(SyntaxKind.PartialKeyword)))
+                .Any(m => m.IsKind(SyntaxKind.PartialKeyword))
+        )
         {
-            context.ReportDiagnostic(Diagnostic.Create(
-                new DiagnosticDescriptor(
-                    "GDA0004",
-                    "Provider type must be declared as partial",
-                    "{0} must be declared as partial",
-                    "GameDataAccessTools",
-                    DiagnosticSeverity.Error,
-                    true
-                ),
-                providerType.Locations.First(),
-                providerType.Name
-            ));
+            context.ReportDiagnostic(
+                Diagnostic.Create(
+                    new DiagnosticDescriptor(
+                        "GDA0004",
+                        "Provider type must be declared as partial",
+                        "{0} must be declared as partial",
+                        "GameDataAccessTools",
+                        DiagnosticSeverity.Error,
+                        true
+                    ),
+                    providerType.Locations.First(),
+                    providerType.Name
+                )
+            );
             isValidType = false;
         }
 
@@ -238,16 +291,21 @@ internal class GameDataRepositoryGenerator : IIncrementalGenerator
             return;
         }
 
-        var repositories = providerType.GetMembers()
+        var repositories = providerType
+            .GetMembers()
             .OfType<IPropertySymbol>()
             .Where(p => p.IsStatic)
             .Where(p => p.DeclaredAccessibility == Accessibility.Public)
-            .Where(p => p.Type is INamedTypeSymbol namedType && IsGameDataRepository(namedType, foundDataEntries))
+            .Where(p =>
+                p.Type is INamedTypeSymbol namedType
+                && IsGameDataRepository(namedType, foundDataEntries)
+            )
             .Where(p => p.GetMethod is not null && p.SetMethod is null)
-            .Where(p => p.DeclaringSyntaxReferences
-                .Select(r => r.GetSyntax())
-                .OfType<PropertyDeclarationSyntax>()
-                .Any(x => x.Modifiers.Any(m => m.IsKind(SyntaxKind.PartialKeyword))))
+            .Where(p =>
+                p.DeclaringSyntaxReferences.Select(r => r.GetSyntax())
+                    .OfType<PropertyDeclarationSyntax>()
+                    .Any(x => x.Modifiers.Any(m => m.IsKind(SyntaxKind.PartialKeyword)))
+            )
             .Select(x => new RepositoryPropertyInfo
             {
                 Type = x.Type.BaseType is not null
@@ -257,8 +315,7 @@ internal class GameDataRepositoryGenerator : IIncrementalGenerator
                 SingularName = GetSingularName(x),
                 RepositoryClassName = x.Type.Name[1..],
                 EntryType = GetEntryType(x.Type, foundDataEntries),
-                Category = x.GetAttributes().GetSettingsCategoryInfos()
-                    .SingleOrDefault().Name
+                Category = x.GetAttributes().GetSettingsCategoryInfos().SingleOrDefault().Name,
             })
             .ToImmutableArray();
 
@@ -268,36 +325,49 @@ internal class GameDataRepositoryGenerator : IIncrementalGenerator
             ClassName = providerType.Name,
             DisplayName = providerInfo.SettingsDisplayName,
             HasDisplayName = providerInfo.SettingsDisplayName is not null,
-            Repositories = repositories
+            Repositories = repositories,
         };
 
         var handlebars = Handlebars.Create();
         handlebars.Configuration.TextEncoder = null;
 
-        context.AddSource($"{providerType.Name}.g.cs",
-            handlebars.Compile(SourceTemplates.GameDataRepositoryProviderTemplate)(templateParams));
+        context.AddSource(
+            $"{providerType.Name}.g.cs",
+            handlebars.Compile(SourceTemplates.GameDataRepositoryProviderTemplate)(templateParams)
+        );
     }
 
-    private static bool IsGameDataRepository(INamedTypeSymbol type,
-        Dictionary<string, GameDataRepositoryInfo> foundDataEntries)
+    private static bool IsGameDataRepository(
+        INamedTypeSymbol type,
+        Dictionary<string, GameDataRepositoryInfo> foundDataEntries
+    )
     {
-        if (type.BaseType?.ToDisplayString() == SourceContextNames.UGameDataRepository
+        if (
+            type.BaseType?.ToDisplayString() == SourceContextNames.UGameDataRepository
             && type.Interfaces.Any(i =>
-                i.IsGenericType && i.ConstructedFrom.ToDisplayString() == SourceContextNames.IGameDataRepository))
+                i.IsGenericType
+                && i.ConstructedFrom.ToDisplayString() == SourceContextNames.IGameDataRepository
+            )
+        )
         {
             return true;
         }
 
         return foundDataEntries.ContainsKey(type.Name);
     }
-    
-    private static ITypeSymbol GetEntryType(ITypeSymbol type,
-                                        Dictionary<string, GameDataRepositoryInfo> foundDataEntries)
+
+    private static ITypeSymbol GetEntryType(
+        ITypeSymbol type,
+        Dictionary<string, GameDataRepositoryInfo> foundDataEntries
+    )
     {
         if (type.BaseType?.ToDisplayString() == SourceContextNames.UGameDataRepository)
         {
-            return type.Interfaces.Where(i => i.IsGenericType 
-                                              && i.ConstructedFrom.ToDisplayString() == SourceContextNames.IGameDataRepository)
+            return type
+                .Interfaces.Where(i =>
+                    i.IsGenericType
+                    && i.ConstructedFrom.ToDisplayString() == SourceContextNames.IGameDataRepository
+                )
                 .Select(i => i.TypeArguments.Single())
                 .Single();
         }
@@ -305,25 +375,35 @@ internal class GameDataRepositoryGenerator : IIncrementalGenerator
         return foundDataEntries[type.Name].EntryType;
     }
 
-    private static string GetFormattedName(Dictionary<string, GameDataRepositoryInfo> foundDataEntries, string name)
+    private static string GetFormattedName(
+        Dictionary<string, GameDataRepositoryInfo> foundDataEntries,
+        string name
+    )
     {
-        return foundDataEntries.TryGetValue(name, out var entry) ? $"{entry.Namespace}.{entry.AssetClassName}" : name;
+        return foundDataEntries.TryGetValue(name, out var entry)
+            ? $"{entry.Namespace}.{entry.AssetClassName}"
+            : name;
     }
 
     private static string GetSingularName(IPropertySymbol propertySymbol)
     {
-        var explicitName = propertySymbol.GetAttributes().GetSingularNameInfos()
+        var explicitName = propertySymbol
+            .GetAttributes()
+            .GetSingularNameInfos()
             .Select(x => x.Name)
             .SingleOrDefault();
         if (!string.IsNullOrWhiteSpace(explicitName))
         {
             return explicitName;
         }
-        
+
         return propertySymbol.Name.EndsWith("s") ? propertySymbol.Name[0..^1] : propertySymbol.Name;
     }
-    
-    private static void GeneratePropertyAccessorType(INamedTypeSymbol targetType, SourceProductionContext context)
+
+    private static void GeneratePropertyAccessorType(
+        INamedTypeSymbol targetType,
+        SourceProductionContext context
+    )
     {
         List<ITypeSymbol> allTypes = [targetType];
         var baseType = targetType.BaseType;
@@ -334,17 +414,21 @@ internal class GameDataRepositoryGenerator : IIncrementalGenerator
             {
                 break;
             }
-            
+
             baseType = baseType.BaseType;
         }
-        
-        var properties = ((IEnumerable<ITypeSymbol>) allTypes).Reverse()
+
+        var properties = ((IEnumerable<ITypeSymbol>)allTypes)
+            .Reverse()
             .SelectMany(x => x.GetMembers())
             .OfType<IPropertySymbol>()
             .Where(x => !x.IsStatic)
-            .Where(x => x.GetAttributes()
-                            .Any(y =>
-                                y.AttributeClass?.ToDisplayString() == SourceContextNames.UPropertyAttribute))
+            .Where(x =>
+                x.GetAttributes()
+                    .Any(y =>
+                        y.AttributeClass?.ToDisplayString() == SourceContextNames.UPropertyAttribute
+                    )
+            )
             .Select(x => x.GetPropertyInfo())
             .ToImmutableArray();
 
@@ -353,14 +437,16 @@ internal class GameDataRepositoryGenerator : IIncrementalGenerator
             Namespace = targetType.ContainingNamespace.ToDisplayString(),
             ClassName = targetType.Name,
             EngineName = targetType.Name[1..],
-            Properties = properties
+            Properties = properties,
         };
 
         var handlebars = Handlebars.Create();
         handlebars.Configuration.TextEncoder = null;
 
-        context.AddSource($"{templateParams.EngineName}Initializer.g.cs",
-            handlebars.Compile(SourceTemplates.GameDataEntrInitializerTemplate)(templateParams));
+        context.AddSource(
+            $"{templateParams.EngineName}Initializer.g.cs",
+            handlebars.Compile(SourceTemplates.GameDataEntrInitializerTemplate)(templateParams)
+        );
     }
 
     private static string GetClassType(INamedTypeSymbol classSymbol)

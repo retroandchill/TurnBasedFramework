@@ -11,22 +11,28 @@ using UnrealSharp.CoreUObject;
 
 namespace Pokemon.Editor.Serializers.Json;
 
-public sealed class BodyColorJsonSerializer(IConfigOptions<JsonSerializerOptions> jsonSerializerOptions)  : IGameDataEntrySerializer<UBodyColor>
+public sealed class BodyColorJsonSerializer(
+    IConfigOptions<JsonSerializerOptions> jsonSerializerOptions
+) : IGameDataEntrySerializer<UBodyColor>
 {
     private readonly JsonSerializerOptions _jsonSerializerOptions = jsonSerializerOptions.Value;
-    
+
     public FName FormatTag => JsonConstants.FormatTag;
     public FText FormatName => JsonConstants.FormatName;
     public string FileExtensionText => JsonConstants.FileExtensionText;
 
     public string SerializeData(IEnumerable<UBodyColor> entries)
     {
-        return JsonSerializer.Serialize(entries.Select(x => x.ToBodyColorInfo()), _jsonSerializerOptions);
+        return JsonSerializer.Serialize(
+            entries.Select(x => x.ToBodyColorInfo()),
+            _jsonSerializerOptions
+        );
     }
 
     public IEnumerable<UBodyColor> DeserializeData(string source, UObject outer)
     {
-        return JsonSerializer.Deserialize<BodyColorInfo[]>(source, _jsonSerializerOptions)!
+        return JsonSerializer
+            .Deserialize<BodyColorInfo[]>(source, _jsonSerializerOptions)!
             .Select(x => x.ToBodyColor(outer));
     }
 }

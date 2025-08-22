@@ -8,9 +8,11 @@ public sealed record UnrealTestMethod(
     string FullyQualifiedName,
     MethodInfo? SetupMethod,
     MethodInfo? TearDownMethod,
-    MethodInfo Method)
+    MethodInfo Method
+)
 {
-    public IReadOnlyDictionary<FName, TestCaseData> TestCases { get; init; } = new OrderedDictionary<FName, TestCaseData>();
+    public IReadOnlyDictionary<FName, TestCaseData> TestCases { get; init; } =
+        new OrderedDictionary<FName, TestCaseData>();
     public string? CodeFilePath { get; init; }
     public int LineNumber { get; init; }
 }

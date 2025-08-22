@@ -9,8 +9,8 @@ public record GenderRatioInfo
     public required FGameplayTag Id { get; init; }
     public int RowIndex { get; init; }
     public required FText DisplayName { get; init; }
-    
+
     public required ESpecialGenderRatio SpecialGenderRatio { get; init; }
-    
+
     public byte? FemaleChance { get; init; }
 }

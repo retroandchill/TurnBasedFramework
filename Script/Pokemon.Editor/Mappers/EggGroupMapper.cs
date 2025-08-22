@@ -7,7 +7,10 @@ using UnrealSharp.GameplayTags;
 
 namespace Pokemon.Editor.Mappers;
 
-[Mapper(RequiredMappingStrategy = RequiredMappingStrategy.Target, PreferParameterlessConstructors = false)]
+[Mapper(
+    RequiredMappingStrategy = RequiredMappingStrategy.Target,
+    PreferParameterlessConstructors = false
+)]
 public static partial class EggGroupMapper
 {
     public static UEggGroup ToEggGroup(this EggGroupInfo eggGroupInfo, UObject? outer = null)
@@ -17,5 +20,8 @@ public static partial class EggGroupMapper
 
     public static partial EggGroupInfo ToEggGroupInfo(this UEggGroup eggGroup);
 
-    private static partial EggGroupInitializer ToEggGroupInitializer(this EggGroupInfo eggGroup, UObject? outer = null);
+    private static partial EggGroupInitializer ToEggGroupInitializer(
+        this EggGroupInfo eggGroup,
+        UObject? outer = null
+    );
 }

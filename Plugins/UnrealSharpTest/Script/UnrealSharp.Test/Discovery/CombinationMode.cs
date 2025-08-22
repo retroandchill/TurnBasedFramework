@@ -4,5 +4,5 @@ public enum CombinationMode
 {
     Combinatorial,
     Sequential,
-    Pairwise
+    Pairwise,
 }

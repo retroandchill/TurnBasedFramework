@@ -7,15 +7,24 @@ using UnrealSharp.GameplayTags;
 
 namespace Pokemon.Editor.Mappers;
 
-[Mapper(RequiredMappingStrategy = RequiredMappingStrategy.Target, PreferParameterlessConstructors = false)]
+[Mapper(
+    RequiredMappingStrategy = RequiredMappingStrategy.Target,
+    PreferParameterlessConstructors = false
+)]
 public static partial class GrowthRateMapper
 {
-    public static UGrowthRate ToGrowthRate(this GrowthRateInfo growthRateInfo, UObject? outer = null)
+    public static UGrowthRate ToGrowthRate(
+        this GrowthRateInfo growthRateInfo,
+        UObject? outer = null
+    )
     {
         return growthRateInfo.ToGrowthRateInitializer(outer);
     }
-    
+
     public static partial GrowthRateInfo ToGrowthRateInfo(this UGrowthRate growthRate);
-    
-    private static partial GrowthRateInitializer ToGrowthRateInitializer(this GrowthRateInfo growthRate, UObject? outer = null);
+
+    private static partial GrowthRateInitializer ToGrowthRateInitializer(
+        this GrowthRateInfo growthRate,
+        UObject? outer = null
+    );
 }

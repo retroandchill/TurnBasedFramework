@@ -12,7 +12,7 @@ public class ItemPbsSerializer : IGameDataEntrySerializer<UItem>
     public FName FormatTag => PbsConstants.FormatTag;
     public FText FormatName => PbsConstants.FormatName;
     public string FileExtensionText => PbsConstants.FileExtensionText;
-    
+
     public string SerializeData(IEnumerable<UItem> entries)
     {
         return PbsCompiler.WritePbs(entries.Select(x => x.ToItemInfo()));
@@ -20,7 +20,8 @@ public class ItemPbsSerializer : IGameDataEntrySerializer<UItem>
 
     public IEnumerable<UItem> DeserializeData(string source, UObject outer)
     {
-        return PbsCompiler.CompilePbsFile<ItemInfo>(source)
+        return PbsCompiler
+            .CompilePbsFile<ItemInfo>(source)
             .Select(x => x.Value)
             .Select(x => x.ToItem(outer));
     }

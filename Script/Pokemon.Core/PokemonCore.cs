@@ -14,7 +14,8 @@ public class FPokemonCore : IModuleInterface
     {
         FUnrealInjectModule.Instance.ConfigureServices(services =>
         {
-            services.AddSingleton<IExpGrowthFormula, ErraticExpGrowthFormula>()
+            services
+                .AddSingleton<IExpGrowthFormula, ErraticExpGrowthFormula>()
                 .AddSingleton<IExpGrowthFormula, FastExpGrowthFormula>()
                 .AddSingleton<IExpGrowthFormula, FluctuatingExpGrowthFormula>()
                 .AddSingleton<IExpGrowthFormula, MediumExpGrowthFormula>()
@@ -28,8 +29,7 @@ public class FPokemonCore : IModuleInterface
     {
         FUnrealInjectModule.Instance.ConfigureServices(services =>
         {
-            services.RemoveAll<IExpGrowthFormula>()
-                .RemoveAll<ExpGrowthFormulaProvider>();
+            services.RemoveAll<IExpGrowthFormula>().RemoveAll<ExpGrowthFormulaProvider>();
         });
     }
 }

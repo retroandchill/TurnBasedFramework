@@ -36,22 +36,33 @@ public static class SerializationExtensions
     {
         var nativeValue = new NativeJsonValue();
         using var nativeJsonReleaser = new NativeJsonValueReleaser(ref nativeValue);
-        if (!FJsonObjectConverterExporter.CallSerializeObjectToJson(obj.NativeObject, ref nativeValue).ToManagedBool())
+        if (
+            !FJsonObjectConverterExporter
+                .CallSerializeObjectToJson(obj.NativeObject, ref nativeValue)
+                .ToManagedBool()
+        )
         {
             throw new JsonException("Unable to serialize entry to JSON.");
         }
-            
+
         var result = JsonNodeMarshaller.FromNative(ref nativeValue);
 
         if (result is not JsonObject jsonObject)
         {
-            throw new JsonException($"Unable to serialize entry to JSON. Expected JsonObject, got {result?.GetType().Name ?? "???"}.");
+            throw new JsonException(
+                $"Unable to serialize entry to JSON. Expected JsonObject, got {result?.GetType().Name ?? "???"}."
+            );
         }
-        
+
         return jsonObject;
     }
 
-    public static T DeserializeObjectFromJson<T>(this JsonObject json, UObject? outer = null, TSubclassOf<T> classType = default) where T : UObject
+    public static T DeserializeObjectFromJson<T>(
+        this JsonObject json,
+        UObject? outer = null,
+        TSubclassOf<T> classType = default
+    )
+        where T : UObject
     {
         var nativeValue = new NativeJsonValue();
         JsonNodeMarshaller.ToNative(ref nativeValue, json);
@@ -60,25 +71,34 @@ public static class SerializationExtensions
         var textData = new FTextData();
         using var textDataReleaser = new TextDataReleaser(ref textData);
         FTextExporter.CallCreateEmptyText(ref textData);
-        if (!FJsonObjectConverterExporter.CallDeserializeJsonToObject(ref nativeValue, newEntry.NativeObject,
-                ref textData).ToManagedBool())
+        if (
+            !FJsonObjectConverterExporter
+                .CallDeserializeJsonToObject(ref nativeValue, newEntry.NativeObject, ref textData)
+                .ToManagedBool()
+        )
         {
             throw new JsonException(ConvertTextDataToString(ref textData));
         }
 
         return newEntry;
     }
-    
+
     private static unsafe string ConvertTextDataToString(ref FTextData textData)
     {
         return new string(FTextExporter.CallToString(ref textData));
     }
-    
+
     public static FGameplayTag GetOrCreateGameplayTag(string gameplayTagString)
     {
 #if WITH_EDITOR
         var tagSource = UObject.GetDefault<UGameDataAccessToolsSettings>().NewGameplayTagsPath;
-        if (!UGameplayTagHandlingUtils.TryAddGameplayTagToIni(tagSource, gameplayTagString, out var error))
+        if (
+            !UGameplayTagHandlingUtils.TryAddGameplayTagToIni(
+                tagSource,
+                gameplayTagString,
+                out var error
+            )
+        )
         {
             throw new InvalidOperationException(error);
         }

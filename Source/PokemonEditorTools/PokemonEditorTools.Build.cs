@@ -2,17 +2,13 @@
 
 public class PokemonEditorTools : ModuleRules
 {
-    public PokemonEditorTools(ReadOnlyTargetRules Target) : base(Target)
+    public PokemonEditorTools(ReadOnlyTargetRules Target)
+        : base(Target)
     {
         PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 
         PublicDependencyModuleNames.AddRange(
-            new string[]
-            {
-                "Core",
-                "UnrealSharpBinds", 
-                "GameDataAccessTools"
-            }
+            new string[] { "Core", "UnrealSharpBinds", "GameDataAccessTools" }
         );
 
         PrivateDependencyModuleNames.AddRange(
@@ -23,7 +19,7 @@ public class PokemonEditorTools : ModuleRules
                 "Slate",
                 "SlateCore",
                 "UnrealEd",
-                "UnrealSharpCore"
+                "UnrealSharpCore",
             }
         );
     }

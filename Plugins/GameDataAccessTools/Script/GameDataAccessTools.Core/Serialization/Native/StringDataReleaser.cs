@@ -7,10 +7,11 @@ public ref struct StringDataReleaser(ref UnmanagedArray stringData) : IDisposabl
 {
     private readonly ref UnmanagedArray _stringData = ref stringData;
     private bool _isDisposed;
-    
+
     public void Dispose()
     {
-        if (_isDisposed) return;
+        if (_isDisposed)
+            return;
 
         unsafe
         {
@@ -20,7 +21,7 @@ public ref struct StringDataReleaser(ref UnmanagedArray stringData) : IDisposabl
                 StringMarshaller.DestructInstance(intPtr, 0);
             }
         }
-        
+
         _isDisposed = true;
     }
 }

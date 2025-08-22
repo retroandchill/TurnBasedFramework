@@ -84,7 +84,7 @@ public class DynamicRandomAttribute : NUnitAttribute
         Count = count;
         _dataSource = new IntRandomDataSource(min, max, count);
     }
-    
+
     /// <summary>
     /// Represents an attribute designed to provide random values to test parameters when tests are executed.
     /// </summary>
@@ -130,7 +130,7 @@ public class DynamicRandomAttribute : NUnitAttribute
         Count = count;
         _dataSource = new ShortRandomDataSource(min, max, count);
     }
-    
+
     /// <summary>
     /// Represents an attribute designed to provide random values to test parameters when tests are executed.
     /// </summary>
@@ -176,7 +176,7 @@ public class DynamicRandomAttribute : NUnitAttribute
         Count = count;
         _dataSource = new ByteRandomDataSource(min, max, count);
     }
-    
+
     /// <summary>
     /// Represents an attribute designed to provide random values to test parameters when tests are executed.
     /// </summary>
@@ -222,7 +222,7 @@ public class DynamicRandomAttribute : NUnitAttribute
         Count = count;
         _dataSource = new LongRandomDataSource(min, max, count);
     }
-    
+
     /// <summary>
     /// Represents an attribute designed to provide random values to test parameters when tests are executed.
     /// </summary>
@@ -268,7 +268,7 @@ public class DynamicRandomAttribute : NUnitAttribute
         Count = count;
         _dataSource = new FloatRandomDataSource(min, max, count);
     }
-    
+
     /// <summary>
     /// Represents an attribute designed to provide random values to test parameters when tests are executed.
     /// </summary>
@@ -314,7 +314,7 @@ public class DynamicRandomAttribute : NUnitAttribute
         Count = count;
         _dataSource = new DecimalRandomDataSource(min, max, count);
     }
-    
+
     /// <summary>
     /// Retrieves a random data source appropriate for the specified parameter type.
     /// </summary>
@@ -389,8 +389,7 @@ public class DynamicRandomAttribute : NUnitAttribute
         {
             throw new InvalidOperationException($"Unsupported type {parameterInfo.ParameterType}");
         }
-        
+
         return _dataSource!;
     }
-    
 }

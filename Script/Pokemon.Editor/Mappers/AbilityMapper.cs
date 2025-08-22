@@ -7,7 +7,10 @@ using UnrealSharp.GameplayTags;
 
 namespace Pokemon.Editor.Mappers;
 
-[Mapper(RequiredMappingStrategy = RequiredMappingStrategy.Target, PreferParameterlessConstructors = false)]
+[Mapper(
+    RequiredMappingStrategy = RequiredMappingStrategy.Target,
+    PreferParameterlessConstructors = false
+)]
 public static partial class AbilityMapper
 {
     public static UAbility ToAbility(this AbilityInfo abilityInfo, UObject? outer = null)
@@ -17,5 +20,8 @@ public static partial class AbilityMapper
 
     public static partial AbilityInfo ToAbilityInfo(this UAbility ability);
 
-    private static partial AbilityInitializer ToAbilityInitializer(this AbilityInfo ability, UObject? outer = null);
+    private static partial AbilityInitializer ToAbilityInitializer(
+        this AbilityInfo ability,
+        UObject? outer = null
+    );
 }

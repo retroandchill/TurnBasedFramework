@@ -2,7 +2,10 @@
 
 namespace GameAccessTools.SourceGenerator.Model;
 
-public readonly record struct GameDataRepositoryInfo(INamedTypeSymbol EntryType, string AssetClassName)
+public readonly record struct GameDataRepositoryInfo(
+    INamedTypeSymbol EntryType,
+    string AssetClassName
+)
 {
     public INamespaceSymbol? Namespace => EntryType.ContainingNamespace;
 

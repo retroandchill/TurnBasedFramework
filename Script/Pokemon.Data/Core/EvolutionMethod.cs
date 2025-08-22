@@ -21,18 +21,27 @@ public class UEvolutionConditionData : UObject;
 public class UEvolutionMethod : UObject, IGameDataEntry
 {
     public const string TagCategory = "Pokemon.Data.EvolutionMethods";
-    
-    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
+
+    [UProperty(
+        PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere,
+        Category = "Identification"
+    )]
     [Categories(TagCategory)]
     public FGameplayTag Id { get; init; }
-    
-    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.VisibleAnywhere, Category = "Identification")]
+
+    [UProperty(
+        PropertyFlags.BlueprintReadOnly | PropertyFlags.VisibleAnywhere,
+        Category = "Identification"
+    )]
     public int RowIndex { get; init; }
-    
+
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Display")]
     public FText DisplayName { get; init; }
-    
-    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Evolution")]
+
+    [UProperty(
+        PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere,
+        Category = "Evolution"
+    )]
     public TSubclassOf<UEvolutionConditionData> ConditionType { get; init; }
 }
 
@@ -46,7 +55,10 @@ public sealed class UIntEvolutionConditionData : UEvolutionConditionData
 [UClass(ClassFlags.EditInlineNew)]
 public sealed class UMoveEvolutionConditionData : UEvolutionConditionData
 {
-    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, DisplayName = "Move ID")]
+    [UProperty(
+        PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere,
+        DisplayName = "Move ID"
+    )]
     [Categories(UMove.TagCategory)]
     [ParentTag(UMove.TagCategory)]
     public FGameplayTag MoveId { get; init; }
@@ -55,7 +67,10 @@ public sealed class UMoveEvolutionConditionData : UEvolutionConditionData
 [UClass(ClassFlags.EditInlineNew)]
 public class UTypeEvolutionConditionData : UEvolutionConditionData
 {
-    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, DisplayName = "Type ID")]
+    [UProperty(
+        PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere,
+        DisplayName = "Type ID"
+    )]
     [Categories(UType.MetadataCategory)]
     [ParentTag(UType.TagCategory)]
     public FGameplayTag TypeId { get; init; }
@@ -64,7 +79,10 @@ public class UTypeEvolutionConditionData : UEvolutionConditionData
 [UClass(ClassFlags.EditInlineNew)]
 public class UItemEvolutionConditionData : UEvolutionConditionData
 {
-    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, DisplayName = "Item ID")]
+    [UProperty(
+        PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere,
+        DisplayName = "Item ID"
+    )]
     [Categories(UItem.TagCategory)]
     [ParentTag(UItem.TagCategory)]
     public FGameplayTag ItemId { get; init; }
@@ -73,7 +91,10 @@ public class UItemEvolutionConditionData : UEvolutionConditionData
 [UClass(ClassFlags.EditInlineNew)]
 public class USpeciesEvolutionConditionData : UEvolutionConditionData
 {
-    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, DisplayName = "Species ID")]
+    [UProperty(
+        PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere,
+        DisplayName = "Species ID"
+    )]
     [Categories(USpecies.TagCategory)]
     [ParentTag(USpecies.TagCategory)]
     public FGameplayTag SpeciesId { get; init; }
@@ -90,7 +111,7 @@ public class ULocationEvolutionConditionData : UEvolutionConditionData
 public class ULocationFlagEvolutionConditionData : UEvolutionConditionData
 {
     public const string TagCategory = "Pokemon.Field.Location.Evolution";
-    
+
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)]
     [Categories(TagCategory)]
     [ParentTag(TagCategory)]

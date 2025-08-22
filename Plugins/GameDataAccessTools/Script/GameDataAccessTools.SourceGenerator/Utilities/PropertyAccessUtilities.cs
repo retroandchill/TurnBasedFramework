@@ -10,7 +10,7 @@ public static class PropertyAccessUtilities
     {
         return new AccessiblePropertyInfo(propertySymbol.Type, propertySymbol.Name)
         {
-            MarshallerInfo = propertySymbol.Type.GetMarshallerName()
+            MarshallerInfo = propertySymbol.Type.GetMarshallerName(),
         };
     }
 
@@ -22,9 +22,14 @@ public static class PropertyAccessUtilities
                 return new MarshallerInfo("StringMarshaller");
             case SpecialType.System_Boolean:
                 return new MarshallerInfo("BoolMarshaller");
-            case SpecialType.System_Byte or SpecialType.System_SByte or SpecialType.System_Int32
-                or SpecialType.System_UInt32 or SpecialType.System_Int64 or SpecialType.System_UInt64
-                or SpecialType.System_Single or SpecialType.System_Double:
+            case SpecialType.System_Byte
+            or SpecialType.System_SByte
+            or SpecialType.System_Int32
+            or SpecialType.System_UInt32
+            or SpecialType.System_Int64
+            or SpecialType.System_UInt64
+            or SpecialType.System_Single
+            or SpecialType.System_Double:
                 return new MarshallerInfo($"BlittableMarshaller<{typeSymbol.ToDisplayString()}>");
             default:
             {
@@ -34,28 +39,41 @@ public static class PropertyAccessUtilities
                     switch (genericType.MetadataName)
                     {
                         case "IReadOnlyList`1" or "IList`1":
-                            return new MarshallerInfo($"ArrayCopyMarshaller<{typeArguments[0]}>",
-                                typeArguments[0].GetMarshallerName().Name);
+                            return new MarshallerInfo(
+                                $"ArrayCopyMarshaller<{typeArguments[0]}>",
+                                typeArguments[0].GetMarshallerName().Name
+                            );
                         case "TNativeArray`1" or "ReadOnlySpan`1":
-                            return new MarshallerInfo($"NativeArrayMarshaller<{typeArguments[0]}>",
-                                typeArguments[0].GetMarshallerName().Name);
+                            return new MarshallerInfo(
+                                $"NativeArrayMarshaller<{typeArguments[0]}>",
+                                typeArguments[0].GetMarshallerName().Name
+                            );
                         case "IReadOnlyDictionary`2" or "IDictionary`2":
-                            return new MarshallerInfo($"MapCopyMarshaller<{typeArguments[0]}, {typeArguments[1]}>",
-                                typeArguments[0].GetMarshallerName().Name, typeArguments[1].GetMarshallerName().Name);
+                            return new MarshallerInfo(
+                                $"MapCopyMarshaller<{typeArguments[0]}, {typeArguments[1]}>",
+                                typeArguments[0].GetMarshallerName().Name,
+                                typeArguments[1].GetMarshallerName().Name
+                            );
                         case "IReadOnlySet`1" or "ISet`1":
-                            return new MarshallerInfo($"SetCopyMarshaller<{typeArguments[0]}>",
-                                typeArguments[0].GetMarshallerName().Name);
+                            return new MarshallerInfo(
+                                $"SetCopyMarshaller<{typeArguments[0]}>",
+                                typeArguments[0].GetMarshallerName().Name
+                            );
                         case "TSubclassOf`1":
                             return new MarshallerInfo($"SubclassOfMarshaller<{typeArguments[0]}>");
                         case "TWeakObjectPtr`1":
-                            return new MarshallerInfo($"BlittableMarshaller<{typeSymbol.ToDisplayString()}>");
+                            return new MarshallerInfo(
+                                $"BlittableMarshaller<{typeSymbol.ToDisplayString()}>"
+                            );
                         case "TSoftObjectPtr`1":
                             return new MarshallerInfo($"SoftObjectMarshaller<{typeArguments[0]}>");
                         case "TSoftClassPtr`1":
                             return new MarshallerInfo($"SoftClassMarshaller<{typeArguments[0]}>");
                         case "Option`1":
-                            return new MarshallerInfo($"OptionMarshaller<{typeArguments[0]}>",
-                                typeArguments[0].GetMarshallerName().Name);
+                            return new MarshallerInfo(
+                                $"OptionMarshaller<{typeArguments[0]}>",
+                                typeArguments[0].GetMarshallerName().Name
+                            );
                     }
                 }
 
@@ -81,27 +99,40 @@ public static class PropertyAccessUtilities
 
                 if (typeSymbol.MetadataName == "TMulticastDelegate`1")
                 {
-                    return new MarshallerInfo($"MulticastDelegateMarshaller<{typeSymbol.ToDisplayString()}>");
+                    return new MarshallerInfo(
+                        $"MulticastDelegateMarshaller<{typeSymbol.ToDisplayString()}>"
+                    );
                 }
 
                 if (typeSymbol.MetadataName == "TDelegate`1")
                 {
-                    return new MarshallerInfo($"SingleDelegateMarshaller<{typeSymbol.ToDisplayString()}>");
+                    return new MarshallerInfo(
+                        $"SingleDelegateMarshaller<{typeSymbol.ToDisplayString()}>"
+                    );
                 }
 
-                var structAttribute = typeSymbol.GetAttributes()
+                var structAttribute = typeSymbol
+                    .GetAttributes()
                     .SingleOrDefault(attr =>
-                        attr.AttributeClass?.ToDisplayString() == "UnrealSharp.Attributes.UStructAttribute");
+                        attr.AttributeClass?.ToDisplayString()
+                        == "UnrealSharp.Attributes.UStructAttribute"
+                    );
                 if (structAttribute is null)
                 {
                     return typeSymbol.IsUnmanagedType
-                        ? new MarshallerInfo($"UnmanagedTypeMarshaller<{typeSymbol.ToDisplayString()}>")
-                        : new MarshallerInfo($"ManagedObjectMarshaller<{typeSymbol.ToDisplayString()}>");
+                        ? new MarshallerInfo(
+                            $"UnmanagedTypeMarshaller<{typeSymbol.ToDisplayString()}>"
+                        )
+                        : new MarshallerInfo(
+                            $"ManagedObjectMarshaller<{typeSymbol.ToDisplayString()}>"
+                        );
                 }
 
                 return typeSymbol.AllInterfaces.Any(i =>
-                    i.IsGenericType && i.ToDisplayString() ==
-                    $"UnrealSharp.MarshalledStruct<{typeSymbol.ToDisplayString()}>")
+                    i.IsGenericType
+                    && i.ToDisplayString()
+                        == $"UnrealSharp.MarshalledStruct<{typeSymbol.ToDisplayString()}>"
+                )
                     ? new MarshallerInfo($"StructMarshaller<{typeSymbol.ToDisplayString()}>")
                     : new MarshallerInfo($"CSharpStructMarshaller<{typeSymbol.ToDisplayString()}>");
             }

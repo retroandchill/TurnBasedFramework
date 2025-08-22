@@ -7,9 +7,14 @@ using static UnrealSharp.GameDataAccessTools.UTextSerializationBlueprintLibrary;
 
 namespace GameDataAccessTools.Core.Serialization.Json;
 
-public class SubclassOfJsonConverter<T> : JsonConverter<TSubclassOf<T>> where T : UObject
+public class SubclassOfJsonConverter<T> : JsonConverter<TSubclassOf<T>>
+    where T : UObject
 {
-    public override TSubclassOf<T> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override TSubclassOf<T> Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options
+    )
     {
         switch (reader.TokenType)
         {
@@ -21,9 +26,9 @@ public class SubclassOfJsonConverter<T> : JsonConverter<TSubclassOf<T>> where T 
                 var path = GetClassFromPath(pathString);
                 if (!path.Valid)
                 {
-                    throw new JsonException($"Invalid path {pathString}");   
+                    throw new JsonException($"Invalid path {pathString}");
                 }
-                
+
                 return path.As<T>();
             }
             case JsonTokenType.None:
@@ -41,7 +46,11 @@ public class SubclassOfJsonConverter<T> : JsonConverter<TSubclassOf<T>> where T 
         }
     }
 
-    public override void Write(Utf8JsonWriter writer, TSubclassOf<T> value, JsonSerializerOptions options)
+    public override void Write(
+        Utf8JsonWriter writer,
+        TSubclassOf<T> value,
+        JsonSerializerOptions options
+    )
     {
         if (value.Valid)
         {

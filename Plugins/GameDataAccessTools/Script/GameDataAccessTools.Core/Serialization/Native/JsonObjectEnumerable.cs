@@ -6,10 +6,10 @@ using FJsonObjectExporter = GameDataAccessTools.Core.Interop.FJsonObjectExporter
 
 namespace GameDataAccessTools.Core.Serialization.Native;
 
-public readonly ref struct JsonKeyValuePair( string key, ref NativeJsonValue value)
+public readonly ref struct JsonKeyValuePair(string key, ref NativeJsonValue value)
 {
     public string Key { get; } = key;
-    
+
     private readonly ref NativeJsonValue _value = ref value;
     public ref NativeJsonValue Value => ref _value;
 }
@@ -32,13 +32,17 @@ public ref struct JsonObjectEnumerator(ref NativeJsonValue nativeJsonValue)
         bool result;
         if (_isInitialized)
         {
-            result = FJsonObjectExporter.CallAdvanceJsonIterator(ref _nativeIterator).ToManagedBool();
+            result = FJsonObjectExporter
+                .CallAdvanceJsonIterator(ref _nativeIterator)
+                .ToManagedBool();
         }
         else
         {
             FJsonObjectExporter.CallCreateJsonIterator(ref _nativeJsonValue, ref _nativeIterator);
             _isInitialized = true;
-            result = FJsonObjectExporter.CallIsValidJsonIterator(ref _nativeIterator).ToManagedBool();
+            result = FJsonObjectExporter
+                .CallIsValidJsonIterator(ref _nativeIterator)
+                .ToManagedBool();
         }
 
         if (result)
@@ -47,11 +51,18 @@ public ref struct JsonObjectEnumerator(ref NativeJsonValue nativeJsonValue)
             {
                 var stringPtr = IntPtr.Zero;
                 NativeJsonValue* valuePtr = null;
-                FJsonObjectExporter.CallGetJsonIteratorValues(ref _nativeIterator, ref stringPtr, ref valuePtr);
-                Current = new JsonKeyValuePair(StringMarshaller.FromNative(stringPtr, 0), ref *valuePtr);
+                FJsonObjectExporter.CallGetJsonIteratorValues(
+                    ref _nativeIterator,
+                    ref stringPtr,
+                    ref valuePtr
+                );
+                Current = new JsonKeyValuePair(
+                    StringMarshaller.FromNative(stringPtr, 0),
+                    ref *valuePtr
+                );
             }
         }
-        
+
         return result;
     }
 }

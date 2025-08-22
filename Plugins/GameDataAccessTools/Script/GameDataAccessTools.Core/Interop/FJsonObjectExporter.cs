@@ -8,10 +8,21 @@ namespace GameDataAccessTools.Core.Interop;
 public static unsafe partial class FJsonObjectExporter
 {
     private static readonly delegate* unmanaged<ref NativeJsonValue, void> CreateJsonObject;
-    private static readonly delegate* unmanaged<ref NativeJsonValue, string, ref NativeJsonValue, void> SetField;
-    
-    private static readonly delegate* unmanaged<ref NativeJsonValue, ref MapIterator, void> CreateJsonIterator;
+    private static readonly delegate* unmanaged<
+        ref NativeJsonValue,
+        string,
+        ref NativeJsonValue,
+        void> SetField;
+
+    private static readonly delegate* unmanaged<
+        ref NativeJsonValue,
+        ref MapIterator,
+        void> CreateJsonIterator;
     private static readonly delegate* unmanaged<ref MapIterator, NativeBool> AdvanceJsonIterator;
     private static readonly delegate* unmanaged<ref MapIterator, NativeBool> IsValidJsonIterator;
-    private static readonly delegate* unmanaged<ref MapIterator, ref IntPtr, ref NativeJsonValue*, void> GetJsonIteratorValues;
+    private static readonly delegate* unmanaged<
+        ref MapIterator,
+        ref IntPtr,
+        ref NativeJsonValue*,
+        void> GetJsonIteratorValues;
 }

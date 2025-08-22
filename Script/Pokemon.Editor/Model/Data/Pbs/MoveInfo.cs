@@ -11,50 +11,43 @@ public record MoveInfo
     [PbsKey]
     [PbsGameplayTag(UMove.TagCategory, Create = true)]
     public required FGameplayTag Id { get; init; }
-    
+
     [PbsIndex]
     public int RowIndex { get; init; }
-    
+
     [PbsName("Name")]
     [PbsLocalizedText("PokemonMoves", "{0}_DisplayName")]
     public FText DisplayName { get; init; } = "Unnamed";
 
     [PbsLocalizedText("PokemonMoves", "{0}_Description")]
     public FText Description { get; init; } = "???";
-    
-    
+
     [PbsGameplayTag(UType.TagCategory)]
     public FGameplayTag Type { get; init; }
-    
+
     public EDamageCategory Category { get; init; } = EDamageCategory.Status;
-    
-    
+
     [PbsRange<int>(0)]
     public int Power { get; init; }
-    
+
     [PbsRange<int>(0, 100)]
     public int Accuracy { get; init; } = 100;
-    
+
     [PbsRange<int>(1)]
     public int TotalPP { get; init; } = 5;
-    
+
     public int Priority { get; init; }
-    
+
     [PbsGameplayTag(UTargetType.TagCategory)]
     public FGameplayTag Target { get; init; }
-    
-    
+
     [PbsGameplayTag(UMove.FunctionCodeCategory, Create = true)]
     public FGameplayTag FunctionCode { get; init; }
-    
+
     [PbsRange<int>(0)]
     public int EffectChance { get; init; }
-    
+
     [PbsName("Flags")]
     [PbsGameplayTag(UMove.MetadataCategory, Create = true)]
-    public FGameplayTagContainer Tags { get; init; } = new()
-    {
-        GameplayTags = [],
-        ParentTags = []
-    };
+    public FGameplayTagContainer Tags { get; init; } = new() { GameplayTags = [], ParentTags = [] };
 }

@@ -7,6 +7,13 @@ namespace GameDataAccessTools.Core.Interop;
 [NativeCallbacks]
 public static unsafe partial class JsonArrayExporter
 {
-    private static readonly delegate* unmanaged<ref UnmanagedArray, int, ref NativeJsonValue*, void> GetAtIndex;
-    private static readonly delegate* unmanaged<ref UnmanagedArray, ref NativeJsonValue, void> AddToArray;
+    private static readonly delegate* unmanaged<
+        ref UnmanagedArray,
+        int,
+        ref NativeJsonValue*,
+        void> GetAtIndex;
+    private static readonly delegate* unmanaged<
+        ref UnmanagedArray,
+        ref NativeJsonValue,
+        void> AddToArray;
 }

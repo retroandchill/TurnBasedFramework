@@ -8,10 +8,12 @@ using UnrealSharp.Test.Attributes;
 
 namespace UnrealSharp.Test.Model;
 
-public sealed class RandomPlaceholder([ReadOnly] DynamicRandomAttribute randomAttribute, 
-                                      ParameterInfo parameterInfo,
-                                      int index,
-                                      [ReadOnly] int? displayIndex = null) : IDataPlaceholder
+public sealed class RandomPlaceholder(
+    [ReadOnly] DynamicRandomAttribute randomAttribute,
+    ParameterInfo parameterInfo,
+    int index,
+    [ReadOnly] int? displayIndex = null
+) : IDataPlaceholder
 {
     public int Index { get; } = index;
     public ParameterInfo ParameterInfo { get; } = parameterInfo;

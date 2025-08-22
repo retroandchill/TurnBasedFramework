@@ -2,18 +2,13 @@
 
 public class GameDataAccessToolsEditor : ModuleRules
 {
-    public GameDataAccessToolsEditor(ReadOnlyTargetRules Target) : base(Target)
+    public GameDataAccessToolsEditor(ReadOnlyTargetRules Target)
+        : base(Target)
     {
         PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 
         PublicDependencyModuleNames.AddRange(
-            new string[]
-            {
-                "Core",
-                "UnrealSharpCore",
-                "UnrealEd",
-                "GameDataAccessTools",
-            }
+            new string[] { "Core", "UnrealSharpCore", "UnrealEd", "GameDataAccessTools" }
         );
 
         PrivateDependencyModuleNames.AddRange(
@@ -25,13 +20,13 @@ public class GameDataAccessToolsEditor : ModuleRules
                 "Slate",
                 "SlateCore",
                 "WorkspaceMenuStructure",
-                "InputCore", 
+                "InputCore",
                 "UnrealSharpProcHelper",
                 "JsonUtilities",
                 "PropertyPath",
                 "ToolWidgets",
                 "GameplayTags",
-                "GameplayTagsEditor"
+                "GameplayTagsEditor",
             }
         );
     }

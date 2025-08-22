@@ -12,7 +12,7 @@ public sealed class BerryPlantPbsSerializer : IGameDataEntrySerializer<UBerryPla
     public FName FormatTag => PbsConstants.FormatTag;
     public FText FormatName => PbsConstants.FormatName;
     public string FileExtensionText => PbsConstants.FileExtensionText;
-    
+
     public string SerializeData(IEnumerable<UBerryPlant> entries)
     {
         return PbsCompiler.WritePbs(entries.Select(x => x.ToBerryPlantInfo()));
@@ -20,7 +20,8 @@ public sealed class BerryPlantPbsSerializer : IGameDataEntrySerializer<UBerryPla
 
     public IEnumerable<UBerryPlant> DeserializeData(string source, UObject outer)
     {
-        return PbsCompiler.CompilePbsFile<BerryPlantInfo>(source)
+        return PbsCompiler
+            .CompilePbsFile<BerryPlantInfo>(source)
             .Select(x => x.Value)
             .Select(x => x.ToBerryPlant(outer));
     }

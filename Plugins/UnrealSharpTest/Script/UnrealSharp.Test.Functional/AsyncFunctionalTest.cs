@@ -17,7 +17,7 @@ public class AAsyncFunctionalTest : AFunctionalTest
     {
         using var nunitContext = new TestExecutionContext.IsolatedContext();
         var testResult = TestExecutionContext.CurrentContext.CurrentResult;
-        
+
         try
         {
             await RunTest();
@@ -26,7 +26,7 @@ public class AAsyncFunctionalTest : AFunctionalTest
         {
             testResult.RecordException(e);
         }
-        
+
         UnrealSharpTestExecutor.LogTestResult(testResult);
     }
 

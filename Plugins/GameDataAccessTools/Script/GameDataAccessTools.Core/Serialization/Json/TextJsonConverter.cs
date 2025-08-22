@@ -8,13 +8,17 @@ namespace GameDataAccessTools.Core.Serialization.Json;
 
 public class TextJsonConverter : JsonConverter<FText>
 {
-    public override FText Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override FText Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options
+    )
     {
         if (reader.TokenType != JsonTokenType.String)
         {
             throw new JsonException("Expected string value for FName");
         }
-        
+
         return FromLocalizedString(reader.GetString()!);
     }
 

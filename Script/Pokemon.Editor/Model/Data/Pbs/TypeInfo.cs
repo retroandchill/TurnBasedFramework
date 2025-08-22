@@ -11,31 +11,26 @@ public record TypeInfo
     [PbsKey]
     [PbsGameplayTag(UType.TagCategory, Create = true)]
     public required FGameplayTag Id { get; init; }
-    
+
     [PbsIndex]
     public int RowIndex { get; init; }
-    
+
     [PbsName("Name")]
     [PbsLocalizedText("PokemonTypes", "{0}_DisplayName")]
     public FText DisplayName { get; init; } = "Unnamed";
     public bool IsSpecialType { get; init; }
     public bool IsPseudoType { get; init; }
 
-    [PbsGameplayTag(UType.TagCategory)] 
-    public IReadOnlyList<FName> Weaknesses { get; init; } = [];
-    
     [PbsGameplayTag(UType.TagCategory)]
+    public IReadOnlyList<FName> Weaknesses { get; init; } = [];
 
+    [PbsGameplayTag(UType.TagCategory)]
     public IReadOnlyList<FName> Resistances { get; init; } = [];
 
-    [PbsGameplayTag(UType.TagCategory)] 
+    [PbsGameplayTag(UType.TagCategory)]
     public IReadOnlyList<FName> Immunities { get; init; } = [];
-    
+
     [PbsName("Flags")]
     [PbsGameplayTag(UType.MetadataCategory, Create = true)]
-    public FGameplayTagContainer Tags { get; init; } = new()
-    {
-        GameplayTags = [],
-        ParentTags = []
-    };
+    public FGameplayTagContainer Tags { get; init; } = new() { GameplayTags = [], ParentTags = [] };
 }

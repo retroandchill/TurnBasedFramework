@@ -5,6 +5,7 @@ namespace Pokemon.Core.Executor.Exp;
 public class FastExpGrowthFormula : IExpGrowthFormula
 {
     public FGameplayTag GrowthRateFor => GameplayTags.Pokemon_Data_GrowthRates_Fast;
+
     public int GetMinimumExpForLevel(int level)
     {
         ArgumentOutOfRangeException.ThrowIfLessThan(level, 0);

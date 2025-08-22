@@ -7,7 +7,10 @@ using UnrealSharp.GameplayTags;
 
 namespace Pokemon.Editor.Mappers;
 
-[Mapper(RequiredMappingStrategy = RequiredMappingStrategy.Target, PreferParameterlessConstructors = false)]
+[Mapper(
+    RequiredMappingStrategy = RequiredMappingStrategy.Target,
+    PreferParameterlessConstructors = false
+)]
 public static partial class StatMapper
 {
     public static UStat ToStat(this StatInfo statInfo, UObject? outer = null)
@@ -17,5 +20,8 @@ public static partial class StatMapper
 
     public static partial StatInfo ToStatInfo(this UStat stat);
 
-    private static partial StatInitializer ToStatInitializer(this StatInfo stat, UObject? outer = null);
+    private static partial StatInitializer ToStatInitializer(
+        this StatInfo stat,
+        UObject? outer = null
+    );
 }

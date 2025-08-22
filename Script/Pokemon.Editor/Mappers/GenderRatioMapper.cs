@@ -7,10 +7,16 @@ using UnrealSharp.GameplayTags;
 
 namespace Pokemon.Editor.Mappers;
 
-[Mapper(RequiredMappingStrategy = RequiredMappingStrategy.Target, PreferParameterlessConstructors = false)]
+[Mapper(
+    RequiredMappingStrategy = RequiredMappingStrategy.Target,
+    PreferParameterlessConstructors = false
+)]
 public static partial class GenderRatioMapper
 {
-    public static UGenderRatio ToGenderRatio(this GenderRatioInfo genderRatioInfo, UObject? outer = null)
+    public static UGenderRatio ToGenderRatio(
+        this GenderRatioInfo genderRatioInfo,
+        UObject? outer = null
+    )
     {
         return genderRatioInfo.ToGenderRatioInitializer(outer);
     }
@@ -20,11 +26,15 @@ public static partial class GenderRatioMapper
         return GenderRatioInitializer.From(genderRatio).ToGenderRatioInfo();
     }
 
-    private static partial GenderRatioInfo ToGenderRatioInfo(this GenderRatioInitializer genderRatio);
+    private static partial GenderRatioInfo ToGenderRatioInfo(
+        this GenderRatioInitializer genderRatio
+    );
 
     [MapProperty(nameof(genderRatio), nameof(GenderRatioInitializer.FemaleChance))]
     private static partial GenderRatioInitializer ToGenderRatioInitializer(
-        this GenderRatioInfo genderRatio, UObject? outer = null);
+        this GenderRatioInfo genderRatio,
+        UObject? outer = null
+    );
 
     private static byte GetFemaleChance(this GenderRatioInfo genderRatio)
     {

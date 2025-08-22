@@ -19,8 +19,11 @@ public static class UnrealSharpTestExecutor
         EvaluatedParameters.Clear();
     }
 
-    public static bool RunTestInProcess(AutomationTestRef automationTestReference, UnrealTestMethod testMethod,
-                                        FName testCase)
+    public static bool RunTestInProcess(
+        AutomationTestRef automationTestReference,
+        UnrealTestMethod testMethod,
+        FName testCase
+    )
     {
         var testTask = RunTestInProcessInternal(testMethod, testCase);
         if (testTask.IsCompletedSuccessfully)
@@ -32,7 +35,10 @@ public static class UnrealSharpTestExecutor
         return true;
     }
 
-    private static async ValueTask<bool> RunTestInProcessInternal(UnrealTestMethod testMethod, FName testCase)
+    private static async ValueTask<bool> RunTestInProcessInternal(
+        UnrealTestMethod testMethod,
+        FName testCase
+    )
     {
         using var nunitContext = new TestExecutionContext.IsolatedContext();
         var testResult = TestExecutionContext.CurrentContext.CurrentResult;
@@ -87,8 +93,12 @@ public static class UnrealSharpTestExecutor
 
     private static object?[] GetArguments(this TestCaseData testCaseData)
     {
-        return testCaseData.Arguments
-            .Select(x => x is IDataPlaceholder placeholder ? placeholder.GetArguments()[placeholder.Index] : x)
+        return testCaseData
+            .Arguments.Select(x =>
+                x is IDataPlaceholder placeholder
+                    ? placeholder.GetArguments()[placeholder.Index]
+                    : x
+            )
             .ToArray();
     }
 
@@ -98,18 +108,18 @@ public static class UnrealSharpTestExecutor
         {
             return arguments;
         }
-        
-        var newArguments = placeholder.GetData()
-            .Cast<object>()
-            .ToArray();
+
+        var newArguments = placeholder.GetData().Cast<object>().ToArray();
         EvaluatedParameters[placeholder.ParameterInfo] = newArguments;
         return newArguments;
     }
 
     public static void LogTestResult(TestResult result)
     {
-        if (!string.IsNullOrWhiteSpace(result.Message)
-            && result.AssertionResults.All(r => r.Message != result.Message))
+        if (
+            !string.IsNullOrWhiteSpace(result.Message)
+            && result.AssertionResults.All(r => r.Message != result.Message)
+        )
         {
             LogTestMessage(result.Message);
         }
@@ -123,14 +133,17 @@ public static class UnrealSharpTestExecutor
                 AssertionStatus.Warning => EAutomationEventType.Warning,
                 AssertionStatus.Failed => EAutomationEventType.Error,
                 AssertionStatus.Error => EAutomationEventType.Error,
-                _ => throw new InvalidOperationException("Unknown assertion status")
+                _ => throw new InvalidOperationException("Unknown assertion status"),
             };
 
             LogTestMessage(assertion.Message, eventType);
         }
     }
 
-    private static void LogTestMessage(string message, EAutomationEventType eventType = EAutomationEventType.Info)
+    private static void LogTestMessage(
+        string message,
+        EAutomationEventType eventType = EAutomationEventType.Info
+    )
     {
         unsafe
         {
@@ -141,10 +154,14 @@ public static class UnrealSharpTestExecutor
         }
     }
 
-    private static async ValueTask<object?> RunTestMethod(object? testFixture, MethodInfo? methodInfo,
-                                                         TestCaseData? testCaseData = null)
+    private static async ValueTask<object?> RunTestMethod(
+        object? testFixture,
+        MethodInfo? methodInfo,
+        TestCaseData? testCaseData = null
+    )
     {
-        if (methodInfo is null) return null;
+        if (methodInfo is null)
+            return null;
         try
         {
             var arguments = testCaseData?.GetArguments() ?? [];
@@ -156,16 +173,18 @@ public static class UnrealSharpTestExecutor
                 case Task task:
                 {
                     await task;
-                    if (!task.GetType().IsGenericType || task.GetType().GetGenericTypeDefinition() != typeof(Task<>))
+                    if (
+                        !task.GetType().IsGenericType
+                        || task.GetType().GetGenericTypeDefinition() != typeof(Task<>)
+                    )
                         return null;
-                    
+
                     var awaitMethod = typeof(UnrealSharpTestExecutor)
                         .GetMethod(nameof(AwaitTask), BindingFlags.NonPublic | BindingFlags.Static)!
                         .MakeGenericMethod(task.GetType().GenericTypeArguments[0]);
-                        
-                    var awaitTask = (ValueTask<object?>) awaitMethod.Invoke(null, [task])!;
-                    return await awaitTask;
 
+                    var awaitTask = (ValueTask<object?>)awaitMethod.Invoke(null, [task])!;
+                    return await awaitTask;
                 }
                 case ValueTask valueTask:
                     await valueTask;
@@ -173,24 +192,28 @@ public static class UnrealSharpTestExecutor
             }
 
             var resultType = result.GetType();
-            if (!resultType.IsGenericType) return result;
+            if (!resultType.IsGenericType)
+                return result;
 
             var genericTypeDefinition = resultType.GetGenericTypeDefinition();
-            if (genericTypeDefinition != typeof(ValueTask<>)) return result;
-            
+            if (genericTypeDefinition != typeof(ValueTask<>))
+                return result;
+
             var valueAwaitMethod = typeof(UnrealSharpTestExecutor)
                 .GetMethod(nameof(AwaitValueTask), BindingFlags.NonPublic | BindingFlags.Static)!
                 .MakeGenericMethod(resultType.GenericTypeArguments[0]);
 
-            var awaitValueTask = (ValueTask<object?>) valueAwaitMethod.Invoke(null, [result])!;
+            var awaitValueTask = (ValueTask<object?>)valueAwaitMethod.Invoke(null, [result])!;
             return await awaitValueTask;
-
         }
         catch (TargetInvocationException e)
         {
             if (e.InnerException is null)
             {
-                throw new InvalidOperationException("Test method threw an exception but no inner exception was set", e);
+                throw new InvalidOperationException(
+                    "Test method threw an exception but no inner exception was set",
+                    e
+                );
             }
 
             throw e.InnerException;

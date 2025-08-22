@@ -14,7 +14,7 @@ public enum EEggGroupType : byte
 {
     WithSameEggGroup,
     WithAnyEggGroup,
-    WithNoEggGroups
+    WithNoEggGroups,
 }
 
 [UClass(ClassFlags.EditInlineNew)]
@@ -22,17 +22,23 @@ public enum EEggGroupType : byte
 public class UEggGroup : UObject, IGameDataEntry
 {
     public const string TagCategory = "Pokemon.Data.EggGroups";
-    
-    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
+
+    [UProperty(
+        PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere,
+        Category = "Identification"
+    )]
     [Categories(TagCategory)]
     public FGameplayTag Id { get; init; }
-    
-    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.VisibleAnywhere, Category = "Identification")]
+
+    [UProperty(
+        PropertyFlags.BlueprintReadOnly | PropertyFlags.VisibleAnywhere,
+        Category = "Identification"
+    )]
     public int RowIndex { get; init; }
-    
+
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Display")]
     public FText DisplayName { get; init; }
-    
+
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Breeding")]
     public EEggGroupType BreedingType { get; init; }
 }

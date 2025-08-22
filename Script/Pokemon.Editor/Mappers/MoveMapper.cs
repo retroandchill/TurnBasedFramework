@@ -7,14 +7,17 @@ using UnrealSharp.GameplayTags;
 
 namespace Pokemon.Editor.Mappers;
 
-[Mapper(RequiredMappingStrategy = RequiredMappingStrategy.Target, PreferParameterlessConstructors = false)]
+[Mapper(
+    RequiredMappingStrategy = RequiredMappingStrategy.Target,
+    PreferParameterlessConstructors = false
+)]
 public static partial class MoveMapper
 {
     private const int AlwaysHitsAccuracy = 0;
     private const int NoDamagePower = 0;
     private const int VariableDamagePower = 1;
     private const int GuaranteedEffectChance = 0;
-    
+
     public static UMove ToMove(this MoveInfo moveInfo, UObject? outer = null)
     {
         return moveInfo.ToMoveInitializer(outer);
@@ -32,15 +35,15 @@ public static partial class MoveMapper
             EDamageType.NoDamage => NoDamagePower,
             EDamageType.FixedPower => move.Power,
             EDamageType.VariablePower => VariableDamagePower,
-            _ => throw new InvalidOperationException()
+            _ => throw new InvalidOperationException(),
         };
     }
-    
+
     private static int MapAccuracy(this UMove move)
     {
         return move.AlwaysHits ? AlwaysHitsAccuracy : move.Accuracy;
     }
-    
+
     private static int MapEffectChance(this UMove move)
     {
         return move.GuaranteedEffect ? GuaranteedEffectChance : move.EffectChance;
@@ -48,9 +51,15 @@ public static partial class MoveMapper
 
     [MapPropertyFromSource(nameof(MoveInitializer.DamageType), Use = nameof(MapDamageType))]
     [MapPropertyFromSource(nameof(MoveInitializer.AlwaysHits), Use = nameof(MapAlwaysHits))]
-    [MapPropertyFromSource(nameof(MoveInitializer.GuaranteedEffect), Use = nameof(MapGuaranteedEffect))]
-    private static partial MoveInitializer ToMoveInitializer(this MoveInfo move, UObject? outer = null);
-    
+    [MapPropertyFromSource(
+        nameof(MoveInitializer.GuaranteedEffect),
+        Use = nameof(MapGuaranteedEffect)
+    )]
+    private static partial MoveInitializer ToMoveInitializer(
+        this MoveInfo move,
+        UObject? outer = null
+    );
+
     private static EDamageType MapDamageType(this MoveInfo moveInfo)
     {
         return moveInfo.Power switch
@@ -65,7 +74,7 @@ public static partial class MoveMapper
     {
         return moveInfo.Accuracy == AlwaysHitsAccuracy;
     }
-    
+
     private static bool MapGuaranteedEffect(this MoveInfo moveInfo)
     {
         return moveInfo.EffectChance == GuaranteedEffectChance;

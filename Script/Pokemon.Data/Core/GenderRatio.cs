@@ -23,7 +23,7 @@ public enum ESpecialGenderRatio : byte
     None,
     MaleOnly,
     FemaleOnly,
-    GenderlessOnly
+    GenderlessOnly,
 }
 
 [UClass(ClassFlags.EditInlineNew)]
@@ -31,20 +31,26 @@ public enum ESpecialGenderRatio : byte
 public class UGenderRatio : UObject, IGameDataEntry
 {
     public const string TagCategory = "Pokemon.Data.GenderRatios";
-    
-    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Identification")]
+
+    [UProperty(
+        PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere,
+        Category = "Identification"
+    )]
     [Categories(TagCategory)]
     public FGameplayTag Id { get; init; }
-    
-    [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.VisibleAnywhere, Category = "Identification")]
+
+    [UProperty(
+        PropertyFlags.BlueprintReadOnly | PropertyFlags.VisibleAnywhere,
+        Category = "Identification"
+    )]
     public int RowIndex { get; init; }
-    
+
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Display")]
     public FText DisplayName { get; init; }
-    
+
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Ratio")]
     private ESpecialGenderRatio SpecialGenderRatio { get; init; }
-    
+
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere, Category = "Ratio")]
     [EditCondition("SpecialGenderRatio == SpecialGenderRatio::None")]
     [EditConditionHides]
@@ -52,7 +58,11 @@ public class UGenderRatio : UObject, IGameDataEntry
 
     public bool IsSingleGender
     {
-        [UFunction(FunctionFlags.BlueprintPure, Category = "Ratio", DisplayName = "Is Single Gender")]
+        [UFunction(
+            FunctionFlags.BlueprintPure,
+            Category = "Ratio",
+            DisplayName = "Is Single Gender"
+        )]
         get => SpecialGenderRatio != ESpecialGenderRatio.None;
     }
 
@@ -85,7 +95,7 @@ public class UGenderRatio : UObject, IGameDataEntry
             ESpecialGenderRatio.MaleOnly => onSingleGender(EPokemonGender.Male),
             ESpecialGenderRatio.FemaleOnly => onSingleGender(EPokemonGender.Female),
             ESpecialGenderRatio.GenderlessOnly => onSingleGender(EPokemonGender.Genderless),
-            _ => throw new InvalidOperationException()
+            _ => throw new InvalidOperationException(),
         };
     }
 }

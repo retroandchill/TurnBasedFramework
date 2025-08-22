@@ -11,22 +11,28 @@ using UnrealSharp.CoreUObject;
 
 namespace Pokemon.Editor.Serializers.Json;
 
-public sealed class FieldWeatherJsonSerializer(IConfigOptions<JsonSerializerOptions> jsonSerializerOptions) : IGameDataEntrySerializer<UFieldWeather>
+public sealed class FieldWeatherJsonSerializer(
+    IConfigOptions<JsonSerializerOptions> jsonSerializerOptions
+) : IGameDataEntrySerializer<UFieldWeather>
 {
     private readonly JsonSerializerOptions _jsonSerializerOptions = jsonSerializerOptions.Value;
-    
+
     public FName FormatTag => JsonConstants.FormatTag;
     public FText FormatName => JsonConstants.FormatName;
     public string FileExtensionText => JsonConstants.FileExtensionText;
 
     public string SerializeData(IEnumerable<UFieldWeather> entries)
     {
-        return JsonSerializer.Serialize(entries.Select(x => x.ToFieldWeatherInfo()), _jsonSerializerOptions);
+        return JsonSerializer.Serialize(
+            entries.Select(x => x.ToFieldWeatherInfo()),
+            _jsonSerializerOptions
+        );
     }
 
     public IEnumerable<UFieldWeather> DeserializeData(string source, UObject outer)
     {
-        return JsonSerializer.Deserialize<FieldWeatherInfo[]>(source, _jsonSerializerOptions)!
+        return JsonSerializer
+            .Deserialize<FieldWeatherInfo[]>(source, _jsonSerializerOptions)!
             .Select(x => x.ToFieldWeather(outer));
     }
 }

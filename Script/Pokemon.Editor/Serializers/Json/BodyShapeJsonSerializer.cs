@@ -11,22 +11,28 @@ using UnrealSharp.CoreUObject;
 
 namespace Pokemon.Editor.Serializers.Json;
 
-public sealed class BodyShapeJsonSerializer(IConfigOptions<JsonSerializerOptions> jsonSerializerOptions) : IGameDataEntrySerializer<UBodyShape>
+public sealed class BodyShapeJsonSerializer(
+    IConfigOptions<JsonSerializerOptions> jsonSerializerOptions
+) : IGameDataEntrySerializer<UBodyShape>
 {
     private readonly JsonSerializerOptions _jsonSerializerOptions = jsonSerializerOptions.Value;
-    
+
     public FName FormatTag => JsonConstants.FormatTag;
     public FText FormatName => JsonConstants.FormatName;
     public string FileExtensionText => JsonConstants.FileExtensionText;
 
     public string SerializeData(IEnumerable<UBodyShape> entries)
     {
-        return JsonSerializer.Serialize(entries.Select(x => x.ToBodyShapeInfo()), _jsonSerializerOptions);
+        return JsonSerializer.Serialize(
+            entries.Select(x => x.ToBodyShapeInfo()),
+            _jsonSerializerOptions
+        );
     }
 
     public IEnumerable<UBodyShape> DeserializeData(string source, UObject outer)
     {
-        return JsonSerializer.Deserialize<BodyShapeInfo[]>(source, _jsonSerializerOptions)!
+        return JsonSerializer
+            .Deserialize<BodyShapeInfo[]>(source, _jsonSerializerOptions)!
             .Select(x => x.ToBodyShape(outer));
     }
 }

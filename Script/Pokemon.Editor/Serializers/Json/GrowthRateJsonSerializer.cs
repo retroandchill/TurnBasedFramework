@@ -11,22 +11,28 @@ using UnrealSharp.CoreUObject;
 
 namespace Pokemon.Editor.Serializers.Json;
 
-public sealed class GrowthRateJsonSerializer(IConfigOptions<JsonSerializerOptions> jsonSerializerOptions)  : IGameDataEntrySerializer<UGrowthRate>
+public sealed class GrowthRateJsonSerializer(
+    IConfigOptions<JsonSerializerOptions> jsonSerializerOptions
+) : IGameDataEntrySerializer<UGrowthRate>
 {
     private readonly JsonSerializerOptions _jsonSerializerOptions = jsonSerializerOptions.Value;
-    
+
     public FName FormatTag => JsonConstants.FormatTag;
     public FText FormatName => JsonConstants.FormatName;
     public string FileExtensionText => JsonConstants.FileExtensionText;
-    
+
     public string SerializeData(IEnumerable<UGrowthRate> entries)
     {
-        return JsonSerializer.Serialize(entries.Select(x => x.ToGrowthRateInfo()), _jsonSerializerOptions);
+        return JsonSerializer.Serialize(
+            entries.Select(x => x.ToGrowthRateInfo()),
+            _jsonSerializerOptions
+        );
     }
 
     public IEnumerable<UGrowthRate> DeserializeData(string source, UObject outer)
     {
-        return JsonSerializer.Deserialize<GrowthRateInfo[]>(source, _jsonSerializerOptions)!
+        return JsonSerializer
+            .Deserialize<GrowthRateInfo[]>(source, _jsonSerializerOptions)!
             .Select(x => x.ToGrowthRate(outer));
     }
 }

@@ -18,7 +18,6 @@ public static partial class LogUnrealSharpTest;
 [UsedImplicitly]
 public class FUnrealSharpTestModule : IModuleInterface
 {
-    
     public void StartupModule()
     {
         var actions = ManagedTestingActions.Create();

@@ -6,9 +6,14 @@ using UnrealSharp.GameDataAccessTools;
 
 namespace GameDataAccessTools.Core.Serialization.Json;
 
-public class SoftObjectPtrJsonConverter<T> : JsonConverter<TSoftObjectPtr<T>> where T : UObject
+public class SoftObjectPtrJsonConverter<T> : JsonConverter<TSoftObjectPtr<T>>
+    where T : UObject
 {
-    public override TSoftObjectPtr<T> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override TSoftObjectPtr<T> Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options
+    )
     {
         switch (reader.TokenType)
         {
@@ -34,7 +39,11 @@ public class SoftObjectPtrJsonConverter<T> : JsonConverter<TSoftObjectPtr<T>> wh
         }
     }
 
-    public override void Write(Utf8JsonWriter writer, TSoftObjectPtr<T> value, JsonSerializerOptions options)
+    public override void Write(
+        Utf8JsonWriter writer,
+        TSoftObjectPtr<T> value,
+        JsonSerializerOptions options
+    )
     {
         if (value.IsNull)
         {

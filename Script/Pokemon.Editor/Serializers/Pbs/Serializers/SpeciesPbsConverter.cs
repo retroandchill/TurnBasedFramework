@@ -12,7 +12,7 @@ public sealed class SpeciesPbsSerializer : IGameDataEntrySerializer<USpecies>
     public FName FormatTag => PbsConstants.FormatTag;
     public FText FormatName => PbsConstants.FormatName;
     public string FileExtensionText => PbsConstants.FileExtensionText;
-    
+
     public string SerializeData(IEnumerable<USpecies> entries)
     {
         return PbsCompiler.WritePbs(entries.Select(x => x.ToSpeciesInfo()));
@@ -20,7 +20,8 @@ public sealed class SpeciesPbsSerializer : IGameDataEntrySerializer<USpecies>
 
     public IEnumerable<USpecies> DeserializeData(string source, UObject outer)
     {
-        return PbsCompiler.CompilePbsFile<SpeciesInfo>(source)
+        return PbsCompiler
+            .CompilePbsFile<SpeciesInfo>(source)
             .Select(x => x.Value)
             .Select(x => x.ToSpecies(outer));
     }

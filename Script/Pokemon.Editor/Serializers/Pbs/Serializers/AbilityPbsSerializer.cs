@@ -12,7 +12,7 @@ public sealed class AbilityPbsSerializer : IGameDataEntrySerializer<UAbility>
     public FName FormatTag => PbsConstants.FormatTag;
     public FText FormatName => PbsConstants.FormatName;
     public string FileExtensionText => PbsConstants.FileExtensionText;
-    
+
     public string SerializeData(IEnumerable<UAbility> entries)
     {
         return PbsCompiler.WritePbs(entries.Select(x => x.ToAbilityInfo()));
@@ -20,7 +20,8 @@ public sealed class AbilityPbsSerializer : IGameDataEntrySerializer<UAbility>
 
     public IEnumerable<UAbility> DeserializeData(string source, UObject outer)
     {
-        return PbsCompiler.CompilePbsFile<AbilityInfo>(source)
+        return PbsCompiler
+            .CompilePbsFile<AbilityInfo>(source)
             .Select(x => x.Value)
             .Select(x => x.ToAbility(outer));
     }

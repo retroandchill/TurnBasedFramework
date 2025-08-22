@@ -7,7 +7,10 @@ using UnrealSharp.GameplayTags;
 
 namespace Pokemon.Editor.Mappers;
 
-[Mapper(RequiredMappingStrategy = RequiredMappingStrategy.Target, PreferParameterlessConstructors = false)]
+[Mapper(
+    RequiredMappingStrategy = RequiredMappingStrategy.Target,
+    PreferParameterlessConstructors = false
+)]
 public static partial class BodyShapeMapper
 {
     public static UBodyShape ToBodyShape(this BodyShapeInfo bodyShapeInfo, UObject? outer = null)
@@ -17,5 +20,8 @@ public static partial class BodyShapeMapper
 
     public static partial BodyShapeInfo ToBodyShapeInfo(this UBodyShape bodyShape);
 
-    private static partial BodyShapeInitializer ToBodyShapeInitializer(this BodyShapeInfo bodyShape, UObject? outer = null);
+    private static partial BodyShapeInitializer ToBodyShapeInitializer(
+        this BodyShapeInfo bodyShape,
+        UObject? outer = null
+    );
 }

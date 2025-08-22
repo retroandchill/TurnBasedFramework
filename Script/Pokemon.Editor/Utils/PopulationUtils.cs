@@ -28,7 +28,9 @@ public static class PopulationUtils
     private static IGameDataRepository<UEvolutionMethod> GetEvolutionMethodRepo()
     {
         var settings = UObject.GetDefault<UGameDataSettings>();
-        var evolutionMethodRepo = ((TSoftObjectPtr<UObject>)settings.EvolutionMethods).LoadSynchronous() as IGameDataRepository<UEvolutionMethod>;
+        var evolutionMethodRepo =
+            ((TSoftObjectPtr<UObject>)settings.EvolutionMethods).LoadSynchronous()
+            as IGameDataRepository<UEvolutionMethod>;
         ArgumentNullException.ThrowIfNull(evolutionMethodRepo);
         evolutionMethodRepo.Refresh();
         return evolutionMethodRepo;

@@ -35,10 +35,16 @@ public static class JsonNodeMarshaller
                 FJsonValueExporter.CallCreateJsonArray(ref referenceCountedPtr, ref jsonArray);
                 break;
             case JsonValueKind.String:
-                FJsonValueExporter.CallCreateJsonString(ref referenceCountedPtr, node.GetValue<string>());
+                FJsonValueExporter.CallCreateJsonString(
+                    ref referenceCountedPtr,
+                    node.GetValue<string>()
+                );
                 break;
             case JsonValueKind.Number:
-                FJsonValueExporter.CallCreateJsonNumber(ref referenceCountedPtr, node.GetValue<double>());
+                FJsonValueExporter.CallCreateJsonNumber(
+                    ref referenceCountedPtr,
+                    node.GetValue<double>()
+                );
                 break;
             case JsonValueKind.True:
                 FJsonValueExporter.CallCreateJsonBool(ref referenceCountedPtr, NativeBool.True);
@@ -93,12 +99,16 @@ public static class JsonNodeMarshaller
                     var nativeString = new UnmanagedArray();
                     using var releaser = new StringDataReleaser(ref nativeString);
                     FJsonValueExporter.CallGetJsonString(ref nativeBuffer, ref nativeString);
-                    return JsonValue.Create(StringMarshaller.FromNative((IntPtr)(&nativeString), 0));
+                    return JsonValue.Create(
+                        StringMarshaller.FromNative((IntPtr)(&nativeString), 0)
+                    );
                 }
                 case EJson.Number:
                     return JsonValue.Create(FJsonValueExporter.CallGetJsonNumber(ref nativeBuffer));
                 case EJson.Boolean:
-                    return JsonValue.Create(FJsonValueExporter.CallGetJsonBool(ref nativeBuffer).ToManagedBool());
+                    return JsonValue.Create(
+                        FJsonValueExporter.CallGetJsonBool(ref nativeBuffer).ToManagedBool()
+                    );
                 case EJson.Array:
                     var array = new JsonArray();
                     UnmanagedArray* unmanagedArray = null;
@@ -106,7 +116,11 @@ public static class JsonNodeMarshaller
                     for (var i = 0; i < unmanagedArray->ArrayNum; i++)
                     {
                         NativeJsonValue* nativeJsonValue = null;
-                        JsonArrayExporter.CallGetAtIndex(ref *unmanagedArray, i, ref nativeJsonValue);
+                        JsonArrayExporter.CallGetAtIndex(
+                            ref *unmanagedArray,
+                            i,
+                            ref nativeJsonValue
+                        );
                         array.Add(FromNative(ref *nativeJsonValue));
                     }
                     return array;

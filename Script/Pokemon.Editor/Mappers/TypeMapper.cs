@@ -9,7 +9,10 @@ using UnrealSharp.GameplayTags;
 
 namespace Pokemon.Editor.Mappers;
 
-[Mapper(RequiredMappingStrategy = RequiredMappingStrategy.Target, PreferParameterlessConstructors = false)]
+[Mapper(
+    RequiredMappingStrategy = RequiredMappingStrategy.Target,
+    PreferParameterlessConstructors = false
+)]
 public static partial class TypeMapper
 {
     public static UType ToType(this TypeInfo typeInfo, UObject? outer = null)
@@ -19,7 +22,10 @@ public static partial class TypeMapper
 
     public static partial TypeInfo ToTypeInfo(this UType type);
 
-    private static partial TypeInitializer ToTypeInitializer(this TypeInfo type, UObject? outer = null);
+    private static partial TypeInitializer ToTypeInitializer(
+        this TypeInfo type,
+        UObject? outer = null
+    );
 
     private static FGameplayTagContainer ToGameplayTagContainer(this IReadOnlyList<FName> types)
     {

@@ -12,7 +12,6 @@ namespace Pokemon.Editor.Serializers.Pbs;
 
 public static class PbsMetamodel
 {
-
     private static readonly ImmutableArray<Type> ScalarTypes =
     [
         typeof(bool),
@@ -30,21 +29,30 @@ public static class PbsMetamodel
         typeof(string),
         typeof(FName),
         typeof(FText),
-        typeof(FGameplayTag)
+        typeof(FGameplayTag),
     ];
-        
+
     public static PbsSchema GetSchema<T>()
     {
         var schema = new PbsSchema();
-        foreach (var property in typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                     .Where(p => p is { CanRead: true, CanWrite: true }))
+        foreach (
+            var property in typeof(T)
+                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(p => p is { CanRead: true, CanWrite: true })
+        )
         {
-            schema.Add(new PbsFieldDescriptor(property.GetKeyName(), property, property.GetScalarDescriptors())
-            {
-                IsIdentifier = property.GetCustomAttribute<PbsKeyAttribute>() is not null,
-                IsRowIndex = property.GetCustomAttribute<PbsIndexAttribute>() is not null,
-                Repeat = property.GetRepeatMode()
-            });
+            schema.Add(
+                new PbsFieldDescriptor(
+                    property.GetKeyName(),
+                    property,
+                    property.GetScalarDescriptors()
+                )
+                {
+                    IsIdentifier = property.GetCustomAttribute<PbsKeyAttribute>() is not null,
+                    IsRowIndex = property.GetCustomAttribute<PbsIndexAttribute>() is not null,
+                    Repeat = property.GetRepeatMode(),
+                }
+            );
         }
         return schema;
     }
@@ -55,7 +63,7 @@ public static class PbsMetamodel
         {
             return RepeatMode.KeyRepeat;
         }
-        
+
         return property.TryGetCollectionType(out _) ? RepeatMode.CsvRepeat : RepeatMode.None;
     }
 
@@ -69,7 +77,11 @@ public static class PbsMetamodel
         return CreateScalarDescriptor(property.PropertyType, property);
     }
 
-    private static PbsScalarDescriptor CreateScalarDescriptor(Type type, ICustomAttributeProvider property, bool isOptional = false)
+    private static PbsScalarDescriptor CreateScalarDescriptor(
+        Type type,
+        ICustomAttributeProvider property,
+        bool isOptional = false
+    )
     {
         var gameplayTag = property.GetCustomAttribute<PbsGameplayTag>();
         return new PbsScalarDescriptor(type, isOptional)
@@ -81,23 +93,33 @@ public static class PbsMetamodel
             LocalizedTextNamespace = property.CreateLocalizedTextNamespace(),
             ScalarConverter = GetScalarConverterTypes(type, property)
                 .Select(converterType => (IPbsConverter)Activator.CreateInstance(converterType)!)
-                .FirstOrDefault(converter => converter.Type.IsAssignableFrom(type))
+                .FirstOrDefault(converter => converter.Type.IsAssignableFrom(type)),
         };
     }
 
-    private static T? GetCustomAttribute<T>(this ICustomAttributeProvider provider) where T : Attribute
+    private static T? GetCustomAttribute<T>(this ICustomAttributeProvider provider)
+        where T : Attribute
     {
         return provider.GetCustomAttributes(typeof(T), false).FirstOrDefault() as T;
     }
 
-    private static IEnumerable<Type> GetScalarConverterTypes(Type elementType, ICustomAttributeProvider property)
+    private static IEnumerable<Type> GetScalarConverterTypes(
+        Type elementType,
+        ICustomAttributeProvider property
+    )
     {
-        var propertyLevelConverter = property.GetCustomAttribute<PbsScalarAttribute>()?.ConverterType;
+        var propertyLevelConverter = property
+            .GetCustomAttribute<PbsScalarAttribute>()
+            ?.ConverterType;
 
-        if (propertyLevelConverter is not null) yield return propertyLevelConverter;
-        
-        var typeLevelConverter = elementType.GetCustomAttribute<PbsScalarAttribute>()?.ConverterType;
-        if (typeLevelConverter is not null) yield return typeLevelConverter;
+        if (propertyLevelConverter is not null)
+            yield return propertyLevelConverter;
+
+        var typeLevelConverter = elementType
+            .GetCustomAttribute<PbsScalarAttribute>()
+            ?.ConverterType;
+        if (typeLevelConverter is not null)
+            yield return typeLevelConverter;
     }
 
     private static INumericBounds? CreateNumericBounds(this ICustomAttributeProvider property)
@@ -106,53 +128,82 @@ public static class PbsMetamodel
         {
             PropertyInfo p => p.PropertyType,
             ParameterInfo p => p.ParameterType,
-            _ => throw new InvalidOperationException()
+            _ => throw new InvalidOperationException(),
         };
-        if (!numberType.IsValueType || !numberType.GetInterfaces()
-            .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(INumber<>)))
+        if (
+            !numberType.IsValueType
+            || !numberType
+                .GetInterfaces()
+                .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(INumber<>))
+        )
         {
             return null;
         }
 
-        return (INumericBounds?) typeof(PbsMetamodel).GetMethod(nameof(CreateNumericBoundsInternal),
-            BindingFlags.Static | BindingFlags.NonPublic)!
-            .MakeGenericMethod(numberType)
-            .Invoke(null, [property]);
+        return (INumericBounds?)
+            typeof(PbsMetamodel)
+                .GetMethod(
+                    nameof(CreateNumericBoundsInternal),
+                    BindingFlags.Static | BindingFlags.NonPublic
+                )!
+                .MakeGenericMethod(numberType)
+                .Invoke(null, [property]);
     }
 
-    private static NumericBounds<T> CreateNumericBoundsInternal<T>(this ICustomAttributeProvider property) where T : struct, INumber<T>
+    private static NumericBounds<T> CreateNumericBoundsInternal<T>(
+        this ICustomAttributeProvider property
+    )
+        where T : struct, INumber<T>
     {
         var rangeAttribute = property.GetCustomAttribute<PbsRangeAttribute<T>>();
-        return rangeAttribute is not null ? new NumericBounds<T>(rangeAttribute.Min, rangeAttribute.Max) : default;
+        return rangeAttribute is not null
+            ? new NumericBounds<T>(rangeAttribute.Min, rangeAttribute.Max)
+            : default;
     }
 
-    private static LocalizedTextNamespace? CreateLocalizedTextNamespace(this ICustomAttributeProvider property)
+    private static LocalizedTextNamespace? CreateLocalizedTextNamespace(
+        this ICustomAttributeProvider property
+    )
     {
         var localizedTextAttribute = property.GetCustomAttribute<PbsLocalizedTextAttribute>();
-        return localizedTextAttribute is not null ? new LocalizedTextNamespace(localizedTextAttribute.Namespace, localizedTextAttribute.KeyFormat) : null;
+        return localizedTextAttribute is not null
+            ? new LocalizedTextNamespace(
+                localizedTextAttribute.Namespace,
+                localizedTextAttribute.KeyFormat
+            )
+            : null;
     }
 
-    private static ImmutableArray<PbsScalarDescriptor> GetScalarDescriptors(this PropertyInfo property)
+    private static ImmutableArray<PbsScalarDescriptor> GetScalarDescriptors(
+        this PropertyInfo property
+    )
     {
-        if (property.PropertyType.IsScalarType() || property.GetCustomAttribute<PbsScalarAttribute>() is not null)
+        if (
+            property.PropertyType.IsScalarType()
+            || property.GetCustomAttribute<PbsScalarAttribute>() is not null
+        )
         {
             return [CreateScalarDescriptor(property)];
         }
 
         if (property.TryGetCollectionType(out var elementType))
         {
-            return elementType.IsScalarType() ? [CreateScalarDescriptor(elementType, property)] : GetComplexTypeDescriptors(elementType);
+            return elementType.IsScalarType()
+                ? [CreateScalarDescriptor(elementType, property)]
+                : GetComplexTypeDescriptors(elementType);
         }
-        
+
         return GetComplexTypeDescriptors(property.PropertyType);
     }
 
     private static ImmutableArray<PbsScalarDescriptor> GetComplexTypeDescriptors(Type elementType)
     {
         var constructor = elementType.GetComplexTypeConstructor();
-        return [
-            ..constructor.GetParameters()
-                .Select(p => CreateScalarDescriptor(p.ParameterType, p, p.HasDefaultValue))
+        return
+        [
+            .. constructor
+                .GetParameters()
+                .Select(p => CreateScalarDescriptor(p.ParameterType, p, p.HasDefaultValue)),
         ];
     }
 
@@ -162,8 +213,10 @@ public static class PbsMetamodel
         {
             type = type.GetGenericArguments()[0];
         }
-        
-        return type.IsEnum || ScalarTypes.Contains(type) || type.GetCustomAttribute<PbsScalarAttribute>() is not null;
+
+        return type.IsEnum
+            || ScalarTypes.Contains(type)
+            || type.GetCustomAttribute<PbsScalarAttribute>() is not null;
     }
 
     private static ConstructorInfo GetComplexTypeConstructor(this Type type)
@@ -172,7 +225,10 @@ public static class PbsMetamodel
             .Single(c => c.GetParameters().Length > 0);
     }
 
-    public static bool TryGetCollectionFactory(this Type type, [NotNullWhen(true)] out Func<IEnumerable<object?>, object>? factory)
+    public static bool TryGetCollectionFactory(
+        this Type type,
+        [NotNullWhen(true)] out Func<IEnumerable<object?>, object>? factory
+    )
     {
         if (type == typeof(FGameplayTagContainer))
         {
@@ -180,13 +236,13 @@ public static class PbsMetamodel
             return true;
         }
 
-        if (type.IsGenericType &&
-            type.GetGenericTypeDefinition() == typeof(IReadOnlyList<>))
+        if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IReadOnlyList<>))
         {
             var elementType = type.GetGenericArguments()[0];
             factory = x =>
             {
-                var targetList = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(elementType))!;
+                var targetList = (IList)
+                    Activator.CreateInstance(typeof(List<>).MakeGenericType(elementType))!;
                 foreach (var element in x)
                 {
                     targetList.Add(element);
@@ -196,12 +252,15 @@ public static class PbsMetamodel
             };
             return true;
         }
-        
+
         factory = null;
         return false;
     }
 
-    public static bool TryGetCollectionType(this PropertyInfo property, [NotNullWhen(true)] out Type? elementType)
+    public static bool TryGetCollectionType(
+        this PropertyInfo property,
+        [NotNullWhen(true)] out Type? elementType
+    )
     {
         // For now only worry about FGameplayTagContainer and IReadOnlyList
         if (property.PropertyType == typeof(FGameplayTagContainer))
@@ -210,13 +269,15 @@ public static class PbsMetamodel
             return true;
         }
 
-        if (property.PropertyType.IsGenericType &&
-            property.PropertyType.GetGenericTypeDefinition() == typeof(IReadOnlyList<>))
+        if (
+            property.PropertyType.IsGenericType
+            && property.PropertyType.GetGenericTypeDefinition() == typeof(IReadOnlyList<>)
+        )
         {
             elementType = property.PropertyType.GetGenericArguments()[0];
             return true;
         }
-        
+
         elementType = null;
         return false;
     }

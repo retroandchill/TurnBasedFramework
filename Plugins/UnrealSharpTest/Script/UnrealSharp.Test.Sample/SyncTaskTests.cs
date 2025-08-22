@@ -25,10 +25,7 @@ public class SyncTaskTests
     [TestCase(3)]
     public async Task CachedResult_ReturnsCompletedTask(int value)
     {
-        var cache = new Dictionary<int, Task<int>> 
-        {
-            [value] = Task.FromResult(value * 2)
-        };
+        var cache = new Dictionary<int, Task<int>> { [value] = Task.FromResult(value * 2) };
 
         var result = await GetCachedValueAsync(value, cache);
         Assert.That(result, Is.EqualTo(value * 2));
@@ -48,7 +45,6 @@ public class SyncTaskTests
         var task = GetCompletedTask();
         using (Assert.EnterMultipleScope())
         {
-
             // Verify the task is already completed
             Assert.That(task.IsCompleted, Is.True);
             Assert.That(task.Status, Is.EqualTo(TaskStatus.RanToCompletion));
@@ -62,10 +58,10 @@ public class SyncTaskTests
     public async Task FromResult_ValueTaskCompletion_Status()
     {
         var valueTask = GetCompletedValueTask();
-        
+
         // Verify the ValueTask is already completed
         Assert.That(valueTask.IsCompleted, Is.True);
-        
+
         var result = await valueTask;
         Assert.That(result, Is.EqualTo(42));
     }
@@ -83,9 +79,7 @@ public class SyncTaskTests
 
     private static Task<int> GetCachedValueAsync(int key, Dictionary<int, Task<int>> cache)
     {
-        return cache.TryGetValue(key, out var cachedValue) 
-            ? cachedValue 
-            : Task.FromResult(0);
+        return cache.TryGetValue(key, out var cachedValue) ? cachedValue : Task.FromResult(0);
     }
 
     private static ValueTask<string> ProcessImmediatelyAsync(string input)
@@ -98,8 +92,9 @@ public class SyncTaskTests
     public Task CompletedTask_WithException_ThrowsImmediately()
     {
         var exception = Assert.ThrowsAsync<InvalidOperationException>(async () =>
-            await Task.FromException<int>(new InvalidOperationException("Immediate error")));
-        
+            await Task.FromException<int>(new InvalidOperationException("Immediate error"))
+        );
+
         Assert.That(exception?.Message, Is.EqualTo("Immediate error"));
         return Task.CompletedTask;
     }
@@ -108,10 +103,10 @@ public class SyncTaskTests
     public Task CompletedValueTask_WithException_ThrowsImmediately()
     {
         var exception = Assert.ThrowsAsync<InvalidOperationException>(async () =>
-            await ValueTask.FromException<int>(new InvalidOperationException("Immediate error")));
-        
+            await ValueTask.FromException<int>(new InvalidOperationException("Immediate error"))
+        );
+
         Assert.That(exception?.Message, Is.EqualTo("Immediate error"));
         return Task.CompletedTask;
     }
-
 }

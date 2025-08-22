@@ -19,7 +19,7 @@ public class AsyncTests
     [
         new TestCaseData(5, 2).Returns(10),
         new TestCaseData(0, 100).Returns(0),
-        new TestCaseData(-3, 4).Returns(-12)
+        new TestCaseData(-3, 4).Returns(-12),
     ];
 
     [TestCaseSource(nameof(MultiplicationTestCases))]
@@ -37,7 +37,11 @@ public class AsyncTests
     }
 
     [TestCaseSource(nameof(ComplexTestCases))]
-    public async Task<Point> AddPointsAsync_ValidPoints_ReturnsExpectedPoint(Point a, Point b, Point expected)
+    public async Task<Point> AddPointsAsync_ValidPoints_ReturnsExpectedPoint(
+        Point a,
+        Point b,
+        Point expected
+    )
     {
         var result = await AddPointsAsync(a, b);
         using (Assert.EnterMultipleScope())
@@ -56,7 +60,10 @@ public class AsyncTests
     }
 
     [TestCaseSource(nameof(NullableTestCases))]
-    public async ValueTask ProcessComplexAsync_HandlesNullables(ComplexValue? value, bool shouldSucceed)
+    public async ValueTask ProcessComplexAsync_HandlesNullables(
+        ComplexValue? value,
+        bool shouldSucceed
+    )
     {
         if (shouldSucceed)
         {
@@ -65,8 +72,9 @@ public class AsyncTests
         }
         else
         {
-            Assert.ThrowsAsync<ArgumentNullException>(async () => 
-                await ProcessComplexValueAsync(value!));
+            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+                await ProcessComplexValueAsync(value!)
+            );
         }
     }
 
@@ -103,8 +111,7 @@ public class AsyncTests
     {
         using var cts = new CancellationTokenSource(delayMs / 2);
 
-        Assert.ThrowsAsync<TaskCanceledException>(async () => 
-            await Operation());
+        Assert.ThrowsAsync<TaskCanceledException>(async () => await Operation());
         return Task.CompletedTask;
 
         async Task Operation()

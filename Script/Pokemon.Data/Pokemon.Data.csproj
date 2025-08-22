@@ -7,14 +7,16 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
-
-    <PropertyGroup>
-        <DefineConstants>WITH_EDITOR</DefineConstants>
-        <DefineConstants Condition="'$(DisableWithEditor)' == 'true'">$(DefineConstants.Replace('WITH_EDITOR;', '').Replace('WITH_EDITOR', ''))</DefineConstants>
-        <DefineConstants Condition="'$(DefineAdditionalConstants)' != ''">$(DefineConstants);$(DefineAdditionalConstants)</DefineConstants>
-    </PropertyGroup>
-
-    <ItemGroup>
+  <PropertyGroup>
+    <DefineConstants>WITH_EDITOR</DefineConstants>
+    <DefineConstants Condition="'$(DisableWithEditor)' == 'true'"
+      >$(DefineConstants.Replace('WITH_EDITOR;', '').Replace('WITH_EDITOR', ''))</DefineConstants
+    >
+    <DefineConstants Condition="'$(DefineAdditionalConstants)' != ''"
+      >$(DefineConstants);$(DefineAdditionalConstants)</DefineConstants
+    >
+  </PropertyGroup>
+  <ItemGroup>
     <PackageReference Include="LanguageExt.Core" Version="4.4.9" />
     <Reference Include="UnrealSharp">
       <HintPath>..\..\Plugins\UnrealSharp\Binaries\Managed\net9.0\UnrealSharp.dll</HintPath>
@@ -22,13 +24,17 @@
     <Reference Include="UnrealSharp.Core">
       <HintPath>..\..\Plugins\UnrealSharp\Binaries\Managed\net9.0\UnrealSharp.Core.dll</HintPath>
     </Reference>
-      <Reference Include="UnrealSharp.StaticVars">
-          <HintPath>..\..\Plugins\UnrealSharp\Binaries\Managed\UnrealSharp.StaticVars.dll</HintPath>
-      </Reference>
+    <Reference Include="UnrealSharp.StaticVars">
+      <HintPath>..\..\Plugins\UnrealSharp\Binaries\Managed\UnrealSharp.StaticVars.dll</HintPath>
+    </Reference>
     <Analyzer Include="..\..\Plugins\UnrealSharp\Binaries\Managed\UnrealSharp.SourceGenerators.dll" />
-      <Analyzer Include="..\..\Plugins\UnrealSharp\Binaries\Managed\UnrealSharp.ExtensionSourceGenerators.dll" />
+    <Analyzer Include="..\..\Plugins\UnrealSharp\Binaries\Managed\UnrealSharp.ExtensionSourceGenerators.dll" />
     <ProjectReference Include="..\..\Plugins\GameDataAccessTools\Script\GameDataAccessTools.Glue\GameDataAccessTools.Glue.csproj" />
-    <ProjectReference Include="..\..\Plugins\GameDataAccessTools\Script\GameDataAccessTools.SourceGenerator\GameDataAccessTools.SourceGenerator.csproj"  OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference
+      Include="..\..\Plugins\GameDataAccessTools\Script\GameDataAccessTools.SourceGenerator\GameDataAccessTools.SourceGenerator.csproj"
+      OutputItemType="Analyzer"
+      ReferenceOutputAssembly="false"
+    />
     <ProjectReference Include="..\..\Plugins\GameDataAccessTools\Script\GameDataAccessTools.Core\GameDataAccessTools.Core.csproj" />
     <ProjectReference Include="..\..\Plugins\UnrealInject\Script\UnrealInject\UnrealInject.csproj" />
     <ProjectReference Include="..\TurnBasedFramework.Glue\TurnBasedFramework.Glue.csproj" />

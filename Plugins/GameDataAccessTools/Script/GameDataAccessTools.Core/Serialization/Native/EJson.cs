@@ -8,5 +8,5 @@ public enum EJson
     Number,
     Boolean,
     Array,
-    Object
+    Object,
 }

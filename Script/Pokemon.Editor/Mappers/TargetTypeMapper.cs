@@ -7,15 +7,24 @@ using UnrealSharp.GameplayTags;
 
 namespace Pokemon.Editor.Mappers;
 
-[Mapper(RequiredMappingStrategy = RequiredMappingStrategy.Target, PreferParameterlessConstructors = false)]
+[Mapper(
+    RequiredMappingStrategy = RequiredMappingStrategy.Target,
+    PreferParameterlessConstructors = false
+)]
 public static partial class TargetTypeMapper
 {
-    public static UTargetType ToTargetType(this TargetTypeInfo targetTypeInfo, UObject? outer = null)
+    public static UTargetType ToTargetType(
+        this TargetTypeInfo targetTypeInfo,
+        UObject? outer = null
+    )
     {
         return targetTypeInfo.ToTargetTypeInitializer(outer);
     }
 
     public static partial TargetTypeInfo ToTargetTypeInfo(this UTargetType targetType);
 
-    private static partial TargetTypeInitializer ToTargetTypeInitializer(this TargetTypeInfo targetType, UObject? outer = null);
+    private static partial TargetTypeInitializer ToTargetTypeInitializer(
+        this TargetTypeInfo targetType,
+        UObject? outer = null
+    );
 }

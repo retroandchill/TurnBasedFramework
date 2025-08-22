@@ -7,13 +7,14 @@ namespace Pokemon.Editor.Serializers.Pbs;
 
 public interface INumericBounds;
 
-public readonly record struct NumericBounds<T>(T? Min, T? Max) : INumericBounds where T : struct, INumber<T>;
+public readonly record struct NumericBounds<T>(T? Min, T? Max) : INumericBounds
+    where T : struct, INumber<T>;
 
 public enum RepeatMode
 {
     None,
     KeyRepeat,
-    CsvRepeat
+    CsvRepeat,
 }
 
 public readonly record struct LocalizedTextNamespace(string Namespace, string KeyFormat);
@@ -21,37 +22,38 @@ public readonly record struct LocalizedTextNamespace(string Namespace, string Ke
 public sealed record PbsScalarDescriptor(Type Type, bool IsOptional = false)
 {
     public string? GameplayTagNamespace { get; init; }
-    
+
     public bool CreateNewGameplayTag { get; init; }
-    
+
     public string? GameplayTagSeparator { get; init; }
-    
+
     public INumericBounds? NumericBounds { get; init; }
-    
+
     public LocalizedTextNamespace? LocalizedTextNamespace { get; init; }
-    
+
     public IPbsConverter? ScalarConverter { get; init; }
 }
 
 public sealed record PbsFieldDescriptor(
     string KeyName,
     PropertyInfo TargetProperty,
-    ImmutableArray<PbsScalarDescriptor> Elements)
+    ImmutableArray<PbsScalarDescriptor> Elements
+)
 {
     public bool IsIdentifier { get; init; }
     public bool IsRowIndex { get; init; }
-    
+
     public RepeatMode Repeat { get; init; }
-    
+
     public bool IsScalar => Elements.Length == 1 && Repeat != RepeatMode.CsvRepeat;
 }
 
 public sealed class PbsSchema
 {
     private readonly Dictionary<string, PbsFieldDescriptor> _byBaseKey = new();
-    
+
     public IReadOnlyDictionary<string, PbsFieldDescriptor> Fields => _byBaseKey;
-    
+
     public PbsSchema Add(PbsFieldDescriptor descriptor)
     {
         _byBaseKey.Add(descriptor.KeyName, descriptor);

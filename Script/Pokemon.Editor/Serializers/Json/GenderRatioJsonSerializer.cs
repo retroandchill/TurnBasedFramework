@@ -11,22 +11,28 @@ using UnrealSharp.CoreUObject;
 
 namespace Pokemon.Editor.Serializers.Json;
 
-public sealed class GenderRatioJsonSerializer(IConfigOptions<JsonSerializerOptions> jsonSerializerOptions) : IGameDataEntrySerializer<UGenderRatio>
+public sealed class GenderRatioJsonSerializer(
+    IConfigOptions<JsonSerializerOptions> jsonSerializerOptions
+) : IGameDataEntrySerializer<UGenderRatio>
 {
     private readonly JsonSerializerOptions _jsonSerializerOptions = jsonSerializerOptions.Value;
-    
+
     public FName FormatTag => JsonConstants.FormatTag;
     public FText FormatName => JsonConstants.FormatName;
     public string FileExtensionText => JsonConstants.FileExtensionText;
 
     public string SerializeData(IEnumerable<UGenderRatio> entries)
     {
-        return JsonSerializer.Serialize(entries.Select(x => x.ToGenderRatioInfo()), _jsonSerializerOptions);
+        return JsonSerializer.Serialize(
+            entries.Select(x => x.ToGenderRatioInfo()),
+            _jsonSerializerOptions
+        );
     }
 
     public IEnumerable<UGenderRatio> DeserializeData(string source, UObject outer)
     {
-        return JsonSerializer.Deserialize<GenderRatioInfo[]>(source, _jsonSerializerOptions)!
+        return JsonSerializer
+            .Deserialize<GenderRatioInfo[]>(source, _jsonSerializerOptions)!
             .Select(x => x.ToGenderRatio(outer));
     }
 }

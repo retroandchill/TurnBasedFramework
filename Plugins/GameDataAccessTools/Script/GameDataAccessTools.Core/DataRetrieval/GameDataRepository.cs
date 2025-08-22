@@ -6,7 +6,8 @@ using UnrealSharp.GameplayTags;
 
 namespace GameDataAccessTools.Core.DataRetrieval;
 
-public interface IGameDataRepository<T> : IDataRepository<FGameplayTag, T> where T : UObject, IGameDataEntry
+public interface IGameDataRepository<T> : IDataRepository<FGameplayTag, T>
+    where T : UObject, IGameDataEntry
 {
     TSubclassOf<T> EntryClass { get; }
 

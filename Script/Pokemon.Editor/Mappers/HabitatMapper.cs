@@ -7,7 +7,10 @@ using UnrealSharp.GameplayTags;
 
 namespace Pokemon.Editor.Mappers;
 
-[Mapper(RequiredMappingStrategy = RequiredMappingStrategy.Target, PreferParameterlessConstructors = false)]
+[Mapper(
+    RequiredMappingStrategy = RequiredMappingStrategy.Target,
+    PreferParameterlessConstructors = false
+)]
 public static partial class HabitatMapper
 {
     public static UHabitat ToHabitat(this HabitatInfo habitatInfo, UObject? outer = null)
@@ -17,5 +20,8 @@ public static partial class HabitatMapper
 
     public static partial HabitatInfo ToHabitatInfo(this UHabitat habitat);
 
-    private static partial HabitatInitializer ToHabitatInitializer(this HabitatInfo habitat, UObject? outer = null);
+    private static partial HabitatInitializer ToHabitatInitializer(
+        this HabitatInfo habitat,
+        UObject? outer = null
+    );
 }

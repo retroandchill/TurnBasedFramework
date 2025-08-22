@@ -9,7 +9,10 @@ public sealed class ConfigOptions<T> : IConfigOptions<T>
 {
     public T Value { get; }
 
-    public ConfigOptions(T currentValue, IEnumerable<IOptionsConfiguration<T>> optionsConfigurations)
+    public ConfigOptions(
+        T currentValue,
+        IEnumerable<IOptionsConfiguration<T>> optionsConfigurations
+    )
     {
         Value = currentValue;
         foreach (var optionsConfiguration in optionsConfigurations)

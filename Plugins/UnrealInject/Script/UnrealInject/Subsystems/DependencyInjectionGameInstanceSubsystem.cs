@@ -6,10 +6,13 @@ using UnrealSharp.UnrealSharpCore;
 namespace UnrealInject.Subsystems;
 
 [UClass]
-public sealed class UDependencyInjectionGameInstanceSubsystem : UCSGameInstanceSubsystem, IServiceProvider, IServiceScope
+public sealed class UDependencyInjectionGameInstanceSubsystem
+    : UCSGameInstanceSubsystem,
+        IServiceProvider,
+        IServiceScope
 {
     private IServiceScope _serviceScope = null!;
-    
+
     public IServiceProvider ServiceProvider => _serviceScope.ServiceProvider;
 
     protected override void Initialize(FSubsystemCollectionBaseRef collection)
@@ -19,24 +22,24 @@ public sealed class UDependencyInjectionGameInstanceSubsystem : UCSGameInstanceS
 
     private void SetServiceScope(IServiceProvider? serviceProviderOverride)
     {
-        #if WITH_EDITOR
+#if WITH_EDITOR
         if (serviceProviderOverride is not null)
         {
             _serviceScope = serviceProviderOverride.CreateScope();
             FUnrealInjectModule.Instance.OnGameInstanceServiceProviderChanged += SetServiceScope;
-            return;       
+            return;
         }
-        #endif
+#endif
         var engineSubsystem = GetEngineSubsystem<UDependencyInjectionEngineSubsystem>();
         engineSubsystem.OnServiceProviderRebuilt += RebuildServiceProvider;
-        
+
         _serviceScope = engineSubsystem.CreateScope();
     }
 
     protected override void Deinitialize()
     {
 #if WITH_EDITOR
-        FUnrealInjectModule.Instance.OnGameInstanceServiceProviderChanged -= SetServiceScope; 
+        FUnrealInjectModule.Instance.OnGameInstanceServiceProviderChanged -= SetServiceScope;
 #endif
         var engineSubsystem = GetEngineSubsystem<UDependencyInjectionEngineSubsystem>();
         engineSubsystem.OnServiceProviderRebuilt -= RebuildServiceProvider;
@@ -45,7 +48,7 @@ public sealed class UDependencyInjectionGameInstanceSubsystem : UCSGameInstanceS
             disposable.Dispose();
         }
     }
-    
+
     internal void RebuildServiceProvider(IServiceProvider provider)
     {
         if (_serviceScope is IDisposable disposable)

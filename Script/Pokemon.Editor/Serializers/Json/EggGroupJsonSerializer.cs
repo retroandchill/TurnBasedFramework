@@ -11,9 +11,10 @@ using UnrealSharp.CoreUObject;
 
 namespace Pokemon.Editor.Serializers.Json;
 
-public sealed class EggGroupJsonSerializer(IConfigOptions<JsonSerializerOptions> jsonSerializerOptions) : IGameDataEntrySerializer<UEggGroup>
+public sealed class EggGroupJsonSerializer(
+    IConfigOptions<JsonSerializerOptions> jsonSerializerOptions
+) : IGameDataEntrySerializer<UEggGroup>
 {
-    
     private readonly JsonSerializerOptions _jsonSerializerOptions = jsonSerializerOptions.Value;
 
     public FName FormatTag => JsonConstants.FormatTag;
@@ -22,12 +23,16 @@ public sealed class EggGroupJsonSerializer(IConfigOptions<JsonSerializerOptions>
 
     public string SerializeData(IEnumerable<UEggGroup> entries)
     {
-        return JsonSerializer.Serialize(entries.Select(x => x.ToEggGroupInfo()), _jsonSerializerOptions);
+        return JsonSerializer.Serialize(
+            entries.Select(x => x.ToEggGroupInfo()),
+            _jsonSerializerOptions
+        );
     }
 
     public IEnumerable<UEggGroup> DeserializeData(string source, UObject outer)
     {
-        return JsonSerializer.Deserialize<EggGroupInfo[]>(source, _jsonSerializerOptions)!
+        return JsonSerializer
+            .Deserialize<EggGroupInfo[]>(source, _jsonSerializerOptions)!
             .Select(x => x.ToEggGroup(outer));
     }
 }
