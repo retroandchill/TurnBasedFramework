@@ -10,7 +10,7 @@ public sealed record UnrealTestMethod(
     MethodInfo? TearDownMethod,
     MethodInfo Method)
 {
-    public IReadOnlyDictionary<FName, TestCaseData> TestCases { get; init; } = new Dictionary<FName, TestCaseData>();
+    public IReadOnlyDictionary<FName, TestCaseData> TestCases { get; init; } = new OrderedDictionary<FName, TestCaseData>();
     public string? CodeFilePath { get; init; }
     public int LineNumber { get; init; }
 }

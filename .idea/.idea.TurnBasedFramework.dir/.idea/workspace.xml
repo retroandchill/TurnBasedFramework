@@ -9,9 +9,14 @@
   <component name="ChangeListManager">
     <list default="true" id="aa1e9cdd-86d7-4878-ad99-f01b0434e94b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Attributes/DynamicRandomAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Attributes/DynamicRandomAttribute.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/Runner/CSharpAutomationTest.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/Runner/CSharpAutomationTest.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/UnrealSharpTest.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/UnrealSharpTest.Build.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Discovery/ArgumentNameFormatter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Discovery/ArgumentNameFormatter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Discovery/UnrealSharpTestDiscoveryClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Discovery/UnrealSharpTestDiscoveryClient.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Interop/ManagedTestingCallbacks.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Interop/ManagedTestingCallbacks.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Model/RandomPlaceholder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Model/RandomPlaceholder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Model/UnrealTestMethod.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Model/UnrealTestMethod.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Utils/CombinationExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Utils/CombinationExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/ManagedTurnBasedFramework.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Script/ManagedTurnBasedFramework.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Core/Pokemon.Core.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Core/Pokemon.Core.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +39,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
@@ -1223,6 +1229,7 @@
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpEditor/UnrealSharpEditor.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpManagedGlue/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpManagedGlue/PropertyTranslators/PropertyTranslator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/UnrealSharpTestSettings.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/UnrealSharpTest.Build.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Script/Pokemon.Data/Pbs/BerryPlant.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Converters/BaseStatsConverter.cs" root0="SKIP_HIGHLIGHTING" />
@@ -1254,6 +1261,7 @@
   &quot;keyToString&quot;: {
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;Uproject.TurnBasedFramework.executor&quot;: &quot;Run&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -1432,6 +1440,7 @@
       <workItem from="1755379246029" duration="3928000" />
       <workItem from="1755443191951" duration="6653000" />
       <workItem from="1755807290610" duration="1152000" />
+      <workItem from="1755823811322" duration="3027000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed a missing with editor define">
       <option name="closed" value="true" />
@@ -1569,7 +1578,15 @@
       <option name="project" value="LOCAL" />
       <updated>1755743954257</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Added a new settings option">
+      <option name="closed" value="true" />
+      <created>1755823709621</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1755823709621</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1582,7 +1599,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="roots">
+                    <value>
+                      <list>
+                        <option value="$PROJECT_DIR$" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -1606,7 +1635,8 @@
     <MESSAGE value="Finalized a basic lightweight assertion system" />
     <MESSAGE value="Updated the assertion model to be a bit more complex" />
     <MESSAGE value="Added baseline support for Random and CancellationToken" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added baseline support for Random and CancellationToken" />
+    <MESSAGE value="Added a new settings option" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added a new settings option" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

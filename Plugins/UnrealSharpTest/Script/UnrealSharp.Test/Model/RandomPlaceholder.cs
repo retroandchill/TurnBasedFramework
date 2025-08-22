@@ -10,7 +10,8 @@ namespace UnrealSharp.Test.Model;
 
 public sealed class RandomPlaceholder([ReadOnly] DynamicRandomAttribute randomAttribute, 
                                       ParameterInfo parameterInfo,
-                                      int index) : IDataPlaceholder
+                                      int index,
+                                      [ReadOnly] int? displayIndex = null) : IDataPlaceholder
 {
     public int Index { get; } = index;
     public ParameterInfo ParameterInfo { get; } = parameterInfo;
@@ -24,6 +25,6 @@ public sealed class RandomPlaceholder([ReadOnly] DynamicRandomAttribute randomAt
 
     public override string ToString()
     {
-        return $"?{Index + 1}";
+        return $"?{(displayIndex ?? Index) + 1}";
     }
 }

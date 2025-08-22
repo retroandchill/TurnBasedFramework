@@ -16,7 +16,7 @@ public static class ArgumentNameFormatter
             null => "null",
             string str => $"\"{str}\"",
             char ch => $"'{ch}'",
-            _ => argument.ToString()!.Replace(",", "")
+            _ => argument.ToString()!.Replace(",", "").Replace('.', '_')
         };
     }
 }

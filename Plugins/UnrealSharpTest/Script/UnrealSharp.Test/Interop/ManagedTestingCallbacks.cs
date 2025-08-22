@@ -78,12 +78,16 @@ public static unsafe class ManagedTestingCallbacks
             }
         }
 
+        var testIndex = 1;
+        var digitsCount = (int) Math.Log10(managedTestCase.TestCases.Count) + 1;
         foreach (var (testCommand, testCase) in managedTestCase.TestCases)
         {
-            fixed (char* displayNamePtr = testCase.GetDisplayName())
+            var index = testIndex.ToString().PadLeft(digitsCount, '0');
+            fixed (char* displayNamePtr = $"#{index}: {testCase.GetDisplayName()}")
             {
                 AutomationTestExporter.CallAddTestCase(testCommand, displayNamePtr, ref *beautifiedNames, ref *testParameters);;
             }
+            testIndex++;
         }
     }
     

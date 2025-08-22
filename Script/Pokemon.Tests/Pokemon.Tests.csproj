@@ -9,6 +9,11 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="LanguageExt.Core" Version="4.4.9" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8" />
+    <PackageReference Include="NUnit.Analyzers" Version="4.10.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <Reference Include="UnrealSharp">
       <HintPath>..\..\Plugins\UnrealSharp\Binaries\Managed\net9.0\UnrealSharp.dll</HintPath>
     </Reference>
@@ -16,7 +21,8 @@
       <HintPath>..\..\Plugins\UnrealSharp\Binaries\Managed\net9.0\UnrealSharp.Core.dll</HintPath>
     </Reference>
     <Analyzer Include="..\..\Plugins\UnrealSharp\Binaries\Managed\UnrealSharp.SourceGenerators.dll" />
-    <ProjectReference Include="..\Pokemon.Data\Pokemon.Data.csproj" />
+    <ProjectReference Include="..\..\Plugins\UnrealSharpTest\Script\UnrealSharp.Test\UnrealSharp.Test.csproj" />
+    <ProjectReference Include="..\Pokemon.Core\Pokemon.Core.csproj" />
     <ProjectReference Include="..\TurnBasedFramework.Glue\TurnBasedFramework.Glue.csproj" />
   </ItemGroup>
 </Project>

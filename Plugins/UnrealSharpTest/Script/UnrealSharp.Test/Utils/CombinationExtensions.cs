@@ -4,12 +4,12 @@ public static class CombinationExtensions
 {
     public static IEnumerable<IEnumerable<T>> CartesianProduct<T>(this IEnumerable<IEnumerable<T>> sequences)
     {
-        return sequences.Aggregate(Enumerable.Empty<IEnumerable<T>>(),
-            (a, b) => a.SelectMany(_ => b, 
-                (x, y) => x.Concat([y])));
+        return sequences.Aggregate((IEnumerable<IEnumerable<T>>)[[]],
+            (acc, src) => src.SelectMany(x => 
+                acc.Select(a => a.Concat([x]))));
     }
 
-    public static IEnumerable<IEnumerable<T?>> SequentialGrouping<T>(this IEnumerable<IEnumerable<T>> sequences)
+    public static IEnumerable<IEnumerable<T>> SequentialGrouping<T>(this IEnumerable<IEnumerable<T>> sequences)
     {
         var enumerators = sequences.Select(x => x.GetEnumerator()).ToList();
         var currentValues = new T[enumerators.Count];

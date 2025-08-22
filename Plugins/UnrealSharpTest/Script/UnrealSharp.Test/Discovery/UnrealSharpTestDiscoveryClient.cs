@@ -155,13 +155,13 @@ public static class UnrealSharpTestDiscoveryClient
     private static CombinationMode GetCombinationMode(this MethodInfo methodInfo)
     {
         var sequentialAttribute = methodInfo.GetCustomAttribute<SequentialAttribute>();
-        if (sequentialAttribute is null)
+        if (sequentialAttribute is not null)
         {
             return CombinationMode.Sequential;
         }
         
         var pairwiseAttribute = methodInfo.GetCustomAttribute<PairwiseAttribute>();
-        if (pairwiseAttribute is null)
+        if (pairwiseAttribute is not null)
         {
             return CombinationMode.Pairwise;
         }
@@ -195,8 +195,10 @@ public static class UnrealSharpTestDiscoveryClient
 
     private static object?[] GetPossibleValues(IParameterInfo parameter)
     {
+        var randomCount = new MovingReference<int>(0);
         var allParameterOptions = parameter.ParameterInfo.GetCustomAttributes<NUnitAttribute>()
-            .SelectMany(a => GetPossibleValues(parameter, a))
+            .SelectMany(a => GetPossibleValues(parameter, a, randomCount))
+            .Distinct()
             .ToArray();
 
         if (allParameterOptions.Length > 0)
@@ -207,7 +209,8 @@ public static class UnrealSharpTestDiscoveryClient
         return parameter.ParameterType.IsValueType ? [Activator.CreateInstance(parameter.ParameterType)] : [null];
     }
 
-    private static IEnumerable<object?> GetPossibleValues(IParameterInfo parameter, NUnitAttribute attribute)
+    private static IEnumerable<object?> GetPossibleValues(IParameterInfo parameter, NUnitAttribute attribute,
+                                                          MovingReference<int> randomCount)
     {
         return attribute switch
         {
@@ -215,7 +218,7 @@ public static class UnrealSharpTestDiscoveryClient
             RangeAttribute rangeAttribute => rangeAttribute.GetData(parameter).Cast<object>(),
             ValueSourceAttribute valueSourceAttribute => valueSourceAttribute.GetData(parameter).Cast<object>(),
             DynamicRandomAttribute randomAttribute => Enumerable.Range(0, randomAttribute.Count)
-                .Select(i => new RandomPlaceholder(randomAttribute, parameter.ParameterInfo, i)),
+                .Select(i => new RandomPlaceholder(randomAttribute, parameter.ParameterInfo, i, i + randomCount.Value++)),
             _ => []
         };
     }
