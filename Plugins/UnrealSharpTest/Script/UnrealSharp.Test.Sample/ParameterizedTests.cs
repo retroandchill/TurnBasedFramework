@@ -91,11 +91,11 @@ public class ParameterizedTests
 
         if (label == null)
         {
-            Assert.That(x == y, "Coordinates should be equal when label is null");
+            Assert.That(x, Is.EqualTo(y), "Coordinates should be equal when label is null");
         }
         else
         {
-            Assert.That(label.Length, Is.GreaterThan(0));
+            Assert.That(label, Is.Not.Empty);
         }
     }
 
@@ -164,9 +164,9 @@ public class ParameterizedTests
     private static string ProcessInput(string? input, int value)
     {
         ArgumentNullException.ThrowIfNull(input);
-        if (string.IsNullOrEmpty(input))
-            throw new ArgumentException("Input cannot be empty", nameof(input));
-        return $"{input}:{value}";
+        return string.IsNullOrEmpty(input)
+            ? throw new ArgumentException("Input cannot be empty", nameof(input))
+            : $"{input}:{value}";
     }
 
     // Range values test using TestCase

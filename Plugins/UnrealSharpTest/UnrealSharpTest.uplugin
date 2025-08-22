@@ -19,6 +19,17 @@
 			"Name": "UnrealSharpTest",
 			"Type": "Editor",
 			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "UnrealSharpTestUtils",
+			"Type": "Editor",
+			"LoadingPhase": "Default"
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "UnrealSharp",
+			"Enabled": true
 		}
 	]
 }

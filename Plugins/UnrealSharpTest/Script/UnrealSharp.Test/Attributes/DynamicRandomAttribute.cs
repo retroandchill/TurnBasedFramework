@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using JetBrains.Annotations;
 using NUnit.Framework;
-using NUnit.Framework.Interfaces;
 using UnrealSharp.Test.Runner;
 
 namespace UnrealSharp.Test.Attributes;
@@ -335,47 +334,47 @@ public class DynamicRandomAttribute : NUnitAttribute
 
         if (parameterInfo.ParameterType == typeof(sbyte))
         {
-            _dataSource = new SByteRandomDataSource(sbyte.MinValue, sbyte.MaxValue, Count);
+            _dataSource = new SByteRandomDataSource(Count);
         }
         else if (parameterInfo.ParameterType == typeof(byte))
         {
-            _dataSource = new ByteRandomDataSource(byte.MinValue, byte.MaxValue, Count);
+            _dataSource = new ByteRandomDataSource(Count);
         }
         else if (parameterInfo.ParameterType == typeof(short))
         {
-            _dataSource = new ShortRandomDataSource(short.MinValue, short.MaxValue, Count);
+            _dataSource = new ShortRandomDataSource(Count);
         }
         else if (parameterInfo.ParameterType == typeof(ushort))
         {
-            _dataSource = new UShortRandomDataSource(ushort.MinValue, ushort.MaxValue, Count);
+            _dataSource = new UShortRandomDataSource(Count);
         }
         else if (parameterInfo.ParameterType == typeof(int))
         {
-            _dataSource = new IntRandomDataSource(int.MinValue, int.MaxValue, Count);
+            _dataSource = new IntRandomDataSource(Count);
         }
         else if (parameterInfo.ParameterType == typeof(uint))
         {
-            _dataSource = new UIntRandomDataSource(uint.MinValue, uint.MaxValue, Count);
+            _dataSource = new UIntRandomDataSource(Count);
         }
         else if (parameterInfo.ParameterType == typeof(long))
         {
-            _dataSource = new LongRandomDataSource(long.MinValue, long.MaxValue, Count);
+            _dataSource = new LongRandomDataSource(Count);
         }
         else if (parameterInfo.ParameterType == typeof(ulong))
         {
-            _dataSource = new ULongRandomDataSource(ulong.MinValue, ulong.MaxValue, Count);
+            _dataSource = new ULongRandomDataSource(Count);
         }
         else if (parameterInfo.ParameterType == typeof(float))
         {
-            _dataSource = new FloatRandomDataSource(float.MinValue, float.MaxValue, Count);
+            _dataSource = new FloatRandomDataSource(Count);
         }
         else if (parameterInfo.ParameterType == typeof(double))
         {
-            _dataSource = new DoubleRandomDataSource(double.MinValue, double.MaxValue, Count);
+            _dataSource = new DoubleRandomDataSource(Count);
         }
         else if (parameterInfo.ParameterType == typeof(decimal))
         {
-            _dataSource = new DecimalRandomDataSource(decimal.MinValue, decimal.MaxValue, Count);
+            _dataSource = new DecimalRandomDataSource(Count);
         }
         else if (parameterInfo.ParameterType.IsEnum)
         {

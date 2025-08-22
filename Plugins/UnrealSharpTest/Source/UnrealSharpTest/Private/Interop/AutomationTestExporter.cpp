@@ -47,3 +47,16 @@ void UAutomationTestExporter::LogEvent(const TCHAR* Message, const EAutomationEv
         }
     }
 }
+
+void UAutomationTestExporter::AddExpectedMessage(const TCHAR* ExpectedPattern, ELogVerbosity::Type ExpectedVerbosity,
+    EAutomationExpectedMessageFlags::MatchType MatchType, int32 Occurrences, bool IsRegex)
+{
+    if (const auto CurrentTest = FAutomationTestFramework::Get().GetCurrentTest(); CurrentTest != nullptr)
+    {
+        CurrentTest->AddExpectedMessage(ExpectedPattern, ExpectedVerbosity, MatchType, Occurrences, IsRegex);
+    }
+    else
+    {
+        UE_LOG(LogUnrealSharpTestNative, Error, TEXT("Tried to record an expected message outside of the testing framework."));
+    }
+}

@@ -13,6 +13,9 @@
     <Reference Include="UnrealSharp.Core">
       <HintPath>..\..\..\UnrealSharp\Binaries\Managed\net9.0\UnrealSharp.Core.dll</HintPath>
     </Reference>
+    <Reference Include="UnrealSharp.Log">
+      <HintPath>..\..\..\UnrealSharp\Binaries\Managed\net9.0\UnrealSharp.Log.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.2" />
@@ -22,6 +25,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UnrealSharp.Test.Utils\UnrealSharp.Test.Utils.csproj" />
     <ProjectReference Include="..\UnrealSharp.Test\UnrealSharp.Test.csproj" />
   </ItemGroup>
 </Project>

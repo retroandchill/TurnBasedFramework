@@ -8,6 +8,12 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>UnrealSharp.Test</RootNamespace>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DocumentationFile>bin\Debug\UnrealSharp.Test.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DocumentationFile>bin\Release\UnrealSharp.Test.xml</DocumentationFile>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
     <PackageReference Include="LanguageExt.Core" Version="4.4.9" />

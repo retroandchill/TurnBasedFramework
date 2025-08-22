@@ -8,6 +8,11 @@ using UnrealSharp.Test.Model;
 
 namespace UnrealSharp.Test.Runner;
 
+/// <summary>
+/// Provides methods to execute and log test cases for UnrealSharp automation testing framework.
+/// This static class is intended to manage the execution of test cases, handling test results,
+/// and managing test class instances during the testing process.
+/// </summary>
 public static class UnrealSharpTestExecutor
 {
     private static readonly Dictionary<Type, object?> TestClassInstances = new();
@@ -19,6 +24,22 @@ public static class UnrealSharpTestExecutor
         EvaluatedParameters.Clear();
     }
 
+    /// <summary>
+    /// Executes a test method within the current process, scheduling it for execution if it is asynchronous.
+    /// </summary>
+    /// <param name="automationTestReference">
+    /// A reference to the automation test, encapsulating native test execution details.
+    /// </param>
+    /// <param name="testMethod">
+    /// The test method to be executed, which includes setup, teardown, and test method metadata.
+    /// </param>
+    /// <param name="testCase">
+    /// The test case identifier, represented by a name to distinguish individual test runs.
+    /// </param>
+    /// <returns>
+    /// A boolean value indicating whether the test execution was successfully completed synchronously
+    /// or scheduled for asynchronous execution.
+    /// </returns>
     public static bool RunTestInProcess(
         AutomationTestRef automationTestReference,
         UnrealTestMethod testMethod,
@@ -114,6 +135,12 @@ public static class UnrealSharpTestExecutor
         return newArguments;
     }
 
+    /// <summary>
+    /// Logs the test result, including any messages or assertion details, for reporting and debugging purposes.
+    /// </summary>
+    /// <param name="result">
+    /// The test result object containing the outcome, messages, and assertion details of the executed test case.
+    /// </param>
     public static void LogTestResult(TestResult result)
     {
         if (
@@ -128,15 +155,17 @@ public static class UnrealSharpTestExecutor
         {
             var eventType = assertion.Status switch
             {
-                AssertionStatus.Inconclusive => EAutomationEventType.Info,
-                AssertionStatus.Passed => EAutomationEventType.Info,
+                AssertionStatus.Inconclusive or AssertionStatus.Passed => EAutomationEventType.Info,
                 AssertionStatus.Warning => EAutomationEventType.Warning,
-                AssertionStatus.Failed => EAutomationEventType.Error,
-                AssertionStatus.Error => EAutomationEventType.Error,
+                AssertionStatus.Failed or AssertionStatus.Error => EAutomationEventType.Error,
                 _ => throw new InvalidOperationException("Unknown assertion status"),
             };
 
-            LogTestMessage(assertion.Message, eventType);
+            var message =
+                assertion.Status == AssertionStatus.Error
+                    ? $"{assertion.Message}\n{assertion.StackTrace}"
+                    : assertion.Message;
+            LogTestMessage(message, eventType);
         }
     }
 

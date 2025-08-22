@@ -249,10 +249,9 @@ public static class UnrealSharpTestDiscoveryClient
 
     private static object?[] GetPossibleValues(IParameterInfo parameter)
     {
-        var randomCount = new ModularReference<int>(0);
         var allParameterOptions = parameter
             .ParameterInfo.GetCustomAttributes<NUnitAttribute>()
-            .SelectMany(a => GetPossibleValues(parameter, a, randomCount))
+            .SelectMany(a => GetPossibleValues(parameter, a))
             .Distinct()
             .ToArray();
 
@@ -268,8 +267,7 @@ public static class UnrealSharpTestDiscoveryClient
 
     private static IEnumerable<object?> GetPossibleValues(
         IParameterInfo parameter,
-        NUnitAttribute attribute,
-        ModularReference<int> randomCount
+        NUnitAttribute attribute
     )
     {
         return attribute switch
@@ -281,12 +279,7 @@ public static class UnrealSharpTestDiscoveryClient
                 .Cast<object>(),
             DynamicRandomAttribute randomAttribute => Enumerable
                 .Range(0, randomAttribute.Count)
-                .Select(i => new RandomPlaceholder(
-                    randomAttribute,
-                    parameter.ParameterInfo,
-                    i,
-                    i + randomCount.Value++
-                )),
+                .Select(i => new RandomPlaceholder(randomAttribute, parameter.ParameterInfo, i)),
             _ => [],
         };
     }
@@ -373,8 +366,8 @@ public static class UnrealSharpTestDiscoveryClient
             TestCases =
                 testCases
                     ?.Select((t, i) => (TestCase: t, Name: new FName($"TestCase{i + 1}")))
-                    .ToDictionary(x => x.Name, x => x.TestCase)
-                ?? new Dictionary<FName, TestCaseData>(),
+                    .ToOrderedDictionary(x => x.Name, x => x.TestCase)
+                ?? new OrderedDictionary<FName, TestCaseData>(),
             CodeFilePath = sequencePoint?.Document.ToString(),
             LineNumber = sequencePoint?.StartLine ?? 0,
         };

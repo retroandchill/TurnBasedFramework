@@ -9,15 +9,235 @@
   <component name="ChangeListManager">
     <list default="true" id="aa1e9cdd-86d7-4878-ad99-f01b0434e94b" name="Changes" comment="">
       <change
+        beforePath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.Glue/GameDataAccessTools.Glue.csproj"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.Glue/GameDataAccessTools.Glue.csproj"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test.Functional/AsyncFunctionalTest.cs"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test.Functional/AsyncFunctionalTest.cs"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test.Functional/UnrealSharp.Test.Functional.csproj"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test.Functional/UnrealSharp.Test.Functional.csproj"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test.Functional/UnrealSharpTestFunctional.cs"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test.Functional/UnrealSharpTestFunctional.cs"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test.Sample/ParameterizedTests.cs"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test.Sample/ParameterizedTests.cs"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test.Sample/UnrealSharp.Test.Sample.csproj"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test.Sample/UnrealSharp.Test.Sample.csproj"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Attributes/DynamicRandomAttribute.cs"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Attributes/DynamicRandomAttribute.cs"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Discovery/ArgumentNameFormatter.cs"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Discovery/ArgumentNameFormatter.cs"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Discovery/CombinationMode.cs"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Model/CombinationMode.cs"
+        afterDir="false"
+      />
+      <change
         beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Discovery/UnrealSharpTestDiscoveryClient.cs"
         beforeDir="false"
         afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Discovery/UnrealSharpTestDiscoveryClient.cs"
         afterDir="false"
       />
       <change
-        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Utils/MovingReference.cs"
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Interop/AutomationTestExporter.cs"
         beforeDir="false"
-        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Utils/ModularReference.cs"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Interop/AutomationTestExporter.cs"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Interop/ManagedTestingCallbacks.cs"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Interop/ManagedTestingCallbacks.cs"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Interop/ManagedTestingExporter.cs"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Interop/ManagedTestingExporter.cs"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Model/DataPlaceholder.cs"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Model/DataPlaceholder.cs"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Model/RandomPlaceholder.cs"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Model/RandomPlaceholder.cs"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Model/UnrealTestMethod.cs"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Model/UnrealTestMethod.cs"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Runner/AutomationTestRef.cs"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Runner/AutomationTestRef.cs"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Runner/RandomDataSource.cs"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Runner/RandomDataSource.cs"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Runner/UnrealSharpTestExecutor.cs"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Runner/UnrealSharpTestExecutor.cs"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/UnrealSharp.Test.csproj"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/UnrealSharp.Test.csproj"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/UnrealSharpTest.cs"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/UnrealSharpTest.cs"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Utils/CombinationExtensions.cs"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Utils/CombinationExtensions.cs"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Utils/ModularReference.cs"
+        beforeDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Utils/ModuleExtensions.cs"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/Utils/ModuleExtensions.cs"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharpTest.Glue/UnrealSharpTest.Glue.csproj"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharpTest.Glue/UnrealSharpTest.Glue.csproj"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/Interop/AutomationTestExporter.cpp"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Private/Interop/AutomationTestExporter.cpp"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/Interop/AutomationTestExporter.h"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/Interop/AutomationTestExporter.h"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/Interop/ManagedTestingCallbacks.h"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/Interop/ManagedTestingCallbacks.h"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/Interop/ManagedTestingExporter.h"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/Interop/ManagedTestingExporter.h"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/Model/ManagedTestCase.h"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/Model/ManagedTestCase.h"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/Runner/CSharpAutomationTest.h"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/Runner/CSharpAutomationTest.h"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/Runner/CSharpTestLatentCommand.h"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/Runner/CSharpTestLatentCommand.h"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/UnrealSharpTest.h"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/UnrealSharpTest.h"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/UnrealSharpTestSettings.h"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTest/Public/UnrealSharpTestSettings.h"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/UnrealSharpTest.uplugin"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/UnrealSharpTest.uplugin"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Script/ManagedTurnBasedFramework.sln"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Script/ManagedTurnBasedFramework.sln"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/Script/TurnBasedFramework.Glue/TurnBasedFramework.Glue.csproj"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/Script/TurnBasedFramework.Glue/TurnBasedFramework.Glue.csproj"
+        afterDir="false"
+      />
+      <change
+        beforePath="$PROJECT_DIR$/TurnBasedFramework.uproject"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/TurnBasedFramework.uproject"
         afterDir="false"
       />
     </list>
@@ -3468,6 +3688,10 @@
       root0="FORCE_HIGHLIGHTING"
     />
     <setting
+      file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Core/Public/GenericPlatform/GenericPlatformFile.h"
+      root0="FORCE_HIGHLIGHTING"
+    />
+    <setting
       file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Core/Public/GenericPlatform/GenericPlatformHostSocket.h"
       root0="FORCE_HIGHLIGHTING"
     />
@@ -3512,6 +3736,10 @@
       root0="FORCE_HIGHLIGHTING"
     />
     <setting
+      file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Core/Public/Logging/LogVerbosity.h"
+      root0="FORCE_HIGHLIGHTING"
+    />
+    <setting
       file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Core/Public/Logging/StructuredLog.h"
       root0="FORCE_HIGHLIGHTING"
     />
@@ -3553,6 +3781,10 @@
     />
     <setting
       file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Core/Public/Misc/App.h"
+      root0="FORCE_HIGHLIGHTING"
+    />
+    <setting
+      file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Core/Public/Misc/AssertionMacros.h"
       root0="FORCE_HIGHLIGHTING"
     />
     <setting
@@ -4141,6 +4373,10 @@
     />
     <setting
       file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Public/WorldPartition/HLOD/HLODLayer.h"
+      root0="FORCE_HIGHLIGHTING"
+    />
+    <setting
+      file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/EngineSettings/Classes/GameMapsSettings.h"
       root0="FORCE_HIGHLIGHTING"
     />
     <setting
@@ -4764,6 +5000,30 @@
       root0="SKIP_HIGHLIGHTING"
     />
     <setting
+      file="file://$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTestUtils/Private/Interop/ScopedInstancesExporter.cpp"
+      root0="FORCE_HIGHLIGHTING"
+    />
+    <setting
+      file="file://$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTestUtils/Private/Interop/TestWorldExporter.cpp"
+      root0="FORCE_HIGHLIGHTING"
+    />
+    <setting
+      file="file://$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTestUtils/Private/TestWorld.cpp"
+      root0="FORCE_HIGHLIGHTING"
+    />
+    <setting
+      file="file://$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTestUtils/Public/Interop/ScopedInstancesExporter.h"
+      root0="FORCE_HIGHLIGHTING"
+    />
+    <setting
+      file="file://$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTestUtils/Public/Interop/TestWorldExporter.h"
+      root0="FORCE_HIGHLIGHTING"
+    />
+    <setting
+      file="file://$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTestUtils/Public/TestWorld.h"
+      root0="FORCE_HIGHLIGHTING"
+    />
+    <setting
       file="file://$PROJECT_DIR$/Script/Pokemon.Data/Pbs/BerryPlant.cs"
       root0="SKIP_HIGHLIGHTING"
     />
@@ -5050,6 +5310,7 @@
       <workItem from="1755443191951" duration="6653000" />
       <workItem from="1755807290610" duration="1152000" />
       <workItem from="1755823811322" duration="3079000" />
+      <workItem from="1755870569377" duration="10902000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed a missing with editor define">
       <option name="closed" value="true" />

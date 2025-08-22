@@ -1,7 +1,21 @@
 ﻿namespace UnrealSharp.Test.Utils;
 
+/// <summary>
+/// Provides extension methods for generating and manipulating combinations
+/// of sequences, including Cartesian product, sequential grouping, and pairwise grouping.
+/// </summary>
 public static class CombinationExtensions
 {
+    /// <summary>
+    /// Generates the Cartesian product of sequences, resulting in all possible combinations
+    /// by taking one element from each sequence.
+    /// </summary>
+    /// <param name="sequences">A collection of collections from which the Cartesian product is to be generated.</param>
+    /// <typeparam name="T">The type of elements in the input sequences.</typeparam>
+    /// <returns>
+    /// A collection of combinations, where each combination is represented as a collection
+    /// containing one element from each of the input sequences.
+    /// </returns>
     public static IEnumerable<IEnumerable<T>> CartesianProduct<T>(
         this IEnumerable<IEnumerable<T>> sequences
     )
@@ -15,6 +29,18 @@ public static class CombinationExtensions
         );
     }
 
+    /// <summary>
+    /// Groups sequences into sequentially aligned combinations,
+    /// where elements from each sequence are taken in order, producing a collection
+    /// containing one element from each sequence at each step.
+    /// </summary>
+    /// <param name="sequences">A collection of sequences to group sequentially.</param>
+    /// <typeparam name="T">The type of elements in the sequences.</typeparam>
+    /// <returns>
+    /// A collection of combinations, where each combination is represented as an array
+    /// containing elements from the same index position of the input sequences.
+    /// If a sequence is shorter, default values will be used to fill the missing elements.
+    /// </returns>
     public static IEnumerable<IEnumerable<T>> SequentialGrouping<T>(
         this IEnumerable<IEnumerable<T>> sequences
     )
@@ -58,15 +84,27 @@ public static class CombinationExtensions
         }
     }
 
+    /// <summary>
+    /// Generates test case combinations using pairwise testing by covering all possible pairs of parameter values across input sequences.
+    /// </summary>
+    /// <param name="sequences">A collection of collections where each collection represents a set of possible parameter values.</param>
+    /// <typeparam name="T">The type of elements in the input sequences.</typeparam>
+    /// <returns>
+    /// A collection of combinations, where each combination is represented as a collection containing one value from each input sequence,
+    /// ensuring all possible pairs of values are covered across different sequences.
+    /// </returns>
     public static IEnumerable<IEnumerable<T>> PairwiseGrouping<T>(
         this IEnumerable<IEnumerable<T>> sequences
     )
     {
         var parameterValues = sequences.Select(seq => seq.ToArray()).ToArray();
-        if (parameterValues.Length == 0)
-            return [];
-        if (parameterValues.Length == 1)
-            return parameterValues[0].Select(v => new[] { v });
+        switch (parameterValues.Length)
+        {
+            case 0:
+                return [];
+            case 1:
+                return parameterValues[0].Select(v => new[] { v });
+        }
 
         var parameterSizes = parameterValues.Select(p => p.Length).ToArray();
 
@@ -127,11 +165,10 @@ public static class CombinationExtensions
             }
 
             var newPairs = CountNewPairs(candidate, coveredPairs);
-            if (newPairs > maxNewPairs)
-            {
-                maxNewPairs = newPairs;
-                Array.Copy(candidate, bestCase, candidate.Length);
-            }
+            if (newPairs <= maxNewPairs)
+                continue;
+            maxNewPairs = newPairs;
+            Array.Copy(candidate, bestCase, candidate.Length);
         }
 
         return maxNewPairs > 0 ? bestCase : null;
