@@ -54,9 +54,9 @@ public:
         static FName PushingWidgetToLayer("PushingWidgetToLayer");
         const FName SuspendInputToken = bSuspendInputUntilComplete ? UTurnBasedUIExtensions::SuspendInputForPlayer(GetOwningPlayer(), PushingWidgetToLayer) : NAME_None;
 
-        FStreamableManager& StreamableManager = UAssetManager::Get().GetStreamableManager();
+        auto& StreamableManager = UAssetManager::Get().GetStreamableManager();
         TSharedPtr<FStreamableHandle> StreamingHandle = StreamableManager.RequestAsyncLoad(ActivatableWidgetClass.ToSoftObjectPath(), FStreamableDelegate::CreateWeakLambda(this,
-            [this, LayerName, ActivatableWidgetClass, StateFunc, SuspendInputToken]()
+            [this, LayerName, ActivatableWidgetClass, StateFunc, SuspendInputToken]
             {
                 UTurnBasedUIExtensions::ResumeInputForPlayer(GetOwningPlayer(), SuspendInputToken);
 

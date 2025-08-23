@@ -27,6 +27,8 @@ public class TurnBasedUI : ModuleRules
 				"Core", 
 				"CommonUI", 
 				"UnrealSharpCore", 
+				"UnrealSharpBinds",
+				"UnrealSharpAsync",
 				"CommonInput"
 				// ... add other public dependencies that you statically link with here ...
 			]

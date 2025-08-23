@@ -40,7 +40,7 @@ bool UTurnBasedUIExtensions::IsOwningPlayerUsingGamepad(const UUserWidget* Widge
     return IsOwningPlayerInputType(WidgetContextObject, ECommonInputType::Gamepad);
 }
 
-UCommonActivatableWidget* UTurnBasedUIExtensions::PushContentToLayer_ForPlayer(const ULocalPlayer* LocalPlayer,
+UCommonActivatableWidget* UTurnBasedUIExtensions::PushContentToLayer(const ULocalPlayer* LocalPlayer,
     FGameplayTag LayerName, TSubclassOf<UCommonActivatableWidget> WidgetClass)
 {
     if (ensure(LocalPlayer != nullptr) || !ensure(WidgetClass != nullptr))
@@ -55,7 +55,7 @@ UCommonActivatableWidget* UTurnBasedUIExtensions::PushContentToLayer_ForPlayer(c
         .Get();
 }
 
-void UTurnBasedUIExtensions::PushStreamedContentToLayer_ForPlayer(const ULocalPlayer* LocalPlayer,
+void UTurnBasedUIExtensions::PushStreamedContentToLayer(const ULocalPlayer* LocalPlayer,
     FGameplayTag LayerName, TSoftClassPtr<UCommonActivatableWidget> WidgetClass)
 {
     if (ensure(LocalPlayer != nullptr) || !ensure(WidgetClass != nullptr))
