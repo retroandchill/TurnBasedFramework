@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "CSManagedGCHandle.h"
-#include "Utils/expected.hpp"
+#include "expected.hpp"
 
 class FGameDataEntrySerializer;
 class UGameDataRepository;

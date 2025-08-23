@@ -30,7 +30,8 @@ public class GameDataAccessTools : ModuleRules
                 "GameplayTags",
                 "UnrealSharpBinds",
                 "UnrealSharpCore",
-                "Json",
+                "Json", 
+                "CommonUtilities",
                 // ... add other public dependencies that you statically link with here ...
             }
         );

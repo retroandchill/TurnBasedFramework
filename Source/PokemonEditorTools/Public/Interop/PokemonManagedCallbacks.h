@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameplayTagContainer.h"
-#include "Utils/expected.hpp"
+#include "expected.hpp"
 
 struct FPokemonManagedActions
 {
