@@ -7,7 +7,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa1e9cdd-86d7-4878-ad99-f01b0434e94b" name="Changes" comment="" />
+    <list default="true" id="aa1e9cdd-86d7-4878-ad99-f01b0434e94b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/ManagedTurnBasedFramework.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Script/ManagedTurnBasedFramework.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TurnBasedFramework.uproject.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/TurnBasedFramework.uproject.DotSettings.user" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,6 +50,12 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Plugins/AI/MassAI/Source/MassAIBehavior/MassAIBehavior.Build.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Plugins/Animation/AnimationWarping/Source/Editor/AnimationWarpingEditor.Build.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Plugins/Animation/ControlRig/Source/ControlRig/Private/ControlRigReplay.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -194,6 +204,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/AnimGraph/Private/EditModes/AnimDynamicsEditMode.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/AnimGraph/Private/PoseDriverDetails.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/AnimationBlueprintEditor/Private/AnimationBlueprintEditor.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/AnimationBlueprintLibrary/Public/AnimationBlueprintLibrary.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/AnimationEditor/AnimationEditor.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/AnimationModifiers/Public/AnimationModifiersAssetUserData.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/AssetDefinition/Private/AssetDefinition.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -337,6 +348,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/Kismet/Private/SBlueprintLibraryPalette.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/Kismet/Private/SBlueprintNamespaceEntry.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/Kismet/Private/SBlueprintPalette.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/Kismet/Private/SBlueprintPalette.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/Kismet/Private/SBlueprintRevisionMenu.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/Kismet/Private/SBlueprintSubPalette.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/Kismet/Private/SBlueprintSubPalette.h" root0="FORCE_HIGHLIGHTING" />
@@ -434,6 +446,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/MainFrame/MainFrame.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/MainFrame/Private/MainFrameModule.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/MaterialEditor/Private/MaterialLayersFunctionsCustomization.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/MaterialEditor/Private/MaterialStatsCommon.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/MergeActors/Private/MergeProxyUtils/SMeshProxyCommonDialog.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/MergeActors/Private/MeshMergingTool/MeshMergingTool.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/MeshPaint/Public/MeshPaintSkeletalMeshAdapter.h" root0="FORCE_HIGHLIGHTING" />
@@ -520,6 +533,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/Persona/Public/PersonaModule.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/Persona/Public/PersonaPreviewSceneController.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/Persona/Public/PersonaToolMenuContext.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/Persona/Public/PersonaUtils.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/Persona/Public/PhysicsAssetRenderUtils.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/Persona/Public/SAnimAttributeView.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/Persona/Public/SPersonaToolBox.h" root0="FORCE_HIGHLIGHTING" />
@@ -571,6 +585,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/PropertyEditor/Public/UserInterface/Widgets/OverridesComboButtonBuilder.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/SceneOutliner/Private/ActorMode.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/SequenceRecorder/Private/SequenceRecorderModule.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/SequenceRecorder/Public/SequenceRecorderBlueprintLibrary.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/Sequencer/Private/Filters/TextExpressions/SequencerTextFilterExpression_BindingType.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/Sequencer/Private/MVVM/ObjectBindingModelStorageExtension.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/Sequencer/Private/SequencerObjectChangeListener.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -604,6 +619,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UMGEditor/Public/WidgetBlueprint.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UndoHistoryEditor/Private/Widgets/SUndoHistory.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Classes/ActorFactories/ActorFactoryBlueprint.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Classes/Animation/EditorNotifyObject.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Classes/Animation/EditorParentPlayerListObj.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Classes/Animation/EditorSkeletonNotifyObj.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Classes/Commandlets/AssetRegUtilCommandlet.h" root0="FORCE_HIGHLIGHTING" />
@@ -667,6 +683,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Private/Cooker/CookConfigAccessTracker.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Private/Cooker/CookGarbageCollect.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Private/Cooker/CookImportsChecker.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Private/Cooker/CookPackageArtifacts.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Private/Cooker/CookPackageData.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Private/Cooker/CookProfiling.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Private/Cooker/CookSandbox.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -811,6 +828,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Public/ShaderStats.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Public/SourceCodeNavigation.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Public/Subsystems/AssetEditorSubsystem.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Public/Subsystems/CollectionManagerScriptingSubsystem.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Public/Subsystems/EditorActorSubsystem.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Public/Subsystems/EditorAssetSubsystem.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Public/Subsystems/ImportSubsystem.h" root0="FORCE_HIGHLIGHTING" />
@@ -967,6 +985,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Core/Public/Windows/WindowsPlatformStackWalk.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Core/Tests/Math/GuardedIntTest.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Core/Tests/Math/RangeBoundTest.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Core/Tests/Math/UnrealMathTest.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Core/Tests/Misc/ByteSwapTest.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Core/Tests/Misc/StringBuilderTest.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/CoreUObject/Private/AssetRegistry/AssetDataTagMap.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -1059,6 +1078,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/Animation/AnimSubsystem_SharedLinkedAnimLayers.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/AssetManagerTypes.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/AudioDeviceManager.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/Components/SkeletalMeshComponent.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/DataAsset.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/DataTableJSON.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/DeviceProfiles/DeviceProfileManager.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -1082,6 +1102,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Public/DebugRenderSceneProxy.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Public/MaterialExpressionIO.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Public/Materials/MaterialExpressionDataDrivenShaderPlatformInfoSwitch.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Public/Materials/MaterialInstanceDynamic.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Public/Rendering/SkeletalMeshLODModel.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Public/StaticMeshComponentHelper.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Public/Subsystems/GameInstanceSubsystem.h" root0="FORCE_HIGHLIGHTING" />
@@ -1139,6 +1160,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/MeshConversion/MeshConversion.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/MeshConversionEngineTypes/MeshConversionEngineTypes.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/MeshUtilitiesCommon/MeshUtilitiesCommon.Build.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/MovieScene/Public/EntitySystem/MovieSceneEntityRange.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/MovieScene/Public/MovieSceneCommonHelpers.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/MovieSceneTracks/Private/Tracks/MovieScenePropertyTrack.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/NavigationSystem/NavigationSystem.Build.cs" root0="FORCE_HIGHLIGHTING" />
@@ -1184,6 +1206,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/TypedElementRuntime/Public/Elements/Interfaces/TypedElementSelectionInterface.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/UMG/Private/Components/Button.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/UMG/Private/Components/WidgetInteractionComponent.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/UMG/Public/Components/MenuAnchor.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/UMG/Public/Components/Widget.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/ThirdParty/AtomicQueue/AtomicQueue.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/ThirdParty/BLAKE3/BLAKE3.Build.cs" root0="FORCE_HIGHLIGHTING" />
@@ -1220,14 +1243,12 @@
     <setting file="file://$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.SourceGenerator/Model/AccessiblePropertyInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.SourceGenerator/Utilities/PropertyAccessUtilities.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/GameDataAccessTools/Source/GameDataAccessTools/GameDataAccessTools.Build.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/TurnBasedUI/Script/TurnBasedUI.Glue/Extensions/AsyncLoadUtilities.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/TurnBasedUI/Script/TurnBasedUI.Glue/Extensions/CSPushWidgetToLayerAsync.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/TurnBasedUI/Script/TurnBasedUI/Properties/launchSettings.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/TurnBasedUI/Script/TurnBasedUI/TurnBasedUI.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/TurnBasedUI/Script/TurnBasedUI/WidgetLayerExtensions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/TurnBasedUI/Source/TurnBasedUI/Private/Actions/CSPushWidgetToLayerAsync.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Public/TurnBasedCore.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Plugins/TurnBasedGameplay/TurnBasedGameplay.uplugin" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp.Core/Attributes/GeneratedType.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp.Plugins/PluginLoadContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp.SourceGenerators/AsyncWrapperGenerator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp.SourceGenerators/AsyncWrapperGenerator.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp.SourceGenerators/AsyncWrapperGenerator.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Attributes/UPropertyAttribute.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Extensions/CoreUObject/Object.cs" root0="SKIP_HIGHLIGHTING" />
@@ -1265,12 +1286,6 @@
     <setting file="file://$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Converters/EvolutionMethodConverter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Serializers/BerryPlantPbsSerializer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/PokemonEditorTools/Public/PokemonEditorTools.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Source/TurnBasedCore/Private/Units/TurnBasedUnit.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Source/TurnBasedCore/Public/Attributes/UnitAttribute.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Source/TurnBasedCore/Public/TurnBasedCore.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Source/TurnBasedCore/Public/Units/TurnBasedUnit.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Source/TurnBasedCore/Public/Units/TurnBasedUnitComponent.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Source/TurnBasedCore/TurnBasedCore.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TurnBasedFramework.uproject" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
@@ -1286,22 +1301,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "Uproject.TurnBasedFramework.executor": "Run",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "SolutionBuilderGeneralOptionsPage",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;Uproject.TurnBasedFramework.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;SolutionBuilderGeneralOptionsPage&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="TurnBasedFramework" type="Uproject" factoryName="rider.uproject">
       <configuration_1 setup="1">
@@ -1472,6 +1487,7 @@
       <workItem from="1755823811322" duration="3079000" />
       <workItem from="1755870569377" duration="10902000" />
       <workItem from="1755989576747" duration="2857000" />
+      <workItem from="1756046564082" duration="11268000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed a missing with editor define">
       <option name="closed" value="true" />
@@ -1649,7 +1665,15 @@
       <option name="project" value="LOCAL" />
       <updated>1755992398483</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Removed the legacy turn-based core code">
+      <option name="closed" value="true" />
+      <created>1756048577297</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1756048577297</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1662,26 +1686,7 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="main" />
-                      </list>
-                    </value>
-                  </entry>
-                  <entry key="roots">
-                    <value>
-                      <list>
-                        <option value="$PROJECT_DIR$" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
@@ -1710,7 +1715,8 @@
     <MESSAGE value="Added the basic scaffolding of the UI for the project" />
     <MESSAGE value="Fixed an issue with missing parameter attributes on generated async code" />
     <MESSAGE value="Added the async loading capabilities for both C# and Blueprints" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added the async loading capabilities for both C# and Blueprints" />
+    <MESSAGE value="Removed the legacy turn-based core code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed the legacy turn-based core code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

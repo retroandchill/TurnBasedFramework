@@ -1,0 +1,12 @@
+{
+    "Structs": {
+        "BlittableTypes": [
+            {
+                "Name": "FManagedInitializerDelegate",
+                "ManagedType": "UnrealSharp.TurnBasedCore.FManagedInitializerDelegate"
+            }
+        ],
+        "NativelyTranslatableTypes": [
+        ]
+    }
+}
