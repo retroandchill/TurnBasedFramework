@@ -86,21 +86,7 @@ public:
     bool TryGetComponent(TSubclassOf<UTurnBasedUnitComponent> ComponentClass, UTurnBasedUnitComponent*& OutComponent) const;
 
 protected:
-    template <std::derived_from<UTurnBasedUnitComponent> T = UTurnBasedUnitComponent>
-    T* RegisterNewComponent()
-    {
-        return RegisterNewComponent<T>(T::StaticClass());
-    }
-
-    template <std::derived_from<UTurnBasedUnitComponent> T = UTurnBasedUnitComponent>
-    T* RegisterNewComponent(TSubclassOf<T> ComponentClass)
-    {
-        checkf(!ComponentCache.Contains(ComponentClass), TEXT("Component %s already registered"), *ComponentClass->GetName());
-
-        auto NewComponent = NewObject<T>(this, ComponentClass);
-        ComponentCache.Add(ComponentClass, NewComponent);
-        return NewComponent;
-    }
+    void RegisterNewComponent(UTurnBasedUnitComponent* Component);
 
     virtual void PostInitializeComponents()
     {
@@ -110,11 +96,23 @@ protected:
     UFUNCTION(BlueprintImplementableEvent, Category = "Components", meta = (ScriptName = "PostInitializeComponents"))
     void K2_PostInitializeComponents();
 
+    virtual void NativeInitializeComponents()
+    {
+        // No implementation here
+    }
+
+    UFUNCTION(BlueprintImplementableEvent, Category = "Components", meta = (ScriptName = "InitializeComponents"))
+    void K2_InitializeComponents();
+
+#if WITH_EDITOR
+    EDataValidationResult IsDataValid(FDataValidationContext& Context) const override;
+#endif
+
 private:
     void InitializeComponents();
     
-    UFUNCTION(meta = (DeterminesOutputType = "ComponentClass", DynamicOutputParam = "ReturnValue", ScriptMethod))
-    UTurnBasedUnitComponent* RegisterNewComponentInternal(TSubclassOf<UTurnBasedUnitComponent> ComponentClass);
+    UFUNCTION(meta = (ScriptMethod))
+    bool RegisterNewComponentInternal(UTurnBasedUnitComponent* Component);
 
     UFUNCTION(meta = (DeterminesOutputType = "ComponentClass", DynamicOutputParam = "ReturnValue", ScriptMethod))
     static UTurnBasedUnit* Create(UObject* Outer, TSubclassOf<UTurnBasedUnit> ComponentClass,

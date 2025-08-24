@@ -34,19 +34,11 @@ public partial class UTurnBasedUnit
             : throw new InvalidOperationException($"Component of type {componentClass} found on {ObjectName}");
     }
 
-    protected T RegisterNewComponent<T>(TSubclassOf<T> componentClass) where T : UTurnBasedUnitComponent
+    protected void RegisterNewComponent(UTurnBasedUnitComponent component)
     {
-        var result = RegisterNewComponentInternal(componentClass);
-        if (result is null)
+        if (!RegisterNewComponentInternal(component))
         {
-            throw new InvalidOperationException($"Component of type {componentClass} already exists");
+            throw new InvalidOperationException($"Component of type {component.Class} already exists");
         }
-        
-        return result;
-    }
-
-    protected T RegisterNewComponent<T>() where T : UTurnBasedUnitComponent
-    {
-        return RegisterNewComponent<T>(typeof(T));
     }
 }

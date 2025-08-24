@@ -9,8 +9,11 @@
   <component name="ChangeListManager">
     <list default="true" id="aa1e9cdd-86d7-4878-ad99-f01b0434e94b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/ManagedTurnBasedFramework.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Script/ManagedTurnBasedFramework.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TurnBasedFramework.uproject.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/TurnBasedFramework.uproject.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBasedGameplay.Glue/Extensions/TurnBasedUnit.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBasedGameplay.Glue/Extensions/TurnBasedUnit.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Private/TurnBasedUnit.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Private/TurnBasedUnit.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Public/TurnBasedUnit.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Public/TurnBasedUnit.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/UnrealSharpTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharp.Test/UnrealSharpTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Core/Pokemon.Core.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Core/Pokemon.Core.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +32,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/Plugins/UnrealSharp" value="feature/gameplay-tag-additions" />
+        <entry key="$PROJECT_DIR$/Plugins/UnrealSharp" value="bugfix/default-subobject" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -56,6 +59,127 @@
     <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="cidr-memory-view://12" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Plugins/AI/MassAI/Source/MassAIBehavior/MassAIBehavior.Build.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Plugins/Animation/AnimationWarping/Source/Editor/AnimationWarpingEditor.Build.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Plugins/Animation/ControlRig/Source/ControlRig/Private/ControlRigReplay.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -193,6 +317,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/AIGraph/Private/AIGraphNode.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/AIGraph/Private/AIGraphSchema.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/AIGraph/Private/AIGraphTypes.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/AIGraph/Public/AIGraphEditor.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/AddContentDialog/Private/ContentSourceProviders/FeaturePack/FeaturePackContentSource.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/AddContentDialog/Private/ContentSourceProviders/FeaturePack/FeaturePackContentSourceProvider.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/AnimGraph/Private/AnimGraphNode_AnimDynamics.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -540,6 +665,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/Persona/Public/SkeletonSelectionEditMode.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/PhysicsAssetEditor/PhysicsAssetEditor.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/PhysicsAssetEditor/Private/PhysicsAssetEditor.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/PhysicsAssetEditor/Private/PhysicsAssetEditorSkeletalMeshComponent.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/PropertyEditor/Private/DetailItemNode.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/PropertyEditor/Private/DetailLayoutBuilderImpl.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/PropertyEditor/Private/DetailLayoutHelpers.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -599,6 +725,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/SerializedRecorderInterface/Public/Serializers/MovieSceneLiveLinkSerialization.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/SkeletalMeshEditor/Public/SkeletalMeshEditorSubsystem.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/SkeletonEditor/Private/SkeletonTreeManager.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/SparseVolumeTexture/Private/OpenVDBGridAdapter.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/StatsViewer/Private/ActorArrayHyperlinkColumn.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/StatsViewer/Private/ObjectHyperlinkColumn.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/StatusBar/StatusBar.Build.cs" root0="FORCE_HIGHLIGHTING" />
@@ -614,6 +741,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UMGEditor/Private/Customizations/WidgetNavigationCustomization.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UMGEditor/Private/Settings/WidgetEditingProjectSettings.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UMGEditor/Private/UIComponentUtils.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UMGEditor/Private/WidgetBlueprintCompiler.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UMGEditor/Public/UIComponentUtils.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UMGEditor/Public/UIComponentWidgetBlueprintExtension.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UMGEditor/Public/WidgetBlueprint.h" root0="FORCE_HIGHLIGHTING" />
@@ -630,6 +758,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Classes/Commandlets/WorldPartitionConvertCommandlet.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Classes/Editor/AssetGuideline.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Classes/Editor/EditorEngine.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Classes/Editor/EditorPerProjectUserSettings.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Classes/Editor/PropertyEditorTestObject.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Classes/Editor/Transactor.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Classes/Exporters/RenderTargetExporterHDR.h" root0="FORCE_HIGHLIGHTING" />
@@ -766,9 +895,11 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Private/StaticMeshEdit.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Private/Subsystems/ActorEditorContextSubsystem.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Private/Subsystems/AssetEditorSubsystem.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Private/Subsystems/EditorActorSubsystem.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Private/Subsystems/PanelExtensionSubsystem.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Private/TargetDomain/TargetDomainUtils.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Private/Tests/FbxAutomationCommon.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Private/TexAlignTools.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Private/ThumbnailExternalCache.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Private/Toolkits/AssetEditorToolkit.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Private/Toolkits/GlobalEditorCommonCommands.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -790,6 +921,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Public/Editor.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Public/EditorAnalytics.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Public/EditorBuildUtils.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Public/EditorClassUtils.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Public/EditorModeManager.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Public/EditorReimportHandler.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Public/EditorState/EditorStateCollection.h" root0="FORCE_HIGHLIGHTING" />
@@ -824,6 +956,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Public/PlayInEditorDataTypes.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Public/SCSVImportOptions.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Public/SCommonEditorViewportToolbarBase.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Public/Selection.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Public/Serialization/FilePackageWriterUtil.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Public/ShaderStats.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/UnrealEd/Public/SourceCodeNavigation.h" root0="FORCE_HIGHLIGHTING" />
@@ -1027,8 +1160,10 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/CoreUObject/Public/UObject/NoExportTypes.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/CoreUObject/Public/UObject/Object.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/CoreUObject/Public/UObject/ObjectHandle.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/CoreUObject/Public/UObject/ObjectMacros.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/CoreUObject/Public/UObject/ObjectPtr.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/CoreUObject/Public/UObject/PrimaryAssetId.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/CoreUObject/Public/UObject/PropertyIterator.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/CoreUObject/Public/UObject/PropertyTag.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/CoreUObject/Public/UObject/PropertyText.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/CoreUObject/Public/UObject/PropertyWithSetterAndGetter.h" root0="FORCE_HIGHLIGHTING" />
@@ -1045,7 +1180,9 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/CoreUObject/Public/UObject/UObjectThreadContext.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/CoreUObject/Public/UObject/UnrealType.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/CoreUObject/Public/UObject/WeakFieldPtr.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/CoreUObject/Public/VerseVM/VVMVerseClass.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/CoreUObject/Public/VerseVM/VVMWeakKeyMapGuard.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/CoreUObject/Tests/ObjectPropertyTest.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/D3D12RHI/Private/D3D12ResourceCollection.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/AI/Navigation/AvoidanceManager.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/AI/Navigation/NavCollisionBase.h" root0="FORCE_HIGHLIGHTING" />
@@ -1165,10 +1302,12 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/MovieSceneTracks/Private/Tracks/MovieScenePropertyTrack.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/NavigationSystem/NavigationSystem.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/NavigationSystem/Public/NavNodeInterface.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/NavigationSystem/Public/NavigationOctree.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Navmesh/Private/Recast/RecastRasterization.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Navmesh/Public/DebugUtils/DebugDraw.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Navmesh/Public/Recast/RecastAssert.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Navmesh/Recast-Readme.txt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Net/Core/Public/Net/Core/Connection/NetCloseResult.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/NetworkReplayStreaming/NetworkReplayStreaming/NetworkReplayStreaming.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Online/BuildPatchServices/BuildPatchServices.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Online/ImageDownload/ImageDownload.Build.cs" root0="FORCE_HIGHLIGHTING" />
@@ -1243,6 +1382,7 @@
     <setting file="file://$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.SourceGenerator/Model/AccessiblePropertyInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.SourceGenerator/Utilities/PropertyAccessUtilities.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/GameDataAccessTools/Source/GameDataAccessTools/GameDataAccessTools.Build.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Plugins/TurnBasedGameplay/Intermediate/Build/Win64/UnrealEditor/Inc/TurnBasedCore/UHT/TurnBasedUnit.gen.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Public/TurnBasedCore.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/TurnBasedGameplay/TurnBasedGameplay.uplugin" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp.Core/Attributes/GeneratedType.cs" root0="SKIP_HIGHLIGHTING" />
@@ -1301,22 +1441,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;Uproject.TurnBasedFramework.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;SolutionBuilderGeneralOptionsPage&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "Uproject.TurnBasedFramework.executor": "Run",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "SolutionBuilderGeneralOptionsPage",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="TurnBasedFramework" type="Uproject" factoryName="rider.uproject">
       <configuration_1 setup="1">
@@ -1487,7 +1627,7 @@
       <workItem from="1755823811322" duration="3079000" />
       <workItem from="1755870569377" duration="10902000" />
       <workItem from="1755989576747" duration="2857000" />
-      <workItem from="1756046564082" duration="11268000" />
+      <workItem from="1756046564082" duration="16347000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed a missing with editor define">
       <option name="closed" value="true" />
@@ -1673,7 +1813,15 @@
       <option name="project" value="LOCAL" />
       <updated>1756048577297</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Created the basic outline of how characters are constructed">
+      <option name="closed" value="true" />
+      <created>1756066571871</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1756066571871</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1716,7 +1864,8 @@
     <MESSAGE value="Fixed an issue with missing parameter attributes on generated async code" />
     <MESSAGE value="Added the async loading capabilities for both C# and Blueprints" />
     <MESSAGE value="Removed the legacy turn-based core code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed the legacy turn-based core code" />
+    <MESSAGE value="Created the basic outline of how characters are constructed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created the basic outline of how characters are constructed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1733,11 +1882,6 @@
           <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
           <option name="timeStamp" value="3" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpAsync/Public/CSAsyncLoadSoftObjectPtr.h</url>
-          <line>2</line>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

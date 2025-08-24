@@ -4,6 +4,8 @@
 #include "TurnBasedUnit.h"
 
 #include "Interop/TurnBasedManagedCallbacks.h"
+#include "Misc/DataValidation.h"
+#include "UObject/PropertyIterator.h"
 
 void FManagedInitializerDelegate::Invoke(UTurnBasedUnit* Unit) const
 {
@@ -17,31 +19,82 @@ bool UTurnBasedUnit::TryGetComponent(const TSubclassOf<UTurnBasedUnitComponent> 
     return OutComponent != nullptr;   
 }
 
-void UTurnBasedUnit::InitializeComponents()
+// ReSharper disable once CppMemberFunctionMayBeConst
+void UTurnBasedUnit::RegisterNewComponent(UTurnBasedUnitComponent* Component)
 {
-    for (auto &Component : AdditionalComponents)
+    checkf(!ComponentCache.Contains(Component->GetClass()), TEXT("Component %s already registered"), *Component->GetClass()->GetName());
+    Component->InitializeComponent(this);
+    ComponentCache.Add(Component->GetClass(), Component);
+}
+
+#if WITH_EDITOR
+EDataValidationResult UTurnBasedUnit::IsDataValid(FDataValidationContext& Context) const
+{
+    TSet<TSubclassOf<UTurnBasedUnitComponent>> FoundComponents;
+    for (auto [Property, Address] : TPropertyValueRange<FObjectProperty>(GetClass(), this, EPropertyValueIteratorFlags::NoRecursion)) 
     {
-        ComponentCache.Add(Component->GetClass(), Component);
+        if (FoundComponents.Contains(Property->PropertyClass))
+        {
+            Context.AddError(FText::Format(
+                NSLOCTEXT("TurnBasedCore", "DuplicateProperty", "Property {0} is of type {1}, which is already used by another property"),
+                FText::FromString(Property->GetName()),
+                FText::FromString(Property->PropertyClass->GetName())));
+        }
+        
+        if (const auto Component = Property->GetObjectPropertyValue(Address); Component == nullptr)
+        {
+            Context.AddError(FText::Format(NSLOCTEXT("TurnBasedCore", "NullComponentField", "Property {0} is set to null"), FText::FromString(Property->GetName())));
+        }
+
+        FoundComponents.Add(Property->PropertyClass);
     }
 
-    for (auto &[Class, Component] : ComponentCache)
+    for (auto &Component : AdditionalComponents)
+    {
+        if (Component == nullptr)
+        {
+            Context.AddError(NSLOCTEXT("TurnBasedCore", "NullComponentAdditionalProperty", "Found a null element in the Additional Components array"));
+        }
+        else
+        {
+            if (FoundComponents.Contains(Component->GetClass()))
+            {
+                Context.AddError(FText::Format(
+                    NSLOCTEXT("TurnBasedCore", "DuplicateProperty", "There is already a component of type {0} on this actor"),
+                    FText::FromString(Component->GetClass()->GetName())));
+            }
+        }
+    }
+    
+    return UObject::IsDataValid(Context);
+}
+#endif
+
+void UTurnBasedUnit::InitializeComponents()
+{
+    NativeInitializeComponents();
+    K2_InitializeComponents();
+    
+    for (auto &Component : AdditionalComponents)
     {
         Component->InitializeComponent(this);
+        ComponentCache.Add(Component->GetClass(), Component);
     }
 }
 
-UTurnBasedUnitComponent* UTurnBasedUnit::RegisterNewComponentInternal(const TSubclassOf<UTurnBasedUnitComponent> ComponentClass)
+bool UTurnBasedUnit::RegisterNewComponentInternal(UTurnBasedUnitComponent* Component)
 {
-    if (ComponentCache.Contains(ComponentClass))
+    if (ComponentCache.Contains(Component->GetClass()))
     {
-        return nullptr;
+        return false;
     }
     
-    return RegisterNewComponent(ComponentClass);
+    RegisterNewComponent(Component);
+    return true;
 }
 
 UTurnBasedUnit* UTurnBasedUnit::Create(UObject* Outer, const TSubclassOf<UTurnBasedUnit> ComponentClass,
-    const FManagedInitializerDelegate ManagedInitializer)
+                                       const FManagedInitializerDelegate ManagedInitializer)
 {
     FScopedGCHandle Scope(ManagedInitializer.ManagedDelegate);
     return Create(Outer, ComponentClass, [ManagedInitializer](UTurnBasedUnit& Unit)
