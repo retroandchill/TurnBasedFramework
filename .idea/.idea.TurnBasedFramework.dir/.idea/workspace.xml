@@ -7,16 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa1e9cdd-86d7-4878-ad99-f01b0434e94b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedUI/Script/TurnBasedUI.Glue/TurnBasedUI.Glue.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/TurnBasedUI/Script/TurnBasedUI.Glue/TurnBasedUI.Glue.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedUI/Source/TurnBasedUI/Private/TurnBasedUIExtensions.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/TurnBasedUI/Source/TurnBasedUI/Private/TurnBasedUIExtensions.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedUI/Source/TurnBasedUI/Public/PrimaryGameLayout.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/TurnBasedUI/Source/TurnBasedUI/Public/PrimaryGameLayout.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedUI/Source/TurnBasedUI/Public/TurnBasedUIExtensions.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/TurnBasedUI/Source/TurnBasedUI/Public/TurnBasedUIExtensions.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedUI/Source/TurnBasedUI/TurnBasedUI.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/TurnBasedUI/Source/TurnBasedUI/TurnBasedUI.Build.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/ManagedTurnBasedFramework.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Script/ManagedTurnBasedFramework.sln" afterDir="false" />
-    </list>
+    <list default="true" id="aa1e9cdd-86d7-4878-ad99-f01b0434e94b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -218,6 +209,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/BlueprintGraph/Private/BlueprintActionFilterResultCache.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/BlueprintGraph/Private/EdGraphSchema_K2.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/BlueprintGraph/Private/K2Node.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/BlueprintGraph/Private/K2Node_BaseAsyncTask.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/BlueprintGraph/Private/K2Node_GetSubsystem.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/BlueprintGraph/Private/K2Node_VariableGet.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Editor/BlueprintGraph/Private/Tests/TypePromotionTests.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -1044,6 +1036,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/Engine/AssetManagerTypes.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/Engine/Blueprint.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/Engine/BlueprintGeneratedClass.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/Engine/CancellableAsyncAction.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/Engine/CollisionProfile.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/Engine/DataAsset.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/Engine/DataTable.h" root0="FORCE_HIGHLIGHTING" />
@@ -1227,6 +1220,12 @@
     <setting file="file://$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.SourceGenerator/Model/AccessiblePropertyInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.SourceGenerator/Utilities/PropertyAccessUtilities.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/GameDataAccessTools/Source/GameDataAccessTools/GameDataAccessTools.Build.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/TurnBasedUI/Script/TurnBasedUI.Glue/Extensions/AsyncLoadUtilities.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/TurnBasedUI/Script/TurnBasedUI.Glue/Extensions/CSPushWidgetToLayerAsync.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/TurnBasedUI/Script/TurnBasedUI/Properties/launchSettings.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/TurnBasedUI/Script/TurnBasedUI/TurnBasedUI.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/TurnBasedUI/Script/TurnBasedUI/WidgetLayerExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/TurnBasedUI/Source/TurnBasedUI/Private/Actions/CSPushWidgetToLayerAsync.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp.Core/Attributes/GeneratedType.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp.Plugins/PluginLoadContext.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp.SourceGenerators/AsyncWrapperGenerator.cs" root0="SKIP_HIGHLIGHTING" />
@@ -1472,7 +1471,7 @@
       <workItem from="1755807290610" duration="1152000" />
       <workItem from="1755823811322" duration="3079000" />
       <workItem from="1755870569377" duration="10902000" />
-      <workItem from="1755989576747" duration="1371000" />
+      <workItem from="1755989576747" duration="2857000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed a missing with editor define">
       <option name="closed" value="true" />
@@ -1642,7 +1641,15 @@
       <option name="project" value="LOCAL" />
       <updated>1755981469071</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Added the async loading capabilities for both C# and Blueprints">
+      <option name="closed" value="true" />
+      <created>1755992398483</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1755992398483</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1658,6 +1665,13 @@
             <State>
               <option name="FILTERS">
                 <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
                   <entry key="roots">
                     <value>
                       <list>
@@ -1695,7 +1709,8 @@
     <MESSAGE value="Added a test for the exp formulas" />
     <MESSAGE value="Added the basic scaffolding of the UI for the project" />
     <MESSAGE value="Fixed an issue with missing parameter attributes on generated async code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed an issue with missing parameter attributes on generated async code" />
+    <MESSAGE value="Added the async loading capabilities for both C# and Blueprints" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added the async loading capabilities for both C# and Blueprints" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

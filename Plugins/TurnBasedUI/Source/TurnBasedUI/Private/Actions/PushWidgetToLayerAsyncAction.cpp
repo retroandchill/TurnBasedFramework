@@ -49,7 +49,7 @@ void UPushWidgetToLayerAsyncAction::Activate()
                 switch (State)
                 {
                 case EAsyncWidgetLayerState::Initialize:
-                    UE_LOG(LogTurnBasedUI, Log, TEXT("UPushWidgetToLayerAsyncAction::PushWidgetToLayerStackAsync: Initialize"));
+                    ConfigureWidget.Broadcast(Widget);
                     break;
                 case EAsyncWidgetLayerState::AfterPush:
                     OnComplete.Broadcast(Widget);

@@ -32,7 +32,7 @@ void UCSPushWidgetToLayerAsync::PushWidgetToLayerStack(const APlayerController* 
             switch (State)
             {
             case EAsyncWidgetLayerState::Initialize:
-                UE_LOG(LogTurnBasedUI, Log, TEXT("CSPushWidgetToLayerAsync::PushWidgetToLayerStackAsync: Initialize"));
+                OnAsyncLoadComplete(EAsyncLoadSuccessState::BeforePush, Widget, false);
                 break;
             case EAsyncWidgetLayerState::Canceled:
                 OnAsyncLoadComplete(EAsyncLoadSuccessState::Cancelled);
@@ -62,9 +62,9 @@ void UCSPushWidgetToLayerAsync::Cancel()
     OnAsyncLoadComplete(EAsyncLoadSuccessState::Cancelled);
 }
 
-void UCSPushWidgetToLayerAsync::OnAsyncLoadComplete(const EAsyncLoadSuccessState InState, UCommonActivatableWidget* InWidget)
+void UCSPushWidgetToLayerAsync::OnAsyncLoadComplete(const EAsyncLoadSuccessState InState, UCommonActivatableWidget* InWidget, const bool bDispose)
 {
     State = InState;
     Widget = InWidget;
-    InvokeManagedCallback();
+    InvokeManagedCallback(bDispose);
 }

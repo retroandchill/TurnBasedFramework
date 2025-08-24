@@ -16,6 +16,7 @@ enum class EAsyncLoadSuccessState : uint8
     InProgress,
     NoSuchLayer,
     Cancelled,
+    BeforePush,
     Success
 };
 
@@ -39,7 +40,7 @@ public:
     void Cancel();
     
 protected:
-    void OnAsyncLoadComplete(EAsyncLoadSuccessState InState, UCommonActivatableWidget* InWidget = nullptr);
+    void OnAsyncLoadComplete(EAsyncLoadSuccessState InState, UCommonActivatableWidget* InWidget = nullptr, bool bDispose = true);
 
 private:
     UPROPERTY()

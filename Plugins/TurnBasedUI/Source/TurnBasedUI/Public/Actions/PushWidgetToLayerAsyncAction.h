@@ -28,6 +28,9 @@ public:
 
 private:
     UPROPERTY(BlueprintAssignable)
+    FPushContentToLayerAsyncDelegate ConfigureWidget;
+    
+    UPROPERTY(BlueprintAssignable)
     FPushContentToLayerAsyncDelegate OnComplete;
 
     FGameplayTag LayerName;

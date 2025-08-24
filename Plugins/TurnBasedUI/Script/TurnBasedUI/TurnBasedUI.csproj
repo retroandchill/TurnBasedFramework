@@ -21,7 +21,4 @@
   <ItemGroup>
     <ProjectReference Include="..\TurnBasedUI.Glue\TurnBasedUI.Glue.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Async\" />
-  </ItemGroup>
 </Project>
