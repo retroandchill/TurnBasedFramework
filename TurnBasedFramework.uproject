@@ -10,11 +10,6 @@
 			"LoadingPhase": "Default"
 		},
 		{
-			"Name": "TurnBasedCore",
-			"Type": "Runtime",
-			"LoadingPhase": "Default"
-		},
-		{
 			"Name": "PokemonEditorTools",
 			"Type": "Editor",
 			"LoadingPhase": "Default"

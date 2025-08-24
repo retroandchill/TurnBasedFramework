@@ -5,8 +5,8 @@ using UnrealBuildTool;
 
 public class TurnBasedFrameworkTarget : TargetRules
 {
-    public TurnBasedFrameworkTarget(TargetInfo Target)
-        : base(Target)
+    public TurnBasedFrameworkTarget(TargetInfo target)
+        : base(target)
     {
         Type = TargetType.Game;
         DefaultBuildSettings = BuildSettingsVersion.V5;
@@ -17,6 +17,6 @@ public class TurnBasedFrameworkTarget : TargetRules
 
     private void RegisterModulesCreatedByRider()
     {
-        ExtraModuleNames.AddRange(new string[] { "TurnBasedCore", "PokemonEditorTools" });
+        ExtraModuleNames.AddRange(["PokemonEditorTools"]);
     }
 }
