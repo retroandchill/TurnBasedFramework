@@ -3,27 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "CSManagedGCHandle.h"
 #include "TurnBasedUnitComponent.h"
 #include "UObject/Object.h"
 #include "TurnBasedUnit.generated.h"
-
-template <typename T, typename... A>
-concept InitializableUnit = std::derived_from<T, UTurnBasedUnit> && requires(T* Unit, A&&... Args)
-{
-    Unit->Initialize(std::forward<A>(Args)...);
-};
-
-USTRUCT(BlueprintType, meta=(InternalType))
-struct FManagedInitializerDelegate
-{
-    GENERATED_BODY()
-
-    FGCHandleIntPtr ManagedDelegate;
-
-    void Invoke(UTurnBasedUnit* Unit) const;
-};
-
 
 /**
  * 
@@ -34,27 +16,6 @@ class TURNBASEDCORE_API UTurnBasedUnit : public UObject
     GENERATED_BODY()
 
 public:
-    template <std::derived_from<UTurnBasedUnit> T, typename... A>
-        requires InitializableUnit<T, A...>
-    static T* Create(UObject* Outer, TSubclassOf<T> UnitClass, A&&... Args)
-    {
-        return Create<T>(Outer, UnitClass, [Args...](T& Unit)
-        {
-            Unit.Initialize(std::forward<A>(Args)...);
-        });
-    }
-
-    template <std::derived_from<UTurnBasedUnit> T, std::invocable<T&> Functor>
-    static T* Create(UObject* Outer, TSubclassOf<T> UnitClass, Functor&& Initialize)
-    {
-        auto Unit = NewObject<T>(Outer, UnitClass);
-        Forward<Functor>(Initialize)(*Unit);
-        Unit->InitializeComponents();
-        Unit->PostInitializeComponents();
-        Unit->K2_PostInitializeComponents();
-        return Unit;
-    }
-    
     template <std::derived_from<UTurnBasedUnitComponent> T = UTurnBasedUnitComponent>
     T* GetComponent() const
     {
@@ -93,30 +54,13 @@ protected:
         // No implementation here
     }
 
-    UFUNCTION(BlueprintImplementableEvent, Category = "Components", meta = (ScriptName = "PostInitializeComponents"))
-    void K2_PostInitializeComponents();
-
-    virtual void NativeInitializeComponents()
-    {
-        // No implementation here
-    }
-
-    UFUNCTION(BlueprintImplementableEvent, Category = "Components", meta = (ScriptName = "InitializeComponents"))
-    void K2_InitializeComponents();
-
 #if WITH_EDITOR
     EDataValidationResult IsDataValid(FDataValidationContext& Context) const override;
 #endif
 
 private:
-    void InitializeComponents();
-    
     UFUNCTION(meta = (ScriptMethod))
     bool RegisterNewComponentInternal(UTurnBasedUnitComponent* Component);
-
-    UFUNCTION(meta = (DeterminesOutputType = "ComponentClass", DynamicOutputParam = "ReturnValue", ScriptMethod))
-    static UTurnBasedUnit* Create(UObject* Outer, TSubclassOf<UTurnBasedUnit> ComponentClass,
-        FManagedInitializerDelegate ManagedInitializer);
     
     UPROPERTY(EditAnywhere, Instanced, Category = "Components")
     TArray<TObjectPtr<UTurnBasedUnitComponent>> AdditionalComponents;

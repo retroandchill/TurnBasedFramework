@@ -9,7 +9,7 @@ public class TurnBasedCore : ModuleRules
         PublicDependencyModuleNames.AddRange(
             new string[]
             {
-                "Core", "UnrealSharpCore",
+                "Core", "UnrealSharpCore", "CommonUtilities", "CoreUObject",
             }
         );
 

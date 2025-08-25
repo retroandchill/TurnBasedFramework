@@ -1,0 +1,12 @@
+﻿{
+    "Structs": {
+        "BlittableTypes": [
+        ],
+        "NativelyTranslatableTypes": [
+            {
+                "Name": "FInstancedStruct",
+                "HasDestructor": true
+            }
+        ]
+    }
+}

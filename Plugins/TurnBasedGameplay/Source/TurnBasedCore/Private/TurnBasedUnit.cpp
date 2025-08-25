@@ -3,14 +3,7 @@
 
 #include "TurnBasedUnit.h"
 
-#include "Interop/TurnBasedManagedCallbacks.h"
 #include "Misc/DataValidation.h"
-#include "UObject/PropertyIterator.h"
-
-void FManagedInitializerDelegate::Invoke(UTurnBasedUnit* Unit) const
-{
-    FTurnBasedManagedCallbacks::Get().ManagedInitialize(ManagedDelegate, Unit);
-}
 
 bool UTurnBasedUnit::TryGetComponent(const TSubclassOf<UTurnBasedUnitComponent> ComponentClass,
                                      UTurnBasedUnitComponent*& OutComponent) const
@@ -23,7 +16,6 @@ bool UTurnBasedUnit::TryGetComponent(const TSubclassOf<UTurnBasedUnitComponent> 
 void UTurnBasedUnit::RegisterNewComponent(UTurnBasedUnitComponent* Component)
 {
     checkf(!ComponentCache.Contains(Component->GetClass()), TEXT("Component %s already registered"), *Component->GetClass()->GetName());
-    Component->InitializeComponent(this);
     ComponentCache.Add(Component->GetClass(), Component);
 }
 
@@ -70,18 +62,6 @@ EDataValidationResult UTurnBasedUnit::IsDataValid(FDataValidationContext& Contex
 }
 #endif
 
-void UTurnBasedUnit::InitializeComponents()
-{
-    NativeInitializeComponents();
-    K2_InitializeComponents();
-    
-    for (auto &Component : AdditionalComponents)
-    {
-        Component->InitializeComponent(this);
-        ComponentCache.Add(Component->GetClass(), Component);
-    }
-}
-
 bool UTurnBasedUnit::RegisterNewComponentInternal(UTurnBasedUnitComponent* Component)
 {
     if (ComponentCache.Contains(Component->GetClass()))
@@ -91,14 +71,4 @@ bool UTurnBasedUnit::RegisterNewComponentInternal(UTurnBasedUnitComponent* Compo
     
     RegisterNewComponent(Component);
     return true;
-}
-
-UTurnBasedUnit* UTurnBasedUnit::Create(UObject* Outer, const TSubclassOf<UTurnBasedUnit> ComponentClass,
-                                       const FManagedInitializerDelegate ManagedInitializer)
-{
-    FScopedGCHandle Scope(ManagedInitializer.ManagedDelegate);
-    return Create(Outer, ComponentClass, [ManagedInitializer](UTurnBasedUnit& Unit)
-    {
-        ManagedInitializer.Invoke(&Unit);
-    });
 }

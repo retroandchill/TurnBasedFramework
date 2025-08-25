@@ -16,21 +16,7 @@ class TURNBASEDCORE_API UTurnBasedUnitComponent : public UObject
     GENERATED_BODY()
 
 public:
-    void InitializeComponent(UTurnBasedUnit* Unit);
-
-    UFUNCTION(BlueprintPure, BlueprintInternalUseOnly)
-    UTurnBasedUnit* GetOwner() const
-    {
-        return Owner;
-    }
-
-protected:
-    virtual void NativeInitialize();
-
-    UFUNCTION(BlueprintImplementableEvent, Category = "Lifecycle", meta = (ScriptName = "Initialize"))
-    void K2_Initialize();
-
-private:
-    UPROPERTY(BlueprintGetter = GetOwner, Category = "Ownership")
-    TObjectPtr<UTurnBasedUnit> Owner;
+    UFUNCTION(BlueprintPure, Category = "Component")
+    UTurnBasedUnit* GetOwningUnit() const;
+    
 };

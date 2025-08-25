@@ -3,14 +3,9 @@
 
 #include "TurnBasedUnitComponent.h"
 
-void UTurnBasedUnitComponent::InitializeComponent(UTurnBasedUnit* Unit)
-{
-    Owner = Unit;
-    NativeInitialize();
-    K2_Initialize();   
-}
+#include "TurnBasedUnit.h"
 
-void UTurnBasedUnitComponent::NativeInitialize()
+UTurnBasedUnit* UTurnBasedUnitComponent::GetOwningUnit() const
 {
-    // No baseline implementation
+    return CastChecked<UTurnBasedUnit>(GetOuter());
 }

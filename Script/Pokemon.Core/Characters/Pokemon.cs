@@ -9,9 +9,4 @@ public class UPokemon : UTurnBasedUnit
 {
     [UProperty(PropertyFlags.EditDefaultsOnly | PropertyFlags.BlueprintReadOnly | PropertyFlags.Instanced, Category = "Components")]
     public UStatComponent Stats { get; }
-    
-    protected override void InitializeComponents()
-    {
-        RegisterNewComponent(Stats);
-    }
 }
