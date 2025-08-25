@@ -3,9 +3,34 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "TurnBasedUnitComponent.h"
 #include "UObject/Object.h"
 #include "TurnBasedUnit.generated.h"
+
+class UTurnBasedUnit;
+/**
+ * 
+ */
+UCLASS(Abstract, EditInlineNew)
+class TURNBASEDCORE_API UTurnBasedUnitComponent : public UObject
+{
+    GENERATED_BODY()
+
+public:
+    UFUNCTION(BlueprintPure, Category = "Component")
+    UTurnBasedUnit* GetOwningUnit() const;
+
+    template <std::derived_from<UTurnBasedUnitComponent> T = UTurnBasedUnitComponent>
+    UTurnBasedUnitComponent* GetSiblingComponent() const
+    {
+        return GetSiblingComponent<T>(T::StaticClass());
+    }
+
+    template <std::derived_from<UTurnBasedUnitComponent> T = UTurnBasedUnitComponent>
+    UTurnBasedUnitComponent* GetSiblingComponent(TSubclassOf<T> ComponentClass) const;
+
+    UFUNCTION(BlueprintCallable, DisplayName = "Get Sibling Component", Category = "Components", meta = (ScriptName = "TryGetSiblingComponent", DeterminesOutputType = "ComponentClass", DynamicOutputParam = "OutComponent"))
+    bool TryGetSiblingComponent(TSubclassOf<UTurnBasedUnitComponent> ComponentClass, UTurnBasedUnitComponent*& OutComponent) const;
+};
 
 /**
  * 
@@ -31,7 +56,7 @@ public:
             return CastChecked<T>(*Cached);
         }
 
-        for (auto& Component : AdditionalComponents)
+        for (auto& Component : Components)
         {
             if (Component->IsA(ComponentClass))
             {
@@ -54,16 +79,18 @@ protected:
         // No implementation here
     }
 
-#if WITH_EDITOR
-    EDataValidationResult IsDataValid(FDataValidationContext& Context) const override;
-#endif
-
 private:
     UFUNCTION(meta = (ScriptMethod))
     bool RegisterNewComponentInternal(UTurnBasedUnitComponent* Component);
     
-    UPROPERTY(EditAnywhere, Instanced, Category = "Components")
-    TArray<TObjectPtr<UTurnBasedUnitComponent>> AdditionalComponents;
+    UPROPERTY()
+    TArray<TObjectPtr<UTurnBasedUnitComponent>> Components;
 
     mutable TMap<TSubclassOf<UTurnBasedUnitComponent>, TObjectPtr<UTurnBasedUnitComponent>> ComponentCache;
 };
+
+template <std::derived_from<UTurnBasedUnitComponent> T>
+UTurnBasedUnitComponent* UTurnBasedUnitComponent::GetSiblingComponent(TSubclassOf<T> ComponentClass) const
+{
+    return GetOwningUnit()->GetComponent<T>(ComponentClass);   
+}
