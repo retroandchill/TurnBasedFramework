@@ -128,13 +128,7 @@ public static class PropertyAccessUtilities
                         );
                 }
 
-                return typeSymbol.AllInterfaces.Any(i =>
-                    i.IsGenericType
-                    && i.ToDisplayString()
-                        == $"UnrealSharp.MarshalledStruct<{typeSymbol.ToDisplayString()}>"
-                )
-                    ? new MarshallerInfo($"StructMarshaller<{typeSymbol.ToDisplayString()}>")
-                    : new MarshallerInfo($"CSharpStructMarshaller<{typeSymbol.ToDisplayString()}>");
+                return new MarshallerInfo($"StructMarshaller<{typeSymbol.ToDisplayString()}>");
             }
         }
     }

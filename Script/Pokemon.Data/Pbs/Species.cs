@@ -12,7 +12,7 @@ using UnrealSharp.GameplayTags;
 namespace Pokemon.Data.Pbs;
 
 [UStruct]
-public readonly struct FLevelUpMove
+public readonly partial struct FLevelUpMove
 {
     [UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)]
     private readonly bool _evolutionMove;
@@ -65,7 +65,7 @@ public readonly struct FLevelUpMove
 }
 
 [UStruct]
-public readonly struct FEvolutionCondition
+public readonly partial struct FEvolutionCondition
 {
     [field: UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)]
     [field: Categories(USpecies.TagCategory)]

@@ -10,7 +10,7 @@ using UnrealSharp.TurnBasedCore;
 namespace Pokemon.Core.Characters.Components;
 
 [UStruct]
-public readonly record struct FStatData
+public readonly partial record struct FStatData
 {
     [field: UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)]
     [field: ClampMin("0")]
@@ -30,13 +30,14 @@ public readonly record struct FStatData
     public int EV { get; init; }
 }
 
-public readonly record struct FStatEntry(
+[UStruct]
+public readonly partial record struct FStatEntry(
     [field: UProperty(PropertyFlags.BlueprintReadOnly)] int CurrentValue,
     [field: UProperty(PropertyFlags.BlueprintReadOnly)] FStatData Data
 );
 
 [UStruct]
-public readonly record struct FStatChange(
+public readonly partial record struct FStatChange(
     [field: UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)] int Before,
     [field: UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)] int After
 )
@@ -45,13 +46,13 @@ public readonly record struct FStatChange(
 }
 
 [UStruct]
-public readonly record struct FExpPercentChange(
+public readonly partial record struct FExpPercentChange(
     [field: UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)] float Before,
     [field: UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)] float After
 );
 
 [UStruct]
-public readonly record struct FLevelUpStatChanges(
+public readonly partial record struct FLevelUpStatChanges(
     [field: UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)]
         FStatChange LevelChange,
     [field: UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)]

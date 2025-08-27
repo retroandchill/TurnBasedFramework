@@ -13,7 +13,7 @@ namespace TurnBased.Core;
 /// This enumeration is used to indicate whether a specific component was found on the given unit.
 /// </remarks>
 [UEnum]
-public enum EComponentFindResult : byte
+public enum EValueFindResult : byte
 {
     /// <summary>
     /// The component was found.
@@ -42,21 +42,21 @@ public class UTurnBasedUnitExtensions : UBlueprintFunctionLibrary
     /// If the component is found, this will hold the reference to the found component. If not found, it will be set to null.
     /// </param>
     /// <returns>
-    /// An <see cref="EComponentFindResult"/> indicating whether the component was found or not.
+    /// An <see cref="EValueFindResult"/> indicating whether the component was found or not.
     /// </returns>
     [UFunction(FunctionFlags.BlueprintCallable, Category = "Component")]
     [ExpandEnumAsExecs("ReturnValue")]
     [DeterminesOutputType("componentClass")]
     [UMetaData("DynamicOutputParam", "component")]
     [UMetaData("DefaultToSelf", "unit")]
-    public static EComponentFindResult GetComponent(
+    public static EValueFindResult GetComponent(
         UTurnBasedUnit unit,
         TSubclassOf<UTurnBasedUnitComponent> componentClass,
         out UTurnBasedUnitComponent? component
     )
     {
         return unit.TryGetComponent(componentClass, out component)
-            ? EComponentFindResult.Found
-            : EComponentFindResult.NotFound;
+            ? EValueFindResult.Found
+            : EValueFindResult.NotFound;
     }
 }

@@ -20,6 +20,15 @@ public record UPropertyInfo(
 )
 {
     [UsedImplicitly]
+    public bool IsOptionType => OptionType is not null;
+    
+    [UsedImplicitly]
+    public ITypeSymbol? OptionType => Type is INamedTypeSymbol
+    {
+        IsGenericType: true, ContainingNamespace.Name: "LanguageExt", MetadataName: "Option`1"
+    } optionType ? optionType.TypeArguments[0] : null;
+    
+    [UsedImplicitly]
     public bool HasGetter => Getter.HasValue;
 
     [UsedImplicitly]
