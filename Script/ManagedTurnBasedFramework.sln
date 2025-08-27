@@ -59,6 +59,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnrealSharp.Test.Utils", ".
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnrealSharpTest.Glue", "..\Plugins\UnrealSharpTest\Script\UnrealSharpTest.Glue\UnrealSharpTest.Glue.csproj", "{06A0B05C-6CB5-43E1-BA4B-AD8616B8F62D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TurnBased.SourceGenerator", "..\Plugins\TurnBasedGameplay\Script\TurnBased.SourceGenerator\TurnBased.SourceGenerator.csproj", "{C7C17A16-FF46-4D01-96E3-46889CEACEEA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -309,6 +311,18 @@ Global
 		{06A0B05C-6CB5-43E1-BA4B-AD8616B8F62D}.Release|x64.Build.0 = Release|Any CPU
 		{06A0B05C-6CB5-43E1-BA4B-AD8616B8F62D}.Release|x86.ActiveCfg = Release|Any CPU
 		{06A0B05C-6CB5-43E1-BA4B-AD8616B8F62D}.Release|x86.Build.0 = Release|Any CPU
+		{C7C17A16-FF46-4D01-96E3-46889CEACEEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7C17A16-FF46-4D01-96E3-46889CEACEEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7C17A16-FF46-4D01-96E3-46889CEACEEA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C7C17A16-FF46-4D01-96E3-46889CEACEEA}.Debug|x64.Build.0 = Debug|Any CPU
+		{C7C17A16-FF46-4D01-96E3-46889CEACEEA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C7C17A16-FF46-4D01-96E3-46889CEACEEA}.Debug|x86.Build.0 = Debug|Any CPU
+		{C7C17A16-FF46-4D01-96E3-46889CEACEEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7C17A16-FF46-4D01-96E3-46889CEACEEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7C17A16-FF46-4D01-96E3-46889CEACEEA}.Release|x64.ActiveCfg = Release|Any CPU
+		{C7C17A16-FF46-4D01-96E3-46889CEACEEA}.Release|x64.Build.0 = Release|Any CPU
+		{C7C17A16-FF46-4D01-96E3-46889CEACEEA}.Release|x86.ActiveCfg = Release|Any CPU
+		{C7C17A16-FF46-4D01-96E3-46889CEACEEA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -340,5 +354,6 @@ Global
 		{FE3CAD2A-DE26-483D-AEC0-B1D973451014} = {4F682FB3-5620-D857-DD75-B299D5E69AA1}
 		{20E76B12-8BC8-4971-B2AD-EEE29077FCB4} = {4F682FB3-5620-D857-DD75-B299D5E69AA1}
 		{06A0B05C-6CB5-43E1-BA4B-AD8616B8F62D} = {4F682FB3-5620-D857-DD75-B299D5E69AA1}
+		{C7C17A16-FF46-4D01-96E3-46889CEACEEA} = {E6561BC6-926A-4557-2070-28E38F5B00AC}
 	EndGlobalSection
 EndGlobal

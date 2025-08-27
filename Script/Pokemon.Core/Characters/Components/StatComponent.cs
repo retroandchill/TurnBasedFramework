@@ -13,20 +13,20 @@ namespace Pokemon.Core.Characters.Components;
 public readonly record struct FStatData
 {
     [field: UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)]
-    [ClampMin("0")]
-    [UIMin("0")]
-    [ClampMax("31")]
-    [UIMax("31")]
+    [field: ClampMin("0")]
+    [field: UIMin("0")]
+    [field: ClampMax("31")]
+    [field: UIMax("31")]
     public int IV { get; init; }
 
     [field: UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)]
     public bool IVMaxed { get; init; }
     
     [field: UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)]
-    [ClampMin("0")]
-    [UIMin("0")]
-    [ClampMax("252")]
-    [UIMax("252")]
+    [field: ClampMin("0")]
+    [field: UIMin("0")]
+    [field: ClampMax("252")]
+    [field: UIMax("252")]
     public int EV { get; init; }
 }
 
@@ -35,6 +35,32 @@ public readonly record struct FStatEntry(
     int CurrentValue,
     [field: UProperty(PropertyFlags.BlueprintReadOnly)]
     FStatData Data);
+
+[UStruct]
+public readonly record struct FStatChange(
+    [field: UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)]
+    int Before,
+    [field: UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)]
+    int After)
+{
+    public int Difference => After - Before;
+}
+
+[UStruct]
+public readonly record struct FExpPercentChange(
+    [field: UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)]
+    float Before,
+    [field: UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)]
+    float After);
+
+[UStruct]
+public readonly record struct FLevelUpStatChanges(
+    [field: UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)]
+    FStatChange LevelChange,
+    [field: UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)]
+    FExpPercentChange ExpPercentChange,
+    [field: UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)]
+    IReadOnlyDictionary<FGameplayTag, FStatChange> StatChanges);
 
 
 [UClass]
@@ -50,8 +76,35 @@ public class UStatComponent : UTurnBasedUnitComponent
     [UProperty(PropertyFlags.BlueprintReadOnly, Category = "Stats")]
     public int Level { get; private set; }
 
-    [UProperty(PropertyFlags.BlueprintReadOnly, Category = "Stats")]
+    [UProperty(PropertyFlags.BlueprintReadOnly, Category = "Exp")]
     public int Exp { get; private set; }
+
+    public int ExpForNextLevel
+    {
+        [method: UFunction(FunctionFlags.BlueprintPure, Category = "Exp")]
+        get
+        {
+            if (Level == UGrowthRate.MaxLevel) return 0;
+            
+            return GetGameInstanceSubsystem<UPokemonSubsystem>()
+                .GetExpGrowthFormula(Pokemon.SpeciesData.GrowthRate)
+                .GetMinimumExpForLevel(Level + 1);
+        }
+    }
+    
+    public float ExpPercent
+    {
+        [method: UFunction(FunctionFlags.BlueprintPure, Category = "Exp")]
+        get
+        {
+            if (Level == UGrowthRate.MaxLevel) return 0.0f;
+
+            var growthRate = GetGameInstanceSubsystem<UPokemonSubsystem>().GetExpGrowthFormula(Pokemon.SpeciesData.GrowthRate);
+            var expNeededForLevel = growthRate.GetMinimumExpForLevel(Level);
+            var totalNeededForLevel = growthRate.GetMinimumExpForLevel(Level + 1);
+            return (float) (Exp - expNeededForLevel) / totalNeededForLevel;
+        }
+    }
     
     [UProperty]
     private IDictionary<FGameplayTag, FStatEntry> Stats { get; }
@@ -149,5 +202,37 @@ public class UStatComponent : UTurnBasedUnitComponent
 
         var natureModifer = nature.StatMultipliers.GetValueOrDefault(stat, 100);
         return ((2 * baseValue + data.IV + data.EV / 4) * Level / 100 + 5) * natureModifer / 100;
+    }
+
+    [UFunction(FunctionFlags.BlueprintCallable, Category = "Stats")]
+    public async ValueTask<FLevelUpStatChanges> GainExp(int change, bool showMessages = false)
+    {
+        var levelBefore = Level;
+        var expBefore = ExpPercent;
+        var statsBefore = Stats.ToDictionary(x => x.Key, x => x.Value.CurrentValue);
+
+        Exp += change;
+
+        while (Exp >= ExpForNextLevel)
+        {
+            Level++;
+        }
+
+        var update = new FLevelUpStatChanges(new FStatChange(levelBefore, Level),
+            new FExpPercentChange(expBefore, ExpPercent),
+            statsBefore.ToDictionary(x => x.Key, x => new FStatChange(x.Value, Stats[x.Key].CurrentValue)));
+
+        if (Level <= levelBefore) return update;
+        RecalculateStats();
+           
+        var hpDiff = update.StatChanges[StatHP].Difference;
+        CurrentHP += hpDiff;
+
+        if (showMessages)
+        {
+            await Pokemon.DisplayLevelUp(update);
+        }
+
+        return update;
     }
 }

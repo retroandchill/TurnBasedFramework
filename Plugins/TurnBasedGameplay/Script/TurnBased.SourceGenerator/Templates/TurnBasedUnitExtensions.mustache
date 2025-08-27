@@ -1,0 +1,80 @@
+﻿using UnrealSharp;
+using UnrealSharp.Attributes;
+using UnrealSharp.Engine;
+using UnrealSharp.TurnBasedCore;
+
+namespace {{Namespace}};
+
+public static partial class {{EngineName}}Extensions 
+{
+    extension({{ClassName}} unit)
+    {
+        {{#Components}}
+        {{#Properties}}
+        public {{Type}} {{Name}} 
+        {
+            {{#HasGetter}}
+            get => unit.{{../ComponentName}}.{{Name}};
+            {{/HasGetter}}
+            {{#HasSetter}}
+            set => unit.{{../ComponentName}}.{{Name}} = value;
+            {{/HasSetter}}
+        }
+        
+        {{/Properties}}
+        {{#Methods}}
+        public {{ReturnType}} {{Name}}({{#Parameters}}{{Type}} {{Name}}{{#HasDefault}} = {{DefaultValue}}{{/HasDefault}}{{^IsLast}}, {{/IsLast}}{{/Parameters}})
+        {
+            {{^ReturnsVoid}}return {{/ReturnsVoid}}unit.{{../ComponentName}}.{{Name}}({{#Parameters}}{{Name}}{{^IsLast}}, {{/IsLast}}{{/Parameters}});
+        }    
+        
+        {{/Methods}}
+        {{/Components}}
+    }
+}
+
+[UClass]
+public partial class U{{EngineName}}Extensions : UBlueprintFunctionLibrary 
+{
+    {{#Components}}
+    {{#Properties}}
+    {{#HasGetter}}
+    {{#GetterIsUFunction}}
+    {{#GetterAttributes}}
+    [{{Value}}]    
+    {{/GetterAttributes}}    
+    {{/GetterIsUFunction}}
+    {{^GetterIsUFunction}}
+    [UFunction(FunctionFlags.BlueprintPure{{#HasDisplayName}}, DisplayName = "Get {{DisplayName}}"{{/HasDisplayName}}{{#HasCategory}}, Category = "{{Category}}"{{/HasCategory}})]    
+    {{/GetterIsUFunction}}
+    [UMetaData("DefaultToSelf", "unit")]
+    public static {{Type}} Get{{Name}}({{../../ClassName}} unit) => unit.{{Name}};
+    
+    {{/HasGetter}}
+    {{#HasSetter}}
+    {{#SetterIsUFunction}}
+    {{#SetterAttributes}}
+    [{{Value}}]    
+    {{/SetterAttributes}}    
+    {{/SetterIsUFunction}}
+    {{^SetterIsUFunction}}
+    [UFunction(FunctionFlags.BlueprintCallable{{#HasDisplayName}}, DisplayName = "Set {{DisplayName}}"{{/HasDisplayName}}{{#HasCategory}}, Category = "{{Category}}"{{/HasCategory}})]
+    {{/SetterIsUFunction}}
+    [UMetaData("DefaultToSelf", "unit")]
+    public static void Set{{Name}}({{../../ClassName}} unit, {{Type}} value) => unit.{{Name}} = value;
+        
+    {{/HasSetter}}    
+    {{/Properties}}
+    {{#Methods}}
+    {{#Attributes}}
+    [{{Value}}]    
+    {{/Attributes}}
+    [UMetaData("DefaultToSelf", "unit")]
+    public {{ReturnType}} {{Name}}({{../../ClassName}} unit{{#HasParameters}}, {{/HasParameters}}{{#Parameters}}{{Type}} {{Name}}{{#HasDefault}} = {{DefaultValue}}{{/HasDefault}}{{^IsLast}}, {{/IsLast}}{{/Parameters}})
+    {
+        {{^ReturnsVoid}}return {{/ReturnsVoid}}unit.{{../ComponentName}}.{{Name}}({{#Parameters}}{{Name}}{{^IsLast}}, {{/IsLast}}{{/Parameters}});
+    }    
+        
+    {{/Methods}}
+    {{/Components}}
+}
