@@ -60,10 +60,35 @@ namespace TurnBased.SourceGenerator.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to #nullable enable
+        ///
+        ///using UnrealSharp;
+        ///using UnrealSharp.Attributes;
+        ///using UnrealSharp.UnrealSharpCore;
+        ///using System;
+        ///
+        ///namespace {{Namespace}};
+        ///
+        ///public delegate void {{ClassName}}{{MethodName}}ActionDelegate({{#HasReturnType}}{{ReturnType}} Result, {{/HasReturnType}}string? Exception);
+        ///
+        ///public class U{{ClassName}}{{MethodName}}ActionDelegate : MulticastDelegate&lt;U{{ClassName}}{{MethodName}}Delegate&gt;
+        ///{
+        ///    protected void Invoker({{#HasReturnType}}{{ReturnType}} Result, {{/HasReturnType}}string? Exc [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string AsyncMethodCallTemplate {
+            get {
+                return ResourceManager.GetString("AsyncMethodCallTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to using UnrealSharp;
         ///using UnrealSharp.Attributes;
+        ///using UnrealSharp.Attributes.MetaTags;
         ///using UnrealSharp.Engine;
         ///using UnrealSharp.TurnBasedCore;
+        ///using TurnBased.Core;
+        ///using LanguageExt.UnsafeValueAccess;
         ///
         ///namespace {{Namespace}};
         ///
@@ -76,10 +101,7 @@ namespace TurnBased.SourceGenerator.Properties {
         ///        public {{Type}} {{Name}} 
         ///        {
         ///            {{#HasGetter}}
-        ///            get =&gt; unit.{{../ComponentName}}.{{Name}};
-        ///            {{/HasGetter}}
-        ///            {{#HasSetter}}
-        ///            set =&gt; unit.{{../Compo [rest of string was truncated]&quot;;.
+        ///            get =&gt; unit.{{../ComponentName}}. [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TurnBasedUnitExtensionsTemplate {
             get {
@@ -95,10 +117,10 @@ namespace TurnBased.SourceGenerator.Properties {
         ///
         ///namespace {{Namespace}};
         ///
-        ///partial class {{ClassName}} : {{#Components}}ITurnBasedUnit&lt;{{ComponentType}}&gt;{{/Components}}
+        ///partial class {{ClassName}} : {{#Components}}ITurnBasedUnit&lt;{{ComponentType}}&gt;{{^IsLast}}, {{/IsLast}}{{/Components}}
         ///{
         ///    {{#Components}}
-        ///    ITurnBasedUnit&lt;{{ComponentType}}&gt;.Component =&gt; {{ComponentName}};
+        ///    {{ComponentType}} ITurnBasedUnit&lt;{{ComponentType}}&gt;.Component =&gt; {{ComponentName}};
         ///    {{/Components}}
         ///}.
         /// </summary>

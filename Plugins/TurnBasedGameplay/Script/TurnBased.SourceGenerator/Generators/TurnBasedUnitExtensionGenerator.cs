@@ -103,6 +103,21 @@ public class TurnBasedUnitExtensionGenerator : IIncrementalGenerator
             $"{templateParams.EngineName}.g.cs",
             handlebars.Compile(SourceTemplates.TurnBasedUnitTemplate)(templateParams)
         );
+        
+        var asyncMethods = templateParams.Components
+            .SelectMany(c => c.Methods, (c, m) => (Component: c, Method: m))
+            .Where(m => m.Method.ReturnType.MetadataName is "Task" or "Task`1" or "ValueTask" or "ValueTask`1")
+            .Select(m => new AsyncMethodInfo(templateParams.Namespace, $"{templateParams.ClassName}Extensions",
+                m.Method.Name, m.Method.ReturnType, m.Component.ComponentType, m.Method.Parameters, m.Method.Attributes))
+            .ToImmutableArray();
+
+        foreach (var asyncMethod in asyncMethods)
+        {
+            context.AddSource(
+                $"{asyncMethod.ClassName}.{asyncMethod.MethodName}.g.cs",
+                handlebars.Compile(SourceTemplates.AsyncMethodCallTemplate)(asyncMethod)
+            );
+        }
     }
 
     private void CreateTurnBasedUnitComponentExtension(
