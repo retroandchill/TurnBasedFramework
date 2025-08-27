@@ -6,13 +6,7 @@ namespace TurnBasedUI;
 [UsedImplicitly]
 public class FTurnBasedUIModule : IModuleInterface
 {
-    public void StartupModule()
-    {
+    public void StartupModule() { }
 
-    }
-
-    public void ShutdownModule()
-    {
-
-    }
+    public void ShutdownModule() { }
 }

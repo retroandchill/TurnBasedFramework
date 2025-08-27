@@ -10,7 +10,7 @@ namespace UnrealSharp.TurnBasedUI;
 internal partial class UCSPushWidgetToLayerAsync
 {
     private readonly TaskCompletionSource<UCommonActivatableWidget> _tcs = new();
-    
+
     private readonly Action _onAsyncCompleted;
     private Action<UCommonActivatableWidget>? _configureWidget;
 
@@ -19,7 +19,6 @@ internal partial class UCSPushWidgetToLayerAsync
         _onAsyncCompleted = OnAsyncCompleted;
     }
 
-    
     private void OnAsyncCompleted()
     {
         switch (GetResult(out var widget))
@@ -42,24 +41,34 @@ internal partial class UCSPushWidgetToLayerAsync
                 throw new InvalidOperationException("Unknown result enum");
         }
     }
-    
-    public static async ValueTask<T> PushWidgetToLayerAsync<T>(APlayerController playerController,
-                                                               FGameplayTag layerName,
-                                                               TSoftClassPtr<T> widgetClass,
-                                                               bool suspendInputUntilComplete = true,
-                                                               Action<T>? configureWidget = null,
-                                                               CancellationToken cancellationToken = default)
+
+    public static async ValueTask<T> PushWidgetToLayerAsync<T>(
+        APlayerController playerController,
+        FGameplayTag layerName,
+        TSoftClassPtr<T> widgetClass,
+        bool suspendInputUntilComplete = true,
+        Action<T>? configureWidget = null,
+        CancellationToken cancellationToken = default
+    )
         where T : UCommonActivatableWidget
     {
         var loader = NewObject<UCSPushWidgetToLayerAsync>(AsyncLoadUtilities.WorldContextObject);
-        loader._configureWidget = configureWidget != null ? widget =>
-        {
-            configureWidget((T) widget);
-        } : null;
+        loader._configureWidget =
+            configureWidget != null
+                ? widget =>
+                {
+                    configureWidget((T)widget);
+                }
+                : null;
         NativeAsyncUtilities.InitializeAsyncAction(loader, loader._onAsyncCompleted);
-        loader.PushWidgetToLayerStack(playerController, layerName, suspendInputUntilComplete, widgetClass.Cast<UCommonActivatableWidget>());
+        loader.PushWidgetToLayerStack(
+            playerController,
+            layerName,
+            suspendInputUntilComplete,
+            widgetClass.Cast<UCommonActivatableWidget>()
+        );
         cancellationToken.Register(loader.Cancel);
-        
-        return (T) await loader._tcs.Task;
+
+        return (T)await loader._tcs.Task;
     }
 }

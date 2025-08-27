@@ -21,4 +21,7 @@
     </Reference>
     <Analyzer Include="..\..\..\UnrealSharp\Binaries\Managed\UnrealSharp.SourceGenerators.dll" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TurnBasedGameplay.Glue\TurnBasedGameplay.Glue.csproj" />
+  </ItemGroup>
 </Project>

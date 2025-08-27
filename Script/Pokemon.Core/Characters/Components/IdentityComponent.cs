@@ -21,20 +21,19 @@ public class UIdentityComponent : UTurnBasedUnitComponent
 
     [UProperty(PropertyFlags.BlueprintReadWrite, Category = "Identity")]
     public FText Nickname { get; set; }
-    
+
     [UProperty(PropertyFlags.BlueprintReadWrite, Category = "Identity")]
     public uint PersonalityValue { get; set; }
-    
+
     [UProperty(PropertyFlags.BlueprintReadWrite, Category = "Identity")]
     public int ID { get; set; }
-    
+
     [UProperty(PropertyFlags.BlueprintReadWrite, Category = "Identity")]
     public int SecretID { get; set; }
-    
+
     [UProperty(PropertyFlags.BlueprintReadWrite, DisplayName = "OT Name", Category = "Identity")]
     public FText OTName { get; set; }
-    
+
     [UProperty(PropertyFlags.BlueprintReadWrite, DisplayName = "OT Gender", Category = "Identity")]
     public ETrainerGender OTGender { get; set; }
-
 }

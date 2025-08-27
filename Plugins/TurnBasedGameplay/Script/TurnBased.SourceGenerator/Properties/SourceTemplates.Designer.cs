@@ -61,6 +61,8 @@ namespace TurnBased.SourceGenerator.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to using UnrealSharp;
+        ///using UnrealSharp.Attributes;
+        ///using UnrealSharp.Engine;
         ///using UnrealSharp.TurnBasedCore;
         ///
         ///namespace {{Namespace}};
@@ -73,16 +75,36 @@ namespace TurnBased.SourceGenerator.Properties {
         ///        {{#Properties}}
         ///        public {{Type}} {{Name}} 
         ///        {
-        ///            {{#HasGetter}}get =&gt; unit.{{../ComponentName}}.{{Name}};{{/HasGetter}}
-        ///            {{#HasSetter}}set =&gt; unit.{{../ComponentName}}.{{Name}} = value;{{/HasSetter}}
-        ///        }
-        ///        
-        ///        {{/Properties}}
-        ///        {{ [rest of string was truncated]&quot;;.
+        ///            {{#HasGetter}}
+        ///            get =&gt; unit.{{../ComponentName}}.{{Name}};
+        ///            {{/HasGetter}}
+        ///            {{#HasSetter}}
+        ///            set =&gt; unit.{{../Compo [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TurnBasedUnitExtensionsTemplate {
             get {
                 return ResourceManager.GetString("TurnBasedUnitExtensionsTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using UnrealSharp;
+        ///using UnrealSharp.Attributes;
+        ///using UnrealSharp.Engine;
+        ///using UnrealSharp.TurnBasedCore;
+        ///
+        ///namespace {{Namespace}};
+        ///
+        ///partial class {{ClassName}} : {{#Components}}ITurnBasedUnit&lt;{{ComponentType}}&gt;{{/Components}}
+        ///{
+        ///    {{#Components}}
+        ///    ITurnBasedUnit&lt;{{ComponentType}}&gt;.Component =&gt; {{ComponentName}};
+        ///    {{/Components}}
+        ///}.
+        /// </summary>
+        internal static string TurnBasedUnitTemplate {
+            get {
+                return ResourceManager.GetString("TurnBasedUnitTemplate", resourceCulture);
             }
         }
     }

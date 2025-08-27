@@ -23,10 +23,7 @@ public enum ETrainerGender : byte
     /// <summary>
     /// Represents a double battle trainer with a male and female member
     /// </summary>
-    Mixed
+    Mixed,
 }
 
-public class TrainerType
-{
-    
-}
+public class TrainerType { }

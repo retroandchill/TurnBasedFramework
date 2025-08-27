@@ -8,8 +8,9 @@ public static partial class PokemonExtensions
     {
         public ValueTask DisplayLevelUp(FLevelUpStatChanges changes)
         {
-            return pokemon.GetGameInstanceSubsystem<UPokemonSubsystem>().DisplayActions
-                .ProcessLevelUp(pokemon, changes);
+            return pokemon
+                .GetGameInstanceSubsystem<UPokemonSubsystem>()
+                .DisplayActions.ProcessLevelUp(pokemon, changes);
         }
     }
 }

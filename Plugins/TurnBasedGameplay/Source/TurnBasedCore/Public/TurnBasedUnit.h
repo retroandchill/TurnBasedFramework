@@ -28,8 +28,9 @@ public:
     template <std::derived_from<UTurnBasedUnitComponent> T = UTurnBasedUnitComponent>
     UTurnBasedUnitComponent* GetSiblingComponent(TSubclassOf<T> ComponentClass) const;
 
-    UFUNCTION(BlueprintCallable, DisplayName = "Get Sibling Component", Category = "Components", meta = (ScriptName = "TryGetSiblingComponent", DeterminesOutputType = "ComponentClass", DynamicOutputParam = "OutComponent"))
-    bool TryGetSiblingComponent(TSubclassOf<UTurnBasedUnitComponent> ComponentClass, UTurnBasedUnitComponent*& OutComponent) const;
+private:
+    UFUNCTION(meta = (ScriptMethod, DeterminesOutputType = "ComponentClass", DynamicOutputParam = "OutComponent"))
+    bool TryGetSiblingComponentInternal(TSubclassOf<UTurnBasedUnitComponent> ComponentClass, UTurnBasedUnitComponent*& OutComponent) const;
 };
 
 /**
@@ -68,8 +69,9 @@ public:
         return nullptr;
     }
 
-    UFUNCTION(BlueprintCallable, DisplayName = "Get Component", Category = "Components", meta = (ScriptName = "TryGetComponent", DeterminesOutputType = "ComponentClass", DynamicOutputParam = "OutComponent"))
-    bool TryGetComponent(TSubclassOf<UTurnBasedUnitComponent> ComponentClass, UTurnBasedUnitComponent*& OutComponent) const;
+private:
+    UFUNCTION(meta = (ScriptMethod, DeterminesOutputType = "ComponentClass", DynamicOutputParam = "OutComponent"))
+    bool TryGetComponentInternal(TSubclassOf<UTurnBasedUnitComponent> ComponentClass, UTurnBasedUnitComponent*& OutComponent) const;
 
 protected:
     void RegisterNewComponent(UTurnBasedUnitComponent* Component);

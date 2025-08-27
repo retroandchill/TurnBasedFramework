@@ -14,10 +14,11 @@ public class UPokemonSubsystem : UCSGameInstanceSubsystem
     private readonly Dictionary<FGameplayTag, IExpGrowthFormula> _expGrowthFormulas = new();
 
     public IDisplayService DisplayActions { get; private set; } = null!;
-    
+
     protected override void Initialize(FSubsystemCollectionBaseRef collection)
     {
-        var subsystem = collection.InitializeRequiredSubsystem<UDependencyInjectionGameInstanceSubsystem>();
+        var subsystem =
+            collection.InitializeRequiredSubsystem<UDependencyInjectionGameInstanceSubsystem>();
         foreach (var expGrowthFormula in subsystem.GetServices<IExpGrowthFormula>())
         {
             _expGrowthFormulas.Add(expGrowthFormula.GrowthRateFor, expGrowthFormula);
@@ -33,6 +34,8 @@ public class UPokemonSubsystem : UCSGameInstanceSubsystem
 
     public IExpGrowthFormula GetExpGrowthFormula(FGameplayTag growthRate)
     {
-        return _expGrowthFormulas.TryGetValue(growthRate, out var formula) ? formula : throw new InvalidOperationException($"No formula for growth rate {growthRate}");
+        return _expGrowthFormulas.TryGetValue(growthRate, out var formula)
+            ? formula
+            : throw new InvalidOperationException($"No formula for growth rate {growthRate}");
     }
 }

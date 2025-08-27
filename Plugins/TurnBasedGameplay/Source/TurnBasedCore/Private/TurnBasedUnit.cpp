@@ -8,15 +8,15 @@ UTurnBasedUnit* UTurnBasedUnitComponent::GetOwningUnit() const
     return CastChecked<UTurnBasedUnit>(GetOuter());
 }
 
-bool UTurnBasedUnitComponent::TryGetSiblingComponent(TSubclassOf<UTurnBasedUnitComponent> ComponentClass,
+bool UTurnBasedUnitComponent::TryGetSiblingComponentInternal(TSubclassOf<UTurnBasedUnitComponent> ComponentClass,
     UTurnBasedUnitComponent*& OutComponent) const
 {
     OutComponent = GetSiblingComponent<UTurnBasedUnitComponent>(ComponentClass);
     return OutComponent != nullptr;  
 }
 
-bool UTurnBasedUnit::TryGetComponent(const TSubclassOf<UTurnBasedUnitComponent> ComponentClass,
-                                     UTurnBasedUnitComponent*& OutComponent) const
+bool UTurnBasedUnit::TryGetComponentInternal(const TSubclassOf<UTurnBasedUnitComponent> ComponentClass,
+                                             UTurnBasedUnitComponent*& OutComponent) const
 {
     OutComponent = GetComponent(ComponentClass);
     return OutComponent != nullptr;   
