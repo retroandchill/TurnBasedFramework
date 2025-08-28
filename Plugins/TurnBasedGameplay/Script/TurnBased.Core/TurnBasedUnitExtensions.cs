@@ -38,7 +38,7 @@ public class UTurnBasedUnitExtensions : UBlueprintFunctionLibrary
     /// <param name="componentClass">
     /// The class type of the component to search for.
     /// </param>
-    /// <param name="component">
+    /// <param name="outComponent">
     /// If the component is found, this will hold the reference to the found component. If not found, it will be set to null.
     /// </param>
     /// <returns>
@@ -46,17 +46,46 @@ public class UTurnBasedUnitExtensions : UBlueprintFunctionLibrary
     /// </returns>
     [UFunction(FunctionFlags.BlueprintCallable, Category = "Component")]
     [ExpandEnumAsExecs("ReturnValue")]
-    [DeterminesOutputType("componentClass")]
-    [UMetaData("DynamicOutputParam", "component")]
-    [UMetaData("DefaultToSelf", "unit")]
+    [DeterminesOutputType(nameof(componentClass))]
+    [UMetaData("DynamicOutputParam", nameof(outComponent))]
+    [UMetaData("DefaultToSelf", nameof(unit))]
     public static EValueFindResult GetComponent(
         UTurnBasedUnit unit,
         TSubclassOf<UTurnBasedUnitComponent> componentClass,
-        out UTurnBasedUnitComponent? component
+        out UTurnBasedUnitComponent? outComponent
     )
     {
-        return unit.TryGetComponent(componentClass, out component)
+        return unit.TryGetComponent(componentClass, out outComponent)
             ? EValueFindResult.Found
+            : EValueFindResult.NotFound;
+    }
+
+    /// <summary>
+    /// Attempts to locate a sibling component of the specified type on the same unit as the provided component.
+    /// </summary>
+    /// <param name="component">
+    /// The reference component whose sibling is to be found. Must not be null.
+    /// </param>
+    /// <param name="componentClass">
+    /// The class type of the sibling component to search for.
+    /// </param>
+    /// <param name="outComponent">
+    /// If a sibling component is found, this will hold the reference to the found component. If no matching sibling is found, it will be set to null.
+    /// </param>
+    /// <returns>
+    /// An <see cref="EValueFindResult"/> indicating whether the sibling component was found or not.
+    /// </returns>
+    [UFunction(FunctionFlags.BlueprintCallable, Category = "Component")]
+    [ExpandEnumAsExecs("ReturnValue")]
+    [DeterminesOutputType(nameof(componentClass))]
+    [UMetaData("DynamicOutputParam", nameof(outComponent))]
+    [UMetaData("DefaultToSelf", nameof(component))]
+    public static EValueFindResult GetSiblingComponent(UTurnBasedUnitComponent component,
+                                                       TSubclassOf<UTurnBasedUnitComponent> componentClass,
+                                                       out UTurnBasedUnitComponent? outComponent)
+    {
+        return component.TryGetSiblingComponent(componentClass, out outComponent) 
+            ? EValueFindResult.Found 
             : EValueFindResult.NotFound;
     }
 }

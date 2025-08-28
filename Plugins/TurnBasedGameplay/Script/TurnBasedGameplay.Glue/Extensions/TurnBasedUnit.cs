@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using UnrealSharp.Core.Marshallers;
 using UnrealSharp.CoreUObject;
+using ZLinq;
 
 namespace UnrealSharp.TurnBasedCore;
 
@@ -79,11 +80,15 @@ public partial class UTurnBasedUnit
     )
         where T : UTurnBasedUnitComponent
     {
-        if (
-            this is not ITurnBasedUnit<T> turnBasedUnit
-            || !componentClass.IsParentOf(turnBasedUnit.Component.GetType())
-        )
-            return TryGetComponentInternal(componentClass, out component);
+        if (this is not ITurnBasedUnit<T> turnBasedUnit || !turnBasedUnit.Component.IsA(componentClass))
+        {
+            component = Components.AsValueEnumerable()
+                .OfType<T>()
+                .Where(c => c.IsA(componentClass))
+                .FirstOrDefault();
+            return component is not null;
+        }
+                
 
         component = turnBasedUnit.Component;
         return true;
@@ -103,24 +108,14 @@ public partial class UTurnBasedUnit
         where T : UTurnBasedUnitComponent
     {
         if (this is not ITurnBasedUnit<T> turnBasedUnit)
-            return TryGetComponentInternal<T>(out component);
+        {
+            component = Components.AsValueEnumerable()
+                .OfType<T>()
+                .FirstOrDefault();
+            return component is not null;
+        }
 
         component = turnBasedUnit.Component;
         return true;
-    }
-
-    /// <summary>
-    /// Registers a new component for this turn-based unit. Throws an exception if a component of the same type already exists.
-    /// </summary>
-    /// <param name="component">The component to register with this turn-based unit. Must derive from UTurnBasedUnitComponent.</param>
-    /// <exception cref="InvalidOperationException">Thrown if a component of the same type is already registered.</exception>
-    protected void RegisterNewComponent(UTurnBasedUnitComponent component)
-    {
-        if (!RegisterNewComponentInternal(component))
-        {
-            throw new InvalidOperationException(
-                $"Component of type {component.Class} already exists"
-            );
-        }
     }
 }

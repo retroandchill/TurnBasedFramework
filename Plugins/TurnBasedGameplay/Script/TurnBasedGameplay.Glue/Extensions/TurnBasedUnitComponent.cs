@@ -64,14 +64,7 @@ public partial class UTurnBasedUnitComponent
     )
         where T : UTurnBasedUnitComponent
     {
-        if (
-            OwningUnit is not ITurnBasedUnit<T> turnBasedUnit
-            || !componentClass.IsParentOf(turnBasedUnit.Component.GetType())
-        )
-            return TryGetSiblingComponentInternal(componentClass, out component);
-
-        component = turnBasedUnit.Component;
-        return true;
+        return OwningUnit.TryGetComponent(componentClass, out component);
     }
 
     /// <summary>
@@ -89,10 +82,6 @@ public partial class UTurnBasedUnitComponent
     public bool TryGetSiblingComponent<T>([NotNullWhen(true)] out T? component)
         where T : UTurnBasedUnitComponent
     {
-        if (OwningUnit is not ITurnBasedUnit<T> turnBasedUnit)
-            return TryGetSiblingComponentInternal<T>(out component);
-
-        component = turnBasedUnit.Component;
-        return true;
+        return OwningUnit.TryGetComponent(out component);
     }
 }

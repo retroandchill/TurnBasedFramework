@@ -20,17 +20,10 @@ public:
     UTurnBasedUnit* GetOwningUnit() const;
 
     template <std::derived_from<UTurnBasedUnitComponent> T = UTurnBasedUnitComponent>
-    UTurnBasedUnitComponent* GetSiblingComponent() const
-    {
-        return GetSiblingComponent<T>(T::StaticClass());
-    }
+    UTurnBasedUnitComponent* GetSiblingComponent() const;
 
     template <std::derived_from<UTurnBasedUnitComponent> T = UTurnBasedUnitComponent>
     UTurnBasedUnitComponent* GetSiblingComponent(TSubclassOf<T> ComponentClass) const;
-
-private:
-    UFUNCTION(meta = (ScriptMethod, DeterminesOutputType = "ComponentClass", DynamicOutputParam = "OutComponent"))
-    bool TryGetSiblingComponentInternal(TSubclassOf<UTurnBasedUnitComponent> ComponentClass, UTurnBasedUnitComponent*& OutComponent) const;
 };
 
 /**
@@ -45,51 +38,44 @@ public:
     template <std::derived_from<UTurnBasedUnitComponent> T = UTurnBasedUnitComponent>
     T* GetComponent() const
     {
-        return GetComponent<T>(T::StaticClass());
+        for (auto &Component : Components)
+        {
+            if (auto *FoundComponent = Cast<T>(Component.Get()))
+            {
+                return FoundComponent;
+            }
+        }
+
+        return nullptr;   
     }
 
     template <std::derived_from<UTurnBasedUnitComponent> T = UTurnBasedUnitComponent>
     T* GetComponent(TSubclassOf<T> ComponentClass) const
     {
-        auto Cached = ComponentCache.Find(ComponentClass);
-        if (Cached != nullptr)
-        {
-            return CastChecked<T>(*Cached);
-        }
-
-        for (auto& Component : Components)
+        for (auto &Component : Components)
         {
             if (Component->IsA(ComponentClass))
             {
-                ComponentCache.Add(ComponentClass, Component);
-                return CastChecked<T>(Component);
+                return static_cast<T*>(Component.Get());
             }
         }
 
         return nullptr;
     }
 
-private:
-    UFUNCTION(meta = (ScriptMethod, DeterminesOutputType = "ComponentClass", DynamicOutputParam = "OutComponent"))
-    bool TryGetComponentInternal(TSubclassOf<UTurnBasedUnitComponent> ComponentClass, UTurnBasedUnitComponent*& OutComponent) const;
-
-protected:
+    UFUNCTION(BlueprintCallable, Category = "Components")
     void RegisterNewComponent(UTurnBasedUnitComponent* Component);
 
-    virtual void PostInitializeComponents()
-    {
-        // No implementation here
-    }
-
 private:
-    UFUNCTION(meta = (ScriptMethod))
-    bool RegisterNewComponentInternal(UTurnBasedUnitComponent* Component);
-    
     UPROPERTY()
     TArray<TObjectPtr<UTurnBasedUnitComponent>> Components;
-
-    mutable TMap<TSubclassOf<UTurnBasedUnitComponent>, TObjectPtr<UTurnBasedUnitComponent>> ComponentCache;
 };
+
+template <std::derived_from<UTurnBasedUnitComponent> T>
+UTurnBasedUnitComponent* UTurnBasedUnitComponent::GetSiblingComponent() const
+{
+    return GetOwningUnit()->GetComponent<T>(); 
+}
 
 template <std::derived_from<UTurnBasedUnitComponent> T>
 UTurnBasedUnitComponent* UTurnBasedUnitComponent::GetSiblingComponent(TSubclassOf<T> ComponentClass) const

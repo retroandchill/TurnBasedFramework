@@ -9,6 +9,27 @@
   <component name="ChangeListManager">
     <list default="true" id="aa1e9cdd-86d7-4878-ad99-f01b0434e94b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.Glue/GameDataAccessTools.Glue.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.Glue/GameDataAccessTools.Glue.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBased.Core/TurnBasedUnitExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBased.Core/TurnBasedUnitExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBasedGameplay.Glue/Extensions/TurnBasedUnit.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBasedGameplay.Glue/Extensions/TurnBasedUnit.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBasedGameplay.Glue/Extensions/TurnBasedUnitComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBasedGameplay.Glue/Extensions/TurnBasedUnitComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Private/TurnBasedUnit.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Private/TurnBasedUnit.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Public/TurnBasedUnit.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Public/TurnBasedUnit.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Extensions/CoreUObject/Object.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Extensions/CoreUObject/Object.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Interop/FNameExporter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Interop/FNameExporter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Interop/FTextExporter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Interop/FTextExporter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Interop/UObjectExporter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Interop/UObjectExporter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Name.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Name.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Text.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Text.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/Export/FNameExporter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/Export/FNameExporter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/Export/FNameExporter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/Export/FNameExporter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/Export/FTextExporter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/Export/FTextExporter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/Export/FTextExporter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/Export/FTextExporter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/Export/UObjectExporter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/Export/UObjectExporter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/Export/UObjectExporter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/Export/UObjectExporter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharpTest.Glue/UnrealSharpTest.Glue.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/UnrealSharpTest/Script/UnrealSharpTest.Glue/UnrealSharpTest.Glue.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/TurnBasedFramework.Glue/TurnBasedFramework.Glue.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Script/TurnBasedFramework.Glue/TurnBasedFramework.Glue.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +51,7 @@
         <entry key="$PROJECT_DIR$/Plugins/UnrealSharp" value="bugfix/default-subobject" />
       </map>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/Plugins/UnrealSharp" />
     <option name="RESET_MODE" value="HARD" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
     <option name="UPDATE_TYPE" value="REBASE" />
@@ -1265,7 +1286,7 @@
     <setting file="file://$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Private/TurnBasedUnit.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Public/TurnBasedCore.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Public/TurnBasedUnit.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/TurnBasedCore.Build.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/TurnBasedCore.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/TurnBasedGameplay/TurnBasedGameplay.uplugin" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp.Core/Attributes/GeneratedType.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp.Plugins/PluginLoadContext.cs" root0="SKIP_HIGHLIGHTING" />
@@ -1330,7 +1351,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;Uproject.TurnBasedFramework.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/block-null-errors-on-uproperties&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -1514,6 +1535,8 @@
       <workItem from="1756155776423" duration="4297000" />
       <workItem from="1756250664363" duration="1815000" />
       <workItem from="1756260367813" duration="1821000" />
+      <workItem from="1756387588400" duration="1951000" />
+      <workItem from="1756391555025" duration="980000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed a missing with editor define">
       <option name="closed" value="true" />
