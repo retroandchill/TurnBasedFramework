@@ -35,7 +35,7 @@ public class TurnBasedUnitExtensionGenerator : IIncrementalGenerator
                         return null;
                     }
 
-                    return classSymbol.IsTurnBaseUnitOrComponent() ? classSymbol : null;
+                    return classSymbol.IsTurnBasedUnit() ? classSymbol : null;
                 }
             )
             .Where(m => m is not null);
@@ -44,25 +44,6 @@ public class TurnBasedUnitExtensionGenerator : IIncrementalGenerator
     }
 
     private void Execute(SourceProductionContext context, INamedTypeSymbol classSymbol)
-    {
-        if (classSymbol.IsTurnBasedUnit())
-        {
-            CreateTurnBasedUnitExtension(context, classSymbol);
-        }
-        else if (classSymbol.IsTurnBasedUnitComponent())
-        {
-            CreateTurnBasedUnitComponentExtension(context, classSymbol);
-        }
-        else
-        {
-            throw new InvalidOperationException("Invalid class symbol.");
-        }
-    }
-
-    private void CreateTurnBasedUnitExtension(
-        SourceProductionContext context,
-        INamedTypeSymbol classSymbol
-    )
     {
         var componentProperties = classSymbol
             .GetMembers()
@@ -119,11 +100,6 @@ public class TurnBasedUnitExtensionGenerator : IIncrementalGenerator
             );
         }
     }
-
-    private void CreateTurnBasedUnitComponentExtension(
-        SourceProductionContext context,
-        INamedTypeSymbol classSymbol
-    ) { }
 
     private ComponentInfo GetComponentInfo(IPropertySymbol propertySymbol, bool isLast)
     {
