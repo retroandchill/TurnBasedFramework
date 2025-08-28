@@ -1,8 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Pokemon.Core.Characters;
 using Pokemon.Core.Executor.Display;
 using Pokemon.Core.Executor.Exp;
 using UnrealInject.Subsystems;
 using UnrealSharp.Attributes;
+using UnrealSharp.Core;
+using UnrealSharp.CoreUObject;
 using UnrealSharp.GameplayTags;
 using UnrealSharp.UnrealSharpCore;
 
@@ -14,6 +17,9 @@ public class UPokemonSubsystem : UCSGameInstanceSubsystem
     private readonly Dictionary<FGameplayTag, IExpGrowthFormula> _expGrowthFormulas = new();
 
     public IDisplayService DisplayActions { get; private set; } = null!;
+    
+    [UProperty(PropertyFlags.BlueprintReadOnly, Category = "Player")]
+    public UTrainer Player { get; private set; }
 
     protected override void Initialize(FSubsystemCollectionBaseRef collection)
     {

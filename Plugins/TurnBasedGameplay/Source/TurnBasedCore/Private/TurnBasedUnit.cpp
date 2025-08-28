@@ -8,8 +8,28 @@ UTurnBasedUnit* UTurnBasedUnitComponent::GetOwningUnit() const
     return CastChecked<UTurnBasedUnit>(GetOuter());
 }
 
-// ReSharper disable once CppMemberFunctionMayBeConst
-void UTurnBasedUnit::RegisterNewComponent(UTurnBasedUnitComponent* Component)
+void UTurnBasedUnitComponent::PostInitializeUnit()
 {
-    Components.Add(Component);
+    NativePostInitializeUnit();
+    K2_PostInitializeUnit();  
+}
+
+// ReSharper disable once CppMemberFunctionMayBeConst
+UTurnBasedUnitComponent* UTurnBasedUnit::RegisterNewComponent(UTurnBasedUnitComponent* Component)
+{
+    Components.Emplace(Component);
+    return Component;
+}
+
+void UTurnBasedUnit::CreateComponents()
+{
+    NativeCreateComponents();
+    K2_CreateComponents();   
+}
+
+UTurnBasedUnit* UTurnBasedUnit::CreateInternal(UObject* Outer, const TSubclassOf<UTurnBasedUnit> UnitClass)
+{
+    const auto NewComponent = NewObject<UTurnBasedUnit>(Outer, UnitClass);
+    NewComponent->CreateComponents();
+    return NewComponent;  
 }

@@ -34,6 +34,20 @@ public interface ITurnBasedUnit<out TComponent>
 
 public partial class UTurnBasedUnit
 {
+    public static T Create<T>(UObject outer, Action<T>? constructor = null) where T : UTurnBasedUnit
+    {
+        var newUnit = CreateInternal<T>(outer);
+        constructor?.Invoke(newUnit);
+        return newUnit;
+    }
+    
+    public static T Create<T>(UObject outer, TSubclassOf<T> unitClass, Action<T>? constructor = null) where T : UTurnBasedUnit
+    {
+        var newUnit = CreateInternal(outer, unitClass);
+        constructor?.Invoke(newUnit);
+        return newUnit;
+    }
+    
     /// <summary>
     /// Retrieves a component of the specified type associated with this turn-based unit.
     /// </summary>
@@ -117,5 +131,19 @@ public partial class UTurnBasedUnit
 
         component = turnBasedUnit.Component;
         return true;
+    }
+
+    public T RegisterNewComponent<T>(Action<T>? constructor = null) where T : UTurnBasedUnitComponent
+    {
+        var newComponent = NewObject<T>(this);
+        constructor?.Invoke(newComponent);
+        return RegisterNewComponent(newComponent);
+    }
+    
+    public T RegisterNewComponent<T>(TSubclassOf<T> componentClass, Action<T>? constructor = null) where T : UTurnBasedUnitComponent
+    {
+        var newComponent = NewObject(this, componentClass);
+        constructor?.Invoke(newComponent);
+        return RegisterNewComponent(newComponent);
     }
 }

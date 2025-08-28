@@ -24,6 +24,14 @@ public:
 
     template <std::derived_from<UTurnBasedUnitComponent> T = UTurnBasedUnitComponent>
     UTurnBasedUnitComponent* GetSiblingComponent(TSubclassOf<T> ComponentClass) const;
+
+    void PostInitializeUnit();
+    
+protected:
+    virtual void NativePostInitializeUnit() { }
+    
+    UFUNCTION(BlueprintImplementableEvent, DisplayName = "Post Initialize Unit", Category = "Components", meta = (ScriptName = "PostInitializeUnit"))
+    void K2_PostInitializeUnit();
 };
 
 /**
@@ -35,6 +43,44 @@ class TURNBASEDCORE_API UTurnBasedUnit : public UObject
     GENERATED_BODY()
 
 public:
+    template <std::derived_from<UTurnBasedUnit> T>
+    static T* Create(UObject* Outer)
+    {
+        return Create<T>(Outer, [] (T*) { });  
+    }
+
+    template <std::derived_from<UTurnBasedUnit> T>
+    static T* Create(UObject* Outer, std::invocable<T*> auto ConstructorFunc)
+    {
+        auto NewComponent = NewObject<T>(Outer);
+        NewComponent->InitializeComponents();
+        ConstructorFunc(NewComponent);
+        for (auto &Component : NewComponent->Components)
+        {
+            Component->PostInitializeUnit();
+        }
+        return NewComponent;   
+    }
+
+    template <std::derived_from<UTurnBasedUnit> T = UTurnBasedUnit>
+    static T* Create(UObject* Outer, TSubclassOf<T> UnitClass)
+    {
+        return Create<T>(Outer, UnitClass, [] (T*) { }); 
+    }
+
+    template <std::derived_from<UTurnBasedUnit> T = UTurnBasedUnit>
+    static T* Create(UObject* Outer, TSubclassOf<T> UnitClass, std::invocable<T*> auto ConstructorFunc)
+    {
+        auto NewComponent = NewObject<T>(Outer, UnitClass);
+        NewComponent->InitializeComponents();
+        ConstructorFunc(NewComponent);
+        for (auto &Component : NewComponent->Components)
+        {
+            Component->PostInitializeUnit();
+        }
+        return NewComponent;   
+    }
+    
     template <std::derived_from<UTurnBasedUnitComponent> T = UTurnBasedUnitComponent>
     T* GetComponent() const
     {
@@ -63,10 +109,50 @@ public:
         return nullptr;
     }
 
-    UFUNCTION(BlueprintCallable, Category = "Components")
-    void RegisterNewComponent(UTurnBasedUnitComponent* Component);
+    template <std::derived_from<UTurnBasedUnitComponent> T = UTurnBasedUnitComponent>
+    T* RegisterNewComponent()
+    {
+        return RegisterNewComponent<T>([] (T*) { });
+    }
 
+    template <std::derived_from<UTurnBasedUnitComponent> T = UTurnBasedUnitComponent>
+    T* RegisterNewComponent(const TSubclassOf<UTurnBasedUnitComponent> ComponentClass)
+    {
+        return RegisterNewComponent<T>(ComponentClass, [] (T*) { });
+    }
+
+    template <std::derived_from<UTurnBasedUnitComponent> T = UTurnBasedUnitComponent>
+    T* RegisterNewComponent(std::invocable<T*> auto ConstructorFunc)
+    {
+        T* NewComponent = NewObject<T>(this);
+        ConstructorFunc(NewComponent);
+        return static_cast<T*>(RegisterNewComponent());   
+    }
+
+    template <std::derived_from<UTurnBasedUnitComponent> T = UTurnBasedUnitComponent>
+    T* RegisterNewComponent(const TSubclassOf<UTurnBasedUnitComponent> ComponentClass,
+                            std::invocable<T*> auto ConstructorFunc)
+    {
+        auto NewComponent = NewObject<T>(this, ComponentClass);
+        ConstructorFunc(NewComponent);
+        return static_cast<T*>(RegisterNewComponent());   
+    }
+
+    UFUNCTION(BlueprintCallable, Category = "Components", meta = (DeterminesOutputType = Component, DynamicOutputParam = ReturnValue))
+    UTurnBasedUnitComponent* RegisterNewComponent(UTurnBasedUnitComponent* Component);
+
+protected:
+    virtual void NativeCreateComponents() { }
+    
+    UFUNCTION(BlueprintImplementableEvent, DisplayName = "Create Components", Category = "Components", meta = (ScriptName = "CreateComponents"))
+    void K2_CreateComponents();
+    
 private:
+    void CreateComponents();
+    
+    UFUNCTION(meta = (ScriptMethod, DeterminesOutputType = UnitClass, DynamicOutputParam = ReturnValue))
+    static UTurnBasedUnit* CreateInternal(UObject* Outer, TSubclassOf<UTurnBasedUnit> UnitClass);
+    
     UPROPERTY()
     TArray<TObjectPtr<UTurnBasedUnitComponent>> Components;
 };

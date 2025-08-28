@@ -11,12 +11,12 @@ namespace Pokemon.Core.Characters.Components;
 public class UIdentityComponent : UTurnBasedUnitComponent
 {
     [UProperty(PropertyFlags.BlueprintReadWrite, Category = "Identity")]
-    public FGameplayTag Species { get; set; }
+    public FGameplayTag SpeciesId { get; set; }
 
-    public USpecies SpeciesData
+    public USpecies Species
     {
-        [method: UFunction(FunctionFlags.BlueprintPure, Category = "Identity")]
-        get => GameData.Species.GetEntry(Species);
+        [UFunction(FunctionFlags.BlueprintPure, Category = "Identity")]
+        get => GameData.Species.GetEntry(SpeciesId);
     }
 
     [UProperty(PropertyFlags.BlueprintReadWrite, Category = "Identity")]
@@ -36,4 +36,12 @@ public class UIdentityComponent : UTurnBasedUnitComponent
 
     [UProperty(PropertyFlags.BlueprintReadWrite, DisplayName = "OT Gender", Category = "Identity")]
     public ETrainerGender OTGender { get; set; }
+
+    public virtual void Initialize(FGameplayTag species)
+    {
+        SpeciesId = species;
+        PersonalityValue = (uint) Random.Shared.Next(ushort.MaxValue + 1) | (uint) (Random.Shared.Next(ushort.MaxValue + 1) << 16);
+        
+        // TODO: Calculate values from the trainer (which is going to be the outer)
+    }
 }

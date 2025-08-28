@@ -10,15 +10,13 @@ using UnrealSharp.TurnBasedCore;
 namespace Pokemon.Core.Characters.Components;
 
 [UStruct]
-public readonly partial record struct FStatData
+public readonly partial record struct FStatData([field: UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)]
+                                                [field: ClampMin("0")]
+                                                [field: UIMin("0")]
+                                                [field: ClampMax("31")]
+                                                [field: UIMax("31")] 
+                                                int IV)
 {
-    [field: UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)]
-    [field: ClampMin("0")]
-    [field: UIMin("0")]
-    [field: ClampMax("31")]
-    [field: UIMax("31")]
-    public int IV { get; init; }
-
     [field: UProperty(PropertyFlags.BlueprintReadOnly | PropertyFlags.EditAnywhere)]
     public bool IVMaxed { get; init; }
 
@@ -64,6 +62,9 @@ public readonly partial record struct FLevelUpStatChanges(
 [UClass]
 public class UStatComponent : UTurnBasedUnitComponent
 {
+    public const int MaxIV = 31;
+    public const int MaxEV = 252;
+    
     public static readonly FGameplayTag StatHP = GameplayTags.Pokemon_Data_Stats_Main_HP;
     public static readonly FGameplayTag StatAttack =
         GameplayTags.Pokemon_Data_Stats_MainBattle_ATTACK;
@@ -84,28 +85,26 @@ public class UStatComponent : UTurnBasedUnitComponent
 
     public int ExpForNextLevel
     {
-        [method: UFunction(FunctionFlags.BlueprintPure, Category = "Exp")]
+        [UFunction(FunctionFlags.BlueprintPure, Category = "Exp")]
         get
         {
             if (Level == UGrowthRate.MaxLevel)
                 return 0;
 
-            return GetGameInstanceSubsystem<UPokemonSubsystem>()
-                .GetExpGrowthFormula(Pokemon.SpeciesData.GrowthRate)
+            return PokemonStatics.GetExpGrowthFormula(Pokemon.Species.GrowthRate)
                 .GetMinimumExpForLevel(Level + 1);
         }
     }
 
     public float ExpPercent
     {
-        [method: UFunction(FunctionFlags.BlueprintPure, Category = "Exp")]
+        [UFunction(FunctionFlags.BlueprintPure, Category = "Exp")]
         get
         {
             if (Level == UGrowthRate.MaxLevel)
                 return 0.0f;
 
-            var growthRate = GetGameInstanceSubsystem<UPokemonSubsystem>()
-                .GetExpGrowthFormula(Pokemon.SpeciesData.GrowthRate);
+            var growthRate = PokemonStatics.GetExpGrowthFormula(Pokemon.Species.GrowthRate);
             var expNeededForLevel = growthRate.GetMinimumExpForLevel(Level);
             var totalNeededForLevel = growthRate.GetMinimumExpForLevel(Level + 1);
             return (float)(Exp - expNeededForLevel) / totalNeededForLevel;
@@ -116,7 +115,15 @@ public class UStatComponent : UTurnBasedUnitComponent
     private IDictionary<FGameplayTag, FStatEntry> Stats { get; }
 
     [UProperty(PropertyFlags.BlueprintReadWrite)]
-    public FGameplayTag Nature { get; set; }
+    public FGameplayTag NatureId { get; set; }
+    
+    public UNature Nature
+    {
+        [UFunction(FunctionFlags.BlueprintPure, Category = "Stats")]
+        get => GameData.Natures.GetEntry(NatureId);
+        [UFunction(FunctionFlags.BlueprintPure, Category = "Stats")]
+        set => NatureId = value.Id;
+    }
 
     [UProperty(PropertyFlags.BlueprintReadWrite)]
     public Option<FGameplayTag> NatureOverride { get; set; }
@@ -130,44 +137,59 @@ public class UStatComponent : UTurnBasedUnitComponent
 
     public int MaxHP
     {
-        [method: UFunction(FunctionFlags.BlueprintPure, Category = "Stats")]
+        [UFunction(FunctionFlags.BlueprintPure, Category = "Stats")]
         get => Stats[StatHP].CurrentValue;
     }
 
     public int Attack
     {
-        [method: UFunction(FunctionFlags.BlueprintPure, Category = "Stats")]
+        [UFunction(FunctionFlags.BlueprintPure, Category = "Stats")]
         get => Stats[StatAttack].CurrentValue;
     }
 
     public int Defense
     {
-        [method: UFunction(FunctionFlags.BlueprintPure, Category = "Stats")]
+        [UFunction(FunctionFlags.BlueprintPure, Category = "Stats")]
         get => Stats[StatDefense].CurrentValue;
     }
 
     public int SpecialAttack
     {
-        [method: UFunction(FunctionFlags.BlueprintPure, Category = "Stats")]
+        [UFunction(FunctionFlags.BlueprintPure, Category = "Stats")]
         get => Stats[StatSpAtk].CurrentValue;
     }
 
     public int SpecialDefense
     {
-        [method: UFunction(FunctionFlags.BlueprintPure, Category = "Stats")]
+        [UFunction(FunctionFlags.BlueprintPure, Category = "Stats")]
         get => Stats[StatSpDef].CurrentValue;
     }
 
     public int Speed
     {
-        [method: UFunction(FunctionFlags.BlueprintPure, Category = "Stats")]
+        [UFunction(FunctionFlags.BlueprintPure, Category = "Stats")]
         get => Stats[StatSpeed].CurrentValue;
     }
 
     public UPokemon Pokemon
     {
-        [method: UFunction(FunctionFlags.BlueprintPure, Category = "Components")]
+        [UFunction(FunctionFlags.BlueprintPure, Category = "Components")]
         get => (UPokemon)OwningUnit;
+    }
+
+    public virtual void Initialize(int level)
+    {
+        Level = level;
+        
+        var natureIndex = (int) (Pokemon.PersonalityValue % GameData.Natures.AllEntries.Count);
+        NatureId = GameData.Natures.AllEntries[natureIndex].Id;
+        
+        foreach (var stats in GameData.Stats.AllEntries.Where(x => x.StatType != EStatType.Battle))
+        {
+            Stats[stats.Id] = new FStatEntry(0, new FStatData(Random.Shared.Next(MaxIV + 1)));
+        }
+        
+        RecalculateStats();
     }
 
     [UFunction(FunctionFlags.BlueprintPure, Category = "Stats")]
@@ -179,17 +201,17 @@ public class UStatComponent : UTurnBasedUnitComponent
     [UFunction(FunctionFlags.BlueprintCallable, Category = "Stats")]
     public void UpdateStat([Categories(UStat.AnyMainCategory)] FGameplayTag stat, FStatData data)
     {
-        Stats[stat] = Stats[stat] with { Data = data };
+        Stats[stat] = Stats[stat] with { Data = data with { IV = Math.Clamp(data.IV, 0, MaxIV), EV = Math.Clamp(data.EV, 0, MaxEV) } };
         RecalculateStats();
     }
 
     [UFunction(FunctionFlags.BlueprintCallable, Category = "Stats")]
     public void RecalculateStats()
     {
-        var species = Pokemon.SpeciesData;
+        var species = Pokemon.Species;
         var nature = NatureOverride.Match(
             x => GameData.Natures.GetEntry(x),
-            () => GameData.Natures.GetEntry(Nature)
+            () => GameData.Natures.GetEntry(NatureId)
         );
         foreach (var (id, stat) in Stats)
         {
