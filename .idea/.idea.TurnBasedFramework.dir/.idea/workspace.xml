@@ -9,10 +9,12 @@
   <component name="ChangeListManager">
     <list default="true" id="aa1e9cdd-86d7-4878-ad99-f01b0434e94b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultGame.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultGame.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/Tags/PokemonData.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/Tags/PokemonData.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Data/Pbs/TrainerType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Data/Pbs/TrainerType.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/PokemonEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/PokemonEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBased.Core/TurnBased.Core.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBased.Core/TurnBased.Core.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Core/Characters/Components/IdentityComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Core/Characters/Components/IdentityComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Core/Characters/Components/StatComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Core/Characters/Components/StatComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Core/Characters/Trainer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Core/Characters/Trainer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Core/PokemonCoreSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Core/PokemonCoreSettings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Core/PokemonStatics.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Core/PokemonStatics.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -1512,7 +1514,7 @@
       <workItem from="1755989576747" duration="2857000" />
       <workItem from="1756046564082" duration="16347000" />
       <workItem from="1756155776423" duration="6382000" />
-      <workItem from="1756427170957" duration="2834000" />
+      <workItem from="1756427170957" duration="4255000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed a missing with editor define">
       <option name="closed" value="true" />

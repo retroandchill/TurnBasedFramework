@@ -115,6 +115,7 @@ public class UStatComponent : UTurnBasedUnitComponent
     private IDictionary<FGameplayTag, FStatEntry> Stats { get; }
 
     [UProperty(PropertyFlags.BlueprintReadWrite)]
+    [Categories(UNature.TagCategory)]
     public FGameplayTag NatureId { get; set; }
     
     public UNature Nature

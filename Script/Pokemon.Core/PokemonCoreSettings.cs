@@ -12,6 +12,12 @@ public class UPokemonCoreSettings : UDeveloperSettings
 {
     [UProperty(
         PropertyFlags.EditDefaultsOnly | PropertyFlags.BlueprintReadOnly | PropertyFlags.Config,
+        Category = "Trainers"
+    )]
+    public int MaxPartySize { get; } = 6;
+    
+    [UProperty(
+        PropertyFlags.EditDefaultsOnly | PropertyFlags.BlueprintReadOnly | PropertyFlags.Config,
         Category = "DefaultClasses"
     )]
     public TSubclassOf<UPokemon> PokemonClass { get; }
