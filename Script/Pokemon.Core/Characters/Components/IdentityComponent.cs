@@ -1,6 +1,7 @@
 ﻿using Pokemon.Data;
 using Pokemon.Data.Pbs;
 using TurnBased.Core;
+using TurnBased.SourceGenerator.Attributes;
 using UnrealSharp;
 using UnrealSharp.Attributes;
 using UnrealSharp.Attributes.MetaTags;
@@ -39,6 +40,7 @@ public class UIdentityComponent : UTurnBasedUnitComponent
     [UProperty(PropertyFlags.BlueprintReadWrite, DisplayName = "OT Gender", Category = "Identity")]
     public ETrainerGender OTGender { get; set; }
     
+    [ExcludeFromExtensions]
     public UPokemon Pokemon
     {
         [UFunction(FunctionFlags.BlueprintPure, Category = "Components")]

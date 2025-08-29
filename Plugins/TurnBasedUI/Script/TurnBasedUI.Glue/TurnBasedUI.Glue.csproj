@@ -19,6 +19,6 @@
     <Analyzer Include="..\..\..\UnrealSharp\Binaries\Managed\UnrealSharp.SourceGenerators.dll" />
   </ItemGroup>
   <ItemGroup>
-    <InternalsVisibleTo Include="TurnBasedUI" />
+    <InternalsVisibleTo Include="TurnBased.UI" />
   </ItemGroup>
 </Project>

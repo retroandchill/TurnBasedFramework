@@ -2,6 +2,7 @@
 using Pokemon.Data;
 using Pokemon.Data.Core;
 using TurnBased.Core;
+using TurnBased.SourceGenerator.Attributes;
 using UnrealSharp;
 using UnrealSharp.Attributes;
 using UnrealSharp.Attributes.MetaTags;
@@ -172,6 +173,7 @@ public class UStatComponent : UTurnBasedUnitComponent
         get => Stats[StatSpeed].CurrentValue;
     }
 
+    [ExcludeFromExtensions]
     public UPokemon Pokemon
     {
         [UFunction(FunctionFlags.BlueprintPure, Category = "Components")]

@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
 using UnrealSharp.Engine.Core.Modules;
 
-namespace TurnBasedUI;
+namespace TurnBased.UI;
 
 [UsedImplicitly]
 public class FTurnBasedUIModule : IModuleInterface

@@ -5,7 +5,7 @@ using UnrealSharp.Engine;
 using UnrealSharp.GameplayTags;
 using UnrealSharp.TurnBasedUI;
 
-namespace TurnBasedUI;
+namespace TurnBased.UI;
 
 /// <summary>
 /// Provides extension methods for managing widget layers in a user interface.

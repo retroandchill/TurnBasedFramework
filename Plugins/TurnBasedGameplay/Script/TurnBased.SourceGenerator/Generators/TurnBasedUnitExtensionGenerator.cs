@@ -6,6 +6,8 @@ using HandlebarsDotNet;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Retro.SourceGeneratorUtilities.Utilities.Types;
+using TurnBased.SourceGenerator.Attributes;
 using TurnBased.SourceGenerator.Model;
 using TurnBased.SourceGenerator.Properties;
 
@@ -134,7 +136,8 @@ public class TurnBasedUnitExtensionGenerator : IIncrementalGenerator
 
     private static bool IsAccessibleProperty(IPropertySymbol propertySymbol)
     {
-        if (propertySymbol.IsStatic || propertySymbol.DeclaredAccessibility != Accessibility.Public)
+        if (propertySymbol.IsStatic || propertySymbol.DeclaredAccessibility != Accessibility.Public || propertySymbol.GetAttributes()
+                .Any(a => a.AttributeClass is not null && a.AttributeClass.IsAssignableTo<ExcludeFromExtensionsAttribute>()))
             return false;
 
         if (
@@ -235,7 +238,10 @@ public class TurnBasedUnitExtensionGenerator : IIncrementalGenerator
                 .GetAttributes()
                 .Any(a =>
                     a.AttributeClass?.ToDisplayString() == GeneratorStatics.UFunctionAttribute
-                );
+                ) 
+            && !methodSymbol.GetAttributes()
+                .Any(a => a.AttributeClass is not null 
+                          && a.AttributeClass.IsAssignableTo<ExcludeFromExtensionsAttribute>());
     }
 
     private static UFunctionInfo GetFunctionInfo(IMethodSymbol methodSymbol)

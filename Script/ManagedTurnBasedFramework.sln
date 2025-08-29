@@ -35,7 +35,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TurnBased.Core", "..\Plugin
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TurnBasedUI", "TurnBasedUI", "{E0362B1B-6881-4CC8-495F-01DC47E8A251}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TurnBasedUI", "..\Plugins\TurnBasedUI\Script\TurnBasedUI\TurnBasedUI.csproj", "{B284D7EC-E6B2-4D64-871F-D583E0F558D4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TurnBased.UI", "..\Plugins\TurnBasedUI\Script\TurnBased.UI\TurnBased.UI.csproj", "{B284D7EC-E6B2-4D64-871F-D583E0F558D4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TurnBasedUI.Glue", "..\Plugins\TurnBasedUI\Script\TurnBasedUI.Glue\TurnBasedUI.Glue.csproj", "{2087FF44-0B36-4CB1-B907-BD4A5BCC0A5F}"
 EndProject
