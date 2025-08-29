@@ -9,21 +9,10 @@
   <component name="ChangeListManager">
     <list default="true" id="aa1e9cdd-86d7-4878-ad99-f01b0434e94b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBased.Core/TurnBased.Core.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBased.Core/TurnBased.Core.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBased.Core/TurnBasedUnitExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBased.Core/TurnBasedUnitExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBased.SourceGenerator/GeneratorStatics.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBased.SourceGenerator/GeneratorStatics.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBased.SourceGenerator/Templates/TurnBasedUnit.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBased.SourceGenerator/Templates/TurnBasedUnit.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBased.SourceGenerator/Templates/TurnBasedUnitExtensions.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBased.SourceGenerator/Templates/TurnBasedUnitExtensions.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBasedGameplay.Glue/Extensions/TurnBasedUnit.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBasedGameplay.Glue/Extensions/TurnBasedUnitComponent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Private/TurnBasedCore.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Private/TurnBasedUnit.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Public/TurnBasedCore.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Public/TurnBasedUnit.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Core/Characters/Components/IdentityComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Core/Characters/Components/IdentityComponent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Core/Characters/Components/StatComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Core/Characters/Components/StatComponent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Core/Characters/Pokemon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Core/Characters/Pokemon.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Core/PokemonCoreSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Core/PokemonCoreSettings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultGame.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultGame.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/Tags/PokemonData.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/Tags/PokemonData.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Data/Pbs/TrainerType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Data/Pbs/TrainerType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Editor/PokemonEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Editor/PokemonEditor.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -1275,13 +1264,7 @@
     <setting file="file://$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.SourceGenerator/Model/AccessiblePropertyInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/GameDataAccessTools/Script/GameDataAccessTools.SourceGenerator/Utilities/PropertyAccessUtilities.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/GameDataAccessTools/Source/GameDataAccessTools/GameDataAccessTools.Build.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Plugins/TurnBasedGameplay/Intermediate/Build/Win64/UnrealEditor/Inc/TurnBasedCore/UHT/TurnBasedUnit.gen.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Private/LogTurnBasedCore.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Private/TurnBasedCore.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Private/TurnBasedUnit.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Public/TurnBasedCore.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Public/TurnBasedUnit.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/TurnBasedCore.Build.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/TurnBasedGameplay/Script/TurnBased.Core/TurnBasedUnit.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/TurnBasedGameplay/TurnBasedGameplay.uplugin" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp.Core/Attributes/GeneratedType.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp.Plugins/PluginLoadContext.cs" root0="SKIP_HIGHLIGHTING" />
@@ -1321,6 +1304,7 @@
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTestUtils/Public/UnrealSharpTestUtils.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharpTest/Source/UnrealSharpTestUtils/UnrealSharpTestUtils.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Script/Pokemon.Data/Pbs/BerryPlant.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/dev/TurnBasedFramework/Script/Pokemon.Data/Pbs/TrainerType.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Converters/BaseStatsConverter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Converters/EvolutionMethodConverter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Script/Pokemon.Editor/Serializers/Pbs/Serializers/BerryPlantPbsSerializer.cs" root0="SKIP_HIGHLIGHTING" />
@@ -1528,7 +1512,7 @@
       <workItem from="1755989576747" duration="2857000" />
       <workItem from="1756046564082" duration="16347000" />
       <workItem from="1756155776423" duration="6382000" />
-      <workItem from="1756427170957" duration="1740000" />
+      <workItem from="1756427170957" duration="2834000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed a missing with editor define">
       <option name="closed" value="true" />

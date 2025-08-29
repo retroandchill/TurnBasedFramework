@@ -56,6 +56,7 @@ public class FPokemonEditor : IModuleInterface
                 .AddSingleton<IGameDataEntrySerializer<UStat>, StatJsonSerializer>()
                 .AddSingleton<IGameDataEntrySerializer<UStatusEffect>, StatusEffectJsonSerializer>()
                 .AddSingleton<IGameDataEntrySerializer<UTargetType>, TargetTypeJsonSerializer>()
+                .AddSingleton<IGameDataEntrySerializer<UTrainerType>, TrainerTypeJsonSerializer>()
                 .AddSingleton<IGameDataEntrySerializer<UType>, TypeJsonSerializer>()
                 .AddSingleton<IGameDataEntrySerializer<UType>, TypePbsSerializer>()
                 .AddSingleton<IGameDataEntrySerializer<UAbility>, AbilityPbsSerializer>()
@@ -63,6 +64,7 @@ public class FPokemonEditor : IModuleInterface
                 .AddSingleton<IGameDataEntrySerializer<UItem>, ItemPbsSerializer>()
                 .AddSingleton<IGameDataEntrySerializer<UBerryPlant>, BerryPlantPbsSerializer>()
                 .AddSingleton<IGameDataEntrySerializer<USpecies>, SpeciesPbsSerializer>()
+                .AddSingleton<IGameDataEntrySerializer<UTrainerType>, TrainerTypePbsSerializer>()
         );
     }
 
@@ -91,6 +93,7 @@ public class FPokemonEditor : IModuleInterface
                 .RemoveAll<IGameDataEntrySerializer<UStat>>()
                 .RemoveAll<IGameDataEntrySerializer<UStatusEffect>>()
                 .RemoveAll<IGameDataEntrySerializer<UTargetType>>()
+                .RemoveAll<IGameDataEntrySerializer<UTrainerType>>()
                 .RemoveAll<IGameDataEntrySerializer<UType>>()
         );
     }

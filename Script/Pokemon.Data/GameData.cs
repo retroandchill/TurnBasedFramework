@@ -72,4 +72,7 @@ public partial class GameData
 
     [SettingsCategory("Pbs")]
     public static partial USpeciesDataRepository Species { get; }
+    
+    [SettingsCategory("Pbs")]
+    public static partial UTrainerTypeDataRepository TrainerTypes { get; }
 }
