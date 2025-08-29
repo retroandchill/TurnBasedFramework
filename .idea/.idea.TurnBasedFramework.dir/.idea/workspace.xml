@@ -9,15 +9,21 @@
   <component name="ChangeListManager">
     <list default="true" id="aa1e9cdd-86d7-4878-ad99-f01b0434e94b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TurnBasedFramework.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/FactoryType.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBasedGameplay.Glue/Extensions/TurnBasedUnit.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBasedGameplay.Glue/Extensions/TurnBasedUnit.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Private/TurnBasedUnit.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Private/TurnBasedUnit.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Public/TurnBasedUnit.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Public/TurnBasedUnit.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBased.Core/TurnBased.Core.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBased.Core/TurnBased.Core.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBased.Core/TurnBasedUnitExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBased.Core/TurnBasedUnitExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBased.SourceGenerator/GeneratorStatics.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBased.SourceGenerator/GeneratorStatics.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBased.SourceGenerator/Templates/TurnBasedUnit.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBased.SourceGenerator/Templates/TurnBasedUnit.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBased.SourceGenerator/Templates/TurnBasedUnitExtensions.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBased.SourceGenerator/Templates/TurnBasedUnitExtensions.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBasedGameplay.Glue/Extensions/TurnBasedUnit.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Script/TurnBasedGameplay.Glue/Extensions/TurnBasedUnitComponent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Private/TurnBasedCore.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Private/TurnBasedUnit.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Public/TurnBasedCore.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/TurnBasedGameplay/Source/TurnBasedCore/Public/TurnBasedUnit.h" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Script/Pokemon.Core/Characters/Components/IdentityComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Core/Characters/Components/IdentityComponent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Script/Pokemon.Core/Characters/Components/StatComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Core/Characters/Components/StatComponent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Script/Pokemon.Core/Characters/Pokemon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Core/Characters/Pokemon.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Core/Characters/PokemonExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Core/Characters/PokemonExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Core/PokemonSubsystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Core/PokemonSubsystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Pokemon.Core/PokemonCoreSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Pokemon.Core/PokemonCoreSettings.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +42,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/Plugins/UnrealSharp" value="bugfix/default-subobject" />
+        <entry key="$PROJECT_DIR$/Plugins/UnrealSharp" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -57,7 +63,6 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="cidr-memory-view://30" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Plugins/AI/MassAI/Source/MassAIBehavior/MassAIBehavior.Build.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Plugins/Animation/AnimationWarping/Source/Editor/AnimationWarpingEditor.Build.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Plugins/Animation/ControlRig/Source/ControlRig/Private/ControlRigReplay.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -1283,13 +1288,10 @@
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp.SourceGenerators/AsyncWrapperGenerator.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Attributes/UPropertyAttribute.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Extensions/CoreUObject/Object.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Extensions/CoreUObject/Object.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Extensions/CoreUObject/Quat.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Extensions/GameplayTags/GameplayTag.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Generated/Landscape/LandscapeEditLayerBase.generated.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Generated/UMGWidgetPreview/WidgetPreview.generated.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Interop/FNameExporter.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Interop/UObjectExporter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharp/UnrealSharp/Interop/UScriptStructExporter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharpPrograms/UnrealSharpBuildTool/Actions/BuildToolAction.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Managed/UnrealSharpPrograms/UnrealSharpBuildTool/Actions/GenerateProject.cs" root0="SKIP_HIGHLIGHTING" />
@@ -1302,8 +1304,6 @@
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/CSUnrealSharpSettings.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/Export/FSubsystemCollectionBaseRefExporter.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/Export/FSubsystemCollectionBaseRefExporter.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/UnrealSharp/Source/UnrealSharpCore/Export/UObjectExporter.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/dev/TurnBasedFramework/Plugins/UnrealSharp/Source/UnrealSharpCore/Export/UObjectExporter.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/UnrealSharpCore.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpEditor/UnrealSharpEditor.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpEditor/UnrealSharpEditor.h" root0="FORCE_HIGHLIGHTING" />
@@ -1340,22 +1340,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "Uproject.TurnBasedFramework.executor": "Run",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "SolutionBuilderGeneralOptionsPage",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;Uproject.TurnBasedFramework.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;SolutionBuilderGeneralOptionsPage&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="TurnBasedFramework" type="Uproject" factoryName="rider.uproject">
       <configuration_1 setup="1">
@@ -1527,12 +1527,8 @@
       <workItem from="1755870569377" duration="10902000" />
       <workItem from="1755989576747" duration="2857000" />
       <workItem from="1756046564082" duration="16347000" />
-      <workItem from="1756155776423" duration="4297000" />
-      <workItem from="1756250664363" duration="1815000" />
-      <workItem from="1756260367813" duration="1821000" />
-      <workItem from="1756387588400" duration="1951000" />
-      <workItem from="1756391555025" duration="980000" />
-      <workItem from="1756414378388" duration="7502000" />
+      <workItem from="1756155776423" duration="6382000" />
+      <workItem from="1756427170957" duration="1740000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed a missing with editor define">
       <option name="closed" value="true" />
@@ -1726,23 +1722,15 @@
       <option name="project" value="LOCAL" />
       <updated>1756066571871</updated>
     </task>
-    <task id="LOCAL-00025" summary="Added support for calling IsA on TSubclassOf">
+    <task id="LOCAL-00025" summary="Sketched out a much more basic setup for the way components work">
       <option name="closed" value="true" />
-      <created>1756414461970</created>
+      <created>1756164165315</created>
       <option name="number" value="00025" />
       <option name="presentableId" value="LOCAL-00025" />
       <option name="project" value="LOCAL" />
-      <updated>1756414461970</updated>
+      <updated>1756164165315</updated>
     </task>
-    <task id="LOCAL-00026" summary="Added Span support for FName and FText">
-      <option name="closed" value="true" />
-      <created>1756414473980</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1756414473980</updated>
-    </task>
-    <option name="localTasksCounter" value="27" />
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1786,9 +1774,8 @@
     <MESSAGE value="Added the async loading capabilities for both C# and Blueprints" />
     <MESSAGE value="Removed the legacy turn-based core code" />
     <MESSAGE value="Created the basic outline of how characters are constructed" />
-    <MESSAGE value="Added support for calling IsA on TSubclassOf" />
-    <MESSAGE value="Added Span support for FName and FText" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Span support for FName and FText" />
+    <MESSAGE value="Sketched out a much more basic setup for the way components work" />
+    <option name="LAST_COMMIT_MESSAGE" value="Sketched out a much more basic setup for the way components work" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1805,16 +1792,6 @@
           <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
           <option name="timeStamp" value="3" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpCore/TypeGenerator/Register/CSGeneratedClassBuilder.cpp</url>
-          <line>90</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Plugins/UnrealSharp/Source/UnrealSharpEditor/UnrealSharpEditor.cpp</url>
-          <line>941</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

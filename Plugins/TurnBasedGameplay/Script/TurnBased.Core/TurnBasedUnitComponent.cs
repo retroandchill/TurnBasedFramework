@@ -1,9 +1,20 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using UnrealSharp;
+using UnrealSharp.Attributes;
+using UnrealSharp.CoreUObject;
+using UnrealSharp.Engine;
 
-namespace UnrealSharp.TurnBasedCore;
+namespace TurnBased.Core;
 
-public partial class UTurnBasedUnitComponent
+[UClass(ClassFlags.Abstract)]
+public class UTurnBasedUnitComponent : UObject
 {
+    public UTurnBasedUnit OwningUnit
+    {
+        [UFunction(FunctionFlags.BlueprintPure, Category = "Components")]
+        get => (UTurnBasedUnit)SystemLibrary.GetOuterObject(this);
+    }
+    
     /// <summary>
     /// Retrieves a sibling component of the specified type from the owning unit.
     /// This method searches for a sibling component of the given type associated with the entity's owning unit.
@@ -83,5 +94,11 @@ public partial class UTurnBasedUnitComponent
         where T : UTurnBasedUnitComponent
     {
         return OwningUnit.TryGetComponent(out component);
+    }
+
+    [UFunction(FunctionFlags.BlueprintEvent, Category = "Component")]
+    public virtual void PostInitializeUnit()
+    {
+        
     }
 }

@@ -1,51 +1,48 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using UnrealSharp.Core.Marshallers;
+using UnrealSharp;
+using UnrealSharp.Attributes;
 using UnrealSharp.CoreUObject;
 using ZLinq;
 
-namespace UnrealSharp.TurnBasedCore;
+namespace TurnBased.Core;
 
-/// <summary>
-/// Represents a contract for a turn-based unit associated with a specific component in a turn-based system.
-/// This interface exposes a generic accessor to the component that represents or manages the behavior
-/// of the unit within the turn-based system.
-/// </summary>
-/// <typeparam name="TComponent">The type of the component associated with the unit. It must derive from UTurnBasedUnitComponent</typeparam>
-/// <remarks>
-/// This interface is used to provide a generic way to access the component associated with a unit when the association
-/// is known at compile time. Calls to <see cref="UTurnBasedUnit.GetComponent{T}()">GetComponent</see> and
-/// <see cref="UTurnBasedUnit.TryGetComponent{T}(out T?)">TryGetComponent</see> will see if the unit implements this
-/// interface before falling back to the component list.
-/// </remarks>
-public interface ITurnBasedUnit<out TComponent>
-    where TComponent : UTurnBasedUnitComponent
+public interface ITurnBasedUnit<out T> where T : UTurnBasedUnitComponent
 {
-    /// <summary>
-    /// Gets the component associated with the turn-based unit. This component represents
-    /// or manages specific behavior or data related to the unit within the turn-based system.
-    /// </summary>
-    /// <typeparam name="TComponent">The type of the component associated with the unit.
-    /// It must derive from <see cref="UTurnBasedUnitComponent"/>.</typeparam>
-    /// <returns>
-    /// The instance of the component that is associated with the unit.
-    /// </returns>
-    TComponent Component { get; }
+    T Component { get; }
 }
 
-public partial class UTurnBasedUnit
+[UClass(ClassFlags.Abstract)]
+public class UTurnBasedUnit : UObject
 {
+    [UProperty] 
+    public TArray<UTurnBasedUnitComponent> Components { get; }
+
+    private bool _initialized;
+    
     public static T Create<T>(UObject outer, Action<T>? constructor = null) where T : UTurnBasedUnit
     {
-        var newUnit = CreateInternal<T>(outer);
-        constructor?.Invoke(newUnit);
+        var newUnit = NewObject<T>(outer);
+        InitializeInternal(newUnit, constructor);
         return newUnit;
     }
     
     public static T Create<T>(UObject outer, TSubclassOf<T> unitClass, Action<T>? constructor = null) where T : UTurnBasedUnit
     {
-        var newUnit = CreateInternal(outer, unitClass);
-        constructor?.Invoke(newUnit);
+        var newUnit = NewObject(outer, unitClass);
+        InitializeInternal(newUnit, constructor);
         return newUnit;
+    }
+
+    private static void InitializeInternal<T>(T newUnit, Action<T>? constructor = null) where T : UTurnBasedUnit
+    {
+        newUnit.CreateComponents();
+        constructor?.Invoke(newUnit);
+
+        foreach (var component in newUnit.Components)
+        {
+            component.PostInitializeUnit();
+        }
+        newUnit._initialized = true;
     }
     
     /// <summary>
@@ -135,15 +132,25 @@ public partial class UTurnBasedUnit
 
     public T RegisterNewComponent<T>(Action<T>? constructor = null) where T : UTurnBasedUnitComponent
     {
-        var newComponent = NewObject<T>(this);
-        constructor?.Invoke(newComponent);
-        return RegisterNewComponent(newComponent);
+        var component = NewObject<T>(this);
+        constructor?.Invoke(component);
+        return component;
     }
     
     public T RegisterNewComponent<T>(TSubclassOf<T> componentClass, Action<T>? constructor = null) where T : UTurnBasedUnitComponent
     {
-        var newComponent = NewObject(this, componentClass);
-        constructor?.Invoke(newComponent);
-        return RegisterNewComponent(newComponent);
+        var component = NewObject(this, componentClass);
+        constructor?.Invoke(component);
+        
+        if (_initialized)
+        {
+            component.PostInitializeUnit();
+        }
+        return component;
+    }
+
+    protected virtual void CreateComponents()
+    {
+        
     }
 }

@@ -4,9 +4,8 @@ namespace TurnBased.SourceGenerator;
 
 public static class GeneratorStatics
 {
-    public const string TurnBasedUnit = "UnrealSharp.TurnBasedCore.UTurnBasedUnit";
-    public const string TurnBasedUnitComponent =
-        "UnrealSharp.TurnBasedCore.UTurnBasedUnitComponent";
+    public const string TurnBasedUnit = "TurnBased.Core.UTurnBasedUnit";
+    public const string TurnBasedUnitComponent = "TurnBased.Core.UTurnBasedUnitComponent";
 
     public const string UPropertyAttribute = "UnrealSharp.Attributes.UPropertyAttribute";
     public const string UFunctionAttribute = "UnrealSharp.Attributes.UFunctionAttribute";

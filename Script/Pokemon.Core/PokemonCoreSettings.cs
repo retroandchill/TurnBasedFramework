@@ -1,9 +1,9 @@
 ﻿using Pokemon.Core.Characters;
 using Pokemon.Core.Characters.Components;
+using TurnBased.Core;
 using UnrealSharp;
 using UnrealSharp.Attributes;
 using UnrealSharp.DeveloperSettings;
-using UnrealSharp.TurnBasedCore;
 
 namespace Pokemon.Core;
 

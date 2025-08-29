@@ -1,11 +1,11 @@
 ﻿using LanguageExt;
 using Pokemon.Data;
 using Pokemon.Data.Core;
+using TurnBased.Core;
 using UnrealSharp;
 using UnrealSharp.Attributes;
 using UnrealSharp.Attributes.MetaTags;
 using UnrealSharp.GameplayTags;
-using UnrealSharp.TurnBasedCore;
 
 namespace Pokemon.Core.Characters.Components;
 

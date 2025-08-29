@@ -1,9 +1,9 @@
 ﻿using Pokemon.Data;
 using Pokemon.Data.Pbs;
+using TurnBased.Core;
 using UnrealSharp;
 using UnrealSharp.Attributes;
 using UnrealSharp.GameplayTags;
-using UnrealSharp.TurnBasedCore;
 
 namespace Pokemon.Core.Characters.Components;
 

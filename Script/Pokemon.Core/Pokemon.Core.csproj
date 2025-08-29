@@ -23,7 +23,6 @@
       OutputItemType="Analyzer"
       ReferenceOutputAssembly="false"
     />
-    <ProjectReference Include="..\..\Plugins\TurnBasedGameplay\Script\TurnBasedGameplay.Glue\TurnBasedGameplay.Glue.csproj" />
     <ProjectReference Include="..\Pokemon.Data\Pokemon.Data.csproj" />
     <ProjectReference Include="..\TurnBasedFramework.Glue\TurnBasedFramework.Glue.csproj" />
   </ItemGroup>
