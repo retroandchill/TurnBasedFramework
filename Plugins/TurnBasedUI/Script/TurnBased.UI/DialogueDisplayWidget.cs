@@ -1,9 +1,9 @@
-﻿using TurnBased.UI.Actions;
-using UnrealSharp.Attributes;
+﻿using UnrealSharp.Attributes;
 using UnrealSharp.Attributes.MetaTags;
 using UnrealSharp.CommonUI;
 using UnrealSharp.EnhancedInput;
 using UnrealSharp.TurnBasedUI;
+using UnrealSharp.UnrealSharpCommonUI;
 
 namespace TurnBased.UI;
 
@@ -19,7 +19,7 @@ public class UDialogueDisplayWidget : UCommonActivatableWidget
     
     public override void Construct()
     {
-        this.RegisterUIActionBinding(new BindUIActionArgs(AdvanceAction, false, () =>
+        RegisterUIActionBinding(new BindUIActionArgs(this, AdvanceAction, false, () =>
         {
 
         }));

@@ -3,12 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "CSManagedGCHandle.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "CSCommonUISubsystem.generated.h"
 
 class UWidget;
-class FCSInputBindingCallbacks;
+class FCSInputBindingCallback;
+
 /**
  * 
  */
@@ -20,12 +20,14 @@ class UNREALSHARPCOMMONUI_API UCSCommonUISubsystem : public UGameInstanceSubsyst
 public:
     void Deinitialize() override;
 
-    TSharedRef<FCSInputBindingCallbacks> BindInputActionCallbacks(UWidget* InObject, const FGCHandle& OnExecuteAction, const FGCHandle& OnHoldActionPressed,
-        const FGCHandle& OnHoldActionReleased, const FGCHandle& OnHoldActionProgressed);
+    void RegisterInputBindingCallback(const UWidget* Widget, const ::FGuid& Id,
+                                      const TSharedRef<FCSInputBindingCallback>& Callback);
+
+    FCSInputBindingCallback* GetInputBindingCallback(const UWidget* Widget, const FGuid& Guid);
 
     void NotifyUObjectDeleted(const UObjectBase* Object, int32 Index) override;
     void OnUObjectArrayShutdown() override;
 
 private:
-    TMap<uint32, TArray<TSharedRef<FCSInputBindingCallbacks>>> CallbackBindings;
+    TMap<uint32, TMap<FGuid, TSharedPtr<FCSInputBindingCallback>>> InputBindingCallbacks;
 };

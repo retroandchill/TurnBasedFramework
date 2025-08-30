@@ -5,13 +5,17 @@
                 "Name": "FBindUIActionArgsRef"
             },
             {
-                "Name": "FManagedBindUIActionDelegate"
+                "Name": "FManagedDelegateHandle"
             },
             {
-                "Name": "FManagedBindUIActionDelegates"
+                "Name": "FInputBindingCallbackRef"
             }
         ],
         "NativelyTranslatableTypes": [
+            {
+                "Name": "FCSBindUIActionArgs",
+                "HasDestructor": true
+            }
         ]
     }
 }

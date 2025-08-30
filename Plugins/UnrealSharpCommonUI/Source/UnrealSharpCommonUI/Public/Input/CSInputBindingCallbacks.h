@@ -4,53 +4,56 @@
 
 #include "CoreMinimal.h"
 #include "CSManagedDelegate.h"
-#include "Components/Widget.h"
+
+#include "CSInputBindingCallbacks.generated.h"
+
+USTRUCT()
+struct FManagedDelegateHandle
+{
+    GENERATED_BODY()
+
+    FGCHandleIntPtr Ptr;
+};
 
 class FCSInputBindingCallback
 {
 public:
-    explicit FCSInputBindingCallback(const FGCHandle& InCallback) : Callback(InCallback), bIsValid(!InCallback.IsNull()) {}
+    UE_NONCOPYABLE(FCSInputBindingCallback)
 
-    FCSInputBindingCallback(const FCSInputBindingCallback&) = delete;
-    FCSInputBindingCallback(FCSInputBindingCallback&&) = delete;
-
+    explicit FCSInputBindingCallback(const FGCHandle& Handle) : Delegate(Handle) {}
+    
     ~FCSInputBindingCallback()
     {
-        Callback.Dispose();
+        Delegate.Dispose();
     }
-
-    FCSInputBindingCallback& operator=(const FCSInputBindingCallback&) = delete;
-    FCSInputBindingCallback& operator=(FCSInputBindingCallback&&) = delete;
-
-    bool IsBound() const { return bIsValid; }
 
 protected:
     void InvokeInternal(UObject* WorldContext)
     {
-        Callback.Invoke(WorldContext, false);
+        Delegate.Invoke(WorldContext, false);
     }
 
 private:
-    FCSManagedDelegate Callback;
-    bool bIsValid;
+    FCSManagedDelegate Delegate;
 };
 
 template <typename... T>
+    requires ((std::is_default_constructible_v<T>) && ...)
 class TCSInputBindingCallback : public FCSInputBindingCallback
 {
 public:
     using FCSInputBindingCallback::FCSInputBindingCallback;
 
     template <typename... A>
-        requires std::constructible_from<TTuple<T...>, A...>
-    void Invoke(UObject* WorldContext)
+        requires std::constructible_from<TTuple<T...>, A...> 
+    void Invoke(UObject* WorldContext, A&&... Args)
     {
-        Args = TTuple<T...>(Forward<A>(Args)...);
-        InvokeInternal(WorldContext);
+        LastParams = TTuple<T...>(Forward<A>(Args)...);
+        InvokeInternal(WorldContext);   
     }
-    
+
 private:
-    TTuple<T...> Args;
+    TTuple<T...> LastParams;
 };
 
 template <>
@@ -58,11 +61,11 @@ class TCSInputBindingCallback<> : public FCSInputBindingCallback
 {
 public:
     using FCSInputBindingCallback::FCSInputBindingCallback;
-    
+
     void Invoke(UObject* WorldContext)
     {
-        InvokeInternal(WorldContext);
-    }
+        InvokeInternal(WorldContext);   
+    }   
 };
 
 template <typename T>
@@ -72,69 +75,31 @@ public:
     using FCSInputBindingCallback::FCSInputBindingCallback;
 
     template <std::convertible_to<T> A>
-    void Invoke(UObject* WorldContext, A &&InArg)
+    void Invoke(UObject* WorldContext, A&& Args)
     {
-        Arg = Forward<A>(InArg);
-        InvokeInternal(WorldContext);
+        LastParam = Forward<A>(Args);
+        InvokeInternal(WorldContext);  
     }
 
 private:
-    T Arg;
+    T LastParam;
 };
 
-/**
- * 
- */
-class UNREALSHARPCOMMONUI_API FCSInputBindingCallbacks
+USTRUCT()
+struct FInputBindingCallbackRef
 {
-public:
-    FCSInputBindingCallbacks(UWidget* InObject, const FGCHandle& OnExecuteAction, const FGCHandle& OnHoldActionPressed,
-        const FGCHandle& OnHoldActionReleased, const FGCHandle& OnHoldActionProgressed) : Object(InObject),
-        OnExecuteAction(OnExecuteAction), OnHoldActionPressed(OnHoldActionPressed), OnHoldActionReleased(OnHoldActionReleased),
-        OnHoldActionProgressed(OnHoldActionProgressed)
-    {
-        
-    }
+    GENERATED_BODY()
 
-    void InvokeOnExecuteAction()
-    {
-        OnExecuteAction.Invoke(Object.Get());
-    }
+    FInputBindingCallbackRef() = default;
+    explicit(false) FInputBindingCallbackRef(FCSInputBindingCallback& Handle) : Ptr(&Handle) {}
+    explicit(false) FInputBindingCallbackRef(FCSInputBindingCallback* Handle) : Ptr(Handle) {}
 
-    void InvokeOnHoldActionPressed()
+    FCSInputBindingCallback& Get() const
     {
-        OnHoldActionPressed.Invoke(Object.Get());
+        check(Ptr != nullptr);
+        return *Ptr;
     }
-
-    bool IsOnHoldActionPressedBound() const
-    {
-        return OnHoldActionPressed.IsBound();
-    }
-
-    void InvokeOnHoldActionReleased()
-    {
-        OnHoldActionReleased.Invoke(Object.Get());
-    }
-
-    bool IsOnHoldActionReleasedBound() const
-    {
-        return OnHoldActionReleased.IsBound();
-    }
-
-    void InvokeOnHoldActionProgressed(const float InProgress)
-    {
-        OnHoldActionProgressed.Invoke(Object.Get(), InProgress);
-    }
-
-    bool IsOnHoldActionProgressedBound() const
-    {
-        return OnHoldActionProgressed.IsBound();
-    }
-
+    
 private:
-    TWeakObjectPtr<UWidget> Object;
-    TCSInputBindingCallback<> OnExecuteAction;
-    TCSInputBindingCallback<> OnHoldActionPressed;
-    TCSInputBindingCallback<> OnHoldActionReleased;
-    TCSInputBindingCallback<float> OnHoldActionProgressed;
+    FCSInputBindingCallback* Ptr;
 };

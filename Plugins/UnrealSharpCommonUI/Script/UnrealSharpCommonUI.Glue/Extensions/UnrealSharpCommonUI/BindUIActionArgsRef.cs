@@ -3,5 +3,12 @@ namespace UnrealSharp.UnrealSharpCommonUI;
 
 public readonly ref partial struct FBindUIActionArgsRef
 {
-    private readonly IntPtr _ref;
+    internal readonly IntPtr _ref;
+
+    internal FBindUIActionArgsRef(IntPtr @ref)
+    {
+        _ref = @ref;
+    }
+    
+    public static unsafe implicit operator FBindUIActionArgsRef(FBindUIActionArgs* ptr) => new((IntPtr)ptr);
 }

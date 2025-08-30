@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CSBindUIActionArgs.h"
 #include "Input/UIActionBindingHandle.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "ActionBindingExtensions.generated.h"
@@ -14,24 +15,6 @@ class UCSBindUIActionCallbacksBase;
 class UCommonUserWidget;
 class FCSInputBindingCallbacks;
 struct FBindUIActionArgs;
-
-USTRUCT(BlueprintType)
-struct FBindUIActionArgsRef
-{
-    GENERATED_BODY()
-
-    FBindUIActionArgsRef() = default;
-    explicit FBindUIActionArgsRef(FBindUIActionArgs& InRef) : Ref(&InRef) {}
-
-    const FBindUIActionArgs& Get() const
-    {
-        check(Ref != nullptr);
-        return *Ref;
-    }
-
-private:
-    FBindUIActionArgs* Ref = nullptr;
-};
 
 /**
  * 
@@ -46,8 +29,7 @@ public:
     static const TArray<FUIActionBindingHandle>& GetActionBindings(const UCommonUserWidget* Widget);
 
     UFUNCTION(meta = (ScriptMethod))
-    static FUIActionBindingHandle RegisterActionBinding(UCommonUserWidget* Widget, const FCSBindUIActionArgs& Args,
-        const FManagedBindUIActionDelegates& Callbacks);
+    static FUIActionBindingHandle RegisterActionBinding(UCommonUserWidget* Widget, FBindUIActionArgsRef Args);
 
     UFUNCTION(meta = (ScriptMethod))
     static void AddActionBinding(UCommonUserWidget* Widget, const FUIActionBindingHandle& Handle);

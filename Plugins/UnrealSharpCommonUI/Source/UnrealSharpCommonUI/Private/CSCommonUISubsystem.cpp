@@ -8,25 +8,28 @@
 
 void UCSCommonUISubsystem::Deinitialize()
 {
-    CallbackBindings.Empty();
+    InputBindingCallbacks.Empty();
     GUObjectArray.RemoveUObjectDeleteListener(this);
 }
 
-TSharedRef<FCSInputBindingCallbacks> UCSCommonUISubsystem::BindInputActionCallbacks(UWidget* InObject, const FGCHandle& OnExecuteAction,
-    const FGCHandle& OnHoldActionPressed, const FGCHandle& OnHoldActionReleased,
-    const FGCHandle& OnHoldActionProgressed)
+void UCSCommonUISubsystem::RegisterInputBindingCallback(const UWidget* Widget,
+                                                        const FGuid& Id,
+                                                        const TSharedRef<FCSInputBindingCallback>& Callback)
 {
-    const uint32 UniqueId = InObject->GetUniqueID();
-    auto& Callbacks = CallbackBindings.FindOrAdd(UniqueId);
-    
-    auto Binding = MakeShared<FCSInputBindingCallbacks>(InObject, OnExecuteAction, OnHoldActionPressed, OnHoldActionReleased, OnHoldActionProgressed);
-    Callbacks.Add(Binding);
-    return Binding;   
+    auto &WidgetCallbacks = InputBindingCallbacks.FindOrAdd(Widget->GetUniqueID());
+    WidgetCallbacks.Add(Id, Callback);
 }
+
+FCSInputBindingCallback* UCSCommonUISubsystem::GetInputBindingCallback(const UWidget* Widget, const FGuid& Guid)
+{
+    const auto &WidgetCallbacks = InputBindingCallbacks.FindOrAdd(Widget->GetUniqueID());
+    return WidgetCallbacks.FindRef(Guid).Get();
+}
+
 
 void UCSCommonUISubsystem::NotifyUObjectDeleted(const UObjectBase* Object, int32 Index)
 {
-    CallbackBindings.Remove(Object->GetUniqueID());
+    InputBindingCallbacks.Remove(Object->GetUniqueID());
 }
 
 void UCSCommonUISubsystem::OnUObjectArrayShutdown()

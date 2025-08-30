@@ -3,78 +3,80 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "CommonInputModeTypes.h"
-#include "CommonInputTypeEnum.h"
-#include "CSManagedGCHandle.h"
-#include "UITag.h"
 #include "UObject/Object.h"
+#include "Input/CommonUIInputTypes.h"
 #include "CSBindUIActionArgs.generated.h"
 
-class UInputAction;
-
-UENUM()
-enum class ECSBindUIMode
-{
-    ActionTag,
-    ActionTableRow,
-    InputAction
-};
-
-/**
- * 
- */
 USTRUCT()
-struct FCSBindUIActionArgs
+struct FSimpleDelegateRef
 {
     GENERATED_BODY()
 
-    UPROPERTY()
-    ECSBindUIMode BindUIMode;
+    FSimpleDelegateRef() = default;
+    explicit FSimpleDelegateRef(FSimpleDelegate& InDelegate) : Delegate(&InDelegate) {}
 
-    UPROPERTY()
-    FUIActionTag ActionTag;
+    FSimpleDelegate& Get()
+    {
+        check(Delegate != nullptr);
+        return *Delegate;   
+    }
+    
+    FSimpleDelegate& Get() const
+    {
+        check(Delegate != nullptr);
+        return *Delegate;
+    }
 
-    UPROPERTY()
-    FDataTableRowHandle ActionTableRow;
-
-    UPROPERTY()
-    TObjectPtr<const UInputAction> InputAction;
-
-    UPROPERTY()
-    ECommonInputMode InputMode = ECommonInputMode::Menu;
-
-    UPROPERTY()
-    TEnumAsByte<EInputEvent> KeyEvent = IE_Pressed;
-
-    UPROPERTY()
-    TSet<ECommonInputType> InputTypesExemptFromValidKeyCheck = { ECommonInputType::MouseAndKeyboard, ECommonInputType::Touch };
-
-    UPROPERTY()
-    bool bIsPersistent = false;
-
-    UPROPERTY()
-    bool bConsumeInput = true;
-
-    UPROPERTY()
-    bool bDisplayInActionBar = true;
-
-    UPROPERTY()
-    bool bForceHold = false;
-
-    UPROPERTY()
-    FText OverrideDisplayName;
-
-    UPROPERTY()
-    int32 PriorityWithinCollection = 0;
+private:
+    FSimpleDelegate* Delegate = nullptr;
 };
 
+DECLARE_DELEGATE_OneParam(FFloatDelegate, float);
+
 USTRUCT()
-struct FManagedBindUIActionDelegates
+struct FFloatDelegateRef
 {
     GENERATED_BODY()
 
-    FGCHandleIntPtr OnExecuteAction;
-    FGCHandleIntPtr OnHoldActionPressed;
-    FGCHandleIntPtr OnHoldActionProgressed;
-    FGCHandleIntPtr OnHoldActionReleased;
+    FFloatDelegateRef() = default;
+    explicit FFloatDelegateRef(FFloatDelegate& InDelegate) : Delegate(&InDelegate) {}
+
+    FFloatDelegate& Get()
+    {
+        check(Delegate != nullptr);
+        return *Delegate;   
+    }
+    
+    FFloatDelegate& Get() const
+    {
+        check(Delegate != nullptr);
+        return *Delegate;
+    }
+
+private:
+    FFloatDelegate* Delegate = nullptr;
+};
+
+USTRUCT()
+struct FBindUIActionArgsRef
+{
+    GENERATED_BODY()
+
+    FBindUIActionArgsRef() = default;
+    explicit FBindUIActionArgsRef(FBindUIActionArgs& InRef) : Ref(&InRef) {}
+
+    FBindUIActionArgs& Get()
+    {
+        check(Ref != nullptr);
+        return *Ref;  
+    }
+
+    const FBindUIActionArgs& Get() const
+    {
+        check(Ref != nullptr);
+        return *Ref;
+    }
+
+private:
+    FBindUIActionArgs* Ref = nullptr;
 };
