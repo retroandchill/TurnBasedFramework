@@ -9,6 +9,8 @@ public class FTurnBasedUIModule : IModuleInterface
 {
     public void StartupModule()
     {
+        var actions = UIManagedActions.Create();
+        UIManagedCallbacksExporter.CallSetActions(ref actions);
     }
 
     public void ShutdownModule() { }

@@ -6,7 +6,6 @@
 #include "CommonUserWidget.h"
 #include "CSCommonUISubsystem.h"
 #include "Unreachable.h"
-#include "Editor/Experimental/EditorInteractiveToolsFramework/Public/Behaviors/2DViewportBehaviorTargets.h"
 #include "Input/CommonUIInputTypes.h"
 #include "Input/CSBindUIActionArgs.h"
 #include "Input/CSInputBindingCallbacks.h"
@@ -69,8 +68,6 @@ FUIActionBindingHandle UActionBindingExtensions::RegisterActionBinding(UCommonUs
     NativeArgs.bForceHold = Args.bForceHold;
     NativeArgs.OverrideDisplayName = Args.OverrideDisplayName;
     NativeArgs.PriorityWithinCollection = Args.PriorityWithinCollection;
-
-    if (BindCallbacks)
     
     return Widget->RegisterUIActionBinding(NativeArgs);
 }

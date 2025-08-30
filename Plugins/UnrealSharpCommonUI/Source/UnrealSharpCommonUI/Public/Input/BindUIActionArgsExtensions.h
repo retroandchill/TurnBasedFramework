@@ -3,18 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "CommonInputTypeEnum.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "BindUIActionArgsExtensions.generated.h"
-
-USTRUCT(meta = (SkipGlueGeneration))
-struct FCommonInputTypeSet
-{
-    GENERATED_BODY()
-    
-    UPROPERTY()
-    TSet<ECommonInputType> ContainedSet; 
-};
 
 /**
  * 

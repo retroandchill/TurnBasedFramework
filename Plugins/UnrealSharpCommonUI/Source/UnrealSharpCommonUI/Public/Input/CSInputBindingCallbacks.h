@@ -6,8 +6,6 @@
 #include "CSManagedDelegate.h"
 #include "Components/Widget.h"
 
-#include "CSInputBindingCallbacks.generated.h"
-
 class FCSInputBindingCallback
 {
 public:

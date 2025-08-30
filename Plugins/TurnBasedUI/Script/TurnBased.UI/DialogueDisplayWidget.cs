@@ -17,19 +17,11 @@ public class UDialogueDisplayWidget : UCommonActivatableWidget
     [UProperty(PropertyFlags.EditAnywhere, Category = "Actions")]
     private UInputAction AdvanceAction { get; }
     
-    [UProperty]
-    private FStrongBindingHandle ActionBindingHandle { get; set; }
-    
     public override void Construct()
     {
-        ActionBindingHandle = this.RegisterUIActionBinding(new BindUIActionArgs(AdvanceAction, false, () =>
+        this.RegisterUIActionBinding(new BindUIActionArgs(AdvanceAction, false, () =>
         {
 
         }));
-    }
-
-    public override void Destruct()
-    {
-        this.RemoveActionBinding(ActionBindingHandle.Handle);
     }
 }
