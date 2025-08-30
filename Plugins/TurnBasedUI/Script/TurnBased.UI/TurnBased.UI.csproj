@@ -6,12 +6,16 @@
     <CopyLocalLockFileAssembliesName>true</CopyLocalLockFileAssembliesName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <EnableDynamicLoading>true</EnableDynamicLoading>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
     <PackageReference Include="LanguageExt.Core" Version="4.4.9" />
     <Reference Include="UnrealSharp">
       <HintPath>..\..\..\UnrealSharp\Binaries\Managed\net9.0\UnrealSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="UnrealSharp.Binds">
+      <HintPath>..\..\..\UnrealSharp\Binaries\Managed\net9.0\UnrealSharp.Binds.dll</HintPath>
     </Reference>
     <Reference Include="UnrealSharp.Core">
       <HintPath>..\..\..\UnrealSharp\Binaries\Managed\net9.0\UnrealSharp.Core.dll</HintPath>
