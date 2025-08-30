@@ -38,6 +38,8 @@ public class UnrealSharpCommonUI : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
+				"GameplayTags",
+				"EnhancedInput", "CommonUtilities"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

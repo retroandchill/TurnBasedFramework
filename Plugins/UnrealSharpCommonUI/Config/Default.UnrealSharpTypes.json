@@ -3,6 +3,12 @@
         "BlittableTypes": [
             {
                 "Name": "FBindUIActionArgsRef"
+            },
+            {
+                "Name": "FManagedBindUIActionDelegate"
+            },
+            {
+                "Name": "FManagedBindUIActionDelegates"
             }
         ],
         "NativelyTranslatableTypes": [

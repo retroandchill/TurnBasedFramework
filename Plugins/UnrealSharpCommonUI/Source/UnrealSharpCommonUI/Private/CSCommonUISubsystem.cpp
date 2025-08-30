@@ -12,13 +12,16 @@ void UCSCommonUISubsystem::Deinitialize()
     GUObjectArray.RemoveUObjectDeleteListener(this);
 }
 
-void UCSCommonUISubsystem::BindInputActionCallbacks(UWidget* InObject, const FGCHandle& OnExecuteAction,
+TSharedRef<FCSInputBindingCallbacks> UCSCommonUISubsystem::BindInputActionCallbacks(UWidget* InObject, const FGCHandle& OnExecuteAction,
     const FGCHandle& OnHoldActionPressed, const FGCHandle& OnHoldActionReleased,
     const FGCHandle& OnHoldActionProgressed)
 {
     const uint32 UniqueId = InObject->GetUniqueID();
     auto& Callbacks = CallbackBindings.FindOrAdd(UniqueId);
-    Callbacks.Add(MakeShared<FCSInputBindingCallbacks>(InObject, OnExecuteAction, OnHoldActionPressed, OnHoldActionReleased, OnHoldActionProgressed));
+    
+    auto Binding = MakeShared<FCSInputBindingCallbacks>(InObject, OnExecuteAction, OnHoldActionPressed, OnHoldActionReleased, OnHoldActionProgressed);
+    Callbacks.Add(Binding);
+    return Binding;   
 }
 
 void UCSCommonUISubsystem::NotifyUObjectDeleted(const UObjectBase* Object, int32 Index)

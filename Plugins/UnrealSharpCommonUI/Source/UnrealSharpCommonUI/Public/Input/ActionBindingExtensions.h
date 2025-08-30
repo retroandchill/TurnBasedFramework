@@ -7,6 +7,10 @@
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "ActionBindingExtensions.generated.h"
 
+struct FManagedBindUIActionDelegates;
+struct FCSBindUIActionArgs;
+class UInputAction;
+class UCSBindUIActionCallbacksBase;
 class UCommonUserWidget;
 class FCSInputBindingCallbacks;
 struct FBindUIActionArgs;
@@ -32,7 +36,7 @@ private:
 /**
  * 
  */
-UCLASS()
+UCLASS(meta = (InternalType))
 class UNREALSHARPCOMMONUI_API UActionBindingExtensions : public UBlueprintFunctionLibrary
 {
     GENERATED_BODY()
@@ -42,7 +46,8 @@ public:
     static const TArray<FUIActionBindingHandle>& GetActionBindings(const UCommonUserWidget* Widget);
 
     UFUNCTION(meta = (ScriptMethod))
-    static FUIActionBindingHandle RegisterActionBinding(UCommonUserWidget* Widget, FBindUIActionArgsRef Args);
+    static FUIActionBindingHandle RegisterActionBinding(UCommonUserWidget* Widget, const FCSBindUIActionArgs& Args,
+        const FManagedBindUIActionDelegates& Callbacks);
 
     UFUNCTION(meta = (ScriptMethod))
     static void AddActionBinding(UCommonUserWidget* Widget, const FUIActionBindingHandle& Handle);

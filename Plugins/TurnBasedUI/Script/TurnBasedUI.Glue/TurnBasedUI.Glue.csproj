@@ -17,6 +17,7 @@
       <HintPath>..\..\..\UnrealSharp\Binaries\Managed\net9.0\UnrealSharp.Core.dll</HintPath>
     </Reference>
     <Analyzer Include="..\..\..\UnrealSharp\Binaries\Managed\UnrealSharp.SourceGenerators.dll" />
+    <ProjectReference Include="..\..\..\UnrealSharpCommonUI\Script\UnrealSharpCommonUI.Glue\UnrealSharpCommonUI.Glue.csproj" />
   </ItemGroup>
   <ItemGroup>
     <InternalsVisibleTo Include="TurnBased.UI" />

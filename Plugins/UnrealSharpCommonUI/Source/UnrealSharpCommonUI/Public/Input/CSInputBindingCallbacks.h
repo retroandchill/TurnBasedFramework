@@ -6,10 +6,12 @@
 #include "CSManagedDelegate.h"
 #include "Components/Widget.h"
 
+#include "CSInputBindingCallbacks.generated.h"
+
 class FCSInputBindingCallback
 {
 public:
-    explicit FCSInputBindingCallback(const FGCHandle& InCallback) : Callback(InCallback) {}
+    explicit FCSInputBindingCallback(const FGCHandle& InCallback) : Callback(InCallback), bIsValid(!InCallback.IsNull()) {}
 
     FCSInputBindingCallback(const FCSInputBindingCallback&) = delete;
     FCSInputBindingCallback(FCSInputBindingCallback&&) = delete;
@@ -22,13 +24,64 @@ public:
     FCSInputBindingCallback& operator=(const FCSInputBindingCallback&) = delete;
     FCSInputBindingCallback& operator=(FCSInputBindingCallback&&) = delete;
 
-    void Invoke(UObject* WorldContext)
+    bool IsBound() const { return bIsValid; }
+
+protected:
+    void InvokeInternal(UObject* WorldContext)
     {
         Callback.Invoke(WorldContext, false);
-    } 
+    }
 
 private:
     FCSManagedDelegate Callback;
+    bool bIsValid;
+};
+
+template <typename... T>
+class TCSInputBindingCallback : public FCSInputBindingCallback
+{
+public:
+    using FCSInputBindingCallback::FCSInputBindingCallback;
+
+    template <typename... A>
+        requires std::constructible_from<TTuple<T...>, A...>
+    void Invoke(UObject* WorldContext)
+    {
+        Args = TTuple<T...>(Forward<A>(Args)...);
+        InvokeInternal(WorldContext);
+    }
+    
+private:
+    TTuple<T...> Args;
+};
+
+template <>
+class TCSInputBindingCallback<> : public FCSInputBindingCallback
+{
+public:
+    using FCSInputBindingCallback::FCSInputBindingCallback;
+    
+    void Invoke(UObject* WorldContext)
+    {
+        InvokeInternal(WorldContext);
+    }
+};
+
+template <typename T>
+class TCSInputBindingCallback<T> : public FCSInputBindingCallback
+{
+public:
+    using FCSInputBindingCallback::FCSInputBindingCallback;
+
+    template <std::convertible_to<T> A>
+    void Invoke(UObject* WorldContext, A &&InArg)
+    {
+        Arg = Forward<A>(InArg);
+        InvokeInternal(WorldContext);
+    }
+
+private:
+    T Arg;
 };
 
 /**
@@ -55,24 +108,35 @@ public:
         OnHoldActionPressed.Invoke(Object.Get());
     }
 
+    bool IsOnHoldActionPressedBound() const
+    {
+        return OnHoldActionPressed.IsBound();
+    }
+
     void InvokeOnHoldActionReleased()
     {
         OnHoldActionReleased.Invoke(Object.Get());
     }
 
-    void InvokeOnHoldActionProgressed(const float InProgress)
+    bool IsOnHoldActionReleasedBound() const
     {
-        Progress = InProgress;
-        OnHoldActionProgressed.Invoke(Object.Get());
+        return OnHoldActionReleased.IsBound();
     }
 
-    float GetProgress() const { return Progress; }
+    void InvokeOnHoldActionProgressed(const float InProgress)
+    {
+        OnHoldActionProgressed.Invoke(Object.Get(), InProgress);
+    }
+
+    bool IsOnHoldActionProgressedBound() const
+    {
+        return OnHoldActionProgressed.IsBound();
+    }
 
 private:
     TWeakObjectPtr<UWidget> Object;
-    FCSInputBindingCallback OnExecuteAction;
-    FCSInputBindingCallback OnHoldActionPressed;
-    FCSInputBindingCallback OnHoldActionReleased;
-    FCSInputBindingCallback OnHoldActionProgressed;
-    float Progress = 0.f;
+    TCSInputBindingCallback<> OnExecuteAction;
+    TCSInputBindingCallback<> OnHoldActionPressed;
+    TCSInputBindingCallback<> OnHoldActionReleased;
+    TCSInputBindingCallback<float> OnHoldActionProgressed;
 };

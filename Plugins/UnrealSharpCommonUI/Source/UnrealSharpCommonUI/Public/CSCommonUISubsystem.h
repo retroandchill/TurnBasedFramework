@@ -20,7 +20,7 @@ class UNREALSHARPCOMMONUI_API UCSCommonUISubsystem : public UGameInstanceSubsyst
 public:
     void Deinitialize() override;
 
-    void BindInputActionCallbacks(UWidget* InObject, const FGCHandle& OnExecuteAction, const FGCHandle& OnHoldActionPressed,
+    TSharedRef<FCSInputBindingCallbacks> BindInputActionCallbacks(UWidget* InObject, const FGCHandle& OnExecuteAction, const FGCHandle& OnHoldActionPressed,
         const FGCHandle& OnHoldActionReleased, const FGCHandle& OnHoldActionProgressed);
 
     void NotifyUObjectDeleted(const UObjectBase* Object, int32 Index) override;

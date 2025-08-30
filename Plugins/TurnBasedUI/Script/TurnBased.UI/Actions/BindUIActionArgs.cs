@@ -54,7 +54,7 @@ public struct FBindUIActionArgs {
     internal NativeDelegate OnHoldActionReleased;
 }
 
-public sealed class BindUIActionArgs : IDisposable
+public sealed class BindUIActionArgs
 {
     internal FBindUIActionArgs Args;
     internal readonly UBindUIActionCallbacks Callbacks = UObject.NewObject<UBindUIActionCallbacks>();
@@ -279,13 +279,7 @@ public sealed class BindUIActionArgs : IDisposable
 
     ~BindUIActionArgs()
     {
-        Dispose();   
-    }
-
-    public void Dispose()
-    {
         BindUIActionArgsExporter.CallDestruct(ref Args);
-        GC.SuppressFinalize(this);  
     }
 }
 
