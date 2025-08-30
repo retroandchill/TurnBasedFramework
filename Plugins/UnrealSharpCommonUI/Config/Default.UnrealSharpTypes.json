@@ -1,0 +1,11 @@
+{
+    "Structs": {
+        "BlittableTypes": [
+            {
+                "Name": "FBindUIActionArgsRef"
+            }
+        ],
+        "NativelyTranslatableTypes": [
+        ]
+    }
+}
