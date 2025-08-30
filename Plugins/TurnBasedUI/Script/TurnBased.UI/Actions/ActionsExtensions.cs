@@ -1,5 +1,6 @@
 ﻿using TurnBased.UI.Interop;
 using UnrealSharp.CommonUI;
+using UnrealSharp.TurnBasedUI;
 
 namespace TurnBased.UI.Actions;
 
@@ -19,7 +20,7 @@ public static class ActionsExtensions
             }
         }
         
-        public FUIActionBindingHandle RegisterUIActionBinding(BindUIActionArgs args)
+        public FStrongBindingHandle RegisterUIActionBinding(BindUIActionArgs args)
         {
             unsafe
             {
@@ -30,7 +31,7 @@ public static class ActionsExtensions
                     {
                         ActionRegistrationExporter.CallRegisterActionBinding(widget.NativeObject, ref args.Args,
                             (IntPtr)handlePtr);
-                        return FUIActionBindingHandle.FromNative((IntPtr)handlePtr);
+                        return new FStrongBindingHandle(FUIActionBindingHandle.FromNative((IntPtr)handlePtr), args.Callbacks);
                     }
                     finally
                     {
@@ -47,15 +48,9 @@ public static class ActionsExtensions
                 Span<byte> handleBytes = stackalloc byte[FUIActionBindingHandle.NativeDataSize];
                 fixed (byte* handlePtr = handleBytes)
                 {
-                    try
-                    {
-                        bindingHandle.ToNative((IntPtr)handlePtr);
-                        ActionRegistrationExporter.CallAddActionBinding(widget.NativeObject, (IntPtr)handlePtr);
-                    }
-                    finally
-                    {
-                        ActionRegistrationExporter.CallDestructHandle((IntPtr) handlePtr);
-                    }
+                    bindingHandle.ToNative((IntPtr)handlePtr);
+                    // This method calls the MoveConstructor so we don't need to call the destructor
+                    ActionRegistrationExporter.CallAddActionBinding(widget.NativeObject, (IntPtr)handlePtr);
                 }
             }
         }
@@ -67,15 +62,9 @@ public static class ActionsExtensions
                 Span<byte> handleBytes = stackalloc byte[FUIActionBindingHandle.NativeDataSize];
                 fixed (byte* handlePtr = handleBytes)
                 {
-                    try
-                    {
-                        bindingHandle.ToNative((IntPtr)handlePtr);
-                        ActionRegistrationExporter.CallAddActionBinding(widget.NativeObject, (IntPtr)handlePtr);
-                    }
-                    finally
-                    {
-                        ActionRegistrationExporter.CallDestructHandle((IntPtr) handlePtr);
-                    }
+                    bindingHandle.ToNative((IntPtr)handlePtr);
+                    // This method calls the MoveConstructor so we don't need to call the destructor
+                    ActionRegistrationExporter.CallRemoveActionBinding(widget.NativeObject, (IntPtr)handlePtr);
                 }
             }
         }

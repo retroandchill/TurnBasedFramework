@@ -1,7 +1,9 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using TurnBased.UI.Bindings;
 using TurnBased.UI.Interop;
 using UnrealSharp;
+using UnrealSharp.Attributes;
 using UnrealSharp.CommonInput;
 using UnrealSharp.CommonUI;
 using UnrealSharp.Core;
@@ -9,6 +11,7 @@ using UnrealSharp.Core.Marshallers;
 using UnrealSharp.CoreUObject;
 using UnrealSharp.Engine;
 using UnrealSharp.EnhancedInput;
+using UnrealSharp.TurnBasedUI;
 
 namespace TurnBased.UI.Actions;
 
@@ -54,6 +57,7 @@ public struct FBindUIActionArgs {
 public sealed class BindUIActionArgs : IDisposable
 {
     internal FBindUIActionArgs Args;
+    internal readonly UBindUIActionCallbacks Callbacks = UObject.NewObject<UBindUIActionCallbacks>();
 
     public FUIActionTag ActionTag
     {
@@ -192,53 +196,47 @@ public sealed class BindUIActionArgs : IDisposable
 
     public Action? OnExecuteAction
     {
-        get;
+        get => Callbacks.OnExecuteAction;
         init
         {
-            field = value;
+            Callbacks.OnExecuteAction = value;
             if (value is null) return;
-
-            var handle = GCHandle.Alloc(value);
-            BindUIActionArgsExporter.CallBindNoArgsDelegate(ref Args.OnExecuteAction, GCHandle.ToIntPtr(handle));
         }
     }
 
     public Action<float>? OnHoldActionProgressed
     {
-        get;
+        get => Callbacks.OnHoldActionProgressed;
         init
         {
-            field = value;
+            Callbacks.OnHoldActionProgressed = value;
             if (value is null) return;
             
-            var handle = GCHandle.Alloc(value);
-            BindUIActionArgsExporter.CallBindFloatDelegate(ref Args.OnHoldActionProgressed, GCHandle.ToIntPtr(handle));
+            BindUIActionArgsExporter.CallBindOnHoldActionProgressed(ref Args.OnHoldActionProgressed, Callbacks.NativeObject);
         }
     }
 
     public Action? OnHoldActionPressed
     {
-        get;
+        get => Callbacks.OnHoldActionPressed;
         init
         {
-            field = value;
+            Callbacks.OnHoldActionPressed = value;
             if (value is null) return;
 
-            var handle = GCHandle.Alloc(value);
-            BindUIActionArgsExporter.CallBindNoArgsDelegate(ref Args.OnHoldActionPressed, GCHandle.ToIntPtr(handle));
+            BindUIActionArgsExporter.CallBindOnHoldActionPressed(ref Args.OnHoldActionPressed, Callbacks.NativeObject);
         }
     }
 
     public Action? OnHoldActionReleased
     {
-        get;
+        get => Callbacks.OnHoldActionReleased;
         init
         {
-            field = value;
+            Callbacks.OnHoldActionReleased = value;
             if (value is null) return;
 
-            var handle = GCHandle.Alloc(value);
-            BindUIActionArgsExporter.CallBindNoArgsDelegate(ref Args.OnHoldActionReleased, GCHandle.ToIntPtr(handle));
+            BindUIActionArgsExporter.CallBindOnHoldActionReleased(ref Args.OnHoldActionReleased, Callbacks.NativeObject);
         }
     }
 
@@ -248,7 +246,8 @@ public sealed class BindUIActionArgs : IDisposable
     
     public BindUIActionArgs(FUIActionTag actionTag, Action onExecuteAction)
     {
-        BindUIActionArgsExporter.CallConstructFromActionTag(ref Args, actionTag, GCHandle.ToIntPtr(GCHandle.Alloc(onExecuteAction)));
+        Callbacks.OnExecuteAction = onExecuteAction;
+        BindUIActionArgsExporter.CallConstructFromActionTag(ref Args, actionTag, Callbacks.NativeObject);
     }
     
     public BindUIActionArgs(FUIActionTag actionTag, bool shouldDisplayInActionBar, Action onExecuteAction) : this(actionTag, onExecuteAction)
@@ -258,7 +257,8 @@ public sealed class BindUIActionArgs : IDisposable
     
     public BindUIActionArgs(FDataTableRowHandle rowHandle, Action onExecuteAction)
     {
-        BindUIActionArgsExporter.CallConstructFromRowHandle(ref Args, rowHandle.DataTable.NativeObject, rowHandle.RowName, GCHandle.ToIntPtr(GCHandle.Alloc(onExecuteAction)));
+        Callbacks.OnExecuteAction = onExecuteAction;
+        BindUIActionArgsExporter.CallConstructFromRowHandle(ref Args, rowHandle.DataTable.NativeObject, rowHandle.RowName, Callbacks.NativeObject);
     }
     
     public BindUIActionArgs(FDataTableRowHandle rowHandle, bool shouldDisplayInActionBar, Action onExecuteAction) : this(rowHandle, onExecuteAction)
@@ -268,7 +268,8 @@ public sealed class BindUIActionArgs : IDisposable
 
     public BindUIActionArgs(UInputAction inputAction, Action onExecuteAction)
     {
-        BindUIActionArgsExporter.CallConstructFromInputAction(ref Args, inputAction.NativeObject, GCHandle.ToIntPtr(GCHandle.Alloc(onExecuteAction)));
+        Callbacks.OnExecuteAction = onExecuteAction;
+        BindUIActionArgsExporter.CallConstructFromInputAction(ref Args, inputAction.NativeObject, Callbacks.NativeObject);
     }
 
     public BindUIActionArgs(UInputAction inputAction, bool shouldDisplayInActionBar, Action onExecuteAction) : this(inputAction, onExecuteAction)
@@ -287,3 +288,10 @@ public sealed class BindUIActionArgs : IDisposable
         GC.SuppressFinalize(this);  
     }
 }
+
+[UStruct]
+public readonly partial record struct FStrongBindingHandle(
+    [field: UProperty]
+    FUIActionBindingHandle Handle, 
+    [field: UProperty]
+    UCSBindUIActionCallbacksBase Callbacks);
