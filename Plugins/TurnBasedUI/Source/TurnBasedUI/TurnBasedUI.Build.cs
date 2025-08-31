@@ -42,6 +42,8 @@ public class TurnBasedUI : ModuleRules
                 "CommonUtilities",
                 "UMG",
                 "GameplayTags",
+                "EnhancedInput",
+                "DeveloperSettings"
                 // ... add private dependencies that you statically link with here ...
             ]
         );

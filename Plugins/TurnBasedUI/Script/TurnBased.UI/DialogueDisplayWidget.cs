@@ -89,7 +89,7 @@ public class UDialogueDisplayWidget : UCommonActivatableWidget
     [UFunction(FunctionFlags.BlueprintCallable, Category = "Display")]
     public async Task DisplayDialogue(FText text, CancellationToken cancellationToken = default)
     {
-        await DialogueBox.PlayLineAsync(text, cancellationToken);
+        await DialogueBox.PlayLineAsync(text, cancellationToken).ConfigureWithUnrealContext();
 
         if (text.Empty) return;
         
@@ -98,7 +98,7 @@ public class UDialogueDisplayWidget : UCommonActivatableWidget
         OnAdvance += Advance;
         
         AwaitingInput = true;
-        await tcs.Task;
+        await tcs.Task.ConfigureWithUnrealContext();
         return;
 
         void Advance()
@@ -106,6 +106,19 @@ public class UDialogueDisplayWidget : UCommonActivatableWidget
             OnAdvance -= Advance;
             tcs.SetResult();
         }
+    }
+
+    public async Task<T> DisplayDialogueWithSelection<T>(FText text, Func<CancellationToken, Task<T>> onChoice,
+                                                         CancellationToken cancellationToken = default)
+    {
+        await DialogueBox.PlayLineAsync(text, cancellationToken).ConfigureWithUnrealContext();
+
+        if (text.Empty)
+        {
+            throw new InvalidOperationException("Cannot display empty text when prompting for a choice");
+        }
+        
+        return await onChoice(cancellationToken).ConfigureWithUnrealContext();
     }
     
     private void OnAdvanceAction()

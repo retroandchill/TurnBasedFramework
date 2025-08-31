@@ -16,7 +16,11 @@
       <HintPath>..\..\Plugins\UnrealSharp\Binaries\Managed\net9.0\UnrealSharp.Core.dll</HintPath>
     </Reference>
     <Analyzer Include="..\..\Plugins\UnrealSharp\Binaries\Managed\UnrealSharp.SourceGenerators.dll" />
+    <ProjectReference Include="..\..\Plugins\TurnBasedUI\Script\TurnBased.UI\TurnBased.UI.csproj" />
     <ProjectReference Include="..\..\Plugins\TurnBasedUI\Script\TurnBasedUI.Glue\TurnBasedUI.Glue.csproj" />
     <ProjectReference Include="..\TurnBasedFramework.Glue\TurnBasedFramework.Glue.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Common\" />
   </ItemGroup>
 </Project>

@@ -19,7 +19,7 @@ UPrimaryGameLayout* UPrimaryGameLayout::GetInstance(const UObject* WorldContextO
 
 UPrimaryGameLayout* UPrimaryGameLayout::GetInstance(const APlayerController* PlayerController)
 {
-    return PlayerController != nullptr ? GetInstance(PlayerController->Player) : nullptr;
+    return PlayerController != nullptr ? GetInstance(Cast<ULocalPlayer>(PlayerController->Player)) : nullptr;
 }
 
 UPrimaryGameLayout* UPrimaryGameLayout::GetInstance(ULocalPlayer* LocalPlayer)
