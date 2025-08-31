@@ -3,6 +3,7 @@
 
 #include "TurnBasedUIManagerSubsystem.h"
 
+#include "LogTurnBasedUI.h"
 #include "TurnBasedUIPolicy.h"
 
 void UTurnBasedUIManagerSubsystem::Initialize(FSubsystemCollectionBase& Collection)
@@ -13,6 +14,30 @@ void UTurnBasedUIManagerSubsystem::Initialize(FSubsystemCollectionBase& Collecti
         const auto PolicyClass = DefaultUIPolicyClass.LoadSynchronous();
         SwitchToPolicy(NewObject<UTurnBasedUIPolicy>(this, PolicyClass));
     }
+
+    auto *GameInstance = GetGameInstance();
+    GameInstance->OnLocalPlayerAddedEvent.AddWeakLambda(this, [this](ULocalPlayer* NewPlayer)
+    {
+        if (!PrimaryPlayer.IsValid())
+        {
+            UE_LOG(LogTurnBasedUI, Log, TEXT("AddLocalPlayer: Set %s to Primary Player"), *NewPlayer->GetName());
+            PrimaryPlayer = NewPlayer;
+        }
+
+        NotifyPlayerAdded(NewPlayer);
+    });
+
+    GameInstance->OnLocalPlayerRemovedEvent.AddWeakLambda(this, [this](ULocalPlayer* ExistingPlayer)
+    {
+        if (PrimaryPlayer == ExistingPlayer)
+        {
+            //TODO: do we want to fall back to another player?
+            PrimaryPlayer.Reset();
+            UE_LOG(LogTurnBasedUI, Log, TEXT("RemoveLocalPlayer: Unsetting Primary Player from %s"), *ExistingPlayer->GetName());
+        }
+
+        NotifyPlayerRemoved(ExistingPlayer);
+    });
     
     K2_Initialize(Collection);
 }
@@ -63,7 +88,7 @@ void UTurnBasedUIManagerSubsystem::SwitchToPolicy(UTurnBasedUIPolicy* NewPolicy)
 
 bool UTurnBasedUIManagerSubsystem::K2_ShouldCreateSubsystem_Implementation(UObject* Outer) const
 {
-    if (!CastChecked<UGameInstance>(GetOuter())->IsDedicatedServerInstance())
+    if (!CastChecked<UGameInstance>(Outer)->IsDedicatedServerInstance())
     {
         TArray<UClass*> ChildClasses;
         GetDerivedClasses(GetClass(), ChildClasses, false);

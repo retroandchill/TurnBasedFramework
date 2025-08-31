@@ -137,6 +137,15 @@ void UTurnBasedUIPolicy::NotifyPlayerAdded(ULocalPlayer* LocalPlayer)
             CreateLayoutWidget(LocalPlayer);
         }
     });
+
+    if (auto* LayoutInfo = RootViewportLayouts.FindByKey(LocalPlayer); LayoutInfo != nullptr)
+    {
+        AddLayoutToViewport(LocalPlayer, LayoutInfo->RootLayout);
+        LayoutInfo->bAddedToViewport = true;
+    }
+    {
+        CreateLayoutWidget(LocalPlayer);
+    }
 }
 
 void UTurnBasedUIPolicy::NotifyPlayerRemoved(ULocalPlayer* LocalPlayer)

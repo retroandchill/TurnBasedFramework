@@ -23,7 +23,7 @@ public:
     TURNBASEDUI_API void Deinitialize() override;
     TURNBASEDUI_API bool ShouldCreateSubsystem(UObject* Outer) const override;
 
-    UFUNCTION(BlueprintPure, Category = "UI Manager", meta = (WorldContext = WorldContextObject))
+    UFUNCTION(meta = (ScriptMethod, WorldContext = WorldContextObject))
     static UTurnBasedUIManagerSubsystem* GetInstance(const UObject* WorldContextObject)
     {
         return UGameplayStatics::GetGameInstance(WorldContextObject)->GetSubsystem<UTurnBasedUIManagerSubsystem>();
@@ -34,13 +34,13 @@ public:
     
     const UTurnBasedUIPolicy* GetCurrentUIPolicy() const { return CurrentPolicy; }
     
-    UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "UI Manager")
+    UFUNCTION(BlueprintNativeEvent, Category = "UI Manager")
     TURNBASEDUI_API void NotifyPlayerAdded(ULocalPlayer* LocalPlayer);
 
-    UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "UI Manager")
+    UFUNCTION(BlueprintNativeEvent, Category = "UI Manager")
     TURNBASEDUI_API void NotifyPlayerRemoved(ULocalPlayer* LocalPlayer);
 
-    UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "UI Manager")
+    UFUNCTION(BlueprintNativeEvent, Category = "UI Manager")
     TURNBASEDUI_API void NotifyPlayerDestroyed(ULocalPlayer* LocalPlayer);
 
 protected:
@@ -57,6 +57,8 @@ protected:
     void K2_Deinitialize();
 
 private:
+    TWeakObjectPtr<ULocalPlayer> PrimaryPlayer;
+    
     UPROPERTY(Transient, BlueprintGetter = GetCurrentUIPolicy, Category = "UI Manager")
     TObjectPtr<UTurnBasedUIPolicy> CurrentPolicy = nullptr;
 

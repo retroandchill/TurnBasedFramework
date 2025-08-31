@@ -63,7 +63,7 @@ public:
         return Cast<PolicyClass>(GetInstance(WorldContextObject));
     }
 
-    UFUNCTION(BlueprintPure, Category = "UI Policy", meta = (WorldContext = "WorldContextObject"))
+    UFUNCTION(meta = (WorldContext = "WorldContextObject", ScriptMethod))
     static UTurnBasedUIPolicy* GetInstance(const UObject* WorldContextObject);
 
     TURNBASEDUI_API UWorld* GetWorld() const override;
@@ -77,10 +77,10 @@ public:
     TURNBASEDUI_API void RequestPrimaryControl(UPrimaryGameLayout* Layout);
 
 protected:
-    UFUNCTION(BlueprintCallable, Category = "UI Policy")
+    UFUNCTION(meta = (ScriptMethod))
     TURNBASEDUI_API void AddLayoutToViewport(ULocalPlayer* LocalPlayer, UPrimaryGameLayout* Layout);
     
-    UFUNCTION(BlueprintCallable, Category = "UI Policy")
+    UFUNCTION(meta = (ScriptMethod))
     TURNBASEDUI_API void RemoveLayoutFromViewport(ULocalPlayer* LocalPlayer, UPrimaryGameLayout* Layout);
     
     UFUNCTION(BlueprintNativeEvent, Category = "UI Policy")
@@ -93,10 +93,10 @@ protected:
     UFUNCTION(BlueprintNativeEvent, Category = "UI Policy")
     TURNBASEDUI_API void OnRootLayoutReleased(ULocalPlayer* LocalPlayer, UPrimaryGameLayout* Layout);
 
-    UFUNCTION(BlueprintCallable, Category = "UI Policy")
+    UFUNCTION(meta = (ScriptMethod))
     TURNBASEDUI_API void CreateLayoutWidget(ULocalPlayer* LocalPlayer);
     
-    UFUNCTION(BlueprintPure, Category = "UI Policy")
+    UFUNCTION(meta = (ScriptMethod))
     TURNBASEDUI_API TSubclassOf<UPrimaryGameLayout> GetLayoutWidgetClass() const;
 
 private:
