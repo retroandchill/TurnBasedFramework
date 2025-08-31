@@ -50,6 +50,15 @@ public class UDialogueDisplayWidget : UCommonActivatableWidget
             field = value;
             _advanceActionBinding.DisplayInActionBar = value;
 
+            if (value)
+            {
+                ActivateWidget();
+            }
+            else
+            {
+                DeactivateWidget();
+            }
+
             PauseIndicator?.Visibility = value ? ESlateVisibility.SelfHitTestInvisible : ESlateVisibility.Collapsed;
         }
     }

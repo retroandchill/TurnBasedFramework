@@ -9,13 +9,13 @@ namespace TurnBased.UI.Common;
 [UMetaData("DisableNativeTick")]
 public class UTurnBasedBoundActionButton : UCommonBoundActionButton
 {
-    [UProperty(PropertyFlags.EditAnywhere, Category = "Styles")]
+    [UProperty(PropertyFlags.EditAnywhere, Category = "Style")]
     private TSubclassOf<UCommonButtonStyle> KeyboardStyle { get; }
     
-    [UProperty(PropertyFlags.EditAnywhere, Category = "Styles")]
+    [UProperty(PropertyFlags.EditAnywhere, Category = "Style")]
     private TSubclassOf<UCommonButtonStyle> GamepadStyle { get; }
     
-    [UProperty(PropertyFlags.EditAnywhere, Category = "Styles")]
+    [UProperty(PropertyFlags.EditAnywhere, Category = "Style")]
     private TSubclassOf<UCommonButtonStyle> TouchStyle { get; }
     
     public override void Construct()

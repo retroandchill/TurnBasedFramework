@@ -14,9 +14,8 @@ public class UMessageDisplayScreen : UCommonActivatableWidget
     private UDialogueDisplayWidget MessageBox { get; }
 
     [UFunction(FunctionFlags.BlueprintCallable, Category = "Message")]
-    public async Task DisplayMessage(FText text, CancellationToken cancellationToken = default)
+    public Task DisplayMessage(FText text, CancellationToken cancellationToken = default)
     {
-        MessageBox.ActivateWidget();
-        await MessageBox.DisplayDialogue(text, cancellationToken).ConfigureWithUnrealContext();
+        return MessageBox.DisplayDialogue(text, cancellationToken);
     }
 }

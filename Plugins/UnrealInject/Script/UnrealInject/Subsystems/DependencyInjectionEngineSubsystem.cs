@@ -45,11 +45,27 @@ public class UDependencyInjectionEngineSubsystem
 
     public object? GetService(Type serviceType)
     {
+#if WITH_EDITOR
+        if (_serviceProvider is null)
+        {
+            FUnrealInjectModule.Instance.OnServiceProviderRebuilt += RebuildServiceProvider;
+            _serviceProvider = FUnrealInjectModule.Instance.BuildServiceProvider();
+        }
+#endif
+        
         return _serviceProvider.GetService(serviceType);
     }
 
     public IServiceScope CreateScope()
     {
+#if WITH_EDITOR
+        if (_serviceProvider is null)
+        {
+            FUnrealInjectModule.Instance.OnServiceProviderRebuilt += RebuildServiceProvider;
+            _serviceProvider = FUnrealInjectModule.Instance.BuildServiceProvider();
+        }
+#endif
+        
         return _serviceProvider.CreateScope();
     }
 
