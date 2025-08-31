@@ -1,5 +1,8 @@
 {
     "Structs": {
+        "SkippedTypes": [
+            "FUIActionBindingHandle"
+        ],
         "BlittableTypes": [
             {
                 "Name": "FBindUIActionArgsRef"
@@ -9,6 +12,9 @@
             },
             {
                 "Name": "FInputBindingCallbackRef"
+            },
+            {
+                "Name": "FUIActionBindingHandleRef"
             }
         ],
         "NativelyTranslatableTypes": [
