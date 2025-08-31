@@ -18,6 +18,7 @@ class UNREALSHARPCOMMONUI_API UCSCommonUISubsystem : public UGameInstanceSubsyst
     GENERATED_BODY()
 
 public:
+    void Initialize(FSubsystemCollectionBase& Collection) override;
     void Deinitialize() override;
 
     void RegisterInputBindingCallback(const UWidget* Widget, const ::FGuid& Id,

@@ -6,6 +6,11 @@
 #include "Components/Widget.h"
 #include "Input/CSInputBindingCallbacks.h"
 
+void UCSCommonUISubsystem::Initialize(FSubsystemCollectionBase& Collection)
+{
+    GUObjectArray.AddUObjectDeleteListener(this);
+}
+
 void UCSCommonUISubsystem::Deinitialize()
 {
     InputBindingCallbacks.Empty();
