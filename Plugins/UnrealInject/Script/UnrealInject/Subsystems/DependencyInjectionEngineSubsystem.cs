@@ -46,11 +46,11 @@ public class UDependencyInjectionEngineSubsystem
     public object? GetService(Type serviceType)
     {
 #if WITH_EDITOR
-        if (_serviceProvider is null)
-        {
-            FUnrealInjectModule.Instance.OnServiceProviderRebuilt += RebuildServiceProvider;
-            _serviceProvider = FUnrealInjectModule.Instance.BuildServiceProvider();
-        }
+        // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+        if (_serviceProvider is not null) return _serviceProvider.GetService(serviceType);
+        
+        FUnrealInjectModule.Instance.OnServiceProviderRebuilt += RebuildServiceProvider;
+        _serviceProvider = FUnrealInjectModule.Instance.BuildServiceProvider();
 #endif
         
         return _serviceProvider.GetService(serviceType);
@@ -59,11 +59,11 @@ public class UDependencyInjectionEngineSubsystem
     public IServiceScope CreateScope()
     {
 #if WITH_EDITOR
-        if (_serviceProvider is null)
-        {
-            FUnrealInjectModule.Instance.OnServiceProviderRebuilt += RebuildServiceProvider;
-            _serviceProvider = FUnrealInjectModule.Instance.BuildServiceProvider();
-        }
+        // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+        if (_serviceProvider is not null) return _serviceProvider.CreateScope();
+        
+        FUnrealInjectModule.Instance.OnServiceProviderRebuilt += RebuildServiceProvider;
+        _serviceProvider = FUnrealInjectModule.Instance.BuildServiceProvider();
 #endif
         
         return _serviceProvider.CreateScope();

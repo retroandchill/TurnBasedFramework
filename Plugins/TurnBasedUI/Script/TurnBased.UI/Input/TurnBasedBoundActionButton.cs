@@ -3,7 +3,7 @@ using UnrealSharp.Attributes;
 using UnrealSharp.CommonInput;
 using UnrealSharp.CommonUI;
 
-namespace TurnBased.UI.Common;
+namespace TurnBased.UI.Input;
 
 [UClass(ClassFlags.Abstract)]
 [UMetaData("DisableNativeTick")]

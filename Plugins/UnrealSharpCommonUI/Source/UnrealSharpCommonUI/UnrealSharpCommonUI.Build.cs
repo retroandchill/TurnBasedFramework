@@ -25,7 +25,7 @@ public class UnrealSharpCommonUI : ModuleRules
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"Core", "UnrealSharpCore", "UMG", "CommonInput", "CommonUI"
+				"Core", "UnrealSharpCore", "UMG", "CommonInput", "CommonUI", "UnrealSharpAsync"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -39,7 +39,9 @@ public class UnrealSharpCommonUI : ModuleRules
 				"Slate",
 				"SlateCore",
 				"GameplayTags",
-				"EnhancedInput", "CommonUtilities"
+				"EnhancedInput", 
+				"CommonUtilities", 
+				"UnrealSharpBinds"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

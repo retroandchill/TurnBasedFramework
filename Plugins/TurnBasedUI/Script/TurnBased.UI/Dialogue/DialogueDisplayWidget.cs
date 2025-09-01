@@ -9,7 +9,7 @@ using UnrealSharp.TurnBasedUI;
 using UnrealSharp.UMG;
 using UnrealSharp.UnrealSharpCommonUI;
 
-namespace TurnBased.UI;
+namespace TurnBased.UI.Dialogue;
 
 [UClass(ClassFlags.Abstract)]
 public class UDialogueDisplayWidget : UCommonActivatableWidget

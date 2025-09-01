@@ -1,7 +1,7 @@
 ﻿using UnrealSharp;
 using UnrealSharp.TurnBasedUI;
 
-namespace TurnBased.UI;
+namespace TurnBased.UI.Dialogue;
 
 public static class DialogueBoxExtensions
 {

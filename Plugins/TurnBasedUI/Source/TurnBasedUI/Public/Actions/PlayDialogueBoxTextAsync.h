@@ -6,6 +6,7 @@
 #include "CSAsyncActionBase.h"
 #include "PlayDialogueBoxTextAsync.generated.h"
 
+class UInputAction;
 class UDialogueBox;
 /**
  * 
