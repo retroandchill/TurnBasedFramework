@@ -40,6 +40,9 @@ void UTurnBasedButtonBase::NativePreConstruct()
 void UTurnBasedButtonBase::UpdateInputActionWidget()
 {
     Super::UpdateInputActionWidget();
+    
+    UpdateButtonStyle();
+    RefreshButtonText();
 }
 
 void UTurnBasedButtonBase::OnInputMethodChanged(ECommonInputType CurrentInputType)
