@@ -11,30 +11,29 @@
 void UOptionSelectionWidget::NativePreConstruct()
 {
     Super::NativePreConstruct();
-    Buttons = NewObject<UTurnBasedButtonGroup>(this);
-    PlaceButtonsDelegateHandle = Buttons->BindToPlaceButton(FPlaceButton::FDelegate::CreateWeakLambda(this, [this](const int32 Index, UCommonButtonBase* Button)
+    GetButtons()->BindToPlaceButton(FNativeAddButton::FDelegate::CreateWeakLambda(this, [this](const int32 Index, UCommonButtonBase* Button)
     {
         PlaceOptionIntoWidget(Index, Options[Index].Id, CastChecked<UTurnBasedButtonBase>(Button));
     }));
-    NativeOptionSelectedDelegateHandle = Buttons->NativeOnButtonBaseClicked.AddWeakLambda(this, [this](UCommonButtonBase* Button, const int32 Index)
+    GetButtons()->NativeOnButtonBaseClicked.AddWeakLambda(this, [this](UCommonButtonBase* Button, const int32 Index)
     {
         const auto& [Id, Text, InputAction] = Options[Index];
         auto *NewButton = CastChecked<UTurnBasedButtonBase>(Button);
         NativeOptionSelectedDelegate.Broadcast(Index, Id, NewButton);
         OnOptionSelected.Broadcast(Index, Id, NewButton);
     });
-}
-
-void UOptionSelectionWidget::NativeDestruct()
-{
-    Super::NativeDestruct();
-    Buttons->UnbindFromPlaceButton(PlaceButtonsDelegateHandle);
-    Buttons->NativeOnButtonBaseClicked.Remove(NativeOptionSelectedDelegateHandle);
+    GetButtons()->BindToRemoveButton(FNativeRemoveButton::FDelegate::CreateLambda([](UCommonButtonBase* Button)
+    {
+        Button->RemoveFromParent();
+    }));
+    
+    CreateOptions();
 }
 
 void UOptionSelectionWidget::SetOptions(TArray<FSelectableOption> NewOptions)
 {
     Options = MoveTemp(NewOptions);
+    CreateOptions();
 }
 
 #if WITH_EDITOR
@@ -48,11 +47,11 @@ EDataValidationResult UOptionSelectionWidget::IsDataValid(FDataValidationContext
         OriginalResult = EDataValidationResult::Invalid;
     }
 
-    if (OverrideButtonStyle.IsSet() && !IsValid(*OverrideButtonStyle))
+    if (bOverrideButtonStyle && !IsValid(ButtonStyle))
     {
         Context.AddError(NSLOCTEXT("TurnBasedUI", "OptionSelectionWidget_ButtonStyle_Error", "Button style is not set"));
         OriginalResult = EDataValidationResult::Invalid;   
-    }
+    } 
 
     return OriginalResult;
 }
@@ -70,7 +69,7 @@ void UOptionSelectionWidget::UnbindFromOptionSelected(const FDelegateHandle Hand
 
 void UOptionSelectionWidget::CreateOptions()
 {
-    Buttons->RemoveAll();
+    GetButtons()->RemoveAll();
     for (int32 i = 0; i < Options.Num(); ++i)
     {
         auto &[Id, Text, InputAction] = Options[i];
@@ -85,6 +84,11 @@ void UOptionSelectionWidget::CreateOptions()
             NewButton->SetTriggeringEnhancedInputAction(InputAction);
         }
 
-        Buttons->AddWidget(NewButton);
+        if (bOverrideButtonStyle && ensure(ButtonStyle != nullptr))
+        {
+            NewButton->SetStyle(ButtonStyle);
+        }
+
+        GetButtons()->AddWidget(NewButton);
     }
 }

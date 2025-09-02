@@ -1,4 +1,5 @@
 ﻿using UnrealSharp.CommonUI;
+using UnrealSharp.UnrealSharpAsync;
 
 namespace UnrealSharp.UnrealSharpCommonUI;
 
@@ -24,6 +25,7 @@ internal partial class USelectButtonAsync
                                                           CancellationToken cancellationToken = default)
     {
         var waiter = NewObject<USelectButtonAsync>(buttonGroup);
+        NativeAsyncUtilities.InitializeAsyncAction(waiter, waiter._onAsyncCompleted);
         waiter.SelectButton(buttonGroup);
         cancellationToken.Register(waiter.CancelSelection);
         return waiter._tcs.Task;

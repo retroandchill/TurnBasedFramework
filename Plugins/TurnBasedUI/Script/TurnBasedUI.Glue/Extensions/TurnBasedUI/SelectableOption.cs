@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using JetBrains.Annotations;
 using LanguageExt;
 using UnrealSharp.EnhancedInput;
 
@@ -7,6 +8,7 @@ namespace UnrealSharp.TurnBasedUI;
 public partial record struct FSelectableOption
 {
     [SetsRequiredMembers]
+    [PublicAPI]
     public FSelectableOption(FName id, FText text, UInputAction? inputAction = null)
     {
         Id = id;
@@ -15,6 +17,7 @@ public partial record struct FSelectableOption
     }
     
     [SetsRequiredMembers]
+    [PublicAPI]
     public FSelectableOption(FName id, UInputAction inputAction)
     {
         Id = id;

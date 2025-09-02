@@ -1,4 +1,5 @@
-﻿using UnrealSharp.UnrealSharpCommonUI;
+﻿using JetBrains.Annotations;
+using UnrealSharp.UnrealSharpCommonUI;
 
 namespace UnrealSharp.TurnBasedUI;
 
@@ -6,6 +7,12 @@ public readonly record struct SelectedOption(int Index, FName Id, UTurnBasedButt
 
 public partial class UOptionSelectionWidget
 {
+    public event OptionSelected OnOptionSelected
+    {
+        add => OnOptionSelectedDelegate += value;
+        remove => OnOptionSelectedDelegate -= value;
+    }
+    
     public async Task<SelectedOption> SelectOptionAsync(CancellationToken cancellationToken = default)
     {
         var (button, index) = await Buttons.SelectButtonAsync(cancellationToken);

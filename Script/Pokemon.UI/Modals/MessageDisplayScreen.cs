@@ -1,12 +1,11 @@
-﻿using TurnBased.UI;
+﻿using JetBrains.Annotations;
 using TurnBased.UI.Dialogue;
 using UnrealSharp;
 using UnrealSharp.Attributes;
 using UnrealSharp.Attributes.MetaTags;
+using UnrealSharp.CommonInput;
 using UnrealSharp.CommonUI;
-using UnrealSharp.EnhancedInput;
 using UnrealSharp.TurnBasedUI;
-using UnrealSharp.UMG;
 
 namespace Pokemon.UI.Modals;
 
@@ -18,6 +17,7 @@ public readonly record struct FTextOption(
     FText Text);
 
 [UStruct]
+[PublicAPI]
 public readonly record struct FChosenOption(
     [field: UProperty(PropertyFlags.EditAnywhere | PropertyFlags.BlueprintReadWrite)]
     int Index,
@@ -29,10 +29,12 @@ public class UMessageDisplayScreen : UCommonActivatableWidget
 {
     [UProperty]
     [BindWidget]
+    [UsedImplicitly]
     private UDialogueDisplayWidget MessageBox { get; }
     
     [UProperty]
     [BindWidget]
+    [UsedImplicitly]
     private UOptionSelectionWidget OptionWindow { get; }
 
     [UFunction(FunctionFlags.BlueprintCallable, Category = "Message")]
@@ -43,21 +45,32 @@ public class UMessageDisplayScreen : UCommonActivatableWidget
 
     [UFunction(FunctionFlags.BlueprintCallable, Category = "Message")]
     public Task<FChosenOption> DisplayOptions(FText text, IReadOnlyList<FTextOption> options,
-                                              bool allowCancel = false,
+                                              int cancelIndex = -1,
                                               CancellationToken cancellationToken = default)
     {
-        return MessageBox.DisplayDialogueWithSelection(text, token => DisplayChoices(options, allowCancel, token), cancellationToken);
+        return MessageBox.DisplayDialogueWithSelection(text, token => DisplayChoices(options, cancelIndex, token), cancellationToken);
     }
 
-    private async Task<FChosenOption> DisplayChoices(IEnumerable<FTextOption> options,
-                                                     bool allowCancel = false, 
+    private async Task<FChosenOption> DisplayChoices(IEnumerable<FTextOption> options, int cancelIndex, 
                                                      CancellationToken cancellationToken = default)
     {
+        var inputData = await GetDefault<UCommonInputSettings>().InputData.LoadAsync();
+        var backAction = inputData.DefaultObject.EnhancedInputBackAction;
+
+        var optionsList = options
+            .Select((o, i) => new FSelectableOption(o.Id, o.Text, i == cancelIndex ? backAction : null))
+            .ToArray();
+
+        if (optionsList.Length == 0)
+        {
+            throw new InvalidOperationException("No options provided");
+        }
         
-        OptionWindow.Options = options.Select(o => new FSelectableOption(o.Id, o.Text)).ToArray();
-        OptionWindow.Visibility = ESlateVisibility.Visible;
+        OptionWindow.Options = optionsList;
+        OptionWindow.SetDesiredFocusIndex(0);
         OptionWindow.ActivateWidget();
         var (index, id, _) = await OptionWindow.SelectOptionAsync(cancellationToken);
+        OptionWindow.DeactivateWidget();
         return new FChosenOption(index, id);
     }
 }

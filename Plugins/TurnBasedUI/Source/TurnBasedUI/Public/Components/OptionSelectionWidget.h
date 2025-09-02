@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "CommonActivatableWidget.h"
+#include "SelectableWidget.h"
 #include "OptionSelectionWidget.generated.h"
 
 class UCommonButtonGroupBase;
@@ -35,13 +35,12 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOptionSelected, int32, Index, FN
  * 
  */
 UCLASS(Abstract)
-class TURNBASEDUI_API UOptionSelectionWidget : public UCommonActivatableWidget
+class TURNBASEDUI_API UOptionSelectionWidget : public USelectableWidget
 {
     GENERATED_BODY()
 
 protected:
     void NativePreConstruct() override;
-    void NativeDestruct() override;
 
 public:
     const TArray<FSelectableOption>& GetOptions() const { return Options; }
@@ -56,18 +55,12 @@ public:
 
     void UnbindFromOptionSelected(FDelegateHandle Handle);
 
-    UPROPERTY(BlueprintAssignable, Category = "Events")
-    FOptionSelected OnOptionSelected;
-
 protected:
     UFUNCTION(BlueprintImplementableEvent, Category = "Selection")
     void PlaceOptionIntoWidget(int32 Index, FName Id, UTurnBasedButtonBase* Button);
     
 private:
     void CreateOptions();
-
-    UPROPERTY()
-    TObjectPtr<UTurnBasedButtonGroup> Buttons;
     
     UPROPERTY(EditAnywhere, Getter, Setter, Category = "Selection")
     TArray<FSelectableOption> Options;
@@ -75,11 +68,14 @@ private:
     UPROPERTY(EditAnywhere, Category = "Selection")
     TSubclassOf<UTurnBasedButtonBase> ButtonClass;
 
-    UPROPERTY(EditAnywhere, Category = "Styles")
-    TOptional<TSubclassOf<UCommonButtonStyle>> OverrideButtonStyle;
+    UPROPERTY(EditAnywhere, Category = "Selection", meta = (InlineEditConditionToggle))
+    bool bOverrideButtonStyle;
+
+    UPROPERTY(EditAnywhere, Category = "Styles", meta = (EditCondition = "bOverrideButtonStyle"))
+    TSubclassOf<UCommonButtonStyle> ButtonStyle;
 
     FNativeOptionSelected NativeOptionSelectedDelegate;
 
-    FDelegateHandle PlaceButtonsDelegateHandle;
-    FDelegateHandle NativeOptionSelectedDelegateHandle;
+    UPROPERTY(BlueprintAssignable, Category = "Events", meta = (ScriptName = "OnOptionSelectedDelegate"))
+    FOptionSelected OnOptionSelected;
 };

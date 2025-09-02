@@ -7,7 +7,12 @@
 #include "TurnBasedButtonGroup.generated.h"
 
 class UCommonActivatableWidget;
-DECLARE_MULTICAST_DELEGATE_TwoParams(FPlaceButton, int32, UCommonButtonBase*);
+
+DECLARE_MULTICAST_DELEGATE_TwoParams(FNativeAddButton, int32, UCommonButtonBase*);
+DECLARE_MULTICAST_DELEGATE_OneParam(FNativeRemoveButton, UCommonButtonBase*);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FAddButton, int32, Index, UCommonButtonBase*, Button);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FRemoveButton, UCommonButtonBase*, Button);
 
 /**
  * 
@@ -18,14 +23,24 @@ class TURNBASEDUI_API UTurnBasedButtonGroup : public UCommonButtonGroupBase
     GENERATED_BODY()
 
 public:
-    FDelegateHandle BindToPlaceButton(FPlaceButton::FDelegate Delegate)
+    FDelegateHandle BindToPlaceButton(FNativeAddButton::FDelegate Delegate)
     {
-        return OnPlaceButton.Add(MoveTemp(Delegate));   
+        return NativeOnAddButton.Add(MoveTemp(Delegate));   
     }
 
     void UnbindFromPlaceButton(const FDelegateHandle Handle)
     {
-        OnPlaceButton.Remove(Handle);
+        NativeOnAddButton.Remove(Handle);
+    }
+
+    FDelegateHandle BindToRemoveButton(FNativeRemoveButton::FDelegate Delegate)
+    {
+        return NativeOnRemoveButton.Add(MoveTemp(Delegate));   
+    }
+
+    void UnbindFromRemoveButton(const FDelegateHandle Handle)
+    {
+        NativeOnRemoveButton.Remove(Handle);
     }
     
 protected:
@@ -33,5 +48,13 @@ protected:
     void OnWidgetRemoved(UWidget* Widget) override;
 
 private:
-    FPlaceButton OnPlaceButton;
+    FNativeAddButton NativeOnAddButton;
+    FNativeRemoveButton NativeOnRemoveButton;
+
+    UPROPERTY(BlueprintAssignable, Category = "Events", meta = (ScriptName = "OnAddButtonDelegate"))
+    FAddButton OnAddButton;
+
+    UPROPERTY(BlueprintAssignable, Category = "Events", meta = (ScriptName = "OnRemoveButtonDelegate"))
+    FRemoveButton OnRemoveButton;
+    
 };

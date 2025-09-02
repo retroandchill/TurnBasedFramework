@@ -6,11 +6,17 @@
 void UTurnBasedButtonGroup::OnWidgetAdded(UWidget* Widget)
 {
     Super::OnWidgetAdded(Widget);
-    OnPlaceButton.Broadcast(Buttons.Num(), CastChecked<UCommonButtonBase>(Widget));
+
+    const int32 Index = Buttons.Num() - 1;
+    NativeOnAddButton.Broadcast(Index, CastChecked<UCommonButtonBase>(Widget));
+    OnAddButton.Broadcast(Index, CastChecked<UCommonButtonBase>(Widget));
 }
 
 void UTurnBasedButtonGroup::OnWidgetRemoved(UWidget* Widget)
 {
     Super::OnWidgetRemoved(Widget);
-    Widget->RemoveFromParent();
+
+    const auto Button = CastChecked<UCommonButtonBase>(Widget);
+    NativeOnRemoveButton.Broadcast(Button);
+    OnRemoveButton.Broadcast(Button);
 }
