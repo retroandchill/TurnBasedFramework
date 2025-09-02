@@ -1,11 +1,11 @@
 ﻿using JetBrains.Annotations;
 using TurnBased.UI.Dialogue;
+using TurnBased.UI.Input;
 using UnrealSharp;
 using UnrealSharp.Attributes;
 using UnrealSharp.Attributes.MetaTags;
 using UnrealSharp.CommonInput;
 using UnrealSharp.CommonUI;
-using UnrealSharp.TurnBasedUI;
 
 namespace Pokemon.UI.Modals;
 
@@ -69,7 +69,7 @@ public class UMessageDisplayScreen : UCommonActivatableWidget
         OptionWindow.Options = optionsList;
         OptionWindow.SetDesiredFocusIndex(0);
         OptionWindow.ActivateWidget();
-        var (index, id, _) = await OptionWindow.SelectOptionAsync(cancellationToken);
+        var (index, id, _) = await OptionWindow.SelectOptionAsync(cancellationToken).ConfigureWithUnrealContext();
         OptionWindow.DeactivateWidget();
         return new FChosenOption(index, id);
     }

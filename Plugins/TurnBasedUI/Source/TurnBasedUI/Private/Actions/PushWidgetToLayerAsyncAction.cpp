@@ -3,7 +3,6 @@
 
 #include "Actions/PushWidgetToLayerAsyncAction.h"
 
-#include "LogTurnBasedUI.h"
 #include "PrimaryGameLayout.h"
 
 UPushWidgetToLayerAsyncAction *UPushWidgetToLayerAsyncAction::PushWidgetToLayerAsync(APlayerController* OwningPlayer,

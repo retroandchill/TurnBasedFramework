@@ -8,6 +8,8 @@
 #include "Input/CommonUIInputTypes.h"
 #include "Kismet/GameplayStatics.h"
 
+DECLARE_DELEGATE_OneParam(FFloatDelegate, float);
+
 template <typename T>
     requires std::constructible_from<FBindUIActionArgs, T, bool, FSimpleDelegate>
 static void Construct(FBindUIActionArgsRef Args, UWidget* Widget, T&& Arg, bool bShouldDisplayActionInBar, FManagedDelegateHandle InOnExecuteAction)

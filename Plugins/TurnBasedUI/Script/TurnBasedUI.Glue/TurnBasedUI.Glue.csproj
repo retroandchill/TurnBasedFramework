@@ -8,6 +8,11 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
   </PropertyGroup>
+  <PropertyGroup>
+    <DefineConstants>WITH_EDITOR</DefineConstants>
+    <DefineConstants Condition="'$(DisableWithEditor)' == 'true'">$(DefineConstants.Replace('WITH_EDITOR;', '').Replace('WITH_EDITOR', ''))</DefineConstants>
+    <DefineConstants Condition="'$(DefineAdditionalConstants)' != ''">$(DefineConstants);$(DefineAdditionalConstants)</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="LanguageExt.Core" Version="4.4.9" />
     <Reference Include="UnrealSharp">
@@ -21,5 +26,8 @@
   </ItemGroup>
   <ItemGroup>
     <InternalsVisibleTo Include="TurnBased.UI" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="TurnBasedUI\OptionSelected__DelegateSignature.generated.cs" />
   </ItemGroup>
 </Project>
