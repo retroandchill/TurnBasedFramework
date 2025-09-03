@@ -33,8 +33,6 @@ public class UMessageDisplayScreen : UCommonActivatableWidget
     [BindWidget]
     [UsedImplicitly]
     private UDialogueDisplayWidget MessageBox { get; }
-
-    private bool _advancedText;
     
     [UProperty]
     [BindWidget]
@@ -42,21 +40,26 @@ public class UMessageDisplayScreen : UCommonActivatableWidget
     private UOptionSelectionWidget OptionWindow { get; }
 
     [UFunction(FunctionFlags.BlueprintCallable, Category = "Message")]
-    public async Task DisplayMessage(FText text, CancellationToken cancellationToken = default)
+    public async Task DisplayMessage(FText text, bool autoRemove = true, CancellationToken cancellationToken = default)
     {
-        _advancedText = false;
         await MessageBox.DisplayDialogue(text, cancellationToken).ConfigureWithUnrealContext();
-        _advancedText = true;
+        if (autoRemove)
+        {
+            this.PopContentFromLayer();
+        }
     }
 
     [UFunction(FunctionFlags.BlueprintCallable, Category = "Message")]
     public async Task<FChosenOption> DisplayOptions(FText text, IReadOnlyList<FTextOption> options,
                                               int cancelIndex = -1,
+                                              bool autoRemove = true, 
                                               CancellationToken cancellationToken = default)
     {
-        _advancedText = false;
         var option = await MessageBox.DisplayDialogueWithSelection(text, token => DisplayChoices(options, cancelIndex, token), cancellationToken).ConfigureWithUnrealContext();
-        _advancedText = true;
+        if (autoRemove)
+        {
+            this.PopContentFromLayer();
+        }
         return option;
     }
 
@@ -81,13 +84,5 @@ public class UMessageDisplayScreen : UCommonActivatableWidget
         var (index, id, _) = await OptionWindow.SelectOptionAsync(cancellationToken).ConfigureWithUnrealContext();
         OptionWindow.DeactivateWidget();
         return new FChosenOption(index, id);
-    }
-    
-    public override void Tick(FGeometry myGeometry, float deltaTime)
-    {
-        if (_advancedText)
-        {
-            this.PopContentFromLayer();
-        }
     }
 }

@@ -12,7 +12,7 @@ public interface IDisplayService
 {
     public static IDisplayService Instance => UGameplayStatics.GameInstance.GetGameInstanceSubsystem<UPokemonSubsystem>().DisplayActions;
 
-    Task DisplayMessage(FText text, CancellationToken cancellationToken = default);
+    Task DisplayMessage(FText text, bool autoRemove = true, CancellationToken cancellationToken = default);
     
     ValueTask ProcessLevelUp(UPokemon pokemon, FLevelUpStatChanges changes);
 }

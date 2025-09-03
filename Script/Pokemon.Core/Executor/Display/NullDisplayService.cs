@@ -9,7 +9,7 @@ namespace Pokemon.Core.Executor.Display;
 
 public class NullDisplayService : IDisplayService
 {
-    public Task DisplayMessage(FText text, CancellationToken cancellationToken = default)
+    public Task DisplayMessage(FText text, bool autoRemove = true, CancellationToken cancellationToken = default)
     {
         return Task.CompletedTask;
     }

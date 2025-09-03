@@ -13,7 +13,7 @@ namespace Pokemon.UI.Async;
 
 public class DefaultDisplayService : IDisplayService
 {
-    public async Task DisplayMessage(FText text, CancellationToken cancellationToken = default)
+    public async Task DisplayMessage(FText text, bool autoRemove = true, CancellationToken cancellationToken = default)
     {
         var playerController = UTurnBasedUIExtensions.PrimaryPlayerController;
         var topWidget = playerController.GetTopWidgetForPlayer(GameplayTags.UI_Layer_Modal);
@@ -24,7 +24,7 @@ public class DefaultDisplayService : IDisplayService
                 cancellationToken: cancellationToken).ConfigureWithUnrealContext();
         }
         
-        await messageDisplayScreen.DisplayMessage(text, cancellationToken).ConfigureWithUnrealContext();
+        await messageDisplayScreen.DisplayMessage(text, autoRemove, cancellationToken).ConfigureWithUnrealContext();
     }
 
     public ValueTask ProcessLevelUp(UPokemon pokemon, FLevelUpStatChanges changes)
