@@ -80,7 +80,7 @@ public static class WidgetLayerExtensions
     /// <returns>A task representing the asynchronous operation. When completed, provides the created widget of the specified type.</returns>
     /// <exception cref="InvalidOperationException">When the specified layer does not exist</exception>
     /// <exception cref="InvalidCastException">If the specified class is not a valid subclass of the widget</exception>
-    public static ValueTask<TWidget> PushContentToLayerAsync<TWidget>(
+    public static Task<TWidget> PushContentToLayerAsync<TWidget>(
         this APlayerController playerController,
         FGameplayTag layerName,
         TSoftClassPtr<TWidget> widgetClass,
@@ -112,7 +112,7 @@ public static class WidgetLayerExtensions
     /// <returns>A task that represents the asynchronous operation. The result contains the widget of the specified type when the operation completes.</returns>
     /// <exception cref="InvalidOperationException">When the specified layer does not exist</exception>
     /// <exception cref="InvalidCastException">If the specified class is not a valid subclass of the widget</exception>
-    public static ValueTask<TWidget> PushContentToLayerAsync<TWidget>(
+    public static Task<TWidget> PushContentToLayerAsync<TWidget>(
         this APlayerController playerController,
         FGameplayTag layerName,
         TSoftClassPtr<TWidget> widgetClass,
@@ -142,7 +142,7 @@ public static class WidgetLayerExtensions
     /// <returns>A task that represents the asynchronous operation. The task result contains the created widget of the specified type.</returns>
     /// <exception cref="InvalidOperationException">When the specified layer does not exist</exception>
     /// <exception cref="InvalidCastException">If the specified class is not a valid subclass of the widget</exception>
-    public static ValueTask<TWidget> PushContentToLayerAsync<TWidget>(
+    public static Task<TWidget> PushContentToLayerAsync<TWidget>(
         this APlayerController playerController,
         FGameplayTag layerName,
         bool suspendInputUntilComplete = true,
@@ -171,7 +171,7 @@ public static class WidgetLayerExtensions
     /// <returns>A ValueTask representing the asynchronous operation, with the created widget of the specified type as its result.</returns>
     /// <exception cref="InvalidOperationException">When the specified layer does not exist</exception>
     /// <exception cref="InvalidCastException">If the specified class is not a valid subclass of the widget</exception>
-    public static ValueTask<TWidget> PushContentToLayerAsync<TWidget>(
+    public static Task<TWidget> PushContentToLayerAsync<TWidget>(
         this APlayerController playerController,
         FGameplayTag layerName,
         Action<TWidget>? configureWidget,

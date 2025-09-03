@@ -6,6 +6,7 @@
     <CopyLocalLockFileAssembliesName>true</CopyLocalLockFileAssembliesName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <EnableDynamicLoading>true</EnableDynamicLoading>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="LanguageExt.Core" Version="4.4.9" />
@@ -16,8 +17,10 @@
       <HintPath>..\..\Plugins\UnrealSharp\Binaries\Managed\net9.0\UnrealSharp.Core.dll</HintPath>
     </Reference>
     <Analyzer Include="..\..\Plugins\UnrealSharp\Binaries\Managed\UnrealSharp.SourceGenerators.dll" />
+    <ProjectReference Include="..\..\Plugins\CommonUtilities\Script\CommonUtilities.Glue\CommonUtilities.Glue.csproj" />
     <ProjectReference Include="..\..\Plugins\TurnBasedUI\Script\TurnBased.UI\TurnBased.UI.csproj" />
     <ProjectReference Include="..\..\Plugins\TurnBasedUI\Script\TurnBasedUI.Glue\TurnBasedUI.Glue.csproj" />
+    <ProjectReference Include="..\Pokemon.Core\Pokemon.Core.csproj" />
     <ProjectReference Include="..\TurnBasedFramework.Glue\TurnBasedFramework.Glue.csproj" />
     <Reference Include="UnrealSharp.Log">
       <HintPath>..\..\Plugins\UnrealSharp\Binaries\Managed\net9.0\UnrealSharp.Log.dll</HintPath>

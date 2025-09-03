@@ -30,7 +30,7 @@ class TURNBASEDUI_API UCSPushWidgetToLayerAsync : public UCSAsyncActionBase
 
 public:
     UFUNCTION(meta = (ScriptMethod))
-    void PushWidgetToLayerStack(const APlayerController* PlayerController, FGameplayTag InLayerName,
+    void PushWidgetToLayerStack(APlayerController* PlayerController, FGameplayTag InLayerName,
                                 const bool bSuspendInputUntilComplete, TSoftClassPtr<UCommonActivatableWidget> ActivatableWidgetClass);
 
     UFUNCTION(meta = (DeterminesOutputType = WidgetClass, DynamicOutputParam = OutWidget, ScriptMethod))
@@ -43,6 +43,9 @@ protected:
     void OnAsyncLoadComplete(EAsyncLoadSuccessState InState, UCommonActivatableWidget* InWidget = nullptr, bool bDispose = true);
 
 private:
+    UPROPERTY()
+    TObjectPtr<APlayerController> OwningPlayerPtr;
+    
     UPROPERTY()
     FGameplayTag LayerName;
     

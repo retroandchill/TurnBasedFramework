@@ -29,6 +29,7 @@ public class UPokemonSubsystem : UCSGameInstanceSubsystem
         {
             _expGrowthFormulas.Add(expGrowthFormula.GrowthRateFor, expGrowthFormula);
         }
+
         DisplayActions = subsystem.GetService<IDisplayService>() ?? new NullDisplayService();
     }
 

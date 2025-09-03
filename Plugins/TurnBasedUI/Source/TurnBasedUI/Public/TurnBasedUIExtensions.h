@@ -49,6 +49,15 @@ public:
 
 	static TURNBASEDUI_API void ResumeInputForPlayer(const ULocalPlayer* LocalPlayer, FName SuspendToken);
 
+    UFUNCTION(BlueprintPure, Category = "Global UI Extensions", meta = (ExtensionMethod))
+    static TURNBASEDUI_API UCommonActivatableWidget* GetTopWidgetForPlayer(APlayerController* PlayerController,
+        UPARAM(meta = (Categories = "UI.Layer")) FGameplayTag LayerName);
+
+	static TURNBASEDUI_API UCommonActivatableWidget* GetTopWidgetForPlayer(const ULocalPlayer* LocalPlayer, FGameplayTag LayerName);
+
+    UFUNCTION(BlueprintPure, Category = "Global UI Extensions", meta = (WorldContext = "WorldContext"))
+    static TURNBASEDUI_API APlayerController* GetPrimaryPlayerController(const UObject* WorldContext);
+
 private:
 	static int32 InputSuspensions;
 };

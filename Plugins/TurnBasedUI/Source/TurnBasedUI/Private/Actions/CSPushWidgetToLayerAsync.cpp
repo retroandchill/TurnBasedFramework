@@ -6,11 +6,12 @@
 #include "LogTurnBasedUI.h"
 #include "PrimaryGameLayout.h"
 
-void UCSPushWidgetToLayerAsync::PushWidgetToLayerStack(const APlayerController* PlayerController,
+void UCSPushWidgetToLayerAsync::PushWidgetToLayerStack(APlayerController* PlayerController,
                                                        const FGameplayTag InLayerName,
                                                        const bool bSuspendInputUntilComplete,
                                                        TSoftClassPtr<UCommonActivatableWidget> ActivatableWidgetClass)
 {
+    OwningPlayerPtr = PlayerController;
     LayerName = InLayerName;
     const auto RootLayout = UPrimaryGameLayout::GetInstance(PlayerController);
     if (RootLayout == nullptr)
@@ -19,7 +20,7 @@ void UCSPushWidgetToLayerAsync::PushWidgetToLayerStack(const APlayerController* 
         return;
     }
 
-    OnAsyncLoadComplete(EAsyncLoadSuccessState::InProgress);
+    OnAsyncLoadComplete(EAsyncLoadSuccessState::InProgress, nullptr, false);
     TWeakObjectPtr WeakThis = this;
     StreamingHandle = RootLayout->PushWidgetToLayerStackAsync(InLayerName, bSuspendInputUntilComplete, MoveTemp(ActivatableWidgetClass),
         [this, WeakThis](const EAsyncWidgetLayerState State, UCommonActivatableWidget* Widget)
@@ -66,5 +67,5 @@ void UCSPushWidgetToLayerAsync::OnAsyncLoadComplete(const EAsyncLoadSuccessState
 {
     State = InState;
     Widget = InWidget;
-    InvokeManagedCallback(bDispose);
+    InvokeManagedCallback(OwningPlayerPtr, bDispose);
 }
